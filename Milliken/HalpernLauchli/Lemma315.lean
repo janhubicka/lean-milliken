@@ -210,19 +210,21 @@ theorem avoidWitnessSet_coneDense_of_minimal
             · exact sectionAvoidAt_of_le hNm hzAvoid
           exact hu y hyW hyY'.2
         exact ⟨z, Finset.mem_erase.mpr ⟨hzx, hzD⟩, hzAvoid⟩
+    }
     have hcard :
         C'.D.card < C.D.card := by
       dsimp [C']
       simpa [Finset.card_erase_of_mem hxD]
     exact (not_lt_of_ge (hmin C')) hcard
-  by_cases hn : n ≤ N
-  · intro u hru
-    rcases hmain hru with ⟨y, hyW, huy⟩
-    refine ⟨y, ?_, huy⟩
-    rcases hyW with ⟨hyY, hbadN, havoidN⟩
-    exact ⟨hyY, badSectionAt_of_le hn hbadN,
-      sectionAvoidAt_of_le hn havoidN⟩
-  · exact (hn (Nat.le_max_right _ _)).elim
+  have hnN : n ≤ N := by
+    dsimp [N]
+    exact Nat.le_max_right _ _
+  intro u hru
+  rcases hmain hru with ⟨y, hyW, huy⟩
+  refine ⟨y, ?_, huy⟩
+  rcases hyW with ⟨hyY, hbadN, havoidN⟩
+  exact ⟨hyY, badSectionAt_of_le hnN hbadN,
+    sectionAvoidAt_of_le hnN havoidN⟩
 
 /-- Bad nodes restricted to a prescribed set X. -/
 def badSectionSet {d : ℕ}
@@ -312,7 +314,7 @@ theorem minimalAvoidCover_D_nonempty
   have hsome : SomewhereConeDense C.Y :=
     ⟨C.root, C.Y_dense⟩
   rcases exists_bad_in_somewhere_of_no_uniform
-      P k X hfail C.n0 C.Y C.Y_subset hsome with
+      P k X hfail C.n0 C.Y_subset hsome with
     ⟨y, hyY, hbad⟩
   rcases C.cover C.n0 le_rfl y hyY hbad with
     ⟨x, hxD, hxAvoid⟩
