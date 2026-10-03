@@ -321,6 +321,27 @@ theorem avoidWitnessSet_coneDense_of_minimal
   exact ⟨hyY, badSectionAt_of_le hnN hbadN,
     sectionAvoidAt_of_le hnN havoidN⟩
 
+/-- Equation (2) of the proof of Lemma 3.15, extracted from the
+minimal-\(D\) density lemma: above every deeper cone and at every scale one
+finds a bad node for which the fixed \(\vec x\) supplies an avoiding
+matrix. -/
+theorem exists_avoidWitness_above_of_minimal
+    [Finite ι] [Nonempty ι] {d k : ℕ}
+    {P : Set (Fin (d + 1) → Node ι)}
+    {X : Set (Node ι)}
+    (C : AvoidCover P k X)
+    (hmin : ∀ C' : AvoidCover P k X, C.D.card ≤ C'.D.card)
+    {x : LevelVector ι d k} (hxD : x ∈ C.D)
+    {t : Node ι} (hrt : C.root.IsPrefix t)
+    (n : ℕ) :
+    ∃ y : Node ι,
+      t.IsPrefix y ∧ y ∈ C.Y ∧
+      BadSectionAt P k n y ∧
+      SectionAvoidAt P y x.1 n := by
+  rcases avoidWitnessSet_coneDense_of_minimal
+      C hmin hxD n hrt with ⟨y, hy, hty⟩
+  exact ⟨y, hty, hy.1, hy.2.1, hy.2.2⟩
+
 /-- Bad nodes restricted to a prescribed set X. -/
 def badSectionSet {d : ℕ}
     (P : Set (Fin (d + 1) → Node ι))
