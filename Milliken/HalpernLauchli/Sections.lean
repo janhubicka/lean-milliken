@@ -132,6 +132,14 @@ def Stabilized {d : ℕ}
       (x ∈ lastSection P y ↔
         truncateVector (y.length + 1) x ∈ lastSection P y)
 
+/-- The basic open cone above a tree node. -/
+def coneSet (t : Node ι) : Set (Node ι) :=
+  {y | t.IsPrefix y}
+
+/-- Restrict a set to a basic open cone. -/
+def restrictCone (X : Set (Node ι)) (t : Node ι) : Set (Node ι) :=
+  X ∩ coneSet t
+
 /-- A subset is dense in the cone above `t` for the usual tree topology:
 every extension of `t` has a further extension in the set. -/
 def ConeDense (X : Set (Node ι)) (t : Node ι) : Prop :=
@@ -189,6 +197,28 @@ theorem coneDense_mono {X Y : Set (Node ι)} {t : Node ι}
   rcases hX htu with ⟨y, hyX, huy⟩
   exact ⟨y, hXY hyX, huy⟩
 
+/-- Restricting a cone-dense set to a deeper cone preserves density there. -/
+theorem coneDense_restrictCone {X : Set (Node ι)} {t u : Node ι}
+    (hX : ConeDense X t) (htu : t.IsPrefix u) :
+    ConeDense (restrictCone X u) u := by
+  intro v huv
+  rcases hX (htu.trans huv) with ⟨y, hyX, hvy⟩
+  refine ⟨y, ⟨hyX, ?_⟩, hvy⟩
+  exact huv.trans hvy
+
+theorem restrictCone_subset (X : Set (Node ι)) (t : Node ι) :
+    restrictCone X t ⊆ X :=
+  Set.inter_subset_left
+
+/-- Failure of cone-density exposes a deeper basic cone missed by the set. -/
+theorem not_coneDense_iff {X : Set (Node ι)} {t : Node ι} :
+    ¬ ConeDense X t ↔
+      ∃ u : Node ι, t.IsPrefix u ∧
+        ∀ y ∈ X, ¬ u.IsPrefix y := by
+  simp only [ConeDense]
+  push Not
+  rfl
+
 theorem somewhereConeDense_mono {X Y : Set (Node ι)}
     (hXY : X ⊆ Y) (hX : SomewhereConeDense X) :
     SomewhereConeDense Y := by
@@ -197,10 +227,10 @@ theorem somewhereConeDense_mono {X Y : Set (Node ι)}
 
 /-- A cone itself is dense in that cone. -/
 theorem cone_somewhereDense (t : Node ι) :
-    SomewhereConeDense {y : Node ι | t.IsPrefix y} := by
+    SomewhereConeDense (coneSet t) := by
   refine ⟨t, ?_⟩
   intro u htu
-  exact ⟨u, htu, by simp⟩
+  exact ⟨u, htu, by simp [coneSet]⟩
 
 end HalpernLauchli
 end Milliken
