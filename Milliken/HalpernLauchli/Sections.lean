@@ -108,16 +108,15 @@ theorem Matrix.snoc_denseAbove {d n : ℕ}
     (hY : HalpernLauchli.DenseAbove Y t n) :
     (M.snoc Y).DenseAbove (appendLast base t) n := by
   intro i u hu
-  exact Fin.lastCases
-    (by
+  cases i using Fin.lastCases with
+  | last =>
       have hut : u ∈ coneLevel t n := by
         simpa [appendLast] using hu
-      simpa [Matrix.snoc] using hY hut)
-    (fun j => by
+      simpa [Matrix.snoc] using hY hut
+  | castSucc j =>
       have huj : u ∈ coneLevel (base j) n := by
         simpa [appendLast] using hu
-      simpa [Matrix.snoc] using hM j huj)
-    i
+      simpa [Matrix.snoc] using hM j huj
 
 /-- The section `P_y` obtained by fixing the last coordinate. -/
 def lastSection {d : ℕ}
