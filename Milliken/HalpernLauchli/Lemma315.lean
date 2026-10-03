@@ -79,6 +79,68 @@ theorem badSectionAt_of_le [Nonempty ι] {d k : ℕ}
   rcases hbad with ⟨M, hM, hfail⟩
   exact ⟨M, M.levelDenseAt_of_le hmn hM, hfail⟩
 
+/-- A finite family of level-k vectors which covers all sufficiently deep
+bad-section witnesses on a somewhere-dense set.  The explicit density root
+is retained because the minimal-D argument repeatedly passes to deeper
+cones. -/
+structure AvoidCover [Finite ι] [Nonempty ι] {d : ℕ}
+    (P : Set (Fin (d + 1) → Node ι))
+    (k : ℕ) (X : Set (Node ι)) where
+  D : Finset (LevelVector ι d k)
+  n0 : ℕ
+  Y : Set (Node ι)
+  root : Node ι
+  Y_subset : Y ⊆ X
+  Y_dense : ConeDense Y root
+  cover :
+    ∀ n, n0 ≤ n →
+      ∀ y ∈ Y, BadSectionAt P k n y →
+        ∃ x ∈ D, SectionAvoidAt P y x.1 n
+
+theorem exists_avoidCover [Finite ι] [Nonempty ι] {d k : ℕ}
+    (P : Set (Fin (d + 1) → Node ι))
+    {X : Set (Node ι)} (hX : SomewhereConeDense X) :
+    Nonempty (AvoidCover P k X) := by
+  classical
+  letI : Finite (LevelVector ι d k) := finite_levelVector d k
+  letI : Fintype (LevelVector ι d k) := Fintype.ofFinite _
+  rcases hX with ⟨root, hroot⟩
+  refine ⟨{
+    D := Finset.univ
+    n0 := k + 1
+    Y := X
+    root := root
+    Y_subset := fun _ h => h
+    Y_dense := hroot
+    cover := ?_
+  }⟩
+  intro n hn y hy hbad
+  have hkn : k < n := by omega
+  rcases badSectionAt_has_avoidWitness hkn hbad with ⟨x, hx⟩
+  exact ⟨x, Finset.mem_univ _, hx⟩
+
+/-- Choose a cover with a minimum number of level-k vectors. -/
+theorem exists_minimalAvoidCover [Finite ι] [Nonempty ι] {d k : ℕ}
+    (P : Set (Fin (d + 1) → Node ι))
+    {X : Set (Node ι)} (hX : SomewhereConeDense X) :
+    ∃ C : AvoidCover P k X,
+      ∀ C' : AvoidCover P k X, C.D.card ≤ C'.D.card := by
+  classical
+  let C0 : AvoidCover P k X :=
+    Classical.choice (exists_avoidCover P hX)
+  let p : ℕ → Prop :=
+    fun m => ∃ C : AvoidCover P k X, C.D.card = m
+  have hp : ∃ m, p m :=
+    ⟨C0.D.card, C0, rfl⟩
+  let m : ℕ := Nat.find hp
+  rcases Nat.find_spec hp with ⟨C, hC⟩
+  refine ⟨C, ?_⟩
+  intro C'
+  rw [hC]
+  by_contra hle
+  have hlt : C'.D.card < m := Nat.lt_of_not_ge hle
+  exact (Nat.find_min hp hlt) ⟨C', rfl⟩
+
 /-- Bad nodes restricted to a prescribed set X. -/
 def badSectionSet {d : ℕ}
     (P : Set (Fin (d + 1) → Node ι))
