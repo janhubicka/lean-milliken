@@ -44,26 +44,8 @@ theorem finite_boundedApprox [Finite ι]
 /-- The lower cone of a finite approximation is finite. -/
 theorem lowerFinite [Finite ι]
     (b : (S ι).FiniteApprox) :
-    {a | leFin a b}.Finite := by
-  rw [← Set.finite_coe_iff]
-  let B : Set (Node ι) := approxCarrier b.2
-  have hB : B.Finite := approxCarrier_finite b.2
-  let Candidate :=
-    Σ n : Fin (b.1 + 1), BoundedApprox B n.1
-  letI : ∀ n : Fin (b.1 + 1), Finite (BoundedApprox B n.1) :=
-    fun n => finite_boundedApprox hB n.1
-  letI : Finite Candidate := inferInstance
-  let encode : {a : (S ι).FiniteApprox // leFin a b} → Candidate :=
-    fun a =>
-      ⟨⟨a.1.1, Nat.lt_succ_of_le a.2.1⟩,
-        ⟨a.1.2, a.2.2⟩⟩
-  exact Finite.of_injective encode (by
-    intro a c hac
-    apply Subtype.ext
-    apply Sigma.ext
-    · exact congrArg (fun q : Candidate => q.1.1) hac
-    · apply Subtype.ext
-      exact congrArg (fun q : Candidate => q.2.1) hac)
+    {a | leFin a b}.Finite :=
+  leFin_lowerFinite b
 
 /-- Initial approximations have nested carriers. -/
 theorem approxCarrier_subset_of_isInitial
