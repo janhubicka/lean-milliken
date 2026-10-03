@@ -58,17 +58,20 @@ theorem children_nonempty (U : AmbientTree) (x : U) :
 
 /-- Height of a node above the root, defined as the least number of
 predecessor steps needed to reach the root. -/
-noncomputable def level (U : AmbientTree) (x : U) : ℕ :=
-  Nat.find ((show (⊥ : U) ≤ x from bot_le).exists_pred_iterate)
+noncomputable def level (U : AmbientTree) (x : U) : ℕ := by
+  classical
+  exact Nat.find ((show (⊥ : U) ≤ x from bot_le).exists_pred_iterate)
 
 theorem pred_iterate_level (U : AmbientTree) (x : U) :
-    (Order.pred^[U.level x]) x = (⊥ : U) :=
-  Nat.find_spec ((show (⊥ : U) ≤ x from bot_le).exists_pred_iterate)
+    (Order.pred^[U.level x]) x = (⊥ : U) := by
+  classical
+  exact Nat.find_spec ((show (⊥ : U) ≤ x from bot_le).exists_pred_iterate)
 
 theorem level_minimal (U : AmbientTree) (x : U) {n : ℕ}
     (hn : (Order.pred^[n]) x = (⊥ : U)) :
-    U.level x ≤ n :=
-  Nat.find_min' ((show (⊥ : U) ≤ x from bot_le).exists_pred_iterate) hn
+    U.level x ≤ n := by
+  classical
+  exact Nat.find_min' ((show (⊥ : U) ≤ x from bot_le).exists_pred_iterate) hn
 
 @[simp] theorem level_root (U : AmbientTree) :
     U.level (⊥ : U) = 0 := by
