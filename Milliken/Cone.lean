@@ -32,15 +32,15 @@ theorem prefix_cancel_left (q : Node ι) {s t : Node ι}
     s.IsPrefix t := by
   rcases h with ⟨r, hr⟩
   refine ⟨r, ?_⟩
-  exact List.append_cancel_left (by
-    simpa [List.append_assoc] using hr)
+  apply List.append_right_injective q
+  simpa [List.append_assoc] using hr
 
 /-- The cone of a strong embedding above the image of a source node. -/
 def cone (T : StrongEmbedding ι) (q : Node ι) : StrongEmbedding ι where
   toFun := fun s => T.toFun (q ++ s)
   injective := by
     intro s t h
-    exact List.append_cancel_left (T.injective h)
+    exact List.append_right_injective q (T.injective h)
   prefix_mono := by
     intro s t h
     exact T.prefix_mono (prefix_append_left q h)
