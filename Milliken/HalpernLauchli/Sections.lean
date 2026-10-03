@@ -113,7 +113,7 @@ theorem Matrix.snoc_denseAbove {d n : ℕ}
       have hut : u ∈ coneLevel t n := by
         simpa [appendLast] using hu
       simpa [Matrix.snoc] using hY hut
-  | castSucc j =>
+  | cast j =>
       have huj : u ∈ coneLevel (base j) n := by
         simpa [appendLast] using hu
       simpa [Matrix.snoc] using hM j huj
