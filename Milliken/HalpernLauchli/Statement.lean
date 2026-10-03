@@ -70,18 +70,15 @@ theorem strongSubtreeHL_zero (ι : Type u) :
   intro colors hcolors c
   let x0 : Fin 0 → Node ι := fun i => Fin.elim0 i
   let color : Fin colors := c x0
-  refine ⟨color, id, fun i => Fin.elim0 i, ?_, ?_⟩
+  refine ⟨color, (fun n => n), (fun i => Fin.elim0 i), ?_, ?_⟩
   · refine ⟨strictMono_id, rfl, ?_⟩
     intro i
     exact Fin.elim0 i
   · intro n x hx
-    have hfun : (fun i => ((fun j => Fin.elim0 j) i).toFun (x i)) = x0 := by
-      funext i
-      exact Fin.elim0 i
-    have hx0 : x = x0 := by
-      funext i
-      exact Fin.elim0 i
-    rw [hfun, hx0]
+    change c (fun i => ((fun j => Fin.elim0 j) i).toFun (x i)) = c x0
+    congr
+    funext i
+    exact Fin.elim0 i
 
 end HalpernLauchli
 
