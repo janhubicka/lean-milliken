@@ -89,7 +89,8 @@ theorem productDenseAt_carrier (M : Matrix ι d) {k : ℕ}
     ProductDenseAt M.carrier k := by
   intro x hx
   classical
-  choose y hyCoord hxy using fun i => hM i (x i) (hx i)
+  choose y hyCoord hxy using fun i =>
+    hM i (show x i ∈ treeLevel (ι := ι) k from hx i)
   refine ⟨y, ?_, hxy⟩
   intro i
   exact hyCoord i
@@ -100,7 +101,8 @@ theorem denseAt_mono {M N : Matrix ι d} {k : ℕ}
     (hM : M.DenseAt k) :
     N.DenseAt k := by
   intro i x hx
-  rcases hM i x hx with ⟨y, hy, hxy⟩
+  rcases hM i (show x ∈ treeLevel (ι := ι) k from hx) with
+    ⟨y, hy, hxy⟩
   exact ⟨y, hMN i hy, hxy⟩
 
 /-- Carrier inclusion follows from coordinatewise inclusion. -/
@@ -141,7 +143,8 @@ theorem Matrix.restrictAbove_denseAbove {d : ℕ}
     (hbase : ∀ i, (base i).length < n) :
     (M.restrictAbove base).DenseAbove base n := by
   intro i t ht
-  rcases hM i t ht.2 with ⟨y, hyM, hty⟩
+  rcases hM i (show t ∈ treeLevel (ι := ι) n from ht.2) with
+    ⟨y, hyM, hty⟩
   refine ⟨y, ?_, hty⟩
   exact ⟨hyM, ht.1.trans hty⟩
 
@@ -149,6 +152,12 @@ theorem Matrix.restrictAbove_denseAbove {d : ℕ}
 def ContainsSomewhereDense {d : ℕ}
     (P : Set (Fin d → Node ι)) : Prop :=
   ∃ M : Matrix ι d, M.SomewhereDense ∧ M.carrier ⊆ P
+
+/-- Definition 3.4, in the form used for Theorem 3.6: every sufficiently
+dense matrix meets `P` in a prescribed dense subset of the product. -/
+def HighlyDense {d : ℕ} (P : Set (Fin d → Node ι)) : Prop :=
+  ∀ k, ∃ n, ∀ M : Matrix ι d,
+    M.DenseAt n → ProductDenseAt (P ∩ M.carrier) k
 
 /-- Observation preceding Lemma 3.5 in Todorčević: if the complement of
 `P` contains no somewhere-dense matrix, then `P` is highly dense.
@@ -186,11 +195,6 @@ theorem highlyDense_of_compl_no_somewhereDense {d : ℕ}
     exact (hxy y ⟨hyP, hyM⟩) hprefix
   exact hno ⟨N, hNsome, hNcompl⟩
 
-/-- Definition 3.4, in the form used for Theorem 3.6: every sufficiently
-dense matrix meets `P` in a prescribed dense subset of the product. -/
-def HighlyDense {d : ℕ} (P : Set (Fin d → Node ι)) : Prop :=
-  ∀ k, ∃ n, ∀ M : Matrix ι d,
-    M.DenseAt n → ProductDenseAt (P ∩ M.carrier) k
 
 /-- The highly-dense-set formulation `HDHL_d` of Halpern--Läuchli
 (Theorem 3.6). -/
