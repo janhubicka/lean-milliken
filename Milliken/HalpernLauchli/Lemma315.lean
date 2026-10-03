@@ -141,6 +141,101 @@ theorem exists_minimalAvoidCover [Finite ι] [Nonempty ι] {d k : ℕ}
   have hlt : C'.D.card < m := Nat.lt_of_not_ge hle
   exact (Nat.find_min hp hlt) ⟨C', rfl⟩
 
+/-- Propagation of an avoiding matrix through the stabilization property
+\((*)\).
+
+If a level matrix is \(n\)-\(\vec x\)-dense and avoids the section
+\(P_y\), then every later level vector above \(\vec x\) also avoids
+\(P_y\), provided both \(y\) and \(\vec x\) lie below level \(n\).
+Indeed, use density to choose a point of the avoiding matrix above the
+level-\(n\) truncation of the later vector; the two points then have the
+same truncation at level \(|y|+1\), and stabilization transfers membership
+in \(P_y\) between them.  This is the implicit argument used to obtain
+equation (3) in the book. -/
+theorem sectionAvoidAt_propagates
+    [Nonempty ι] {d k n : ℕ} (hd : 0 < d)
+    {P : Set (Fin (d + 1) → Node ι)}
+    (hstab : Stabilized P)
+    {y : Node ι} {x : LevelVector ι d k}
+    (hkn : k < n) (hyn : y.length < n)
+    (havoid : SectionAvoidAt P y x.1 n)
+    {l : ℕ} {z : Fin d → Node ι}
+    (hzlevel : IsLevelVectorAt l z)
+    (hnl : n ≤ l)
+    (hxz : ∀ i, (x.1 i).IsPrefix (z i)) :
+    z ∉ lastSection P y := by
+  classical
+  rcases havoid with ⟨M, L, hMlevel, hMdense, hMavoid⟩
+  let u : Fin d → Node ι := truncateVector n z
+  have hulevel : IsLevelVectorAt n u := by
+    dsimp [u]
+    exact truncateVector_length hzlevel hnl
+  have hxu : ∀ i, (x.1 i).IsPrefix (u i) := by
+    intro i
+    have htake := (hxz i).take n
+    have hxlen : (x.1 i).length ≤ n := by
+      rw [x.2 i]
+      omega
+    have hself : (x.1 i).take n = x.1 i :=
+      (List.take_eq_self_iff _).2 hxlen
+    simpa [u, truncateVector, hself] using htake
+  choose m hmM hum using fun i =>
+    hMdense i
+      (show u i ∈ coneLevel (x.1 i) n from
+        ⟨hxu i, hulevel i⟩)
+  have hmCarrier : m ∈ M.carrier := by
+    intro i
+    exact hmM i
+  have hmLevel : IsLevelVectorAt L m := by
+    intro i
+    exact hMlevel i (m i) (hmM i)
+  let i0 : Fin d := ⟨0, hd⟩
+  have hnL : n ≤ L := by
+    have hlen := (hum i0).length_le
+    rw [hulevel i0, hmLevel i0] at hlen
+    exact hlen
+  have hyL : y.length < L :=
+    hyn.trans_le hnL
+  have hyl : y.length < l :=
+    hyn.trans_le hnl
+  have htrunc :
+      truncateVector (y.length + 1) m =
+        truncateVector (y.length + 1) z := by
+    funext i
+    let q := y.length + 1
+    have hqN : q ≤ n := by
+      dsimp [q]
+      omega
+    have huq :
+        (u i).take q = (z i).take q := by
+      dsimp [u, truncateVector]
+      rw [List.take_take, min_eq_left hqN]
+    have hqU : q ≤ (u i).length := by
+      rw [hulevel i]
+      exact hqN
+    have hqM : q ≤ (m i).length := by
+      rw [hmLevel i]
+      exact hqN.trans hnL
+    have hp := (hum i).take q
+    have heq :
+        (u i).take q = (m i).take q :=
+      hp.eq_of_length (by
+        rw [List.length_take_of_le hqU,
+            List.length_take_of_le hqM])
+    change (m i).take q = (z i).take q
+    exact heq.symm.trans huq
+  intro hzP
+  have hzTrunc :
+      truncateVector (y.length + 1) z ∈ lastSection P y :=
+    (hstab y l z hzlevel hyl).mp hzP
+  have hmTrunc :
+      truncateVector (y.length + 1) m ∈ lastSection P y := by
+    rw [htrunc]
+    exact hzTrunc
+  have hmP : m ∈ lastSection P y :=
+    (hstab y L m hmLevel hyL).mpr hmTrunc
+  exact hMavoid hmCarrier hmP
+
 /-- The set \(Y_n(\vec x)\) from the proof of Lemma 3.15:
 bad nodes of \(Y\) for which the fixed vector \(\vec x\) itself supplies
 an avoiding matrix. -/
