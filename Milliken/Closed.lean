@@ -65,8 +65,9 @@ theorem codeValue_same_level [Nonempty ι]
   rcases exists_realizer_pair c h s (rayNode (ι := ι) s.length) with
     ⟨X, hs, hr⟩
   rcases X.level_witness with ⟨lev, hlev, hXlev⟩
+  change (codeValue c s).length =
+    (codeValue c (rayNode (ι := ι) s.length)).length
   rw [hs, hr, hXlev, hXlev, rayNode_length]
-  rfl
 
 theorem codeLevels_strictMono [Nonempty ι]
     (c : (S ι).ApproximationCode)
@@ -130,7 +131,7 @@ theorem approx_pointOfCode [Nonempty ι]
   have hsCode :
       codeValue c s.1 = X.toFun s.1 :=
     codeValue_eq_of_realizer c X s.1
-      (hX (s.1.length + 1) (by omega))
+      (hX (s.1.length + 1) (Nat.succ_le_of_lt s.2))
   have hsN := congrArg
     (fun a : Approx ι n => a.1 s)
     (hX n le_rfl)
