@@ -65,7 +65,7 @@ def id : StrongEmbedding ι where
     intro s i
     simp [child]
   level_witness := by
-    refine ⟨id, strictMono_id, rfl, ?_⟩
+    refine ⟨fun n => n, strictMono_id, rfl, ?_⟩
     intro s
     rfl
 
