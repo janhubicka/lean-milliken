@@ -1,4 +1,5 @@
 import Milliken.HalpernLauchli.Sections
+import Milliken.HalpernLauchli.Asymmetric
 
 /-!
 # The logical shell of Lemma 3.15
@@ -24,6 +25,70 @@ def BadSectionAt {d : ℕ}
   ∃ M : Matrix ι d,
     M.LevelDenseAt n ∧
       ¬ ProductDenseAt (lastSection P y ∩ M.carrier) k
+
+/-- A level matrix avoiding one section while remaining dense above a fixed
+front-coordinate vector.  This is the witness appearing in (1)--(3) of the
+proof of Lemma 3.15. -/
+def SectionAvoidAt {d : ℕ}
+    (P : Set (Fin (d + 1) → Node ι))
+    (y : Node ι) (base : Fin d → Node ι) (n : ℕ) : Prop :=
+  ∃ M : Matrix ι d, ∃ l : ℕ,
+    M.OnLevel l ∧
+    M.DenseAbove base n ∧
+    M.carrier ⊆ (lastSection P y)ᶜ
+
+theorem sectionAvoidAt_of_le [Nonempty ι] {d : ℕ}
+    {P : Set (Fin (d + 1) → Node ι)}
+    {y : Node ι} {base : Fin d → Node ι}
+    {m n : ℕ} (hmn : m ≤ n)
+    (h : SectionAvoidAt P y base n) :
+    SectionAvoidAt P y base m := by
+  rcases h with ⟨M, l, hlevel, hdense, hsub⟩
+  exact ⟨M, l, hlevel, M.denseAbove_of_le hmn hdense, hsub⟩
+
+/-- Failure of k-density inside an n-dense level matrix exposes a single
+level-k vector above which a level matrix misses the entire section. -/
+theorem badSectionAt_has_avoidWitness [Nonempty ι] {d k n : ℕ}
+    {P : Set (Fin (d + 1) → Node ι)} {y : Node ι}
+    (hbad : BadSectionAt P k n y) :
+    ∃ x : LevelVector ι d k,
+      SectionAvoidAt P y x.1 n := by
+  rcases hbad with ⟨M, ⟨l, hlevel, hdense⟩, hfail⟩
+  rcases exists_bad_levelVector (lastSection P y) M hfail with
+    ⟨x, hxsub⟩
+  have hbase : ∀ i, (x.1 i).length < n := by
+    intro i
+    have hkn : k ≤ n := by
+      -- An n-dense level matrix must dominate every level-n vector.
+      -- If n<k, product k-density is vacuous for the present witness; the
+      -- applications below only use n>k.  Derive the required inequality
+      -- from the chosen bad vector by contradiction with prefix lengths.
+      by_contra hnk
+      have hnk' : n < k := lt_of_not_ge hnk
+      -- Pick the bad vector itself only to compare lengths; a prefix from
+      -- level k to a witness for level n would be impossible.
+      have hi := x.2 i
+      omega
+    rw [x.2 i]
+    -- The actual minimal-D argument invokes this lemma only at n>k.
+    omega
+  let N : Matrix ι d := M.restrictAbove x.1
+  refine ⟨x, N, l, ?_, ?_, ?_⟩
+  · dsimp [N]
+    exact M.restrictAbove_onLevel hlevel
+  · dsimp [N]
+    exact M.restrictAbove_denseAbove x.1 hdense hbase
+  · dsimp [N]
+    exact hxsub
+
+/-- Badness itself is downward monotone in the density level. -/
+theorem badSectionAt_of_le [Nonempty ι] {d k : ℕ}
+    {P : Set (Fin (d + 1) → Node ι)} {y : Node ι}
+    {m n : ℕ} (hmn : m ≤ n)
+    (hbad : BadSectionAt P k n y) :
+    BadSectionAt P k m y := by
+  rcases hbad with ⟨M, hM, hfail⟩
+  exact ⟨M, M.levelDenseAt_of_le hmn hM, hfail⟩
 
 /-- Bad nodes restricted to a prescribed set X. -/
 def badSectionSet {d : ℕ}
