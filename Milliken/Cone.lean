@@ -23,8 +23,8 @@ theorem prefix_append_left (q : Node ι) {s t : Node ι}
     (h : s.IsPrefix t) :
     (q ++ s).IsPrefix (q ++ t) := by
   rcases h with ⟨r, rfl⟩
-  rw [List.append_assoc]
-  exact List.prefix_append _ _
+  refine ⟨r, ?_⟩
+  simp [List.append_assoc]
 
 /-- Prefixing a fixed word reflects the prefix relation. -/
 theorem prefix_cancel_left (q : Node ι) {s t : Node ι}
@@ -32,16 +32,15 @@ theorem prefix_cancel_left (q : Node ι) {s t : Node ι}
     s.IsPrefix t := by
   rcases h with ⟨r, hr⟩
   refine ⟨r, ?_⟩
-  apply List.append_left_cancel q
-  simpa [List.append_assoc] using hr
+  exact List.append_cancel_left (by
+    simpa [List.append_assoc] using hr)
 
 /-- The cone of a strong embedding above the image of a source node. -/
 def cone (T : StrongEmbedding ι) (q : Node ι) : StrongEmbedding ι where
   toFun := fun s => T.toFun (q ++ s)
   injective := by
     intro s t h
-    apply List.append_left_cancel q
-    exact T.injective h
+    exact List.append_cancel_left (T.injective h)
   prefix_mono := by
     intro s t h
     exact T.prefix_mono (prefix_append_left q h)
@@ -55,16 +54,16 @@ def cone (T : StrongEmbedding ι) (q : Node ι) : StrongEmbedding ι where
   branch_reflect := by
     intro s t i h
     have h' := T.branch_reflect (q ++ s) (q ++ t) i h
-    simpa [child, List.append_assoc] using
-      (prefix_cancel_left q h')
+    have h'' : (q ++ child s i).IsPrefix (q ++ t) := by
+      simpa [child, List.append_assoc] using h'
+    exact prefix_cancel_left q h''
   level_witness := by
     rcases T.level_witness with ⟨lev, hlev, hT⟩
     refine ⟨fun n => lev (q.length + n), ?_, ?_⟩
     · intro n m hnm
       exact hlev (Nat.add_lt_add_left hnm q.length)
     · intro s
-      rw [hT, List.length_append]
-      rfl
+      simpa [List.length_append, Nat.add_assoc] using hT (q ++ s)
 
 @[simp] theorem cone_toFun (T : StrongEmbedding ι) (q s : Node ι) :
     (cone T q).toFun s = T.toFun (q ++ s) :=
