@@ -118,6 +118,55 @@ theorem Matrix.snoc_denseAbove {d n : ℕ}
         simpa [appendLast] using hu
       simpa [Matrix.snoc] using hM j huj
 
+/-- If the same front matrix avoids every section indexed by `Y`,
+then its product with `Y` avoids `P`. -/
+theorem Matrix.snoc_carrier_subset_compl {d : ℕ}
+    {P : Set (Fin (d + 1) → Node ι)}
+    (M : Matrix ι d) (Y : Set (Node ι))
+    (havoid : ∀ y ∈ Y, M.carrier ⊆ (lastSection P y)ᶜ) :
+    (M.snoc Y).carrier ⊆ Pᶜ := by
+  intro z hz hP
+  have hzFront : front z ∈ M.carrier := by
+    intro i
+    simpa [front, Matrix.snoc] using hz i.castSucc
+  have hzLast : last z ∈ Y := by
+    simpa [last, Matrix.snoc] using hz (Fin.last d)
+  have hfrontP : front z ∈ lastSection P (last z) := by
+    change appendLast (front z) (last z) ∈ P
+    simpa [appendLast_front_last] using hP
+  exact (havoid (last z) hzLast hzFront) hfrontP
+
+/-- A node exactly one level above a prefix is one of its literal children. -/
+theorem exists_child_eq_of_prefix_length_succ
+    {t u : Node ι} (htu : t.IsPrefix u)
+    (hlen : u.length = t.length + 1) :
+    ∃ i : ι, child t i = u := by
+  rcases htu with ⟨r, rfl⟩
+  have hrlen : r.length = 1 := by
+    simp only [List.length_append] at hlen
+    omega
+  rcases r with _ | i r
+  · simp at hrlen
+  · cases r with
+    | nil =>
+        exact ⟨i, by simp [child]⟩
+    | cons j r =>
+        simp at hrlen
+
+/-- A set meeting every immediate successor cone dominates the next level
+above `t`. -/
+theorem denseAbove_succ_of_coversChildren
+    (Y : Set (Node ι)) (t : Node ι)
+    (hY : ∀ i : ι, ∃ y ∈ Y, (child t i).IsPrefix y) :
+    DenseAbove Y t (t.length + 1) := by
+  intro u hu
+  rcases exists_child_eq_of_prefix_length_succ hu.1 hu.2 with
+    ⟨i, hi⟩
+  rcases hY i with ⟨y, hyY, hiy⟩
+  refine ⟨y, hyY, ?_⟩
+  rw [← hi]
+  exact hiy
+
 /-- The section `P_y` obtained by fixing the last coordinate. -/
 def lastSection {d : ℕ}
     (P : Set (Fin (d + 1) → Node ι)) (y : Node ι) :
