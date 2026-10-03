@@ -8,10 +8,10 @@ represented by its canonical strong embedding.  This is the standard
 homogeneous-tree presentation of Milliken's theorem and is the first concrete
 case needed by the Chapter 6 argument.
 
-The level map is kept existential in `StrongEmbedding`.  Consequently two
-strong embeddings with the same node map are definitionally the same
-mathematical object (all remaining fields are propositions), which makes the
-later approximation space substantially cleaner.
+The level map is kept existential in `StrongEmbedding`.  We do **not**
+force the image of the empty word to be the ambient root: strong subtrees in
+Todorčević's sense may start at any node.  Consequently cones occurring in
+Lemma 6.1 are represented without a separate rooted-tree type.
 -/
 
 namespace Milliken
@@ -31,7 +31,6 @@ image of `s`.  The witness `levels` says that all nodes on one source level
 land on a common target level. -/
 structure StrongEmbedding (ι : Type u) where
   toFun : Node ι → Node ι
-  map_nil : toFun [] = []
   injective : Function.Injective toFun
   prefix_mono :
     ∀ {s t : Node ι}, s.IsPrefix t → (toFun s).IsPrefix (toFun t)
@@ -39,7 +38,7 @@ structure StrongEmbedding (ι : Type u) where
     ∀ (s : Node ι) (i : ι), (child (toFun s) i).IsPrefix (toFun (child s i))
   level_witness :
     ∃ levels : ℕ → ℕ,
-      StrictMono levels ∧ levels 0 = 0 ∧
+      StrictMono levels ∧
         ∀ s : Node ι, (toFun s).length = levels s.length
 
 namespace StrongEmbedding
@@ -58,14 +57,13 @@ theorem ext {F G : StrongEmbedding ι}
 /-- The identity strong embedding. -/
 def id : StrongEmbedding ι where
   toFun := fun s => s
-  map_nil := rfl
   injective := Function.injective_id
   prefix_mono := fun h => h
   branch := by
     intro s i
     simp [child]
   level_witness := by
-    refine ⟨fun n => n, strictMono_id, rfl, ?_⟩
+    refine ⟨fun n => n, strictMono_id, ?_⟩
     intro s
     rfl
 
@@ -73,7 +71,6 @@ def id : StrongEmbedding ι where
 composition of the two level maps. -/
 def comp (F G : StrongEmbedding ι) : StrongEmbedding ι where
   toFun := fun s => F.toFun (G.toFun s)
-  map_nil := by simp [G.map_nil, F.map_nil]
   injective := F.injective.comp G.injective
   prefix_mono := by
     intro s t hst
@@ -83,12 +80,11 @@ def comp (F G : StrongEmbedding ι) : StrongEmbedding ι where
     exact (F.branch (G.toFun s) i).trans
       (F.prefix_mono (G.branch s i))
   level_witness := by
-    rcases F.level_witness with ⟨f, hf, hf0, hF⟩
-    rcases G.level_witness with ⟨g, hg, hg0, hG⟩
-    refine ⟨fun n => f (g n), hf.comp hg, ?_, ?_⟩
-    · simp [hg0, hf0]
-    · intro s
-      rw [hF, hG]
+    rcases F.level_witness with ⟨f, hf, hF⟩
+    rcases G.level_witness with ⟨g, hg, hG⟩
+    refine ⟨fun n => f (g n), hf.comp hg, ?_⟩
+    intro s
+    rw [hF, hG]
 
 @[simp] theorem id_toFun (s : Node ι) :
     (id : StrongEmbedding ι).toFun s = s := rfl
