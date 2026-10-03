@@ -118,24 +118,6 @@ theorem Matrix.snoc_denseAbove {d n : ℕ}
         simpa [appendLast] using hu
       simpa [Matrix.snoc] using hM j huj
 
-/-- If the same front matrix avoids every section indexed by `Y`,
-then its product with `Y` avoids `P`. -/
-theorem Matrix.snoc_carrier_subset_compl {d : ℕ}
-    {P : Set (Fin (d + 1) → Node ι)}
-    (M : Matrix ι d) (Y : Set (Node ι))
-    (havoid : ∀ y ∈ Y, M.carrier ⊆ (lastSection P y)ᶜ) :
-    (M.snoc Y).carrier ⊆ Pᶜ := by
-  intro z hz hP
-  have hzFront : front z ∈ M.carrier := by
-    intro i
-    simpa [front, Matrix.snoc] using hz i.castSucc
-  have hzLast : last z ∈ Y := by
-    simpa [last, Matrix.snoc] using hz (Fin.last d)
-  have hfrontP : front z ∈ lastSection P (last z) := by
-    change appendLast (front z) (last z) ∈ P
-    simpa [appendLast_front_last] using hP
-  exact (havoid (last z) hzLast hzFront) hfrontP
-
 /-- A node exactly one level above a prefix is one of its literal children. -/
 theorem exists_child_eq_of_prefix_length_succ
     {t u : Node ι} (htu : t.IsPrefix u)
@@ -145,13 +127,16 @@ theorem exists_child_eq_of_prefix_length_succ
   have hrlen : r.length = 1 := by
     simp only [List.length_append] at hlen
     omega
-  rcases r with _ | i r
-  · simp at hrlen
-  · cases r with
-    | nil =>
-        exact ⟨i, by simp [child]⟩
-    | cons j r =>
-        simp at hrlen
+  cases r with
+  | nil =>
+      omega
+  | cons i r =>
+      have hrzero : r.length = 0 := by
+        simp only [List.length_cons] at hrlen
+        omega
+      have hrnil : r = [] := List.length_eq_zero.mp hrzero
+      subst r
+      exact ⟨i, by simp [child]⟩
 
 /-- A set meeting every immediate successor cone dominates the next level
 above `t`. -/
@@ -184,6 +169,25 @@ def lastSection {d : ℕ}
     lastSection Pᶜ y = (lastSection P y)ᶜ := by
   ext x
   rfl
+
+/-- If the same front matrix avoids every section indexed by `Y`,
+then its product with `Y` avoids `P`. -/
+theorem Matrix.snoc_carrier_subset_compl {d : ℕ}
+    {P : Set (Fin (d + 1) → Node ι)}
+    (M : Matrix ι d) (Y : Set (Node ι))
+    (havoid : ∀ y ∈ Y, M.carrier ⊆ (lastSection P y)ᶜ) :
+    (M.snoc Y).carrier ⊆ Pᶜ := by
+  intro z hz hP
+  have hzFront : front z ∈ M.carrier := by
+    intro i
+    simpa [front, Matrix.snoc] using hz i.castSucc
+  have hzLast : last z ∈ Y := by
+    simpa [last, Matrix.snoc] using hz (Fin.last d)
+  have hfrontP : front z ∈ lastSection P (last z) := by
+    change appendLast (front z) (last z) ∈ P
+    simpa [appendLast_front_last] using hP
+  exact (havoid (last z) hzLast hzFront) hfrontP
+
 
 /-- A vector with an appended last coordinate is a level vector precisely
 when both pieces live on that same level. -/
