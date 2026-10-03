@@ -68,7 +68,8 @@ theorem approx_zero (X : StrongEmbedding ι) :
 theorem separated {X Y : StrongEmbedding ι}
     (h : ∀ n, approx ι n X = approx ι n Y) :
     X = Y := by
-  ext s
+  apply StrongEmbedding.ext
+  intro s
   let sn : FiniteNode ι (s.length + 1) :=
     ⟨s, Nat.lt_succ_self _⟩
   have hs := congrArg
