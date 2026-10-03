@@ -82,6 +82,35 @@ theorem fullLevel_dense (k : ℕ) :
   intro i y hy
   exact ⟨y, hy, by simp⟩
 
+/-- Coordinatewise density of a matrix is exactly enough to obtain density
+of its cartesian carrier in the product. -/
+theorem productDenseAt_carrier (M : Matrix ι d) {k : ℕ}
+    (hM : M.DenseAt k) :
+    ProductDenseAt M.carrier k := by
+  intro x hx
+  classical
+  choose y hyCoord hxy using fun i => hM i (x i) (hx i)
+  refine ⟨y, ?_, hxy⟩
+  intro i
+  exact hyCoord i
+
+/-- Density is monotone under enlarging every coordinate set. -/
+theorem denseAt_mono {M N : Matrix ι d} {k : ℕ}
+    (hMN : ∀ i, M.coord i ⊆ N.coord i)
+    (hM : M.DenseAt k) :
+    N.DenseAt k := by
+  intro i x hx
+  rcases hM i x hx with ⟨y, hy, hxy⟩
+  exact ⟨y, hMN i hy, hxy⟩
+
+/-- Carrier inclusion follows from coordinatewise inclusion. -/
+theorem carrier_mono {M N : Matrix ι d}
+    (hMN : ∀ i, M.coord i ⊆ N.coord i) :
+    M.carrier ⊆ N.carrier := by
+  intro x hx i
+  exact hMN i (hx i)
+
+
 end Matrix
 
 /-- Definition 3.4, in the form used for Theorem 3.6: every sufficiently
