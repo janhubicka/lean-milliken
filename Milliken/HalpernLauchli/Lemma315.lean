@@ -213,8 +213,8 @@ theorem avoidWitnessSet_coneDense_of_minimal
     }
     have hcard :
         C'.D.card < C.D.card := by
-      dsimp [C']
-      simpa [Finset.card_erase_of_mem hxD]
+      change (C.D.erase x).card < C.D.card
+      exact Finset.card_erase_lt_of_mem hxD
     exact (not_lt_of_ge (hmin C')) hcard
   have hnN : n ≤ N := by
     dsimp [N]
