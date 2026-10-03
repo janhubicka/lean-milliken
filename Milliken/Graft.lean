@@ -89,5 +89,78 @@ theorem graftFun_prefix_mono
       (boundaryPrefix n t htge).1
       ((F (boundaryPrefix n t htge)).prefix_mono (hst.drop n))
 
+/-- The graft map reflects prefixes. -/
+theorem graftFun_prefix_reflect
+    (F : LevelNode ι n → StrongEmbedding ι)
+    {s t : Node ι}
+    (h : (graftFun F s).IsPrefix (graftFun F t)) :
+    s.IsPrefix t := by
+  by_cases hs : s.length < n
+  · by_cases ht : t.length < n
+    · rwa [graftFun_of_lt F s hs, graftFun_of_lt F t ht] at h
+    · have htge : n ≤ t.length := le_of_not_gt ht
+      rw [graftFun_of_lt F s hs, graftFun_of_ge F t htge] at h
+      have hlen :
+          s.length ≤ (boundaryPrefix n t htge).1.length := by
+        rw [(boundaryPrefix n t htge).2]
+        exact Nat.le_of_lt hs
+      have hsb :
+          s.IsPrefix (boundaryPrefix n t htge).1 :=
+        (List.isPrefix_append_of_length hlen).mp h
+      exact hsb.trans (List.take_prefix n t)
+  · have hsge : n ≤ s.length := le_of_not_gt hs
+    by_cases ht : t.length < n
+    · rw [graftFun_of_ge F s hsge, graftFun_of_lt F t ht] at h
+      have hlen := h.length_le
+      have hbLen : (boundaryPrefix n s hsge).1.length = n :=
+        (boundaryPrefix n s hsge).2
+      rw [List.length_append, hbLen] at hlen
+      omega
+    · have htge : n ≤ t.length := le_of_not_gt ht
+      rw [graftFun_of_ge F s hsge, graftFun_of_ge F t htge] at h
+      have hboundary :
+          (boundaryPrefix n s hsge).1.IsPrefix
+            ((boundaryPrefix n t htge).1 ++
+              (F (boundaryPrefix n t htge)).toFun (t.drop n)) :=
+        (List.prefix_append _ _).trans h
+      have hbp :
+          (boundaryPrefix n s hsge).1.IsPrefix
+            (boundaryPrefix n t htge).1 :=
+        (List.isPrefix_append_of_length (by
+          rw [(boundaryPrefix n s hsge).2,
+              (boundaryPrefix n t htge).2])).mp hboundary
+      have hbval :
+          (boundaryPrefix n s hsge).1 =
+            (boundaryPrefix n t htge).1 :=
+        hbp.eq_of_length (by
+          rw [(boundaryPrefix n s hsge).2,
+              (boundaryPrefix n t htge).2])
+      have hb :
+          boundaryPrefix n s hsge =
+            boundaryPrefix n t htge :=
+        Subtype.ext hbval
+      rw [hb] at h
+      have hdrop :
+          (s.drop n).IsPrefix (t.drop n) :=
+        (F (boundaryPrefix n t htge)).prefix_reflect
+          (StrongEmbedding.prefix_cancel_left
+            (boundaryPrefix n t htge).1 h)
+      rw [← List.take_append_drop n s,
+          ← List.take_append_drop n t, hbval]
+      exact StrongEmbedding.prefix_append_left _ hdrop
+
+/-- The graft node map is injective. -/
+theorem graftFun_injective
+    (F : LevelNode ι n → StrongEmbedding ι) :
+    Function.Injective (graftFun F) := by
+  intro s t hst
+  have hs :
+      s.IsPrefix t := graftFun_prefix_reflect F (by
+        rw [hst])
+  have ht :
+      t.IsPrefix s := graftFun_prefix_reflect F (by
+        rw [hst])
+  exact hs.eq_of_length (le_antisymm hs.length_le ht.length_le)
+
 end BoundaryGraft
 end Milliken
