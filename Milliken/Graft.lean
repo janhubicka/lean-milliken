@@ -84,7 +84,7 @@ theorem graftFun_prefix_mono
         boundaryPrefix n s hsge =
           boundaryPrefix n t htge :=
       boundaryPrefix_eq_of_prefix hst hsge
-    subst hb
+    rw [hb]
     exact StrongEmbedding.prefix_append_left
       (boundaryPrefix n t htge).1
       ((F (boundaryPrefix n t htge)).prefix_mono (hst.drop n))
