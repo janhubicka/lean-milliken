@@ -224,27 +224,6 @@ theorem avoidWitnessSet_coneDense_of_minimal
       sectionAvoidAt_of_le hn havoidN⟩
   · exact (hn (Nat.le_max_right _ _)).elim
 
-/-- In the failure case of Lemma 3.15 a minimal avoiding cover cannot have
-empty \(D\). -/
-theorem minimalAvoidCover_D_nonempty
-    [Finite ι] [Nonempty ι] {d k : ℕ}
-    {P : Set (Fin (d + 1) → Node ι)}
-    {X : Set (Node ι)}
-    (hfail :
-      ¬ ∃ n : ℕ, ∃ Y : Set (Node ι),
-        Y ⊆ X ∧ SomewhereConeDense Y ∧ SectionsGoodAt P k n Y)
-    (C : AvoidCover P k X) :
-    C.D.Nonempty := by
-  classical
-  have hsome : SomewhereConeDense C.Y :=
-    ⟨C.root, C.Y_dense⟩
-  rcases exists_bad_in_somewhere_of_no_uniform
-      P k X hfail C.n0 C.Y C.Y_subset hsome with
-    ⟨y, hyY, hbad⟩
-  rcases C.cover C.n0 le_rfl y hyY hbad with
-    ⟨x, hxD, hxAvoid⟩
-  exact ⟨x, hxD⟩
-
 /-- Bad nodes restricted to a prescribed set X. -/
 def badSectionSet {d : ℕ}
     (P : Set (Fin (d + 1) → Node ι))
@@ -317,6 +296,28 @@ theorem exists_bad_in_somewhere_of_no_uniform {d : ℕ}
       SomewhereConeDense (X \ badSectionSet P k n X) :=
     somewhereConeDense_mono hsub hY
   exact good_complement_not_somewhere_of_no_uniform P k X hfail n hsome
+
+/-- In the failure case of Lemma 3.15 a minimal avoiding cover cannot have
+empty \(D\). -/
+theorem minimalAvoidCover_D_nonempty
+    [Finite ι] [Nonempty ι] {d k : ℕ}
+    {P : Set (Fin (d + 1) → Node ι)}
+    {X : Set (Node ι)}
+    (hfail :
+      ¬ ∃ n : ℕ, ∃ Y : Set (Node ι),
+        Y ⊆ X ∧ SomewhereConeDense Y ∧ SectionsGoodAt P k n Y)
+    (C : AvoidCover P k X) :
+    C.D.Nonempty := by
+  classical
+  have hsome : SomewhereConeDense C.Y :=
+    ⟨C.root, C.Y_dense⟩
+  rcases exists_bad_in_somewhere_of_no_uniform
+      P k X hfail C.n0 C.Y C.Y_subset hsome with
+    ⟨y, hyY, hbad⟩
+  rcases C.cover C.n0 le_rfl y hyY hbad with
+    ⟨x, hxD, hxAvoid⟩
+  exact ⟨x, hxD⟩
+
 
 end HalpernLauchli
 end Milliken
