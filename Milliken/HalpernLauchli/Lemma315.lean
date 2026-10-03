@@ -141,6 +141,110 @@ theorem exists_minimalAvoidCover [Finite ι] [Nonempty ι] {d k : ℕ}
   have hlt : C'.D.card < m := Nat.lt_of_not_ge hle
   exact (Nat.find_min hp hlt) ⟨C', rfl⟩
 
+/-- The set \(Y_n(\vec x)\) from the proof of Lemma 3.15:
+bad nodes of \(Y\) for which the fixed vector \(\vec x\) itself supplies
+an avoiding matrix. -/
+def avoidWitnessSet {d : ℕ}
+    (P : Set (Fin (d + 1) → Node ι))
+    (k n : ℕ) (Y : Set (Node ι))
+    (x : LevelVector ι d k) : Set (Node ι) :=
+  {y | y ∈ Y ∧ BadSectionAt P k n y ∧
+    SectionAvoidAt P y x.1 n}
+
+/-- The minimal-\(D\) argument in the proof of Lemma 3.15.
+
+Once an avoiding cover uses as few level-\(k\) vectors as possible, every
+vector which remains in \(D\) must occur densely often: otherwise pass to a
+deeper cone disjoint from its witness set and remove that vector from \(D\).
+The new cover starts at \(\max(n_0,n)\), so downward monotonicity of both
+badness and avoidance rules out the removed vector at every later scale. -/
+theorem avoidWitnessSet_coneDense_of_minimal
+    [Finite ι] [Nonempty ι] {d k : ℕ}
+    {P : Set (Fin (d + 1) → Node ι)}
+    {X : Set (Node ι)}
+    (C : AvoidCover P k X)
+    (hmin : ∀ C' : AvoidCover P k X, C.D.card ≤ C'.D.card)
+    {x : LevelVector ι d k} (hxD : x ∈ C.D)
+    (n : ℕ) :
+    ConeDense (avoidWitnessSet P k n C.Y x) C.root := by
+  classical
+  let N := max C.n0 n
+  have hmain :
+      ConeDense (avoidWitnessSet P k N C.Y x) C.root := by
+    by_contra hnot
+    rw [not_coneDense_iff] at hnot
+    rcases hnot with ⟨u, hru, hu⟩
+    let Y' : Set (Node ι) := restrictCone C.Y u
+    have hY'dense : ConeDense Y' u := by
+      dsimp [Y']
+      exact coneDense_restrictCone C.Y_dense hru
+    let C' : AvoidCover P k X := {
+      D := C.D.erase x
+      n0 := N
+      Y := Y'
+      root := u
+      Y_subset := by
+        intro y hy
+        exact C.Y_subset hy.1
+      Y_dense := hY'dense
+      cover := by
+        intro m hm y hyY' hbad
+        have hmC : C.n0 ≤ m := by
+          exact (Nat.le_max_left C.n0 n).trans hm
+        rcases C.cover m hmC y hyY'.1 hbad with
+          ⟨z, hzD, hzAvoid⟩
+        have hzx : z ≠ x := by
+          intro hzx
+          subst z
+          have hNm : N ≤ m := hm
+          have hnN : n ≤ N := Nat.le_max_right _ _
+          have hnM : n ≤ m := hnN.trans hNm
+          have hbadn : BadSectionAt P k n y :=
+            badSectionAt_of_le hnM hbad
+          have havoidn : SectionAvoidAt P y x.1 n :=
+            sectionAvoidAt_of_le hnM hzAvoid
+          have hyW :
+              y ∈ avoidWitnessSet P k N C.Y x := by
+            refine ⟨hyY'.1, ?_, ?_⟩
+            · exact badSectionAt_of_le hNm hbad
+            · exact sectionAvoidAt_of_le hNm hzAvoid
+          exact hu y hyW hyY'.2
+        exact ⟨z, Finset.mem_erase.mpr ⟨hzx, hzD⟩, hzAvoid⟩
+    have hcard :
+        C'.D.card < C.D.card := by
+      dsimp [C']
+      simpa [Finset.card_erase_of_mem hxD]
+    exact (not_lt_of_ge (hmin C')) hcard
+  by_cases hn : n ≤ N
+  · intro u hru
+    rcases hmain hru with ⟨y, hyW, huy⟩
+    refine ⟨y, ?_, huy⟩
+    rcases hyW with ⟨hyY, hbadN, havoidN⟩
+    exact ⟨hyY, badSectionAt_of_le hn hbadN,
+      sectionAvoidAt_of_le hn havoidN⟩
+  · exact (hn (Nat.le_max_right _ _)).elim
+
+/-- In the failure case of Lemma 3.15 a minimal avoiding cover cannot have
+empty \(D\). -/
+theorem minimalAvoidCover_D_nonempty
+    [Finite ι] [Nonempty ι] {d k : ℕ}
+    {P : Set (Fin (d + 1) → Node ι)}
+    {X : Set (Node ι)}
+    (hfail :
+      ¬ ∃ n : ℕ, ∃ Y : Set (Node ι),
+        Y ⊆ X ∧ SomewhereConeDense Y ∧ SectionsGoodAt P k n Y)
+    (C : AvoidCover P k X) :
+    C.D.Nonempty := by
+  classical
+  have hsome : SomewhereConeDense C.Y :=
+    ⟨C.root, C.Y_dense⟩
+  rcases exists_bad_in_somewhere_of_no_uniform
+      P k X hfail C.n0 C.Y C.Y_subset hsome with
+    ⟨y, hyY, hbad⟩
+  rcases C.cover C.n0 le_rfl y hyY hbad with
+    ⟨x, hxD, hxAvoid⟩
+  exact ⟨x, hxD⟩
+
 /-- Bad nodes restricted to a prescribed set X. -/
 def badSectionSet {d : ℕ}
     (P : Set (Fin (d + 1) → Node ι))
