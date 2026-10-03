@@ -316,13 +316,11 @@ theorem stemExtension_injective {n : ℕ} (hpos : 0 < n)
   have hstP :
       (stemExtensionFun hpos a A hA s).IsPrefix
         (stemExtensionFun hpos a A hA t) := by
-    rw [hst]
-    exact List.prefix_rfl
+    simpa [hst]
   have htsP :
       (stemExtensionFun hpos a A hA t).IsPrefix
         (stemExtensionFun hpos a A hA s) := by
-    rw [hst]
-    exact List.prefix_rfl
+    simpa [hst]
   have hs := stemExtension_prefix_reflect hpos a A hA hstP
   have ht := stemExtension_prefix_reflect hpos a A hA htsP
   exact hs.eq_of_length (le_antisymm hs.length_le ht.length_le)
@@ -376,14 +374,16 @@ theorem stemExtension_branch {n : ℕ} (hpos : 0 < n)
       (stemExtensionFun hpos a A hA (child s i)) := by
   by_cases hchild : (child s i).length < n
   · have hs : s.length < n := by
-      simpa [child] using lt_trans (by omega : s.length < (child s i).length) hchild
+      simp [child] at hchild ⊢
+      omega
     rw [stemExtensionFun_of_lt hpos a A hA s hs,
         stemExtensionFun_of_lt hpos a A hA (child s i) hchild]
     exact stemPreimage_branch a A hA
       (⟨s, hs⟩ : FiniteNode ι n) i hchild
   · have hge : n ≤ (child s i).length := le_of_not_gt hchild
-    rw [← stemExtension_child_eq_of_ge hpos a A hA s i hge]
-    exact List.prefix_rfl
+    have heq :=
+      stemExtension_child_eq_of_ge hpos a A hA s i hge
+    simpa only [heq]
 
 /-- The extended function reflects the strong branch label. -/
 theorem stemExtension_branch_reflect {n : ℕ} (hpos : 0 < n)
