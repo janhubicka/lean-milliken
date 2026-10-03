@@ -116,17 +116,8 @@ theorem leFin_lowerFinite [Finite ι] (b : Σ n, Approx ι n) :
     fun q => ⟨q.1.1, q.2.1⟩
   apply (Set.finite_range forget).subset
   intro a ha
-  have hheight : a.1 ≤ b.1 := by
-    rcases ha with h0 | hp
-    · omega
-    · exact hp.2.1
-  have hsub : approxCarrier a.2 ⊆ S := by
-    rcases ha with h0 | hp
-    · intro x hx
-      rcases hx with ⟨s, rfl⟩
-      have hs : s.1.length < a.1 := s.2
-      omega
-    · exact hp.2.2.1
+  have hheight : a.1 ≤ b.1 := ha.1
+  have hsub : approxCarrier a.2 ⊆ S := ha.2
   let i : Fin (b.1 + 1) := ⟨a.1, Nat.lt_succ_of_le hheight⟩
   let q : Bounded := ⟨i, ⟨a.2, hsub⟩⟩
   exact ⟨q, rfl⟩
