@@ -37,6 +37,9 @@ theorem exists_leFin_approx_of_le [Nonempty ι]
   cases n with
   | zero =>
       refine ⟨0, ?_⟩
+      change 0 ≤ 0 ∧
+        approxCarrier (approx ι 0 (StrongEmbedding.comp Y Z)) ⊆
+          approxCarrier (approx ι 0 Y)
       constructor
       · exact le_rfl
       · rw [approxCarrier_zero, approxCarrier_zero]
@@ -44,15 +47,18 @@ theorem exists_leFin_approx_of_le [Nonempty ι]
       rcases Z.level_witness with ⟨lev, hlev, hZlev⟩
       let m := lev k + 1
       refine ⟨m, ?_⟩
+      change k + 1 ≤ m ∧
+        approxCarrier (approx ι (k + 1) (StrongEmbedding.comp Y Z)) ⊆
+          approxCarrier (approx ι m Y)
       constructor
       · dsimp [m]
-        have hk : k ≤ lev k := StrictMono.id_le hlev k
-        omega
+        exact Nat.succ_le_succ (StrictMono.id_le hlev k)
       · rintro x ⟨s, rfl⟩
         let t : FiniteNode ι m :=
           ⟨Z.toFun s.1, by
             rw [hZlev]
-            have hsk : s.1.length ≤ k := by omega
+            have hsk : s.1.length ≤ k :=
+              Nat.le_of_lt_succ s.2
             exact Nat.lt_succ_of_le (hlev.monotone hsk)⟩
         exact ⟨t, rfl⟩
 
