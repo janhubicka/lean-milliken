@@ -20,16 +20,6 @@ universe u
 
 variable {ι : Type u}
 
-/-- A chosen infinite strong embedding realizing a finite approximation. -/
-noncomputable def approxRealizer {n : ℕ} (a : Approx ι n) :
-    StrongEmbedding ι :=
-  Classical.choose a.2
-
-theorem approxRealizer_spec {n : ℕ} (a : Approx ι n)
-    (s : FiniteNode ι n) :
-    (approxRealizer a).toFun s.1 = a.1 s :=
-  Classical.choose_spec a.2 s
-
 /-- Pull a finite approximation back through a strong subtree containing
 its carrier. -/
 noncomputable def stemPreimage {n : ℕ} (a : Approx ι n)
