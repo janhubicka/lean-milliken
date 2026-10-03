@@ -110,9 +110,13 @@ theorem Matrix.snoc_denseAbove {d n : ℕ}
   intro i u hu
   exact Fin.lastCases
     (by
-      simpa [Matrix.snoc, appendLast] using hY u hu)
+      have hut : u ∈ coneLevel t n := by
+        simpa [appendLast] using hu
+      simpa [Matrix.snoc] using hY hut)
     (fun j => by
-      simpa [Matrix.snoc, appendLast] using hM j u hu)
+      have huj : u ∈ coneLevel (base j) n := by
+        simpa [appendLast] using hu
+      simpa [Matrix.snoc] using hM j huj)
     i
 
 /-- The section `P_y` obtained by fixing the last coordinate. -/
