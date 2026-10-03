@@ -34,8 +34,13 @@ structure StrongEmbedding (ι : Type u) where
   injective : Function.Injective toFun
   prefix_mono :
     ∀ {s t : Node ι}, s.IsPrefix t → (toFun s).IsPrefix (toFun t)
+  prefix_reflect :
+    ∀ {s t : Node ι}, (toFun s).IsPrefix (toFun t) → s.IsPrefix t
   branch :
     ∀ (s : Node ι) (i : ι), (child (toFun s) i).IsPrefix (toFun (child s i))
+  branch_reflect :
+    ∀ (s t : Node ι) (i : ι),
+      (child (toFun s) i).IsPrefix (toFun t) → (child s i).IsPrefix t
   level_witness :
     ∃ levels : ℕ → ℕ,
       StrictMono levels ∧
@@ -59,9 +64,13 @@ def id : StrongEmbedding ι where
   toFun := fun s => s
   injective := Function.injective_id
   prefix_mono := fun h => h
+  prefix_reflect := fun h => h
   branch := by
     intro s i
     simp [child]
+  branch_reflect := by
+    intro s t i h
+    simpa [child] using h
   level_witness := by
     refine ⟨fun n => n, strictMono_id, ?_⟩
     intro s
@@ -75,10 +84,17 @@ def comp (F G : StrongEmbedding ι) : StrongEmbedding ι where
   prefix_mono := by
     intro s t hst
     exact F.prefix_mono (G.prefix_mono hst)
+  prefix_reflect := by
+    intro s t hst
+    exact G.prefix_reflect (F.prefix_reflect hst)
   branch := by
     intro s i
     exact (F.branch (G.toFun s) i).trans
       (F.prefix_mono (G.branch s i))
+  branch_reflect := by
+    intro s t i hst
+    exact G.branch_reflect s t i
+      (F.branch_reflect (G.toFun s) (G.toFun t) i hst)
   level_witness := by
     rcases F.level_witness with ⟨f, hf, hF⟩
     rcases G.level_witness with ⟨g, hg, hG⟩
