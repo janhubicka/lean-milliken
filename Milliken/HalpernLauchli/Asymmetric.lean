@@ -161,5 +161,25 @@ theorem highlyDense_or_compl_denseAbove [Finite ι] [Nonempty ι]
     rw [hrbase] at hMdense
     exact M.denseAbove_of_le (by omega) hMdense
 
+/-- Corollary 3.7, the asymmetric Halpern--Läuchli dichotomy.
+
+Assuming HDHL in dimension d, either the first color contains a k-dense
+matrix for every positive k, or one fixed vector has q-vector-dense matrices
+of the second color for every q. -/
+theorem asymmetric_of_hdhl [Finite ι] [Nonempty ι]
+    {d : ℕ} (hHDHL : HDHL ι d)
+    (K0 : Set (Fin d → Node ι)) :
+    (∀ k : ℕ, 0 < k →
+      ∃ M : Matrix ι d, M.DenseAt k ∧ M.carrier ⊆ K0) ∨
+    (∃ base : Fin d → Node ι,
+      IsLevelVector base ∧
+      ∀ q : ℕ, ∃ M : Matrix ι d,
+        M.DenseAbove base q ∧ M.carrier ⊆ K0ᶜ) := by
+  rcases highlyDense_or_compl_denseAbove K0 with hK0 | hbad
+  · left
+    intro k hk
+    exact hHDHL K0 hK0 k hk
+  · exact Or.inr hbad
+
 end HalpernLauchli
 end Milliken
