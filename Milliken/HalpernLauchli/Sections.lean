@@ -66,6 +66,55 @@ theorem appendLast_front_last {d : ℕ}
     (fun j => by simp [appendLast, front])
     i
 
+/-- Adjoin a last coordinate set to a matrix: the cartesian product
+\(M\times Y\). -/
+def Matrix.snoc {d : ℕ} (M : Matrix ι d)
+    (Y : Set (Node ι)) : Matrix ι (d + 1) where
+  coord := Fin.lastCases Y M.coord
+
+@[simp] theorem Matrix.snoc_coord_last {d : ℕ}
+    (M : Matrix ι d) (Y : Set (Node ι)) :
+    (M.snoc Y).coord (Fin.last d) = Y := by
+  simp [Matrix.snoc]
+
+@[simp] theorem Matrix.snoc_coord_castSucc {d : ℕ}
+    (M : Matrix ι d) (Y : Set (Node ι)) (i : Fin d) :
+    (M.snoc Y).coord i.castSucc = M.coord i := by
+  simp [Matrix.snoc]
+
+@[simp] theorem Matrix.mem_snoc_carrier_appendLast {d : ℕ}
+    (M : Matrix ι d) (Y : Set (Node ι))
+    (x : Fin d → Node ι) (y : Node ι) :
+    appendLast x y ∈ (M.snoc Y).carrier ↔
+      x ∈ M.carrier ∧ y ∈ Y := by
+  constructor
+  · intro h
+    constructor
+    · intro i
+      simpa [Matrix.snoc] using h i.castSucc
+    · simpa [Matrix.snoc] using h (Fin.last d)
+  · rintro ⟨hx, hy⟩ i
+    exact Fin.lastCases
+      (by simpa [Matrix.snoc] using hy)
+      (fun j => by simpa [Matrix.snoc] using hx j)
+      i
+
+/-- Coordinatewise density above a base is preserved by adjoining a last
+coordinate which is dense above its own base node. -/
+theorem Matrix.snoc_denseAbove {d n : ℕ}
+    {M : Matrix ι d} {Y : Set (Node ι)}
+    {base : Fin d → Node ι} {t : Node ι}
+    (hM : M.DenseAbove base n)
+    (hY : HalpernLauchli.DenseAbove Y t n) :
+    (M.snoc Y).DenseAbove (appendLast base t) n := by
+  intro i u hu
+  exact Fin.lastCases
+    (by
+      simpa [Matrix.snoc, appendLast] using hY u hu)
+    (fun j => by
+      simpa [Matrix.snoc, appendLast] using hM j u hu)
+    i
+
 /-- The section `P_y` obtained by fixing the last coordinate. -/
 def lastSection {d : ℕ}
     (P : Set (Fin (d + 1) → Node ι)) (y : Node ι) :
