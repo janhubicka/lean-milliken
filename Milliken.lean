@@ -8,6 +8,7 @@ import Milliken.Factor
 import Milliken.FinitizationOrder
 import Milliken.Stem
 import Milliken.StemExtension
+import Milliken.Amalgamation
 import Milliken.Closed
 import Milliken.HalpernLauchli.Statement
 import Milliken.HalpernLauchli.Density
