@@ -55,6 +55,30 @@ theorem length_extendToLevel [Nonempty ι] {s : Node ι} {n : ℕ}
     (extendToLevel s n).length = n := by
   simp [extendToLevel, hsn, Nat.add_sub_of_le]
 
+/-- Density at a later level implies density at every earlier level. -/
+theorem Matrix.denseAt_of_le [Nonempty ι] {d : ℕ}
+    {M : Matrix ι d} {m n : ℕ}
+    (hmn : m ≤ n) (hM : M.DenseAt n) :
+    M.DenseAt m := by
+  intro i t ht
+  have htm : t.length = m := ht
+  have hlen : t.length ≤ n := by omega
+  let u : Node ι := extendToLevel t n
+  have htu : t.IsPrefix u := prefix_extendToLevel t n
+  have hulen : u.length = n := length_extendToLevel hlen
+  rcases hM i
+      (show u ∈ treeLevel (ι := ι) n from hulen) with
+    ⟨y, hyM, huy⟩
+  exact ⟨y, hyM, htu.trans huy⟩
+
+/-- The level-matrix strengthening is likewise downward monotone. -/
+theorem Matrix.levelDenseAt_of_le [Nonempty ι] {d : ℕ}
+    {M : Matrix ι d} {m n : ℕ}
+    (hmn : m ≤ n) (hM : M.LevelDenseAt n) :
+    M.LevelDenseAt m := by
+  rcases hM with ⟨l, hlevel, hdense⟩
+  exact ⟨l, hlevel, M.denseAt_of_le hmn hdense⟩
+
 /-- Density above a base at a later level implies density above the same
 base at every earlier level.  Levels below the base are vacuous. -/
 theorem Matrix.denseAbove_of_le [Nonempty ι] {d : ℕ}
