@@ -129,12 +129,13 @@ theorem exists_child_eq_of_prefix_length_succ
     omega
   cases r with
   | nil =>
+      simp only [List.length_nil] at hrlen
       omega
   | cons i r =>
       have hrzero : r.length = 0 := by
         simp only [List.length_cons] at hrlen
         omega
-      have hrnil : r = [] := List.length_eq_zero.mp hrzero
+      have hrnil : r = [] := List.length_eq_zero_iff.mp hrzero
       subst r
       exact ⟨i, by simp [child]⟩
 
