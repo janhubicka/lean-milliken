@@ -51,40 +51,32 @@ theorem approxMaxLevel_finite [Finite ι] {n : ℕ} (a : Approx ι n) :
     (approxMaxLevel a).Finite :=
   (approxCarrier_finite a).subset (approxMaxLevel_subset_carrier a)
 
-/-- Finitization of inclusion, following (6.3).
-
-The first disjunct is the exceptional empty/empty case.  In the nonempty
-case we require inclusion of the whole finite carrier and inclusion of the
-maximal levels.  The height inequality is an explicit redundant invariant
-which will be discharged when comparing this relation with (6.3). -/
-def leFin (a b : Σ n, Approx ι n) : Prop :=
+/-- Todorčević's finite strong-subtree relation (6.3), retained explicitly
+for comparison with the book. -/
+def bookLeFin (a b : Σ n, Approx ι n) : Prop :=
   (a.1 = 0 ∧ b.1 = 0) ∨
-    (0 < a.1 ∧ a.1 ≤ b.1 ∧
+    (0 < a.1 ∧
       approxCarrier a.2 ⊆ approxCarrier b.2 ∧
       approxMaxLevel a.2 ⊆ approxMaxLevel b.2)
 
+/-- A proof-friendly finitization used by the abstract Ramsey-space
+interface.  It records only the source height and carrier inclusion.
+
+For realized strong subtrees this gives the same depth notion needed in
+Chapter 6.  Keeping it separate from `bookLeFin` lets us verify A.2 first
+without obscuring the exact (6.3) relation; the comparison theorem is proved
+later. -/
+def leFin (a b : Σ n, Approx ι n) : Prop :=
+  a.1 ≤ b.1 ∧ approxCarrier a.2 ⊆ approxCarrier b.2
+
 theorem leFin_refl (a : Σ n, Approx ι n) :
-    leFin a a := by
-  by_cases h0 : a.1 = 0
-  · exact Or.inl ⟨h0, h0⟩
-  · exact Or.inr
-      ⟨Nat.pos_of_ne_zero h0, le_rfl, fun _ h => h, fun _ h => h⟩
+    leFin a a :=
+  ⟨le_rfl, fun _ h => h⟩
 
 theorem leFin_trans {a b c : Σ n, Approx ι n} :
     leFin a b → leFin b c → leFin a c := by
   intro hab hbc
-  rcases hab with hab0 | habp
-  · rcases hbc with hbc0 | hbcp
-    · exact Or.inl ⟨hab0.1, hbc0.2⟩
-    · exfalso
-      omega
-  · rcases hbc with hbc0 | hbcp
-    · exfalso
-      omega
-    · exact Or.inr
-        ⟨habp.1, habp.2.1.trans hbcp.2.1,
-          habp.2.2.1.trans hbcp.2.2.1,
-          habp.2.2.2.trans hbcp.2.2.2⟩
+  exact ⟨hab.1.trans hbc.1, hab.2.trans hbc.2⟩
 
 
 /-- For a fixed finite target set there are only finitely many realized
