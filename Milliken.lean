@@ -12,5 +12,6 @@ import Milliken.Amalgamation
 import Milliken.Closed
 import Milliken.HalpernLauchli.Statement
 import Milliken.HalpernLauchli.Density
+import Milliken.HalpernLauchli.Asymmetric
 import Milliken.HalpernLauchli.Sections
 import Milliken.HalpernLauchli.Induction
