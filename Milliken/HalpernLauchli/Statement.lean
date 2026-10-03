@@ -70,15 +70,17 @@ theorem strongSubtreeHL_zero (ι : Type u) :
   intro colors hcolors c
   let x0 : Fin 0 → Node ι := fun i => Fin.elim0 i
   let color : Fin colors := c x0
-  refine ⟨color, (fun n => n), (fun i => Fin.elim0 i), ?_, ?_⟩
+  let F : Fin 0 → StrongEmbedding ι := fun i => Fin.elim0 i
+  refine ⟨color, (fun n => n), F, ?_, ?_⟩
   · refine ⟨strictMono_id, rfl, ?_⟩
     intro i
     exact Fin.elim0 i
   · intro n x hx
-    change c (fun i => ((fun j => Fin.elim0 j) i).toFun (x i)) = c x0
-    congr
-    funext i
-    exact Fin.elim0 i
+    change c (fun i => (F i).toFun (x i)) = c x0
+    have hargs : (fun i => (F i).toFun (x i)) = x0 := by
+      funext i
+      exact Fin.elim0 i
+    rw [hargs]
 
 end HalpernLauchli
 
