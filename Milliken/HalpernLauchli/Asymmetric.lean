@@ -68,7 +68,9 @@ theorem Matrix.denseAbove_of_le [Nonempty ι] {d : ℕ}
   have htu : t.IsPrefix u := prefix_extendToLevel t n
   have hulen : u.length = n := length_extendToLevel hlen
   have hbaseu : (base i).IsPrefix u := ht.1.trans htu
-  rcases hM i u ⟨hbaseu, hulen⟩ with ⟨y, hyM, huy⟩
+  rcases hM i
+      (show u ∈ coneLevel (base i) n from ⟨hbaseu, hulen⟩) with
+    ⟨y, hyM, huy⟩
   exact ⟨y, hyM, htu.trans huy⟩
 
 /-- Negating product density produces a level vector whose cone misses the
@@ -148,7 +150,7 @@ theorem highlyDense_or_compl_denseAbove [Finite ι] [Nonempty ι]
     letI : Finite (LevelVector ι d k) := finite_levelVector d k
     rcases Finite.exists_infinite_fiber witness with ⟨base, hbaseInf⟩
     have hfiber : Set.Infinite (witness ⁻¹' {base}) :=
-      Set.infinite_coe_iff.mpr hbaseInf
+      Set.infinite_coe_iff.mp hbaseInf
     refine ⟨base.1, ⟨k, base.2⟩, ?_⟩
     intro q
     obtain ⟨r, hrmem, hqr⟩ := hfiber.exists_gt q
