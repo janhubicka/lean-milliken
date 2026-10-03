@@ -61,22 +61,21 @@ theorem appendLast_front_last {d : ℕ}
     (z : Fin (d + 1) → Node ι) :
     appendLast (front z) (last z) = z := by
   funext i
-  cases i using Fin.lastCases with
-  | last =>
-      simp [last]
-  | castSucc i =>
-      simp [front]
+  exact Fin.lastCases
+    (by simp [appendLast, last])
+    (fun j => by simp [appendLast, front])
+    i
 
 /-- The section `P_y` obtained by fixing the last coordinate. -/
-def section {d : ℕ}
+def lastSection {d : ℕ}
     (P : Set (Fin (d + 1) → Node ι)) (y : Node ι) :
     Set (Fin d → Node ι) :=
   {x | appendLast x y ∈ P}
 
-@[simp] theorem mem_section {d : ℕ}
+@[simp] theorem mem_lastSection {d : ℕ}
     {P : Set (Fin (d + 1) → Node ι)}
     {y : Node ι} {x : Fin d → Node ι} :
-    x ∈ section P y ↔ appendLast x y ∈ P :=
+    x ∈ lastSection P y ↔ appendLast x y ∈ P :=
   Iff.rfl
 
 /-- Coordinatewise truncation of a vector of tree nodes. -/
@@ -106,8 +105,8 @@ def Stabilized {d : ℕ}
   ∀ (y : Node ι) (l : ℕ) (x : Fin d → Node ι),
     IsLevelVectorAt l x →
     y.length < l →
-      (x ∈ section P y ↔
-        truncateVector (y.length + 1) x ∈ section P y)
+      (x ∈ lastSection P y ↔
+        truncateVector (y.length + 1) x ∈ lastSection P y)
 
 /-- A subset is dense in the cone above `t` for the usual tree topology:
 every extension of `t` has a further extension in the set. -/
@@ -137,7 +136,7 @@ theorem cone_somewhereDense (t : Node ι) :
     SomewhereConeDense {y : Node ι | t.IsPrefix y} := by
   refine ⟨t, ?_⟩
   intro u htu
-  exact ⟨u, htu, List.IsPrefix.refl u⟩
+  exact ⟨u, htu, by simp⟩
 
 end HalpernLauchli
 end Milliken
