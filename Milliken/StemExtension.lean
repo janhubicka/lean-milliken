@@ -383,7 +383,7 @@ theorem stemExtension_branch {n : ℕ} (hpos : 0 < n)
   · have hge : n ≤ (child s i).length := le_of_not_gt hchild
     have heq :=
       stemExtension_child_eq_of_ge hpos a A hA s i hge
-    simpa only [heq]
+    simpa [heq]
 
 /-- The extended function reflects the strong branch label. -/
 theorem stemExtension_branch_reflect {n : ℕ} (hpos : 0 < n)
