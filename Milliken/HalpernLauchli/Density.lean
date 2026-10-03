@@ -112,6 +112,17 @@ theorem carrier_mono {M N : Matrix ι d}
   intro x hx i
   exact hMN i (hx i)
 
+/-- A 1-dense matrix is somewhere dense, witnessed above the vector of
+roots and ambient level 1. -/
+theorem denseAt_one_somewhereDense (M : Matrix ι d)
+    (hM : M.DenseAt 1) :
+    M.SomewhereDense := by
+  let root : Fin d → Node ι := fun _ => []
+  refine ⟨root, 1, ?_, ?_⟩
+  · intro i
+    simp [root]
+  · intro i t ht
+    exact hM i (show t ∈ treeLevel (ι := ι) 1 from ht.2)
 
 end Matrix
 
@@ -212,6 +223,37 @@ def SDHL (ι : Type u) (d : ℕ) : Prop :=
     ∃ color : Fin colors, ∃ M : Matrix ι d,
       M.SomewhereDense ∧
         ∀ x ∈ M.carrier, c x = color
+
+/-- Binary somewhere-dense Halpern--Läuchli follows from the highly-dense
+form.  This is the only color arity needed for the A.4 proof in Chapter 6.
+
+If color 1 already contains a somewhere-dense matrix, we are done.  Otherwise
+the complement of color 0 contains no such matrix, so color 0 is highly
+dense.  `HDHL` then supplies a 1-dense matrix in color 0, which is somewhere
+dense above the root vector. -/
+theorem binarySDHL_of_hdhl {d : ℕ}
+    (hHDHL : HDHL ι d)
+    (c : (Fin d → Node ι) → Fin 2) :
+    ∃ color : Fin 2, ∃ M : Matrix ι d,
+      M.SomewhereDense ∧
+        ∀ x ∈ M.carrier, c x = color := by
+  let K0 : Set (Fin d → Node ι) := {x | c x = 0}
+  by_cases h1 : ContainsSomewhereDense K0ᶜ
+  · rcases h1 with ⟨M, hM, hsub⟩
+    refine ⟨1, M, hM, ?_⟩
+    intro x hx
+    have hxC : x ∈ K0ᶜ := hsub hx
+    have hne : c x ≠ (0 : Fin 2) := by
+      intro hzero
+      exact hxC hzero
+    apply Fin.eq_of_val_eq
+    omega
+  · have hK0 : HighlyDense K0 :=
+      highlyDense_of_compl_no_somewhereDense K0 h1
+    rcases hHDHL K0 hK0 1 (by omega) with ⟨M, hM, hsub⟩
+    refine ⟨0, M, Matrix.denseAt_one_somewhereDense M hM, ?_⟩
+    intro x hx
+    exact hsub hx
 
 end HalpernLauchli
 end Milliken
