@@ -46,9 +46,20 @@ theorem unaryProjection_dense
   refine ⟨y 0, ?_, hxy 0⟩
   exact ⟨y, hyP, rfl⟩
 
-/-- The base case `HDHL₁` of the induction in Section 3.2. -/
-theorem hdhl_one (ι : Type u) :
-    HDHL ι 1 := by
+theorem unaryProjection_onLevel
+    {P : Set (Fin 1 → Node ι)} {l : ℕ}
+    (hP : ∀ x ∈ P, IsLevelVectorAt l x) :
+    (unaryProjection P).OnLevel l := by
+  intro i t ht
+  rcases ht with ⟨x, hxP, hxt⟩
+  have hi : i = (0 : Fin 1) := Fin.eq_zero i
+  subst i
+  rw [← hxt]
+  exact hP x hxP 0
+
+/-- The strengthened, level-matrix base case of the induction. -/
+theorem levelHDHL_one (ι : Type u) :
+    LevelHDHL ι 1 := by
   intro P hP k hk
   rcases hP k with ⟨n, hn⟩
   let M : Matrix ι 1 := Matrix.fullLevel n
@@ -58,12 +69,23 @@ theorem hdhl_one (ι : Type u) :
   have hQ : ProductDenseAt (P ∩ M.carrier) k :=
     hn M hM
   let N : Matrix ι 1 := unaryProjection (P ∩ M.carrier)
+  have hNlevel : N.OnLevel n := by
+    dsimp [N]
+    apply unaryProjection_onLevel
+    intro x hx i
+    exact hx.2 i
   refine ⟨N, ?_, ?_⟩
-  · dsimp [N]
+  · refine ⟨n, hNlevel, ?_⟩
+    dsimp [N]
     exact unaryProjection_dense hQ
   · dsimp [N]
     exact (unaryProjection_carrier_subset (P ∩ M.carrier)).trans
       Set.inter_subset_left
+
+/-- The base case `HDHL₁` of the induction in Section 3.2. -/
+theorem hdhl_one (ι : Type u) :
+    HDHL ι 1 :=
+  hdhl_of_levelHDHL (levelHDHL_one ι)
 
 end HalpernLauchli
 end Milliken
