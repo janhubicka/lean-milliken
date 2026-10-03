@@ -145,8 +145,10 @@ theorem graftFun_prefix_reflect
         (F (boundaryPrefix n t htge)).prefix_reflect
           (StrongEmbedding.prefix_cancel_left
             (boundaryPrefix n t htge).1 h)
+      have htake : s.take n = t.take n := by
+        simpa [boundaryPrefix] using hbval
       rw [← List.take_append_drop n s,
-          ← List.take_append_drop n t, hbval]
+          ← List.take_append_drop n t, htake]
       exact StrongEmbedding.prefix_append_left _ hdrop
 
 /-- The graft node map is injective. -/
