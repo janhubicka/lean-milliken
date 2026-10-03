@@ -1,0 +1,16 @@
+name = "milliken"
+version = "0.1.0"
+defaultTargets = ["Milliken"]
+
+[[require]]
+name = "mathlib"
+scope = "leanprover-community"
+rev = "5bd58ac291422a21f412ae354c91e7d172255a2c"
+
+[[require]]
+name = "ramsey-space-todorcevic"
+git = "https://github.com/janhubicka/lean-ramsey-space-todorcevic"
+rev = "3bfec642146a9cdb96f3e6ff080519fb79ca957c"
+
+[[lean_lib]]
+name = "Milliken"
