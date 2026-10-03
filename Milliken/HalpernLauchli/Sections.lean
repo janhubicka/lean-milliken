@@ -78,6 +78,30 @@ def lastSection {d : ℕ}
     x ∈ lastSection P y ↔ appendLast x y ∈ P :=
   Iff.rfl
 
+@[simp] theorem lastSection_compl {d : ℕ}
+    (P : Set (Fin (d + 1) → Node ι)) (y : Node ι) :
+    lastSection Pᶜ y = (lastSection P y)ᶜ := by
+  ext x
+  rfl
+
+/-- A vector with an appended last coordinate is a level vector precisely
+when both pieces live on that same level. -/
+theorem isLevelVectorAt_appendLast {d k : ℕ}
+    {x : Fin d → Node ι} {y : Node ι} :
+    IsLevelVectorAt k (appendLast x y) ↔
+      IsLevelVectorAt k x ∧ y.length = k := by
+  constructor
+  · intro h
+    constructor
+    · intro i
+      simpa using h i.castSucc
+    · simpa using h (Fin.last d)
+  · rintro ⟨hx, hy⟩ i
+    exact Fin.lastCases
+      (by simpa using hy)
+      (fun j => by simpa using hx j)
+      i
+
 /-- Coordinatewise truncation of a vector of tree nodes. -/
 def truncateVector {d : ℕ} (n : ℕ)
     (x : Fin d → Node ι) : Fin d → Node ι :=
