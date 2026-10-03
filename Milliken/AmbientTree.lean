@@ -22,7 +22,7 @@ in a `RootedTree` are finite. -/
 structure AmbientTree where
   toRootedTree : RootedTree
   finite_children :
-    ∀ x : toRootedTree, Set.Finite {y : toRootedTree | x ⋖ y}
+    ∀ x : toRootedTree, ({y : toRootedTree | x ⋖ y} : Set toRootedTree).Finite
   has_child :
     ∀ x : toRootedTree, ∃ y : toRootedTree, x ⋖ y
 
