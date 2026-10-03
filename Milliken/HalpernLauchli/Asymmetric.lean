@@ -109,55 +109,42 @@ theorem highlyDense_or_compl_denseAbove [Finite ι] [Nonempty ι]
     simp only [HighlyDense] at hfail
     push Not at hfail
     rcases hfail with ⟨k, hk⟩
+    let badMatrix : ℕ → Matrix ι d := fun r =>
+      Classical.choose (hk (k + 1 + r))
+    have badMatrix_spec : ∀ r : ℕ,
+        (badMatrix r).DenseAt (k + 1 + r) ∧
+          ¬ ProductDenseAt
+            (P ∩ (badMatrix r).carrier) k := by
+      intro r
+      exact Classical.choose_spec (hk (k + 1 + r))
     let witness : ℕ → LevelVector ι d k := fun r =>
       Classical.choose
-        (exists_bad_levelVector P
-          (Classical.choose (hk (k + 1 + r)))
-          (Classical.choose_spec (hk (k + 1 + r))).2)
+        (exists_bad_levelVector P (badMatrix r)
+          (badMatrix_spec r).2)
+    have witness_sub : ∀ r : ℕ,
+        ((badMatrix r).restrictAbove (witness r).1).carrier ⊆
+          Pᶜ := by
+      intro r
+      exact Classical.choose_spec
+        (exists_bad_levelVector P (badMatrix r)
+          (badMatrix_spec r).2)
     have hwitness : ∀ r : ℕ,
         ∃ M : Matrix ι d,
           M.DenseAbove (witness r).1 (k + 1 + r) ∧
           M.carrier ⊆ Pᶜ := by
       intro r
-      rcases hk (k + 1 + r) with ⟨M, hMdense, hMbad⟩
-      have hx := exists_bad_levelVector P M hMbad
-      -- the chosen vector is definitionally chosen from an equivalent
-      -- witness; pin down a matrix by restricting M around that chosen cone.
-      let x : LevelVector ι d k := Classical.choose hx
-      have hxsub : (M.restrictAbove x.1).carrier ⊆ Pᶜ :=
-        Classical.choose_spec hx
-      have hbase : ∀ i, (x.1 i).length < k + 1 + r := by
+      let N : Matrix ι d :=
+        (badMatrix r).restrictAbove (witness r).1
+      have hbase : ∀ i, ((witness r).1 i).length < k + 1 + r := by
         intro i
-        rw [x.2 i]
+        rw [(witness r).2 i]
         omega
-      have hMdenseAbove :
-          (M.restrictAbove x.1).DenseAbove x.1 (k + 1 + r) :=
-        M.restrictAbove_denseAbove x.1 hMdense hbase
-      -- Rewrite the independently chosen vector to x by proof irrelevance
-      -- and choice extensionality is unavailable, so use a local choice
-      -- function below instead.
-      clear hMdenseAbove hxsub
-      exact by
-        -- This branch is replaced by the joint witness function in the
-        -- theorem proof below.
-        simpa [witness] using
-          (show ∃ N : Matrix ι d,
-              N.DenseAbove (Classical.choose
-                (exists_bad_levelVector P M hMbad)).1 (k + 1 + r) ∧
-              N.carrier ⊆ Pᶜ from
-            ⟨M.restrictAbove
-                (Classical.choose
-                  (exists_bad_levelVector P M hMbad)).1,
-              M.restrictAbove_denseAbove
-                (Classical.choose
-                  (exists_bad_levelVector P M hMbad)).1 hMdense
-                (by
-                  intro i
-                  rw [(Classical.choose
-                    (exists_bad_levelVector P M hMbad)).2 i]
-                  omega),
-              Classical.choose_spec
-                (exists_bad_levelVector P M hMbad)⟩)
+      refine ⟨N, ?_, ?_⟩
+      · dsimp [N]
+        exact (badMatrix r).restrictAbove_denseAbove
+          (witness r).1 (badMatrix_spec r).1 hbase
+      · dsimp [N]
+        exact witness_sub r
     letI : Finite (LevelVector ι d k) := finite_levelVector d k
     rcases Finite.exists_infinite_fiber witness with ⟨base, hbaseInf⟩
     have hfiber : Set.Infinite (witness ⁻¹' {base}) :=
