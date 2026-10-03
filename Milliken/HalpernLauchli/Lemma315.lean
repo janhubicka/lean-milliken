@@ -50,6 +50,7 @@ theorem sectionAvoidAt_of_le [Nonempty ι] {d : ℕ}
 level-k vector above which a level matrix misses the entire section. -/
 theorem badSectionAt_has_avoidWitness [Nonempty ι] {d k n : ℕ}
     {P : Set (Fin (d + 1) → Node ι)} {y : Node ι}
+    (hkn : k < n)
     (hbad : BadSectionAt P k n y) :
     ∃ x : LevelVector ι d k,
       SectionAvoidAt P y x.1 n := by
@@ -58,20 +59,8 @@ theorem badSectionAt_has_avoidWitness [Nonempty ι] {d k n : ℕ}
     ⟨x, hxsub⟩
   have hbase : ∀ i, (x.1 i).length < n := by
     intro i
-    have hkn : k ≤ n := by
-      -- An n-dense level matrix must dominate every level-n vector.
-      -- If n<k, product k-density is vacuous for the present witness; the
-      -- applications below only use n>k.  Derive the required inequality
-      -- from the chosen bad vector by contradiction with prefix lengths.
-      by_contra hnk
-      have hnk' : n < k := lt_of_not_ge hnk
-      -- Pick the bad vector itself only to compare lengths; a prefix from
-      -- level k to a witness for level n would be impossible.
-      have hi := x.2 i
-      omega
     rw [x.2 i]
-    -- The actual minimal-D argument invokes this lemma only at n>k.
-    omega
+    exact hkn
   let N : Matrix ι d := M.restrictAbove x.1
   refine ⟨x, N, l, ?_, ?_, ?_⟩
   · dsimp [N]
