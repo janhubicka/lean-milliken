@@ -77,21 +77,6 @@ theorem factorFun_branch_reflect (X Y : StrongEmbedding ι)
   exact (Y.branch (factorFun X Y hXY s) i).trans
     (Y.prefix_mono h)
 
-/-- A canonical source node on each level, used only to name the level map
-of the factor embedding. -/
-noncomputable def rayNode [Nonempty ι] (n : ℕ) : Node ι :=
-  List.replicate n (Classical.choice (inferInstance : Nonempty ι))
-
-@[simp] theorem rayNode_length [Nonempty ι] (n : ℕ) :
-    (rayNode (ι := ι) n).length = n := by
-  simp [rayNode]
-
-theorem rayNode_prefix [Nonempty ι] {n m : ℕ} (hnm : n ≤ m) :
-    (rayNode (ι := ι) n).IsPrefix (rayNode (ι := ι) m) := by
-  rcases Nat.exists_eq_add_of_le hnm with ⟨k, rfl⟩
-  simp only [rayNode, List.replicate_add]
-  exact List.prefix_append _ _
-
 /-- Level map of the factor embedding. -/
 noncomputable def factorLevels [Nonempty ι]
     (X Y : StrongEmbedding ι)
