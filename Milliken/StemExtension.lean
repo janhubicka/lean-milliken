@@ -89,9 +89,10 @@ theorem stemTopPrefix_eq_of_prefix {n : ℕ} (hpos : 0 < n)
   apply Subtype.ext
   have htake := hst.take (n - 1)
   apply htake.eq_of_length
-  rw [stemTopPrefix_length_of_ge n hpos s hs,
-      stemTopPrefix_length_of_ge n hpos t
-        (hs.trans hst.length_le)]
+  rw [List.length_take_of_le (by omega),
+      List.length_take_of_le (by
+        have := hst.length_le
+        omega)]
 
 /-- The extended function preserves prefixes. -/
 theorem stemExtension_prefix_mono {n : ℕ} (hpos : 0 < n)
