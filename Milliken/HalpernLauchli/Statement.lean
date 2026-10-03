@@ -20,7 +20,7 @@ variable {ι : Type u}
 
 /-- A level map witnessing the levels of a strong embedding. -/
 def HasLevels (F : StrongEmbedding ι) (levels : ℕ → ℕ) : Prop :=
-  StrictMono levels ∧ levels 0 = 0 ∧
+  StrictMono levels ∧
     ∀ s : Node ι, (F.toFun s).length = levels s.length
 
 theorem exists_hasLevels (F : StrongEmbedding ι) :
@@ -30,7 +30,7 @@ theorem exists_hasLevels (F : StrongEmbedding ι) :
 /-- A finite family of strong subtrees has one common level set. -/
 def HasCommonLevels {d : ℕ} (F : Fin d → StrongEmbedding ι)
     (levels : ℕ → ℕ) : Prop :=
-  StrictMono levels ∧ levels 0 = 0 ∧
+  StrictMono levels ∧
     ∀ i s, ((F i).toFun s).length = levels s.length
 
 /-- A tuple of tree nodes lies on one common level. -/
@@ -72,7 +72,7 @@ theorem strongSubtreeHL_zero (ι : Type u) :
   let color : Fin colors := c x0
   let F : Fin 0 → StrongEmbedding ι := fun i => Fin.elim0 i
   refine ⟨color, (fun n => n), F, ?_, ?_⟩
-  · refine ⟨strictMono_id, rfl, ?_⟩
+  · refine ⟨strictMono_id, ?_⟩
     intro i
     exact Fin.elim0 i
   · intro n x hx
