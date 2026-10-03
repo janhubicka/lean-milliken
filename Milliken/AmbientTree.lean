@@ -28,7 +28,7 @@ structure AmbientTree where
 
 namespace AmbientTree
 
-instance : CoeSort AmbientTree Type* :=
+instance : CoeSort AmbientTree Type :=
   ⟨fun U => U.toRootedTree.α⟩
 
 instance (U : AmbientTree) : SemilatticeInf U :=
