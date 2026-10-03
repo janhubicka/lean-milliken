@@ -1,4 +1,4 @@
-import Mathlib.Order.SuccPred.Tree
+import Mathlib
 
 /-!
 # Ambient finitely branching rooted trees
@@ -22,7 +22,7 @@ in a `RootedTree` are finite. -/
 structure AmbientTree where
   toRootedTree : RootedTree
   finite_children :
-    ∀ x : toRootedTree, {y : toRootedTree | x ⋖ y}.Finite
+    ∀ x : toRootedTree, Set.Finite {y : toRootedTree | x ⋖ y}
   has_child :
     ∀ x : toRootedTree, ∃ y : toRootedTree, x ⋖ y
 
