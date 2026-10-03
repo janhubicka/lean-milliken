@@ -44,7 +44,7 @@ subtrees with a common level set such that the union of their level products
 is monochromatic.  Here all ambient trees are the homogeneous tree
 `ι^{<ω}`; cones used in the Milliken pigeonhole proof are represented by
 prepending their roots. -/
-def StrongSubtreeHL (ι : Type u) : Prop :=
+def StrongSubtreeHL (ι : Type u) [Finite ι] [Nonempty ι] : Prop :=
   ∀ (d colors : ℕ) [NeZero colors]
       (c : (Fin d → Node ι) → Fin colors),
     ∃ color : Fin colors,
