@@ -86,5 +86,58 @@ theorem leFin_trans {a b c : Σ n, Approx ι n} :
           habp.2.2.1.trans hbcp.2.2.1,
           habp.2.2.2.trans hbcp.2.2.2⟩
 
+
+/-- For a fixed finite target set there are only finitely many realized
+approximations of a fixed height whose carrier is contained in that set. -/
+theorem boundedApprox_finite [Finite ι] {n : ℕ}
+    {S : Set (Node ι)} (hS : S.Finite) :
+    {a : Approx ι n | approxCarrier a ⊆ S}.Finite := by
+  letI : Finite (FiniteNode ι n) := finite_finiteNode (ι := ι) n
+  letI : Finite S := hS.to_subtype
+  let encode :
+      {a : Approx ι n // approxCarrier a ⊆ S} →
+        (FiniteNode ι n → S) :=
+    fun a s => ⟨a.1.1 s, a.2 ⟨s, rfl⟩⟩
+  have hencode : Function.Injective encode := by
+    intro a b hab
+    apply Subtype.ext
+    apply Subtype.ext
+    funext s
+    exact congrArg Subtype.val (congrFun hab s)
+  exact Finite.of_injective encode hencode
+
+/-- The lower cone of any finite approximation is finite.  This is the
+finiteness clause of A.2. -/
+theorem leFin_lowerFinite [Finite ι] (b : Σ n, Approx ι n) :
+    Set.Finite {a | leFin a b} := by
+  classical
+  let S : Set (Node ι) := approxCarrier b.2
+  have hS : S.Finite := approxCarrier_finite b.2
+  let Bounded :=
+    Σ i : Fin (b.1 + 1),
+      {a : Approx ι i.1 // approxCarrier a ⊆ S}
+  letI : ∀ i : Fin (b.1 + 1),
+      Finite {a : Approx ι i.1 // approxCarrier a ⊆ S} :=
+    fun i => (boundedApprox_finite (ι := ι) (n := i.1) hS).to_subtype
+  letI : Finite Bounded := inferInstance
+  let forget : Bounded → (Σ n, Approx ι n) :=
+    fun q => ⟨q.1.1, q.2.1⟩
+  apply (Set.finite_range forget).subset
+  intro a ha
+  have hheight : a.1 ≤ b.1 := by
+    rcases ha with h0 | hp
+    · omega
+    · exact hp.2.1
+  have hsub : approxCarrier a.2 ⊆ S := by
+    rcases ha with h0 | hp
+    · intro x hx
+      rcases hx with ⟨s, rfl⟩
+      have hs : s.1.length < a.1 := s.2
+      omega
+    · exact hp.2.2.1
+  let i : Fin (b.1 + 1) := ⟨a.1, Nat.lt_succ_of_le hheight⟩
+  let q : Bounded := ⟨i, ⟨a.2, hsub⟩⟩
+  exact ⟨q, rfl⟩
+
 end StrongTreeSpace
 end Milliken
