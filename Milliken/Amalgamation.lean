@@ -62,9 +62,12 @@ theorem amalgamation_nonempty [Finite ι] [Nonempty ι]
   by_cases hn : n = 0
   · subst n
     have haA : approx ι 0 A = a := by
+      change (S ι).approx 0 A = a
       rcases (S ι).approx_surjective 0 a with ⟨X, hX⟩
-      rw [(S ι).approx_zero A]
-      exact ((S ι).approx_zero X).symm.trans hX
+      calc
+        (S ι).approx 0 A = (S ι).empty := (S ι).approx_zero A
+        _ = (S ι).approx 0 X := ((S ι).approx_zero X).symm
+        _ = a := hX
     exact ⟨A, (S ι).le_refl A, haA⟩
   · have hpos : 0 < n := Nat.pos_of_ne_zero hn
     let E : StrongEmbedding ι :=
