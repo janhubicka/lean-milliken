@@ -142,6 +142,46 @@ def ConeDense (X : Set (Node ι)) (t : Node ι) : Prop :=
 def SomewhereConeDense (X : Set (Node ι)) : Prop :=
   ∃ t, ConeDense X t
 
+/-- The cone above `u` meets `X`. -/
+def ConeMeets (X : Set (Node ι)) (u : Node ι) : Prop :=
+  ∃ x ∈ X, u.IsPrefix x
+
+/-- Topological density of `A` in the subspace `X`.  Every basic cone
+which meets `X` also meets `A`. -/
+def DenseIn (A X : Set (Node ι)) : Prop :=
+  ∀ u, ConeMeets X u → ConeMeets A u
+
+/-- `A` is somewhere dense relative to the subspace `X`: on one basic
+cone it is dense in `X`. -/
+def SomewhereDenseIn (A X : Set (Node ι)) : Prop :=
+  ∃ t, ConeMeets X t ∧
+    ∀ u, t.IsPrefix u → ConeMeets X u → ConeMeets A u
+
+/-- Relative nowhere density. -/
+def NowhereDenseIn (A X : Set (Node ι)) : Prop :=
+  ¬ SomewhereDenseIn A X
+
+theorem denseIn_mono_left {A B X : Set (Node ι)}
+    (hAB : A ⊆ B) (hA : DenseIn A X) :
+    DenseIn B X := by
+  intro u hXu
+  rcases hA u hXu with ⟨a, haA, hua⟩
+  exact ⟨a, hAB haA, hua⟩
+
+theorem somewhereConeDense_of_denseIn
+    {A X : Set (Node ι)}
+    (hX : SomewhereConeDense X)
+    (hA : DenseIn A X) :
+    SomewhereConeDense A := by
+  rcases hX with ⟨t, hXt⟩
+  refine ⟨t, ?_⟩
+  intro u htu
+  have hXu : ConeMeets X u := by
+    rcases hXt htu with ⟨x, hxX, hux⟩
+    exact ⟨x, hxX, hux⟩
+  rcases hA u hXu with ⟨a, haA, hua⟩
+  exact ⟨a, haA, hua⟩
+
 theorem coneDense_mono {X Y : Set (Node ι)} {t : Node ι}
     (hXY : X ⊆ Y) (hX : ConeDense X t) :
     ConeDense Y t := by
