@@ -175,7 +175,7 @@ theorem highlyDense_of_compl_no_somewhereDense {d : ℕ}
   intro M hM
   intro x hx
   by_contra hxy
-  push_neg at hxy
+  push Not at hxy
   let N : Matrix ι d := M.restrictAbove x
   have hbase : ∀ i, (x i).length < k + 1 := by
     intro i
@@ -192,7 +192,8 @@ theorem highlyDense_of_compl_no_somewhereDense {d : ℕ}
       exact M.restrictAbove_carrier_subset x hyN
     have hprefix : ∀ i, (x i).IsPrefix (y i) :=
       M.restrictAbove_prefix x hyN
-    exact (hxy y ⟨hyP, hyM⟩) hprefix
+    rcases hxy y ⟨hyP, hyM⟩ with ⟨i, hi⟩
+    exact hi (hprefix i)
   exact hno ⟨N, hNsome, hNcompl⟩
 
 
