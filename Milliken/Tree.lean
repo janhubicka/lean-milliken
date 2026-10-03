@@ -51,17 +51,19 @@ theorem ext {F G : StrongEmbedding ι}
     (h : ∀ s, F.toFun s = G.toFun s) : F = G := by
   cases F
   cases G
-  simp_all
+  congr
+  funext s
+  exact h s
 
 /-- The identity strong embedding. -/
 def id : StrongEmbedding ι where
-  toFun := id
+  toFun := fun s => s
   map_nil := rfl
   injective := Function.injective_id
   prefix_mono := fun h => h
   branch := by
     intro s i
-    exact List.IsPrefix.refl _
+    simp [child]
   level_witness := by
     refine ⟨id, strictMono_id, rfl, ?_⟩
     intro s
@@ -97,12 +99,12 @@ def comp (F G : StrongEmbedding ι) : StrongEmbedding ι where
 @[simp] theorem comp_id (F : StrongEmbedding ι) :
     comp F id = F := by
   ext s
-  rfl
+  simp
 
 @[simp] theorem id_comp (F : StrongEmbedding ι) :
     comp id F = F := by
   ext s
-  rfl
+  simp
 
 theorem comp_assoc (F G H : StrongEmbedding ι) :
     comp (comp F G) H = comp F (comp G H) := by
