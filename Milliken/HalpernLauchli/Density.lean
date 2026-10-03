@@ -64,6 +64,15 @@ def carrier (M : Matrix ι d) : Set (Fin d → Node ι) :=
 def DenseAt (M : Matrix ι d) (k : ℕ) : Prop :=
   ∀ i, HalpernLauchli.DenseAt (M.coord i) k
 
+/-- Every coordinate set of the matrix lies on one common ambient level. -/
+def OnLevel (M : Matrix ι d) (l : ℕ) : Prop :=
+  ∀ i y, y ∈ M.coord i → y.length = l
+
+/-- A dense level matrix, with the common supporting level retained
+existentially. -/
+def LevelDenseAt (M : Matrix ι d) (k : ℕ) : Prop :=
+  ∃ l, M.OnLevel l ∧ M.DenseAt k
+
 def DenseAbove (M : Matrix ι d) (base : Fin d → Node ι) (k : ℕ) : Prop :=
   ∀ i, HalpernLauchli.DenseAbove (M.coord i) (base i) k
 
@@ -81,6 +90,11 @@ theorem fullLevel_dense (k : ℕ) :
     (fullLevel (ι := ι) (d := d) k).DenseAt k := by
   intro i y hy
   exact ⟨y, hy, by simp⟩
+
+theorem fullLevel_onLevel (k : ℕ) :
+    (fullLevel (ι := ι) (d := d) k).OnLevel k := by
+  intro i y hy
+  exact hy
 
 /-- Coordinatewise density of a matrix is exactly enough to obtain density
 of its cartesian carrier in the product. -/
@@ -145,6 +159,13 @@ theorem Matrix.restrictAbove_prefix {d : ℕ}
     ∀ i, (base i).IsPrefix (y i) := by
   intro i
   exact (hy i).2
+
+theorem Matrix.restrictAbove_onLevel {d : ℕ}
+    {M : Matrix ι d} {base : Fin d → Node ι} {l : ℕ}
+    (hM : M.OnLevel l) :
+    (M.restrictAbove base).OnLevel l := by
+  intro i y hy
+  exact hM i y hy.1
 
 /-- If `M` is dense at a level strictly above the base vector, restricting
 to the corresponding cones gives a matrix dense above that base. -/
@@ -214,6 +235,20 @@ def HDHL (ι : Type u) (d : ℕ) : Prop :=
   ∀ P : Set (Fin d → Node ι), HighlyDense P →
     ∀ k, 0 < k →
       ∃ M : Matrix ι d, M.DenseAt k ∧ M.carrier ⊆ P
+
+/-- Strengthened form used in Section 3.2: the witnessing dense matrix is a
+level matrix. -/
+def LevelHDHL (ι : Type u) (d : ℕ) : Prop :=
+  ∀ P : Set (Fin d → Node ι), HighlyDense P →
+    ∀ k, 0 < k →
+      ∃ M : Matrix ι d, M.LevelDenseAt k ∧ M.carrier ⊆ P
+
+theorem hdhl_of_levelHDHL {d : ℕ}
+    (h : LevelHDHL ι d) :
+    HDHL ι d := by
+  intro P hP k hk
+  rcases h P hP k hk with ⟨M, ⟨l, hlevel, hM⟩, hsub⟩
+  exact ⟨M, hM, hsub⟩
 
 /-- The somewhere-dense-matrix formulation `SDHL_d` (Theorem 3.1),
 stated for finite colorings. -/
