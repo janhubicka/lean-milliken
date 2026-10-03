@@ -23,6 +23,20 @@ abbrev Node (ι : Type u) := List ι
 def child (s : Node ι) (i : ι) : Node ι :=
   s ++ [i]
 
+/-- A canonical node on each level of the homogeneous tree. -/
+noncomputable def rayNode [Nonempty ι] (n : ℕ) : Node ι :=
+  List.replicate n (Classical.choice (inferInstance : Nonempty ι))
+
+@[simp] theorem rayNode_length [Nonempty ι] (n : ℕ) :
+    (rayNode (ι := ι) n).length = n := by
+  simp [rayNode]
+
+theorem rayNode_prefix [Nonempty ι] {n m : ℕ} (hnm : n ≤ m) :
+    (rayNode (ι := ι) n).IsPrefix (rayNode (ι := ι) m) := by
+  rcases Nat.exists_eq_add_of_le hnm with ⟨k, rfl⟩
+  simp only [rayNode, List.replicate_add]
+  exact List.prefix_append _ _
+
 /-- A strong self-embedding of the full finitely branching tree `ι^{<ω}`.
 
 The branch-label clause is Todorčević's condition (str2) in embedding form:
