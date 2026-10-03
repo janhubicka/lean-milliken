@@ -28,34 +28,6 @@ theorem approxCarrier_subset_range (X : StrongEmbedding ι) (d : ℕ) :
   rintro x ⟨s, rfl⟩
   exact ⟨s.1, rfl⟩
 
-/-- Transfer finite-carrier inclusion across equality of a level
-approximation. -/
-theorem carrier_subset_range_of_leFin_level
-    {n d : ℕ} (a : Approx ι n)
-    (B A : StrongEmbedding ι)
-    (hfin :
-      leFin ((S ι).finiteApprox n (approxRealizer a))
-        ((S ι).finiteApprox d B))
-    (hlevel : approx ι d A = approx ι d B) :
-    approxCarrier a ⊆ StrongEmbedding.range A := by
-  intro x hx
-  have haRealizer :
-      approx ι n (approxRealizer a) = a := by
-    apply Subtype.ext
-    funext s
-    exact approxRealizer_spec a s
-  have hxRealizer :
-      x ∈ approxCarrier (approx ι n (approxRealizer a)) := by
-    simpa [haRealizer] using hx
-  have hxB :
-      x ∈ approxCarrier (approx ι d B) :=
-    hfin.2 hxRealizer
-  have hxA :
-      x ∈ approxCarrier (approx ι d A) := by
-    rw [hlevel]
-    exact hxB
-  exact approxCarrier_subset_range A d hxA
-
 /-- A version of the preceding transfer lemma with an arbitrary tagged finite
 approximation, matching the shape of a depth witness. -/
 theorem carrier_subset_range_of_depth_main [Finite ι] [Nonempty ι]
