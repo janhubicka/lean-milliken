@@ -113,6 +113,79 @@ theorem carrier_mono {M N : Matrix ι d}
 
 end Matrix
 
+/-- Restrict every coordinate of a matrix to nodes lying above a prescribed
+base vector. -/
+def Matrix.restrictAbove {d : ℕ} (M : Matrix ι d)
+    (base : Fin d → Node ι) : Matrix ι d where
+  coord := fun i => {y | y ∈ M.coord i ∧ (base i).IsPrefix y}
+
+theorem Matrix.restrictAbove_carrier_subset {d : ℕ}
+    (M : Matrix ι d) (base : Fin d → Node ι) :
+    (M.restrictAbove base).carrier ⊆ M.carrier := by
+  intro y hy i
+  exact (hy i).1
+
+theorem Matrix.restrictAbove_prefix {d : ℕ}
+    (M : Matrix ι d) (base : Fin d → Node ι)
+    {y : Fin d → Node ι}
+    (hy : y ∈ (M.restrictAbove base).carrier) :
+    ∀ i, (base i).IsPrefix (y i) := by
+  intro i
+  exact (hy i).2
+
+/-- If `M` is dense at a level strictly above the base vector, restricting
+to the corresponding cones gives a matrix dense above that base. -/
+theorem Matrix.restrictAbove_denseAbove {d : ℕ}
+    (M : Matrix ι d) (base : Fin d → Node ι) {n : ℕ}
+    (hM : M.DenseAt n)
+    (hbase : ∀ i, (base i).length < n) :
+    (M.restrictAbove base).DenseAbove base n := by
+  intro i t ht
+  rcases hM i t ht.2 with ⟨y, hyM, hty⟩
+  refine ⟨y, ?_, hty⟩
+  exact ⟨hyM, ht.1.trans hty⟩
+
+/-- A set contains a somewhere-dense matrix. -/
+def ContainsSomewhereDense {d : ℕ}
+    (P : Set (Fin d → Node ι)) : Prop :=
+  ∃ M : Matrix ι d, M.SomewhereDense ∧ M.carrier ⊆ P
+
+/-- Observation preceding Lemma 3.5 in Todorčević: if the complement of
+`P` contains no somewhere-dense matrix, then `P` is highly dense.
+
+The proof uses the book's witness `n = k+1`.  If a `(k+1)`-dense matrix
+failed to meet `P` in a `k`-dense set, restrict it to the cones above the
+missing level-`k` vector.  The restricted matrix is somewhere dense and is
+entirely contained in the complement. -/
+theorem highlyDense_of_compl_no_somewhereDense {d : ℕ}
+    (P : Set (Fin d → Node ι))
+    (hno : ¬ ContainsSomewhereDense Pᶜ) :
+    HighlyDense P := by
+  intro k
+  refine ⟨k + 1, ?_⟩
+  intro M hM
+  intro x hx
+  by_contra hxy
+  push_neg at hxy
+  let N : Matrix ι d := M.restrictAbove x
+  have hbase : ∀ i, (x i).length < k + 1 := by
+    intro i
+    rw [hx i]
+    omega
+  have hNdense : N.DenseAbove x (k + 1) := by
+    dsimp [N]
+    exact M.restrictAbove_denseAbove x hM hbase
+  have hNsome : N.SomewhereDense :=
+    ⟨x, k + 1, hbase, hNdense⟩
+  have hNcompl : N.carrier ⊆ Pᶜ := by
+    intro y hyN hyP
+    have hyM : y ∈ M.carrier := by
+      exact M.restrictAbove_carrier_subset x hyN
+    have hprefix : ∀ i, (x i).IsPrefix (y i) :=
+      M.restrictAbove_prefix x hyN
+    exact (hxy y ⟨hyP, hyM⟩) hprefix
+  exact hno ⟨N, hNsome, hNcompl⟩
+
 /-- Definition 3.4, in the form used for Theorem 3.6: every sufficiently
 dense matrix meets `P` in a prescribed dense subset of the product. -/
 def HighlyDense {d : ℕ} (P : Set (Fin d → Node ι)) : Prop :=
