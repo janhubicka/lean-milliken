@@ -5,6 +5,7 @@ import Milliken.Graft
 import Milliken.GraftRamsey
 import Milliken.Chapter6
 import Milliken.OneStep
+import Milliken.Pigeonhole
 import Milliken.RamseyBasic
 import Milliken.FiniteApprox
 import Milliken.Finitization
