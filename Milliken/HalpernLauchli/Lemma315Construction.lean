@@ -151,14 +151,22 @@ theorem exists_normalizedAvoidState
         baseBelowSupport := S.baseBelowSupport.trans hlvl'
       }⟩
       · intro z hz
+        have hzFin : z = y ∨ z ∈ S.Y := by
+          simpa [Y'] using hz
         have hz' :
             z ∈ Set.insert y (S.Y : Set (Node ι)) := by
-          simpa [Y'] using hz
+          rcases hzFin with rfl | hzY
+          · exact Set.mem_insert _ _
+          · exact Set.mem_insert_iff.mpr (Or.inr hzY)
         exact havoid' z hz'
       · intro z hz
+        have hzFin : z = y ∨ z ∈ S.Y := by
+          simpa [Y'] using hz
         have hz' :
             z ∈ Set.insert y (S.Y : Set (Node ι)) := by
-          simpa [Y'] using hz
+          rcases hzFin with rfl | hzY
+          · exact Set.mem_insert _ _
+          · exact Set.mem_insert_iff.mpr (Or.inr hzY)
         exact hbelow' z hz'
       · intro j hj
         rcases Finset.mem_insert.mp hj with rfl | hjE
