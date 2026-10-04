@@ -32,10 +32,7 @@ theorem depth_zero_of_level_zero
   let S := approximationSystem ι
   have haB : a = S.approx 0 B := by
     rcases S.approx_surjective 0 a with ⟨X, hX⟩
-    calc
-      a = S.approx 0 X := hX.symm
-      _ = S.empty := S.approx_zero X
-      _ = S.approx 0 B := (S.approx_zero B).symm
+    rw [← hX, S.approx_zero X, S.approx_zero B]
   have hle0 :
       (finitization (ι := ι)).leFin
         (⟨0, a⟩ : S.FiniteApprox)
@@ -104,7 +101,7 @@ theorem amalgamation_refine_standard
           J.toFun (K.toFun s) ∈ StrongEmbedding.range H := by
         by_cases hs : s.length < n
         · have hmap :=
-            toFun_eq_of_approx_eq hstem hs
+            toFun_eq_of_approx_eq (ι := ι) hstem hs
           change
             B.toFun (J.toFun (K.toFun s)) =
               B.toFun (H.toFun s) at hmap
@@ -121,7 +118,7 @@ theorem amalgamation_refine_standard
             rw [q.2]
             omega
           have hmapq :=
-            toFun_eq_of_approx_eq hstem hqlt
+            toFun_eq_of_approx_eq (ι := ι) hstem hqlt
           change
             B.toFun (J.toFun (K.toFun q.1)) =
               B.toFun (H.toFun q.1) at hmapq
