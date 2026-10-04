@@ -17,6 +17,7 @@ import Milliken.DepthBoundary
 import Milliken.Stem
 import Milliken.StemExtension
 import Milliken.Amalgamation
+import Milliken.AmalgamationBoundary
 import Milliken.Closed
 import Milliken.HalpernLauchli.Statement
 import Milliken.HalpernLauchli.Density
