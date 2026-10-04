@@ -42,7 +42,7 @@ theorem boundary_prefix_factor {n : ℕ}
     q.1.IsPrefix (H.toFun q.1) := by
   by_cases hq : q.1 = []
   · rw [hq]
-    exact List.nil_prefix _
+    exact List.nil_prefix
   · let p : Node ι := q.1.dropLast
     let i : ι := q.1.getLast hq
     have hqeq : p ++ [i] = q.1 := by
