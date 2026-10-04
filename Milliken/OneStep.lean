@@ -135,12 +135,14 @@ theorem factor_oneStep_eq_tuple [Nonempty ι] {n : ℕ}
           (StrongEmbedding.comp
             (StrongEmbedding.comp T (BoundaryGraft.graft F hF)) H) =
         StrongTreeSpace.approx ι n T) :
-    ∃ m : ℕ, ∃ x : LevelNode ι n → Node ι,
-      ∃ hx : ∀ q, (x q).length = m,
-        StrongTreeSpace.approx ι (n + 1)
-            (StrongEmbedding.comp
-              (StrongEmbedding.comp T (BoundaryGraft.graft F hF)) H) =
-          tupleApprox T x hx := by
+    ∃ k : ℕ, ∃ r : LevelNode ι n → Node ι,
+      ∃ hr : ∀ q, (r q).length = k,
+        ∃ m : ℕ,
+          ∃ hx : ∀ q, ((F q).toFun (r q)).length = m,
+            StrongTreeSpace.approx ι (n + 1)
+                (StrongEmbedding.comp
+                  (StrongEmbedding.comp T (BoundaryGraft.graft F hF)) H) =
+              tupleApprox T (fun q => (F q).toFun (r q)) hx := by
   let G : StrongEmbedding ι := BoundaryGraft.graft F hF
   let S : StrongEmbedding ι := StrongEmbedding.comp T G
   have hS :
@@ -166,13 +168,18 @@ theorem factor_oneStep_eq_tuple [Nonempty ι] {n : ℕ}
       StrictMono levels ∧
         ∀ q s, ((F q).toFun s).length = levels s.length :=
     Classical.choose_spec hF
+  let r : LevelNode ι n → Node ι :=
+    fun q => factorSuffix H q
+  have hr : ∀ q, (r q).length = k := by
+    intro q
+    exact hk q
   let x : LevelNode ι n → Node ι :=
-    fun q => (F q).toFun (factorSuffix H q)
+    fun q => (F q).toFun (r q)
   have hx : ∀ q, (x q).length = levels k := by
     intro q
     dsimp [x]
-    rw [hlevels.2 q (factorSuffix H q), hk q]
-  refine ⟨levels k, x, hx, ?_⟩
+    rw [hlevels.2 q (r q), hr q]
+  refine ⟨k, r, hr, levels k, hx, ?_⟩
   apply Subtype.ext
   funext s
   change
@@ -198,10 +205,10 @@ theorem factor_oneStep_eq_tuple [Nonempty ι] {n : ℕ}
       (boundary_append_factorSuffix H hfix q).symm
     have hG :
         G.toFun (H.toFun q.1) =
-          q.1 ++ (F q).toFun (factorSuffix H q) := by
+          q.1 ++ (F q).toFun (r q) := by
       rw [hH]
       dsimp [G]
-      exact graft_boundary_append F hF q (factorSuffix H q)
+      exact graft_boundary_append F hF q (r q)
     have htuple :
         (tupleGraft x hx).toFun q.1 = q.1 ++ x q := by
       have h := graft_boundary_append
