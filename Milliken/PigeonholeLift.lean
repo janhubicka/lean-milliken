@@ -56,29 +56,28 @@ theorem pigeonhole_of_canonical_and_refine
     ∃ A, A ∈ (TreeSystem ι).levelNeighborhood d B ∧
       ((TreeSystem ι).oneStepApproximations a A ⊆ O ∨
         Disjoint ((TreeSystem ι).oneStepApproximations a A) O) := by
-  let S := TreeSystem ι
-  have hBlevel : B ∈ S.levelNeighborhood d B :=
-    S.self_mem_levelNeighborhood d B
+  have hBlevel : B ∈ (TreeSystem ι).levelNeighborhood d B :=
+    (TreeSystem ι).self_mem_levelNeighborhood d B
   rcases StrongTreeSpace.amalgamation_nonempty a B hd hBlevel with
     ⟨T, hTB, hTa⟩
-  have hT : T ∈ S.neighborhood a B :=
+  have hT : T ∈ (TreeSystem ι).neighborhood a B :=
     ⟨hTB, hTa⟩
   let Oconcrete : Set (StrongTreeSpace.Approx ι (n + 1)) :=
     fun b => (show (TreeSystem ι).Approx (n + 1) from b) ∈ O
   rcases hCanonical T Oconcrete with
     ⟨U, hUT, hUhom⟩
-  have hUa : S.approx n U = a := by
+  have hUa : (TreeSystem ι).approx n U = a := by
     exact hUT.2.trans hT.2
-  have hUB : S.le U B :=
-    S.le_trans hUT.1 hT.1
-  have hUneigh : U ∈ S.neighborhood a B :=
+  have hUB : (TreeSystem ι).le U B :=
+    (TreeSystem ι).le_trans hUT.1 hT.1
+  have hUneigh : U ∈ (TreeSystem ι).neighborhood a B :=
     ⟨hUB, hUa⟩
   have hTaConcrete :
       StrongTreeSpace.approx ι n T = a := by
     exact hT.2
   have hUhom' :
-      S.oneStepApproximations a U ⊆ O ∨
-        Disjoint (S.oneStepApproximations a U) O := by
+      (TreeSystem ι).oneStepApproximations a U ⊆ O ∨
+        Disjoint ((TreeSystem ι).oneStepApproximations a U) O := by
     have h := hUhom
     rw [hTaConcrete] at h
     rcases h with hpos | hneg
@@ -94,8 +93,8 @@ theorem pigeonhole_of_canonical_and_refine
   rcases hRefine a B hd hUneigh with
     ⟨A, hAB, hsub⟩
   have hone :
-      S.oneStepApproximations a A ⊆
-        S.oneStepApproximations a U := by
+      (TreeSystem ι).oneStepApproximations a A ⊆
+        (TreeSystem ι).oneStepApproximations a U := by
     intro b hb
     rcases hb with ⟨X, hXA, hXb⟩
     exact ⟨X, hsub hXA, hXb⟩
