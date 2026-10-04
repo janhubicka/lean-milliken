@@ -205,7 +205,9 @@ theorem frontier_assignedSource [Nonempty ι] {n d : ℕ}
     frontierNode hn hd H htop
         (assignedSource hn hd H htop p) = p := by
   classical
-  simp [assignedSource, hp]
+  unfold assignedSource
+  simp only [dif_pos hp]
+  exact Classical.choose_spec hp
 
 /-- Fill every depth boundary cone with one of the continuations of `H`.
 On unused boundary nodes the choice is irrelevant. -/
