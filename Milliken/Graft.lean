@@ -181,7 +181,6 @@ theorem graftFun_branch
   by_cases hs : s.length < n
   · by_cases hc : (child s i).length < n
     · rw [graftFun_of_lt F s hs, graftFun_of_lt F (child s i) hc]
-      exact List.IsPrefix.refl _
     · have hcge : n ≤ (child s i).length := le_of_not_gt hc
       have hslen : s.length + 1 = n := by
         simp [child] at hcge
@@ -191,7 +190,7 @@ theorem graftFun_branch
           (boundaryPrefix n (child s i) hcge).1 = child s i := by
         dsimp [boundaryPrefix]
         apply (List.take_eq_self_iff _).2
-        exact hslen.le
+        simpa [child] using hslen.le
       rw [hb]
       exact List.prefix_append _ _
   · have hsge : n ≤ s.length := le_of_not_gt hs
@@ -255,11 +254,11 @@ theorem graftFun_branch_reflect
           rw [List.take_eq_self_iff]
           omega
         rw [hleft] at hp
-        exact hp.eq_of_length (by
+        exact (hp.eq_of_length (by
           rw [List.length_take_of_le]
           · exact hslen
           · have := hprefix.length_le
-            omega)
+            omega)).symm
       have hst : child s i = t.take n := by
         rw [← htake]
         exact hchildTake.symm
