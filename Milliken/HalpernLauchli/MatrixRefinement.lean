@@ -26,6 +26,17 @@ namespace Matrix
 
 variable {d : ℕ}
 
+/-- Restricting an already cone-dense matrix to the same cone preserves its
+cone density. -/
+theorem restrictAbove_denseAbove_self
+    {M : Matrix ι d} {base : Fin d → Node ι} {n : ℕ}
+    (hM : M.DenseAbove base n) :
+    (M.restrictAbove base).DenseAbove base n := by
+  intro i t ht
+  rcases hM i ht with ⟨y, hyM, hty⟩
+  refine ⟨y, ?_, hty⟩
+  exact ⟨hyM, ht.1.trans hty⟩
+
 /-- Keep the part of `B` which lies above `A`, coordinatewise. -/
 def refineOver (A B : Matrix ι d) : Matrix ι d where
   coord := fun i => {z | z ∈ B.coord i ∧
