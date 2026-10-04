@@ -120,12 +120,16 @@ theorem refineOver_avoids_section
       truncateVector q a = truncateVector q z := by
     funext i
     have hp := (haz i).take q
+    have hqAi : q ≤ (a i).length := by
+      rw [haLevel i]
+      exact hqA
+    have hqZi : q ≤ (z i).length := by
+      rw [hzLevel i]
+      exact hqB
     have hpa : (a i).take q = (z i).take q :=
       hp.eq_of_length (by
-        rw [List.length_take_of_le]
-        · rw [List.length_take_of_le]
-          exact hqB
-        · exact hqA)
+        rw [List.length_take_of_le hqAi,
+            List.length_take_of_le hqZi])
     exact hpa
   have hzTrunc :
       truncateVector q z ∈ lastSection P y :=
