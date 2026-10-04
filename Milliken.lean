@@ -36,5 +36,6 @@ import Milliken.HalpernLauchli.FiniteHL
 import Milliken.HalpernLauchli.FiniteWitness
 import Milliken.HalpernLauchli.FiniteHLCompactness
 import Milliken.HalpernLauchli.FiniteHLTransport
+import Milliken.HalpernLauchli.FiniteHLFromHDHL
 
 import Milliken.MillikenTheorem
