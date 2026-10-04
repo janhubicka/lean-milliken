@@ -27,7 +27,7 @@ variable {ι : Type u}
 
 /-- State after processing the branch labels in `E`. -/
 structure NormalizedAvoidState
-    {d k n0 : ℕ}
+    {d k : ℕ}
     (P : Set (Fin (d + 1) → Node ι))
     (x : LevelVector ι d k)
     (t : Node ι)
@@ -36,7 +36,7 @@ structure NormalizedAvoidState
   level : ℕ
   Y : Finset (Node ι)
   onLevel : M.OnLevel level
-  dense : M.DenseAbove x.1 n0
+  dense : M.DenseAbove x.1 (t.length + 1)
   aboveBase :
     ∀ z ∈ M.carrier, ∀ i, (x.1 i).IsPrefix (z i)
   avoids :
