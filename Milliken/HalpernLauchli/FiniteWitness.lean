@@ -1,6 +1,5 @@
 import Milliken.HalpernLauchli.FiniteHL
 import Mathlib.Data.Fintype.Pi
-import Mathlib.Topology.Instances.Fin
 
 /-!
 # Finite witnesses for the compactness proof of Theorem 3.9
