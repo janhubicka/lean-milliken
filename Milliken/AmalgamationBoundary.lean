@@ -30,6 +30,7 @@ theorem levelNode_ne_nil {n : ℕ} (hn : 0 < n)
   have hlen : r.1.length = 0 := by
     rw [hr]
     rfl
+  rw [r.2] at hlen
   omega
 
 /-- Parent of a node on positive level `n`. -/
@@ -37,8 +38,7 @@ def parentNode {n : ℕ} (hn : 0 < n)
     (r : LevelNode ι n) :
     LevelNode ι (n - 1) :=
   ⟨r.1.dropLast, by
-    rw [List.length_dropLast, r.2]
-    omega⟩
+    rw [List.length_dropLast, r.2]⟩
 
 /-- Last branch label of a positive-level node. -/
 def lastLabel {n : ℕ} (hn : 0 < n)
@@ -95,8 +95,7 @@ def continuation {n d : ℕ}
   StrongEmbedding.rebase
     (StrongEmbedding.cone H r.1) p.1
     (by
-      change p.1.IsPrefix (H.toFun r.1)
-      exact frontier_prefix_image hn hd H htop r)
+      simpa using frontier_prefix_image hn hd H htop r)
 
 /-- Grafting the rebased continuation back onto its boundary recovers the
 original cone of `H`. -/
@@ -113,8 +112,7 @@ theorem continuation_reconstruct {n d : ℕ}
   let p := frontierNode hn hd H htop r
   have hp :
       p.1.IsPrefix ((StrongEmbedding.cone H r.1).toFun []) := by
-    change p.1.IsPrefix (H.toFun r.1)
-    exact frontier_prefix_image hn hd H htop r
+    simpa using frontier_prefix_image hn hd H htop r
   have h := StrongEmbedding.prefix_append_rebase
     (StrongEmbedding.cone H r.1) hp s
   simpa [p, continuation] using h
@@ -189,8 +187,9 @@ noncomputable def assignedSource [Nonempty ι] {n d : ℕ}
       ∀ q : LevelNode ι (n - 1),
         (H.toFun q.1).length = d - 1)
     (p : LevelNode ι d) :
-    LevelNode ι n :=
-  if h : ∃ r : LevelNode ι n, frontierNode hn hd H htop r = p then
+    LevelNode ι n := by
+  classical
+  exact if h : ∃ r : LevelNode ι n, frontierNode hn hd H htop r = p then
     Classical.choose h
   else
     defaultLevelNode n
@@ -206,7 +205,7 @@ theorem frontier_assignedSource [Nonempty ι] {n d : ℕ}
     frontierNode hn hd H htop
         (assignedSource hn hd H htop p) = p := by
   classical
-  simp [assignedSource, hp, Classical.choose_spec hp]
+  simp [assignedSource, hp]
 
 /-- Fill every depth boundary cone with one of the continuations of `H`.
 On unused boundary nodes the choice is irrelevant. -/
