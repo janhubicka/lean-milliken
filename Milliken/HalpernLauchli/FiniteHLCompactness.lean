@@ -59,10 +59,8 @@ theorem cylinder_isOpen
   rw [heq]
   apply W.carrierFinite.isOpen_biInter
   intro x hx
-  have hopen : IsOpen ({W.color} : Set (Fin 2)) :=
-    isOpen_discrete _
-  simpa only [Set.preimage_setOf_eq] using
-    hopen.preimage (continuous_apply x)
+  change IsOpen ((fun c : BinaryColoring ι d => c x) ⁻¹' {W.color})
+  exact (isOpen_discrete _).preimage (continuous_apply x)
 
 end FiniteHLWitness
 
