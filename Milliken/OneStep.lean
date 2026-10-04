@@ -1,4 +1,4 @@
-import Milliken.GraftRamsey
+import Milliken.Chapter6
 
 /-!
 # Factors which preserve a finite strong stem
@@ -120,6 +120,98 @@ theorem factorSuffix_commonLevel {n : ℕ}
   refine ⟨levels n - n, ?_⟩
   intro q
   simp [factorSuffix, List.length_drop, hlevels, q.2]
+
+
+/-- Converse to the tuple construction.  Any reduction of a boundary graft
+which preserves the old `n`-stem has its new level described by one
+common-level tuple inside the chosen boundary subtrees. -/
+theorem factor_oneStep_eq_tuple [Nonempty ι] {n : ℕ}
+    (T : StrongEmbedding ι)
+    (F : LevelNode ι n → StrongEmbedding ι)
+    (hF : BoundaryGraft.HasCommonLevels F)
+    (H : StrongEmbedding ι)
+    (hstem :
+      StrongTreeSpace.approx ι n
+          (StrongEmbedding.comp
+            (StrongEmbedding.comp T (BoundaryGraft.graft F hF)) H) =
+        StrongTreeSpace.approx ι n T) :
+    ∃ m : ℕ, ∃ x : LevelNode ι n → Node ι,
+      ∃ hx : ∀ q, (x q).length = m,
+        StrongTreeSpace.approx ι (n + 1)
+            (StrongEmbedding.comp
+              (StrongEmbedding.comp T (BoundaryGraft.graft F hF)) H) =
+          tupleApprox T x hx := by
+  let G : StrongEmbedding ι := BoundaryGraft.graft F hF
+  let S : StrongEmbedding ι := StrongEmbedding.comp T G
+  have hS :
+      StrongTreeSpace.approx ι n S =
+        StrongTreeSpace.approx ι n T := by
+    dsimp [S, G]
+    exact BoundaryGraft.approx_comp_graft T F hF
+  have hfactor :
+      StrongTreeSpace.approx ι n (StrongEmbedding.comp S H) =
+        StrongTreeSpace.approx ι n S := by
+    calc
+      StrongTreeSpace.approx ι n (StrongEmbedding.comp S H)
+          = StrongTreeSpace.approx ι n T := by
+              simpa [S, G] using hstem
+      _ = StrongTreeSpace.approx ι n S := hS.symm
+  have hfix :
+      ∀ (s : Node ι), s.length < n → H.toFun s = s := by
+    intro s hs
+    exact factor_fixes_below S H hfactor hs
+  rcases factorSuffix_commonLevel (n := n) H with ⟨k, hk⟩
+  let levels : ℕ → ℕ := Classical.choose hF
+  have hlevels :
+      StrictMono levels ∧
+        ∀ q s, ((F q).toFun s).length = levels s.length :=
+    Classical.choose_spec hF
+  let x : LevelNode ι n → Node ι :=
+    fun q => (F q).toFun (factorSuffix H q)
+  have hx : ∀ q, (x q).length = levels k := by
+    intro q
+    dsimp [x]
+    rw [hlevels.2 q (factorSuffix H q), hk q]
+  refine ⟨levels k, x, hx, ?_⟩
+  apply Subtype.ext
+  funext s
+  change
+    T.toFun (G.toFun (H.toFun s.1)) =
+      T.toFun ((tupleGraft x hx).toFun s.1)
+  by_cases hs : s.1.length < n
+  · rw [hfix s.1 hs]
+    have hG :
+        G.toFun s.1 = s.1 := by
+      dsimp [G]
+      exact BoundaryGraft.graft_toFun_of_lt F hF s.1 hs
+    have htuple :
+        (tupleGraft x hx).toFun s.1 = s.1 := by
+      exact BoundaryGraft.graft_toFun_of_lt
+        (tupleCones x) (tupleCones_commonLevels x hx) s.1 hs
+    rw [hG, htuple]
+  · have hsn : s.1.length = n := by
+      have hslt : s.1.length < n + 1 := s.2
+      omega
+    let q : LevelNode ι n := ⟨s.1, hsn⟩
+    have hH :
+        H.toFun q.1 = q.1 ++ factorSuffix H q :=
+      (boundary_append_factorSuffix H hfix q).symm
+    have hG :
+        G.toFun (H.toFun q.1) =
+          q.1 ++ (F q).toFun (factorSuffix H q) := by
+      rw [hH]
+      dsimp [G]
+      exact graft_boundary_append F hF q (factorSuffix H q)
+    have htuple :
+        (tupleGraft x hx).toFun q.1 = q.1 ++ x q := by
+      have h := graft_boundary_append
+        (tupleCones x) (tupleCones_commonLevels x hx) q []
+      simpa [tupleGraft, tupleCones] using h
+    change
+      T.toFun (G.toFun (H.toFun q.1)) =
+        T.toFun ((tupleGraft x hx).toFun q.1)
+    rw [hG, htuple]
+    rfl
 
 end Chapter6
 end Milliken
