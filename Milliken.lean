@@ -24,6 +24,7 @@ import Milliken.HalpernLauchli.Statement
 import Milliken.HalpernLauchli.Density
 import Milliken.HalpernLauchli.Asymmetric
 import Milliken.HalpernLauchli.Sections
+import Milliken.HalpernLauchli.MatrixRefinement
 import Milliken.HalpernLauchli.Lemma315
 import Milliken.HalpernLauchli.Induction
 
