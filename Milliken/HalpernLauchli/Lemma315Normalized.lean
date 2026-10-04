@@ -100,5 +100,109 @@ theorem sectionAvoidAt_tailNormalize_support_gt
     ⟨M, l, hlevel, hdense, hsub, hprefix, hyl⟩
   exact ⟨l, hyl⟩
 
+
+namespace Matrix
+
+/-- A matrix avoids every section indexed by `Y`. -/
+def AvoidsSections {d : ℕ}
+    (M : Matrix ι d)
+    (P : Set (Fin (d + 1) → Node ι))
+    (Y : Set (Node ι)) : Prop :=
+  ∀ y ∈ Y, M.carrier ⊆ (lastSection P y)ᶜ
+
+end Matrix
+
+/-- One recursive step in the corrected equation-(3) construction.
+
+The old matrix `A` is already dense at the original scale, lies above the
+fixed base vector, and avoids all sections in `Y`.  Choose the next
+normalized avoiding witness at a new scale `n` strictly above the support
+of `A`, and refine that new witness over `A`.
+
+The resulting matrix:
+* keeps the original density;
+* remains above the base vector;
+* avoids all old sections and the new section;
+* has a strictly later support, above every section parameter processed so
+  far.
+
+This is the explicit nested-matrix step hidden in the printed proof of (3).
+-/
+theorem normalized_refinement_step
+    [Nonempty ι] {d k n0 n lA : ℕ}
+    (hd : 0 < d)
+    {P : Set (Fin (d + 1) → Node ι)}
+    (hstab : Stabilized P)
+    (x : LevelVector ι d k)
+    (A : Matrix ι d)
+    (Y : Set (Node ι))
+    (hAlevel : A.OnLevel lA)
+    (hAdense : A.DenseAbove x.1 n0)
+    (hAprefix :
+      ∀ z ∈ A.carrier, ∀ i, (x.1 i).IsPrefix (z i))
+    (hAavoid :
+      A.AvoidsSections (tailNormalize P) Y)
+    (hYbelow : ∀ y ∈ Y, y.length < lA)
+    (hlAn : lA < n)
+    (hkn : k < n)
+    {y : Node ι}
+    (hnew :
+      SectionAvoidAt (tailNormalize P) y x.1 n) :
+    ∃ C : Matrix ι d, ∃ lC : ℕ,
+      C.OnLevel lC ∧
+      C.DenseAbove x.1 n0 ∧
+      (∀ z ∈ C.carrier, ∀ i, (x.1 i).IsPrefix (z i)) ∧
+      C.AvoidsSections (tailNormalize P) (Set.insert y Y) ∧
+      (∀ z ∈ Set.insert y Y, z.length < lC) ∧
+      lA < lC := by
+  classical
+  rcases sectionAvoidAt_tailNormalize_witness
+      hd x hkn hnew with
+    ⟨B, lB, hBlevel, hBdense, hBavoid, hBprefix, hyB⟩
+  have hnB : n ≤ lB :=
+    B.support_ge_of_onLevel_denseAbove
+      hd x.2 hkn.le hBlevel hBdense
+  have hAB : lA < lB := hlAn.trans_le hnB
+  let C : Matrix ι d := A.refineOver B
+  have hClevel : C.OnLevel lB := by
+    dsimp [C]
+    exact Matrix.refineOver_onLevel hBlevel
+  have hCdense : C.DenseAbove x.1 n0 := by
+    dsimp [C]
+    exact Matrix.refineOver_denseAbove
+      hAlevel hAdense hBdense hlAn.le
+  have hCprefix :
+      ∀ z ∈ C.carrier, ∀ i, (x.1 i).IsPrefix (z i) := by
+    intro z hz i
+    rcases Matrix.exists_predecessor_of_mem_refineOver hz with
+      ⟨a, haA, haz⟩
+    exact (hAprefix a haA i).trans (haz i)
+  have hstabN : Stabilized (tailNormalize P) :=
+    stabilized_tailNormalize hd hstab
+  have hCold :
+      C.AvoidsSections (tailNormalize P) Y := by
+    intro z hzY
+    dsimp [C]
+    exact Matrix.refineOver_avoids_section
+      hd hstabN hAlevel hBlevel
+      (hYbelow z hzY) (hAavoid z hzY)
+  have hCnew :
+      C.carrier ⊆ (lastSection (tailNormalize P) y)ᶜ := by
+    exact (Matrix.refineOver_carrier_subset_right A B).trans hBavoid
+  have hCall :
+      C.AvoidsSections (tailNormalize P) (Set.insert y Y) := by
+    intro z hz
+    rcases hz with rfl | hzY
+    · exact hCnew
+    · exact hCold z hzY
+  have hbelow :
+      ∀ z ∈ Set.insert y Y, z.length < lB := by
+    intro z hz
+    rcases hz with rfl | hzY
+    · exact hyB
+    · exact (hYbelow z hzY).trans hAB
+  exact ⟨C, lB, hClevel, hCdense, hCprefix,
+    hCall, hbelow, hAB⟩
+
 end HalpernLauchli
 end Milliken
