@@ -147,7 +147,8 @@ theorem transportWitness_subset
     (M : Matrix ι d) (hM : M.DenseAt l) :
     (transportWitness W M hM).carrier ⊆ M.carrier := by
   intro z hz i
-  rcases hz i with ⟨s, hs, rfl⟩
+  rcases hz i with ⟨s, hs, hsz⟩
+  rw [← hsz]
   exact extendIntoDense_mem M hM i s
 
 theorem exists_source_of_mem_transportWitness
