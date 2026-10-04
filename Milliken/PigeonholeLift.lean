@@ -63,10 +63,9 @@ theorem pigeonhole_of_canonical_and_refine
     ⟨T, hTB, hTa⟩
   have hT : T ∈ S.neighborhood a B :=
     ⟨hTB, hTa⟩
-  have hCanonicalO :
-      Set (StrongTreeSpace.Approx ι (n + 1)) := by
-    exact O
-  rcases hCanonical T hCanonicalO with
+  let Oconcrete : Set (StrongTreeSpace.Approx ι (n + 1)) :=
+    fun b => (show (TreeSystem ι).Approx (n + 1) from b) ∈ O
+  rcases hCanonical T Oconcrete with
     ⟨U, hUT, hUhom⟩
   have hUa : S.approx n U = a := by
     exact hUT.2.trans hT.2
@@ -77,13 +76,23 @@ theorem pigeonhole_of_canonical_and_refine
   have hTaConcrete :
       StrongTreeSpace.approx ι n T = a := by
     exact hT.2
-  have hOeq : hCanonicalO = O := rfl
   have hUhom' :
       S.oneStepApproximations a U ⊆ O ∨
         Disjoint (S.oneStepApproximations a U) O := by
     have h := hUhom
-    rw [hTaConcrete, hOeq] at h
-    exact h
+    rw [hTaConcrete] at h
+    rcases h with hpos | hneg
+    · left
+      intro b hb
+      have hb' := hpos hb
+      change b ∈ O at hb'
+      exact hb'
+    · right
+      apply Set.disjoint_left.2
+      intro b hb hOb
+      apply (Set.disjoint_left.1 hneg) hb
+      change b ∈ Oconcrete
+      exact hOb
   rcases hRefine a B hd hUneigh with
     ⟨A, hAB, hsub⟩
   have hone :
