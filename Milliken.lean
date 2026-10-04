@@ -32,5 +32,6 @@ import Milliken.HalpernLauchli.Lemma315Proof
 import Milliken.HalpernLauchli.Lemma316Tower
 import Milliken.HalpernLauchli.Lemma315
 import Milliken.HalpernLauchli.Induction
+import Milliken.HalpernLauchli.FiniteHL
 
 import Milliken.MillikenTheorem
