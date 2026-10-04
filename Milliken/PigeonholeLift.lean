@@ -74,11 +74,14 @@ theorem pigeonhole_of_canonical_and_refine
     S.le_trans hUT.1 hT.1
   have hUneigh : U ∈ S.neighborhood a B :=
     ⟨hUB, hUa⟩
+  have hTaConcrete :
+      StrongTreeSpace.approx ι n T = a := by
+    exact hT.2
   have hUhom' :
       S.oneStepApproximations a U ⊆ O ∨
         Disjoint (S.oneStepApproximations a U) O := by
     have h := hUhom
-    rw [hT.2] at h
+    rw [hTaConcrete] at h
     exact h
   rcases hRefine a B hd hUneigh with
     ⟨A, hAB, hsub⟩
