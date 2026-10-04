@@ -428,8 +428,8 @@ theorem source_length_lt_of_graft_length_lt [Nonempty ι]
     s.length < n := by
   by_contra hs
   have hsge : n ≤ s.length := le_of_not_gt hs
-  rw [graft_toFun, graftFun_of_ge F s hsge,
-      List.length_append,
+  change (graftFun F s).length < n at h
+  rw [graftFun_of_ge F s hsge, List.length_append,
       (boundaryPrefix n s hsge).2] at h
   omega
 
