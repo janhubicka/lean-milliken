@@ -37,6 +37,34 @@ theorem restrictAbove_denseAbove_self
   refine ⟨y, ?_, hty⟩
   exact ⟨hyM, ht.1.trans hty⟩
 
+/-- The supporting level of a nontrivial cone-dense level matrix is
+at least its density scale. -/
+theorem support_ge_of_onLevel_denseAbove [Nonempty ι]
+    {M : Matrix ι d} {base : Fin d → Node ι}
+    {k n l : ℕ} (hd : 0 < d)
+    (hbase : IsLevelVectorAt k base)
+    (hkn : k ≤ n)
+    (hlevel : M.OnLevel l)
+    (hdense : M.DenseAbove base n) :
+    n ≤ l := by
+  let i0 : Fin d := ⟨0, hd⟩
+  let u : Node ι := extendToLevel (base i0) n
+  have hbaseN : (base i0).length ≤ n := by
+    rw [hbase i0]
+    exact hkn
+  have hprefix : (base i0).IsPrefix u :=
+    prefix_extendToLevel _ _
+  have hulen : u.length = n :=
+    length_extendToLevel hbaseN
+  rcases hdense i0
+      (show u ∈ coneLevel (base i0) n from
+        ⟨hprefix, hulen⟩) with
+    ⟨z, hzM, huz⟩
+  have hzlen : z.length = l := hlevel i0 z hzM
+  have hlen := huz.length_le
+  rw [hulen, hzlen] at hlen
+  exact hlen
+
 /-- Keep the part of `B` which lies above `A`, coordinatewise. -/
 def refineOver (A B : Matrix ι d) : Matrix ι d where
   coord := fun i => {z | z ∈ B.coord i ∧
