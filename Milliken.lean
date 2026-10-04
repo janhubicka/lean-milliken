@@ -13,6 +13,7 @@ import Milliken.FiniteApprox
 import Milliken.Finitization
 import Milliken.Factor
 import Milliken.FinitizationOrder
+import Milliken.DepthBoundary
 import Milliken.Stem
 import Milliken.StemExtension
 import Milliken.Amalgamation
