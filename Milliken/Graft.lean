@@ -169,7 +169,8 @@ drop point lies inside the original node. -/
 theorem drop_child_of_le
     (s : Node ι) (i : ι) (h : n ≤ s.length) :
     (child s i).drop n = child (s.drop n) i := by
-  simp [child, List.drop_append_of_le_length (by simpa using h)]
+  simpa [child] using
+    (List.drop_append_of_le_length (l₂ := [i]) h)
 
 /-- The graft satisfies the strong branch condition. -/
 theorem graftFun_branch
@@ -189,21 +190,24 @@ theorem graftFun_branch
       have hb :
           (boundaryPrefix n (child s i) hcge).1 = child s i := by
         dsimp [boundaryPrefix]
-        rw [List.take_eq_self_iff]
-        simpa [child] using hcge
+        apply (List.take_eq_self_iff _).2
+        exact hslen.le
       rw [hb]
       exact List.prefix_append _ _
   · have hsge : n ≤ s.length := le_of_not_gt hs
     have hcge : n ≤ (child s i).length := by
-      simpa [child] using hsge
+      simp [child]
+      omega
     rw [graftFun_of_ge F s hsge, graftFun_of_ge F (child s i) hcge]
     have hb :
         boundaryPrefix n s hsge =
           boundaryPrefix n (child s i) hcge :=
       boundaryPrefix_eq_of_prefix (List.prefix_append s [i]) hsge
     rw [hb, drop_child_of_le (n := n) s i hsge]
-    exact StrongEmbedding.prefix_append_left _
-      ((F (boundaryPrefix n (child s i) hcge)).branch (s.drop n) i)
+    simpa [child, List.append_assoc] using
+      StrongEmbedding.prefix_append_left
+        (boundaryPrefix n (child s i) hcge).1
+        ((F (boundaryPrefix n (child s i) hcge)).branch (s.drop n) i)
 
 /-- The graft also reflects the strong branch label. -/
 theorem graftFun_branch_reflect
@@ -238,7 +242,12 @@ theorem graftFun_branch_reflect
       have htake :
           (graftFun F t).take n = t.take n := by
         rw [graftFun_of_ge F t htlen]
-        simp [boundaryPrefix, List.take_append_of_le_length]
+        have hnlen :
+            n ≤ (boundaryPrefix n t htlen).1.length := by
+          rw [(boundaryPrefix n t htlen).2]
+        rw [List.take_append_of_le_length hnlen]
+        apply (List.take_eq_self_iff _).2
+        rw [(boundaryPrefix n t htlen).2]
       have hchildTake :
           (graftFun F t).take n = child s i := by
         have hp := hprefix.take n
@@ -248,7 +257,7 @@ theorem graftFun_branch_reflect
         rw [hleft] at hp
         exact hp.eq_of_length (by
           rw [List.length_take_of_le]
-          · exact hslen.symm
+          · exact hslen
           · have := hprefix.length_le
             omega)
       have hst : child s i = t.take n := by
@@ -258,11 +267,12 @@ theorem graftFun_branch_reflect
       exact List.take_prefix n t
   · have hsge : n ≤ s.length := le_of_not_gt hs
     by_cases ht : t.length < n
-    · have hlen := h.length_le
-      rw [graftFun_of_ge F s hsge,
-          graftFun_of_lt F t ht, List.length_append] at hlen
-      have hbLen : (boundaryPrefix n s hsge).1.length = n :=
-        (boundaryPrefix n s hsge).2
+    · have hgn : n ≤ (graftFun F s).length := by
+        rw [graftFun_of_ge F s hsge, List.length_append,
+            (boundaryPrefix n s hsge).2]
+        omega
+      have hlen := h.length_le
+      rw [graftFun_of_lt F t ht] at hlen
       simp [child] at hlen
       omega
     · have htge : n ≤ t.length := le_of_not_gt ht
@@ -294,14 +304,15 @@ theorem graftFun_branch_reflect
       have hdrop :
           (child (s.drop n) i).IsPrefix (t.drop n) := by
         apply (F (boundaryPrefix n t htge)).branch_reflect
-        have hsimp :
-            child
-                ((F (boundaryPrefix n t htge)).toFun (s.drop n)) i
+        have h' :
+            (boundaryPrefix n t htge).1 ++
+                child ((F (boundaryPrefix n t htge)).toFun (s.drop n)) i
               <+:
-            (F (boundaryPrefix n t htge)).toFun (t.drop n) := by
-          exact StrongEmbedding.prefix_cancel_left
-            (boundaryPrefix n t htge).1 h
-        exact hsimp
+            (boundaryPrefix n t htge).1 ++
+                (F (boundaryPrefix n t htge)).toFun (t.drop n) := by
+          simpa [child, List.append_assoc] using h
+        exact StrongEmbedding.prefix_cancel_left
+          (boundaryPrefix n t htge).1 h'
       have htake : s.take n = t.take n := by
         simpa [boundaryPrefix] using hbval
       rw [← List.take_append_drop n (child s i),
