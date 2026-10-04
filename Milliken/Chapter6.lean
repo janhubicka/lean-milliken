@@ -163,20 +163,18 @@ theorem boundaryColor_eq_zero_iff [Nonempty ι] {n m : ℕ}
   let m' := Classical.choose hlevel
   let hx' : ∀ q, (x q).length = m' :=
     Classical.choose_spec hlevel
-  have hm : m' = m := by
-    classical
-    by_cases hne : Nonempty (LevelNode ι n)
-    · let q := Classical.choice hne
-      have := (hx' q).trans (hx q).symm
-      exact Nat.add_left_cancel (by simpa using congrArg (fun z => z + 0) this)
-    · have hsub : IsEmpty (LevelNode ι n) := not_nonempty_iff.mp hne
-      exact Subsingleton.elim _ _
-  subst m'
-  have hhx : hx' = hx := Subsingleton.elim _ _
-  subst hx'
+  have happrox :
+      tupleApprox T x hx' = tupleApprox T x hx := by
+    apply Subtype.ext
+    funext s
+    rfl
   by_cases hO : tupleApprox T x hx ∈ O
-  · simp [hO]
-  · simp [hO]
+  · have hO' : tupleApprox T x hx' ∈ O := by
+      simpa [happrox] using hO
+    simp [m', hx', hO', hO]
+  · have hO' : tupleApprox T x hx' ∉ O := by
+      simpa [happrox] using hO
+    simp [m', hx', hO', hO]
 
 end Chapter6
 end Milliken
