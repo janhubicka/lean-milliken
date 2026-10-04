@@ -77,11 +77,12 @@ theorem pigeonhole_of_canonical_and_refine
   have hTaConcrete :
       StrongTreeSpace.approx ι n T = a := by
     exact hT.2
+  have hOeq : hCanonicalO = O := rfl
   have hUhom' :
       S.oneStepApproximations a U ⊆ O ∨
         Disjoint (S.oneStepApproximations a U) O := by
     have h := hUhom
-    rw [hTaConcrete] at h
+    rw [hTaConcrete, hOeq] at h
     exact h
   rcases hRefine a B hd hUneigh with
     ⟨A, hAB, hsub⟩
