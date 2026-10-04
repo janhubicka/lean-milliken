@@ -38,11 +38,8 @@ theorem rebaseFun_reconstruct
   have hps := rootPrefix_all E hp s
   have htake : (E.toFun s).take p.length = p :=
     (List.prefix_iff_eq_take.mp hps).symm
-  calc
-    p ++ rebaseFun E p s
-        = (E.toFun s).take p.length ++ (E.toFun s).drop p.length := by
-            rw [htake]
-    _ = E.toFun s := List.take_append_drop _ _
+  simpa [rebaseFun, htake] using
+    (List.take_append_drop p.length (E.toFun s))
 
 theorem rebaseFun_injective
     (E : StrongEmbedding ι) {p : Node ι}
@@ -122,8 +119,7 @@ def rebase (E : StrongEmbedding ι) (p : Node ι)
     · intro a b hab
       have hpa : p.length ≤ levels a :=
         hp0.trans (hmono.monotone (Nat.zero_le a))
-      have hlt := hmono hab
-      omega
+      exact Nat.sub_lt_sub_right hpa (hmono hab)
     · intro s
       simp [rebaseFun, List.length_drop, hlevels]
 
