@@ -3,6 +3,7 @@ import Milliken.Tree
 import Milliken.Cone
 import Milliken.Graft
 import Milliken.GraftRamsey
+import Milliken.Chapter6
 import Milliken.RamseyBasic
 import Milliken.FiniteApprox
 import Milliken.Finitization
