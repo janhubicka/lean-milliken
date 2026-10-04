@@ -418,5 +418,31 @@ theorem graft_toFun_of_lt [Nonempty ι]
     (graft F hF).toFun s = s :=
   graftFun_of_lt F s hs
 
+/-- If the image of a node under a boundary graft lies below the
+boundary level, then the source node itself lies below that level. -/
+theorem source_length_lt_of_graft_length_lt [Nonempty ι]
+    (F : LevelNode ι n → StrongEmbedding ι)
+    (hF : HasCommonLevels F)
+    (s : Node ι)
+    (h : ((graft F hF).toFun s).length < n) :
+    s.length < n := by
+  by_contra hs
+  have hsge : n ≤ s.length := le_of_not_gt hs
+  rw [graft_toFun, graftFun_of_ge F s hsge,
+      List.length_append,
+      (boundaryPrefix n s hsge).2] at h
+  omega
+
+/-- Consequently a graft image below the boundary is literally unchanged. -/
+theorem graft_toFun_eq_of_length_lt [Nonempty ι]
+    (F : LevelNode ι n → StrongEmbedding ι)
+    (hF : HasCommonLevels F)
+    (s : Node ι)
+    (h : ((graft F hF).toFun s).length < n) :
+    (graft F hF).toFun s = s :=
+  graft_toFun_of_lt F hF s
+    (source_length_lt_of_graft_length_lt F hF s h)
+
+
 end BoundaryGraft
 end Milliken
