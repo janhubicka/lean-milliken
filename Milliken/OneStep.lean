@@ -81,6 +81,35 @@ theorem boundary_append_factorSuffix {n : ℕ}
   rw [factorSuffix, ← htake]
   exact List.take_append_drop n (H.toFun q.1)
 
+/-- Evaluation of a boundary graft on a boundary node followed by a
+source suffix. -/
+theorem graft_boundary_append [Nonempty ι] {n : ℕ}
+    (F : LevelNode ι n → StrongEmbedding ι)
+    (hF : BoundaryGraft.HasCommonLevels F)
+    (q : LevelNode ι n) (r : Node ι) :
+    (BoundaryGraft.graft F hF).toFun (q.1 ++ r) =
+      q.1 ++ (F q).toFun r := by
+  change BoundaryGraft.graftFun F (q.1 ++ r) =
+    q.1 ++ (F q).toFun r
+  have hge : n ≤ (q.1 ++ r).length := by
+    simp [q.2]
+  rw [BoundaryGraft.graftFun_of_ge F (q.1 ++ r) hge]
+  have hb :
+      BoundaryGraft.boundaryPrefix n (q.1 ++ r) hge = q := by
+    apply Subtype.ext
+    dsimp [BoundaryGraft.boundaryPrefix]
+    have hnq : n ≤ q.1.length := by
+      rw [q.2]
+    rw [List.take_append_of_le_length hnq]
+    apply (List.take_eq_self_iff _).2
+    exact hnq
+  have hd : (q.1 ++ r).drop n = r := by
+    have hdrop :=
+      List.drop_append_of_le_length (l₂ := r)
+        (show n ≤ q.1.length by rw [q.2])
+    simpa [q.2] using hdrop
+  rw [hb, hd]
+
 /-- Factor suffixes of all nodes on one boundary level have one common
 length. -/
 theorem factorSuffix_commonLevel {n : ℕ}
