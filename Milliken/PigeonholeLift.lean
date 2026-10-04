@@ -77,10 +77,9 @@ theorem pigeonhole_of_canonical_and_refine
   have hUhom' :
       S.oneStepApproximations a U ⊆ O ∨
         Disjoint (S.oneStepApproximations a U) O := by
-    change
-      S.oneStepApproximations (S.approx n T) U ⊆ O ∨
-        Disjoint (S.oneStepApproximations (S.approx n T) U) O
-    exact hUhom
+    have h := hUhom
+    rw [hT.2] at h
+    exact h
   rcases hRefine a B hd hUneigh with
     ⟨A, hAB, hsub⟩
   have hone :
