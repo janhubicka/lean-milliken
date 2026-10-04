@@ -125,8 +125,7 @@ theorem exists_finiteHLWitness_of_hdhl
     have hne : c x ≠ (0 : Fin 2) := by
       intro h0
       exact hx1 h0
-    apply Fin.eq_of_val_eq
-    omega
+    exact Fin.eq_one_of_ne_zero (c x) hne
 
 /-- The finite witness cylinders form an open cover of all binary colorings. -/
 theorem finiteHLWitness_cover
