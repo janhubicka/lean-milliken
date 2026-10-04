@@ -85,8 +85,7 @@ theorem lemma315_tailNormalize
     exact Fin.lastCases
       (by simp [appendLast])
       (fun j => by
-        simp [appendLast, x.2 j]
-        exact lt_of_le_of_lt hkt (Nat.lt_succ_self _))
+        simpa [appendLast, x.2 j] using hkt)
       i
   have hMsome : M.SomewhereDense :=
     ⟨appendLast x.1 t, t.length + 1, hbase, hMdense⟩
