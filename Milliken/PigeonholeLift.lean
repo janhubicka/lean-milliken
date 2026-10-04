@@ -85,14 +85,12 @@ theorem pigeonhole_of_canonical_and_refine
     · left
       intro b hb
       have hb' := hpos hb
-      change b ∈ O at hb'
-      exact hb'
+      simpa [Oconcrete] using hb'
     · right
       apply Set.disjoint_left.2
       intro b hb hOb
       apply (Set.disjoint_left.1 hneg) hb
-      change b ∈ Oconcrete
-      exact hOb
+      simpa [Oconcrete] using hOb
   rcases hRefine a B hd hUneigh with
     ⟨A, hAB, hsub⟩
   have hone :
