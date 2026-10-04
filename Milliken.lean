@@ -29,6 +29,7 @@ import Milliken.HalpernLauchli.TailNormalization
 import Milliken.HalpernLauchli.Lemma315Normalized
 import Milliken.HalpernLauchli.Lemma315Construction
 import Milliken.HalpernLauchli.Lemma315Proof
+import Milliken.HalpernLauchli.Lemma316Tower
 import Milliken.HalpernLauchli.Lemma315
 import Milliken.HalpernLauchli.Induction
 
