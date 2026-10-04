@@ -100,7 +100,10 @@ theorem canonicalPigeonhole_of_boundaryHL
       hb.symm.trans heq'
     have hOtuple :
         tupleApprox T (fun q => (F q).toFun (r q)) hx ∈ O := by
-      simpa [hbtuple] using hO
+      rw [hbtuple] at hO
+      change
+        tupleApprox T (fun q => (F q).toFun (r q)) hx ∈ O at hO
+      exact hO
     have hzero :
         boundaryColor T O (fun q => (F q).toFun (r q)) = 0 :=
       (boundaryColor_eq_zero_iff
