@@ -85,7 +85,7 @@ theorem tupleCones_commonLevels {n m : ℕ}
     BoundaryGraft.HasCommonLevels (tupleCones x) := by
   refine ⟨fun k => m + k, ?_, ?_⟩
   · intro a b hab
-    omega
+    exact Nat.add_lt_add_left hab m
   · intro q s
     simp [tupleCones, List.length_append, hx q]
 
@@ -133,18 +133,40 @@ def IsBoundaryLevelVector {n : ℕ}
     (x : LevelNode ι n → Node ι) : Prop :=
   ∃ m, ∀ q, (x q).length = m
 
+/-- Canonical one-step approximation attached to a tuple known to lie on
+one common level.  The chosen witness level affects only proof fields of the
+graft, not its node map. -/
+noncomputable def levelTupleApprox [Nonempty ι] {n : ℕ}
+    (T : StrongEmbedding ι)
+    (x : LevelNode ι n → Node ι)
+    (h : IsBoundaryLevelVector x) :
+    StrongTreeSpace.Approx ι (n + 1) :=
+  let m := Classical.choose h
+  let hx : ∀ q, (x q).length = m := Classical.choose_spec h
+  tupleApprox T x hx
+
+/-- The canonical level-tuple approximation agrees with any supplied
+common-level witness. -/
+theorem levelTupleApprox_eq [Nonempty ι] {n m : ℕ}
+    (T : StrongEmbedding ι)
+    (x : LevelNode ι n → Node ι)
+    (h : IsBoundaryLevelVector x)
+    (hx : ∀ q, (x q).length = m) :
+    levelTupleApprox T x h = tupleApprox T x hx := by
+  apply Subtype.ext
+  funext s
+  rfl
+
 /-- Binary coloring of boundary tuples induced by a coloring of one-step
 finite approximations.  Non-level tuples receive the default color zero;
 Halpern--Läuchli only tests the coloring on common-level tuples. -/
 noncomputable def boundaryColor [Nonempty ι] {n : ℕ}
     (T : StrongEmbedding ι)
     (O : Set (StrongTreeSpace.Approx ι (n + 1)))
-    (x : LevelNode ι n → Node ι) : Fin 2 :=
-  if h : IsBoundaryLevelVector x then
-    let m := Classical.choose h
-    let hx : ∀ q, (x q).length = m :=
-      Classical.choose_spec h
-    if tupleApprox T x hx ∈ O then 0 else 1
+    (x : LevelNode ι n → Node ι) : Fin 2 := by
+  classical
+  exact if h : IsBoundaryLevelVector x then
+    if levelTupleApprox T x h ∈ O then 0 else 1
   else 0
 
 /-- On a common-level tuple, color zero is exactly membership of the
@@ -157,24 +179,16 @@ theorem boundaryColor_eq_zero_iff [Nonempty ι] {n m : ℕ}
     boundaryColor T O x = 0 ↔
       tupleApprox T x hx ∈ O := by
   classical
-  unfold boundaryColor
   have hlevel : IsBoundaryLevelVector x := ⟨m, hx⟩
-  simp only [dif_pos hlevel]
-  let m' := Classical.choose hlevel
-  let hx' : ∀ q, (x q).length = m' :=
-    Classical.choose_spec hlevel
-  have happrox :
-      tupleApprox T x hx' = tupleApprox T x hx := by
-    apply Subtype.ext
-    funext s
-    rfl
+  have happ :
+      levelTupleApprox T x hlevel = tupleApprox T x hx :=
+    levelTupleApprox_eq T x hlevel hx
+  unfold boundaryColor
+  simp only [dite_eq_left hlevel]
+  rw [happ]
   by_cases hO : tupleApprox T x hx ∈ O
-  · have hO' : tupleApprox T x hx' ∈ O := by
-      simpa [happrox] using hO
-    simp [m', hx', hO', hO]
-  · have hO' : tupleApprox T x hx' ∉ O := by
-      simpa [happrox] using hO
-    simp [m', hx', hO', hO]
+  · simp [hO]
+  · simp [hO]
 
 end Chapter6
 end Milliken
