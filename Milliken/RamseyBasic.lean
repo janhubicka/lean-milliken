@@ -87,6 +87,16 @@ theorem coherent {X Y : StrongEmbedding ι} {n : ℕ}
   have hs := congrArg (fun a : Approx ι n => a.1 sn) h
   exact hs
 
+/-- Equality of finite approximations gives equality of the node maps
+on every source node below that level. -/
+theorem toFun_eq_of_approx_eq {X Y : StrongEmbedding ι} {n : ℕ}
+    (h : approx ι n X = approx ι n Y)
+    {s : Node ι} (hs : s.length < n) :
+    X.toFun s = Y.toFun s := by
+  let sn : FiniteNode ι n := ⟨s, hs⟩
+  exact congrArg (fun a : Approx ι n => a.1 sn) h
+
+
 /-- A.1 for the homogeneous strong-subtree space. -/
 def approximationSystem : RamseySpace.ApproximationSystem where
   Point := StrongEmbedding ι
