@@ -58,15 +58,23 @@ theorem canonicalPigeonhole_of_boundaryHL
     have hparam := factor_oneStep_eq_tuple
       T F hF H (by simpa [S] using hstem)
     rcases hparam with ⟨k, r, hr, m, hx, heq⟩
+    change
+      StrongTreeSpace.approx ι (n + 1)
+          (StrongEmbedding.comp S H) = b at hb
+    have heq' :
+        StrongTreeSpace.approx ι (n + 1)
+            (StrongEmbedding.comp S H) =
+          tupleApprox T (fun q => (F q).toFun (r q)) hx := by
+      simpa [S] using heq
     have hbtuple :
-        b = tupleApprox T (fun q => (F q).toFun (r q)) hx := by
-      exact hb.symm.trans (by simpa [S] using heq)
+        b = tupleApprox T (fun q => (F q).toFun (r q)) hx :=
+      hb.symm.trans heq'
     rw [hbtuple]
     apply (boundaryColor_eq_zero_iff
       T O (fun q => (F q).toFun (r q)) hx).1
     exact (hhom k r hr).trans hc
   · right
-    rw [Set.disjoint_left]
+    apply Set.disjoint_left.2
     intro b hb hO
     rcases hb with ⟨X, hX, hb⟩
     rcases hX.1 with ⟨H, hfac⟩
@@ -79,9 +87,17 @@ theorem canonicalPigeonhole_of_boundaryHL
     have hparam := factor_oneStep_eq_tuple
       T F hF H (by simpa [S] using hstem)
     rcases hparam with ⟨k, r, hr, m, hx, heq⟩
+    change
+      StrongTreeSpace.approx ι (n + 1)
+          (StrongEmbedding.comp S H) = b at hb
+    have heq' :
+        StrongTreeSpace.approx ι (n + 1)
+            (StrongEmbedding.comp S H) =
+          tupleApprox T (fun q => (F q).toFun (r q)) hx := by
+      simpa [S] using heq
     have hbtuple :
-        b = tupleApprox T (fun q => (F q).toFun (r q)) hx := by
-      exact hb.symm.trans (by simpa [S] using heq)
+        b = tupleApprox T (fun q => (F q).toFun (r q)) hx :=
+      hb.symm.trans heq'
     have hOtuple :
         tupleApprox T (fun q => (F q).toFun (r q)) hx ∈ O := by
       simpa [hbtuple] using hO
