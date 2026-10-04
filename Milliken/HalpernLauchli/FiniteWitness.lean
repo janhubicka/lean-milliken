@@ -40,21 +40,21 @@ noncomputable def denseChoice
     (hM : M.DenseAt k)
     (i : Fin d) (s : treeLevel (ι := ι) k) :
     Node ι :=
-  Classical.choose (hM i s.1 s.2)
+  Classical.choose (hM i s.2)
 
 theorem denseChoice_mem
     (M : Matrix ι d) {k : ℕ}
     (hM : M.DenseAt k)
     (i : Fin d) (s : treeLevel (ι := ι) k) :
     denseChoice M hM i s ∈ M.coord i :=
-  (Classical.choose_spec (hM i s.1 s.2)).1
+  (Classical.choose_spec (hM i s.2)).1
 
 theorem denseChoice_prefix
     (M : Matrix ι d) {k : ℕ}
     (hM : M.DenseAt k)
     (i : Fin d) (s : treeLevel (ι := ι) k) :
     s.1.IsPrefix (denseChoice M hM i s) :=
-  (Classical.choose_spec (hM i s.1 s.2)).2
+  (Classical.choose_spec (hM i s.2)).2
 
 noncomputable def finiteDenseCore [Finite ι]
     (M : Matrix ι d) {k : ℕ}
@@ -92,7 +92,8 @@ theorem finiteDenseCore_subset [Finite ι]
     (hM : M.DenseAt k) :
     (finiteDenseCore M hM).carrier ⊆ M.carrier := by
   intro z hz i
-  rcases hz i with ⟨s, rfl⟩
+  rcases hz i with ⟨s, hs⟩
+  rw [← hs]
   exact denseChoice_mem M hM i s
 
 noncomputable def denseAboveChoice
@@ -101,7 +102,7 @@ noncomputable def denseAboveChoice
     (hM : M.DenseAbove base k)
     (i : Fin d) (s : coneLevel (base i) k) :
     Node ι :=
-  Classical.choose (hM i s.1 s.2)
+  Classical.choose (hM i s.2)
 
 theorem denseAboveChoice_mem
     (M : Matrix ι d)
@@ -109,7 +110,7 @@ theorem denseAboveChoice_mem
     (hM : M.DenseAbove base k)
     (i : Fin d) (s : coneLevel (base i) k) :
     denseAboveChoice M base hM i s ∈ M.coord i :=
-  (Classical.choose_spec (hM i s.1 s.2)).1
+  (Classical.choose_spec (hM i s.2)).1
 
 theorem denseAboveChoice_prefix
     (M : Matrix ι d)
@@ -117,7 +118,7 @@ theorem denseAboveChoice_prefix
     (hM : M.DenseAbove base k)
     (i : Fin d) (s : coneLevel (base i) k) :
     s.1.IsPrefix (denseAboveChoice M base hM i s) :=
-  (Classical.choose_spec (hM i s.1 s.2)).2
+  (Classical.choose_spec (hM i s.2)).2
 
 noncomputable def finiteDenseAboveCore [Finite ι]
     (M : Matrix ι d)
@@ -161,7 +162,8 @@ theorem finiteDenseAboveCore_subset [Finite ι]
     (hM : M.DenseAbove base k) :
     (finiteDenseAboveCore M base hM).carrier ⊆ M.carrier := by
   intro z hz i
-  rcases hz i with ⟨s, rfl⟩
+  rcases hz i with ⟨s, hs⟩
+  rw [← hs]
   exact denseAboveChoice_mem M base hM i s
 
 end Matrix
