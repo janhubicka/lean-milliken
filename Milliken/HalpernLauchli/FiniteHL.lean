@@ -51,14 +51,17 @@ theorem finiteHL_one [Nonempty ι] :
   intro k
   refine ⟨k + 1, ?_⟩
   intro M hM K0
-  let P : Set (Fin 1 → Node ι) := K0 ∩ M.carrier
-  by_cases hP : ProductDenseAt P k
+  by_cases hP :
+      ProductDenseAt (K0 ∩ M.carrier) k
   · right
     rcases exists_unary_matrix_of_productDense hP with
       ⟨N, hNdense, hNsub⟩
-    exact ⟨N, hNdense, hNsub⟩
+    refine ⟨N, hNdense, ?_⟩
+    intro z hz
+    have hz' := hNsub hz
+    exact ⟨hz'.2, hz'.1⟩
   · left
-    rcases exists_bad_levelVector P M hP with
+    rcases exists_bad_levelVector K0 M hP with
       ⟨x, hxsub⟩
     let N : Matrix ι 1 := M.restrictAbove x.1
     have hbase : ∀ i, (x.1 i).length < k + 1 := by
@@ -76,9 +79,7 @@ theorem finiteHL_one [Nonempty ι] :
     have hNsub :
         N.carrier ⊆ M.carrier ∩ K0ᶜ := by
       intro z hz
-      refine ⟨hNsubM hz, ?_⟩
-      intro hzK0
-      exact hxsub hz ⟨hzK0, hNsubM hz⟩
+      exact ⟨hNsubM hz, hxsub hz⟩
     exact ⟨N, hNsome, hNsub⟩
 
 end HalpernLauchli
