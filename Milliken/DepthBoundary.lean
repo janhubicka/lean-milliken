@@ -88,7 +88,7 @@ theorem factor_top_level_eq_depth_pred
     rintro x ⟨s, rfl⟩
     have hsle : s.1.length ≤ q.1.length := by
       rw [q.2]
-      omega
+      exact Nat.le_pred_of_lt s.2
     have hHle :
         (H.toFun s.1).length ≤ (H.toFun q.1).length := by
       rw [hlevels, hlevels]
