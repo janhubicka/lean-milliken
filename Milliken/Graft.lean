@@ -164,5 +164,249 @@ theorem graftFun_injective
         rw [hst])
   exact hs.eq_of_length (le_antisymm hs.length_le ht.length_le)
 
+/-- Dropping a fixed prefix commutes with adjoining one child once the
+drop point lies inside the original node. -/
+theorem drop_child_of_le
+    (s : Node ι) (i : ι) (h : n ≤ s.length) :
+    (child s i).drop n = child (s.drop n) i := by
+  simp [child, List.drop_append_of_le_length (by simpa using h)]
+
+/-- The graft satisfies the strong branch condition. -/
+theorem graftFun_branch
+    (F : LevelNode ι n → StrongEmbedding ι)
+    (s : Node ι) (i : ι) :
+    (child (graftFun F s) i).IsPrefix
+      (graftFun F (child s i)) := by
+  by_cases hs : s.length < n
+  · by_cases hc : (child s i).length < n
+    · rw [graftFun_of_lt F s hs, graftFun_of_lt F (child s i) hc]
+      exact List.IsPrefix.refl _
+    · have hcge : n ≤ (child s i).length := le_of_not_gt hc
+      have hslen : s.length + 1 = n := by
+        simp [child] at hcge
+        omega
+      rw [graftFun_of_lt F s hs, graftFun_of_ge F (child s i) hcge]
+      have hb :
+          (boundaryPrefix n (child s i) hcge).1 = child s i := by
+        dsimp [boundaryPrefix]
+        rw [List.take_eq_self_iff]
+        simpa [child] using hcge
+      rw [hb]
+      exact List.prefix_append _ _
+  · have hsge : n ≤ s.length := le_of_not_gt hs
+    have hcge : n ≤ (child s i).length := by
+      simpa [child] using hsge
+    rw [graftFun_of_ge F s hsge, graftFun_of_ge F (child s i) hcge]
+    have hb :
+        boundaryPrefix n s hsge =
+          boundaryPrefix n (child s i) hcge :=
+      boundaryPrefix_eq_of_prefix (List.prefix_append s [i]) hsge
+    rw [hb, drop_child_of_le (n := n) s i hsge]
+    exact StrongEmbedding.prefix_append_left _
+      ((F (boundaryPrefix n (child s i) hcge)).branch (s.drop n) i)
+
+/-- The graft also reflects the strong branch label. -/
+theorem graftFun_branch_reflect
+    (F : LevelNode ι n → StrongEmbedding ι)
+    (s t : Node ι) (i : ι)
+    (h :
+      (child (graftFun F s) i).IsPrefix
+        (graftFun F t)) :
+    (child s i).IsPrefix t := by
+  by_cases hs : s.length < n
+  · by_cases hc : (child s i).length < n
+    · have heq :
+          child (graftFun F s) i =
+            graftFun F (child s i) := by
+        rw [graftFun_of_lt F s hs,
+            graftFun_of_lt F (child s i) hc]
+      apply graftFun_prefix_reflect F
+      rwa [← heq]
+    · have hcge : n ≤ (child s i).length := le_of_not_gt hc
+      have hslen : (child s i).length = n := by
+        simp [child] at hs hcge ⊢
+        omega
+      have hprefix :
+          (child s i).IsPrefix (graftFun F t) := by
+        simpa [graftFun_of_lt F s hs] using h
+      have htlen : n ≤ t.length := by
+        have hlen := hprefix.length_le
+        by_cases ht : t.length < n
+        · rw [graftFun_of_lt F t ht] at hlen
+          omega
+        · exact le_of_not_gt ht
+      have htake :
+          (graftFun F t).take n = t.take n := by
+        rw [graftFun_of_ge F t htlen]
+        simp [boundaryPrefix, List.take_append_of_le_length]
+      have hchildTake :
+          (graftFun F t).take n = child s i := by
+        have hp := hprefix.take n
+        have hleft : (child s i).take n = child s i := by
+          rw [List.take_eq_self_iff]
+          omega
+        rw [hleft] at hp
+        exact hp.eq_of_length (by
+          rw [List.length_take_of_le]
+          · exact hslen.symm
+          · have := hprefix.length_le
+            omega)
+      have hst : child s i = t.take n := by
+        rw [← htake]
+        exact hchildTake.symm
+      rw [hst]
+      exact List.take_prefix n t
+  · have hsge : n ≤ s.length := le_of_not_gt hs
+    by_cases ht : t.length < n
+    · have hlen := h.length_le
+      rw [graftFun_of_ge F s hsge,
+          graftFun_of_lt F t ht, List.length_append] at hlen
+      have hbLen : (boundaryPrefix n s hsge).1.length = n :=
+        (boundaryPrefix n s hsge).2
+      simp [child] at hlen
+      omega
+    · have htge : n ≤ t.length := le_of_not_gt ht
+      rw [graftFun_of_ge F s hsge,
+          graftFun_of_ge F t htge] at h
+      have hboundary :
+          (boundaryPrefix n s hsge).1.IsPrefix
+            ((boundaryPrefix n t htge).1 ++
+              (F (boundaryPrefix n t htge)).toFun (t.drop n)) := by
+        exact (List.prefix_append _ _).trans
+          ((List.prefix_append _ [i]).trans h)
+      have hbp :
+          (boundaryPrefix n s hsge).1.IsPrefix
+            (boundaryPrefix n t htge).1 :=
+        (List.isPrefix_append_of_length (by
+          rw [(boundaryPrefix n s hsge).2,
+              (boundaryPrefix n t htge).2])).mp hboundary
+      have hbval :
+          (boundaryPrefix n s hsge).1 =
+            (boundaryPrefix n t htge).1 :=
+        hbp.eq_of_length (by
+          rw [(boundaryPrefix n s hsge).2,
+              (boundaryPrefix n t htge).2])
+      have hb :
+          boundaryPrefix n s hsge =
+            boundaryPrefix n t htge :=
+        Subtype.ext hbval
+      rw [hb] at h
+      have hdrop :
+          (child (s.drop n) i).IsPrefix (t.drop n) := by
+        apply (F (boundaryPrefix n t htge)).branch_reflect
+        have hsimp :
+            child
+                ((F (boundaryPrefix n t htge)).toFun (s.drop n)) i
+              <+:
+            (F (boundaryPrefix n t htge)).toFun (t.drop n) := by
+          exact StrongEmbedding.prefix_cancel_left
+            (boundaryPrefix n t htge).1 h
+        exact hsimp
+      have htake : s.take n = t.take n := by
+        simpa [boundaryPrefix] using hbval
+      rw [← List.take_append_drop n (child s i),
+          ← List.take_append_drop n t]
+      have htakeChild :
+          (child s i).take n = s.take n := by
+        simpa [child] using
+          List.take_append_of_le_length (l₂ := [i]) hsge
+      rw [htakeChild, htake]
+      exact StrongEmbedding.prefix_append_left _
+        (by simpa [drop_child_of_le (n := n) s i hsge] using hdrop)
+
+/-- Target lengths of the graft depend only on source length when the
+boundary embeddings have common level sets. -/
+theorem graftFun_length_eq_of_length_eq
+    (F : LevelNode ι n → StrongEmbedding ι)
+    (hF : HasCommonLevels F)
+    (s t : Node ι) (hst : s.length = t.length) :
+    (graftFun F s).length = (graftFun F t).length := by
+  rcases hF with ⟨levels, hmono, hlevels⟩
+  by_cases hs : s.length < n
+  · have ht : t.length < n := by simpa [hst] using hs
+    rw [graftFun_of_lt F s hs, graftFun_of_lt F t ht, hst]
+  · have hsge : n ≤ s.length := le_of_not_gt hs
+    have htge : n ≤ t.length := by simpa [hst] using hsge
+    rw [graftFun_of_ge F s hsge, graftFun_of_ge F t htge,
+        List.length_append, List.length_append,
+        (boundaryPrefix n s hsge).2, (boundaryPrefix n t htge).2,
+        hlevels, hlevels, List.length_drop, List.length_drop, hst]
+
+/-- Source-level strict increase gives strict increase of graft target
+levels. -/
+theorem graftFun_length_lt_of_length_lt
+    (F : LevelNode ι n → StrongEmbedding ι)
+    (hF : HasCommonLevels F)
+    (s t : Node ι) (hst : s.length < t.length) :
+    (graftFun F s).length < (graftFun F t).length := by
+  rcases hF with ⟨levels, hmono, hlevels⟩
+  by_cases hs : s.length < n
+  · by_cases ht : t.length < n
+    · rw [graftFun_of_lt F s hs, graftFun_of_lt F t ht]
+      exact hst
+    · have htge : n ≤ t.length := le_of_not_gt ht
+      rw [graftFun_of_lt F s hs, graftFun_of_ge F t htge,
+          List.length_append, (boundaryPrefix n t htge).2, hlevels,
+          List.length_drop]
+      have hnonneg : 0 ≤ levels (t.length - n) := Nat.zero_le _
+      omega
+  · have hsge : n ≤ s.length := le_of_not_gt hs
+    have htge : n ≤ t.length := hsge.trans hst.le
+    rw [graftFun_of_ge F s hsge, graftFun_of_ge F t htge,
+        List.length_append, List.length_append,
+        (boundaryPrefix n s hsge).2, (boundaryPrefix n t htge).2,
+        hlevels, hlevels, List.length_drop, List.length_drop]
+    have hsub : s.length - n < t.length - n := by omega
+    exact Nat.add_lt_add_left (hmono hsub) n
+
+/-- Canonical common level map for the graft. -/
+noncomputable def graftLevels [Nonempty ι]
+    (F : LevelNode ι n → StrongEmbedding ι)
+    (k : ℕ) : ℕ :=
+  (graftFun F (List.replicate k (Classical.choice
+    (inferInstance : Nonempty ι)))).length
+
+theorem graftLevels_strictMono [Nonempty ι]
+    (F : LevelNode ι n → StrongEmbedding ι)
+    (hF : HasCommonLevels F) :
+    StrictMono (graftLevels F) := by
+  intro k l hkl
+  exact graftFun_length_lt_of_length_lt F hF
+    (List.replicate k (Classical.choice
+      (inferInstance : Nonempty ι)))
+    (List.replicate l (Classical.choice
+      (inferInstance : Nonempty ι))) (by simpa using hkl)
+
+theorem graftFun_same_level [Nonempty ι]
+    (F : LevelNode ι n → StrongEmbedding ι)
+    (hF : HasCommonLevels F)
+    (s : Node ι) :
+    (graftFun F s).length = graftLevels F s.length := by
+  exact graftFun_length_eq_of_length_eq F hF s
+    (List.replicate s.length (Classical.choice
+      (inferInstance : Nonempty ι))) (by simp)
+
+/-- Package the boundary graft as a strong embedding. -/
+noncomputable def graft [Nonempty ι]
+    (F : LevelNode ι n → StrongEmbedding ι)
+    (hF : HasCommonLevels F) :
+    StrongEmbedding ι where
+  toFun := graftFun F
+  injective := graftFun_injective F
+  prefix_mono := graftFun_prefix_mono F
+  prefix_reflect := graftFun_prefix_reflect F
+  branch := graftFun_branch F
+  branch_reflect := graftFun_branch_reflect F
+  level_witness := ⟨graftLevels F, graftLevels_strictMono F hF,
+    graftFun_same_level F hF⟩
+
+/-- The graft fixes every source node below the boundary height. -/
+theorem graft_toFun_of_lt [Nonempty ι]
+    (F : LevelNode ι n → StrongEmbedding ι)
+    (hF : HasCommonLevels F)
+    (s : Node ι) (hs : s.length < n) :
+    (graft F hF).toFun s = s :=
+  graftFun_of_lt F s hs
+
 end BoundaryGraft
 end Milliken
