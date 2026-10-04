@@ -319,5 +319,35 @@ theorem splice_image_mem_range_of_frontier_prefix
   exact ⟨(assignedSource hn hd H htop p).1 ++ z.drop d,
     hreconstruct.symm⟩
 
+
+/-- Composing the splice under an ambient tree preserves the depth-`d`
+approximation. -/
+theorem approx_comp_splice [Nonempty ι] {n d : ℕ}
+    (hn : 0 < n) (hd : 0 < d)
+    (B H : StrongEmbedding ι)
+    (htop :
+      ∀ q : LevelNode ι (n - 1),
+        (H.toFun q.1).length = d - 1) :
+    StrongTreeSpace.approx ι d
+        (StrongEmbedding.comp B (splice hn hd H htop)) =
+      StrongTreeSpace.approx ι d B := by
+  dsimp [splice]
+  exact BoundaryGraft.approx_comp_graft B
+    (spliceFamily hn hd H htop)
+    (spliceFamily_commonLevels hn hd H htop)
+
+/-- The ambient composition with the splice lies in `[d,B]`. -/
+theorem comp_splice_mem_levelNeighborhood [Nonempty ι] {n d : ℕ}
+    (hn : 0 < n) (hd : 0 < d)
+    (B H : StrongEmbedding ι)
+    (htop :
+      ∀ q : LevelNode ι (n - 1),
+        (H.toFun q.1).length = d - 1) :
+    StrongEmbedding.comp B (splice hn hd H htop) ∈
+      (StrongTreeSpace.approximationSystem ι).levelNeighborhood d B := by
+  constructor
+  · exact ⟨splice hn hd H htop, rfl⟩
+  · exact approx_comp_splice hn hd B H htop
+
 end AmalgamationBoundary
 end Milliken
