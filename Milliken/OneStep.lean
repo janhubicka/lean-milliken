@@ -41,7 +41,7 @@ theorem boundary_prefix_factor {n : ℕ}
     (q : LevelNode ι n) :
     q.1.IsPrefix (H.toFun q.1) := by
   by_cases hq : q.1 = []
-  · subst q
+  · rw [hq]
     exact List.nil_prefix _
   · let p : Node ι := q.1.dropLast
     let i : ι := q.1.getLast hq
@@ -52,9 +52,11 @@ theorem boundary_prefix_factor {n : ℕ}
       dsimp [p]
       rw [List.length_dropLast, q.2]
       have hn : 0 < n := by
-        intro hn0
-        have : q.1.length = 0 := by simpa [hn0] using q.2
-        exact hq (List.length_eq_zero_iff.mp this)
+        by_contra hnpos
+        have hn0 : n = 0 := Nat.eq_zero_of_not_pos hnpos
+        have hlen0 : q.1.length = 0 := by
+          simpa [hn0] using q.2
+        exact hq (List.length_eq_zero_iff.mp hlen0)
       omega
     have hpfix : H.toFun p = p := hfix p hplen
     have hb := H.branch p i
@@ -78,8 +80,11 @@ theorem boundary_append_factorSuffix {n : ℕ}
     have h := List.prefix_iff_eq_take.mp hpref
     rw [q.2] at h
     exact h.symm
-  rw [factorSuffix, ← htake]
-  exact List.take_append_drop n (H.toFun q.1)
+  calc
+    q.1 ++ factorSuffix H q
+        = (H.toFun q.1).take n ++ (H.toFun q.1).drop n := by
+            rw [factorSuffix, htake]
+    _ = H.toFun q.1 := List.take_append_drop n (H.toFun q.1)
 
 /-- Evaluation of a boundary graft on a boundary node followed by a
 source suffix. -/
@@ -102,7 +107,7 @@ theorem graft_boundary_append [Nonempty ι] {n : ℕ}
       rw [q.2]
     rw [List.take_append_of_le_length hnq]
     apply (List.take_eq_self_iff _).2
-    exact hnq
+    rw [q.2]
   have hd : (q.1 ++ r).drop n = r := by
     have hdrop :=
       List.drop_append_of_le_length (l₂ := r)
@@ -218,7 +223,6 @@ theorem factor_oneStep_eq_tuple [Nonempty ι] {n : ℕ}
       T.toFun (G.toFun (H.toFun q.1)) =
         T.toFun ((tupleGraft x hx).toFun q.1)
     rw [hG, htuple]
-    rfl
 
 end Chapter6
 end Milliken
