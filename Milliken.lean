@@ -34,5 +34,6 @@ import Milliken.HalpernLauchli.Lemma315
 import Milliken.HalpernLauchli.Induction
 import Milliken.HalpernLauchli.FiniteHL
 import Milliken.HalpernLauchli.FiniteWitness
+import Milliken.HalpernLauchli.FiniteHLCompactness
 
 import Milliken.MillikenTheorem
