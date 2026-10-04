@@ -27,6 +27,7 @@ import Milliken.HalpernLauchli.Sections
 import Milliken.HalpernLauchli.MatrixRefinement
 import Milliken.HalpernLauchli.TailNormalization
 import Milliken.HalpernLauchli.Lemma315Normalized
+import Milliken.HalpernLauchli.Lemma315Construction
 import Milliken.HalpernLauchli.Lemma315
 import Milliken.HalpernLauchli.Induction
 
