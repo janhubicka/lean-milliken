@@ -174,5 +174,150 @@ theorem continuations_commonLevels
   · intro r s
     exact continuation_length hn hd H htop r levels hlevels s
 
+
+/-- A canonical fallback source node on level `n`. -/
+noncomputable def defaultLevelNode [Nonempty ι] (n : ℕ) :
+    LevelNode ι n :=
+  ⟨rayNode (ι := ι) n, rayNode_length n⟩
+
+/-- Choose a source-level-`n` node whose frontier is `p`, when one
+exists; otherwise use a harmless fixed fallback. -/
+noncomputable def assignedSource [Nonempty ι] {n d : ℕ}
+    (hn : 0 < n) (hd : 0 < d)
+    (H : StrongEmbedding ι)
+    (htop :
+      ∀ q : LevelNode ι (n - 1),
+        (H.toFun q.1).length = d - 1)
+    (p : LevelNode ι d) :
+    LevelNode ι n :=
+  if h : ∃ r : LevelNode ι n, frontierNode hn hd H htop r = p then
+    Classical.choose h
+  else
+    defaultLevelNode n
+
+theorem frontier_assignedSource [Nonempty ι] {n d : ℕ}
+    (hn : 0 < n) (hd : 0 < d)
+    (H : StrongEmbedding ι)
+    (htop :
+      ∀ q : LevelNode ι (n - 1),
+        (H.toFun q.1).length = d - 1)
+    (p : LevelNode ι d)
+    (hp : ∃ r : LevelNode ι n, frontierNode hn hd H htop r = p) :
+    frontierNode hn hd H htop
+        (assignedSource hn hd H htop p) = p := by
+  classical
+  simp [assignedSource, hp, Classical.choose_spec hp]
+
+/-- Fill every depth boundary cone with one of the continuations of `H`.
+On unused boundary nodes the choice is irrelevant. -/
+noncomputable def spliceFamily [Nonempty ι] {n d : ℕ}
+    (hn : 0 < n) (hd : 0 < d)
+    (H : StrongEmbedding ι)
+    (htop :
+      ∀ q : LevelNode ι (n - 1),
+        (H.toFun q.1).length = d - 1)
+    (p : LevelNode ι d) :
+    StrongEmbedding ι :=
+  continuation hn hd H htop
+    (assignedSource hn hd H htop p)
+
+theorem spliceFamily_commonLevels [Nonempty ι] {n d : ℕ}
+    (hn : 0 < n) (hd : 0 < d)
+    (H : StrongEmbedding ι)
+    (htop :
+      ∀ q : LevelNode ι (n - 1),
+        (H.toFun q.1).length = d - 1) :
+    BoundaryGraft.HasCommonLevels (spliceFamily hn hd H htop) := by
+  rcases continuations_commonLevels hn hd H htop with
+    ⟨levels, hmono, hlevels⟩
+  refine ⟨levels, hmono, ?_⟩
+  intro p s
+  exact hlevels (assignedSource hn hd H htop p) s
+
+/-- On a used frontier, the splice family reconstructs a cone of `H`
+(possibly the cone corresponding to another source node with the same
+frontier). -/
+theorem spliceFamily_reconstruct [Nonempty ι] {n d : ℕ}
+    (hn : 0 < n) (hd : 0 < d)
+    (H : StrongEmbedding ι)
+    (htop :
+      ∀ q : LevelNode ι (n - 1),
+        (H.toFun q.1).length = d - 1)
+    (p : LevelNode ι d)
+    (hp : ∃ r : LevelNode ι n, frontierNode hn hd H htop r = p)
+    (s : Node ι) :
+    p.1 ++ (spliceFamily hn hd H htop p).toFun s =
+      H.toFun ((assignedSource hn hd H htop p).1 ++ s) := by
+  have hfront :=
+    frontier_assignedSource hn hd H htop p hp
+  have h := continuation_reconstruct hn hd H htop
+    (assignedSource hn hd H htop p) s
+  rw [hfront] at h
+  exact h
+
+/-- The full depth-boundary splice. -/
+noncomputable def splice [Nonempty ι] {n d : ℕ}
+    (hn : 0 < n) (hd : 0 < d)
+    (H : StrongEmbedding ι)
+    (htop :
+      ∀ q : LevelNode ι (n - 1),
+        (H.toFun q.1).length = d - 1) :
+    StrongEmbedding ι :=
+  BoundaryGraft.graft (spliceFamily hn hd H htop)
+    (spliceFamily_commonLevels hn hd H htop)
+
+/-- The splice fixes the entire old depth prefix. -/
+theorem splice_toFun_of_lt [Nonempty ι] {n d : ℕ}
+    (hn : 0 < n) (hd : 0 < d)
+    (H : StrongEmbedding ι)
+    (htop :
+      ∀ q : LevelNode ι (n - 1),
+        (H.toFun q.1).length = d - 1)
+    (s : Node ι) (hs : s.length < d) :
+    (splice hn hd H htop).toFun s = s :=
+  BoundaryGraft.graft_toFun_of_lt
+    (spliceFamily hn hd H htop)
+    (spliceFamily_commonLevels hn hd H htop) s hs
+
+/-- If a used frontier lies below a source node `z`, applying the splice to
+`z` lands in the range of `H`. -/
+theorem splice_image_mem_range_of_frontier_prefix
+    [Nonempty ι] {n d : ℕ}
+    (hn : 0 < n) (hd : 0 < d)
+    (H : StrongEmbedding ι)
+    (htop :
+      ∀ q : LevelNode ι (n - 1),
+        (H.toFun q.1).length = d - 1)
+    (r : LevelNode ι n) (z : Node ι)
+    (hpref : (frontierNode hn hd H htop r).1.IsPrefix z) :
+    (splice hn hd H htop).toFun z ∈ StrongEmbedding.range H := by
+  let p : LevelNode ι d := frontierNode hn hd H htop r
+  have hpExists :
+      ∃ r' : LevelNode ι n, frontierNode hn hd H htop r' = p :=
+    ⟨r, rfl⟩
+  have hzge : d ≤ z.length := by
+    have := hpref.length_le
+    simpa [p, (frontierNode hn hd H htop r).2] using this
+  change
+    BoundaryGraft.graftFun (spliceFamily hn hd H htop) z ∈
+      StrongEmbedding.range H
+  rw [BoundaryGraft.graftFun_of_ge
+    (spliceFamily hn hd H htop) z hzge]
+  have hbp :
+      BoundaryGraft.boundaryPrefix d z hzge = p := by
+    apply Subtype.ext
+    dsimp [BoundaryGraft.boundaryPrefix, p]
+    have htake :
+        z.take d = (frontierNode hn hd H htop r).1 := by
+      have h := List.prefix_iff_eq_take.mp hpref
+      rw [(frontierNode hn hd H htop r).2] at h
+      exact h.symm
+    exact htake
+  rw [hbp]
+  have hreconstruct :=
+    spliceFamily_reconstruct hn hd H htop p hpExists (z.drop d)
+  exact ⟨(assignedSource hn hd H htop p).1 ++ z.drop d,
+    hreconstruct.symm⟩
+
 end AmalgamationBoundary
 end Milliken
