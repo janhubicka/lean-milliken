@@ -1,5 +1,6 @@
 import Milliken.AmbientTree
 import Milliken.Tree
+import Milliken.BranchEmbedding
 import Milliken.Cone
 import Milliken.Rebase
 import Milliken.Graft
