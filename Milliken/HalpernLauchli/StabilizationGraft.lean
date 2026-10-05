@@ -38,7 +38,7 @@ theorem graftLevelMap_strictMono
     · have han : n ≤ a := le_of_not_gt ha
       have hsub : a - n < b - n := by omega
       simp [graftLevelMap, ha, hb]
-      exact Nat.add_lt_add_left (hlevels hsub) n
+      exact hlevels hsub
 
 /-- Length formula for one boundary graft when the common relative levels
 are supplied explicitly. -/
