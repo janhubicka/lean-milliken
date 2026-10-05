@@ -144,8 +144,8 @@ theorem constantAbove_pullback
         (Fx i).take n = x.1 i := by
       change ((F i).toFun (x.1 i)).take n = x.1 i
       rw [hboundary i (x.1 i) (by rw [x.2 i])]
-      rw [List.take_eq_self_iff]
-      exact le_rfl
+      have hxlen : (x.1 i).length = n := x.2 i
+      simpa [hxlen] using (List.take_all (x.1 i))
     rw [← htake]
     exact List.take_prefix n (Fx i)
   have hz := hconst (levels l) Fz hFzLevel hprefixZ
@@ -289,11 +289,25 @@ theorem stabilizationGraft_toFun_of_prefix
   have hb :
       BoundaryGraft.boundaryPrefix n s hsge =
         (⟨x.1 i, x.2 i⟩ : LevelNode ι n) := by
+    have hxge : n ≤ (x.1 i).length := by
+      rw [x.2 i]
+    have hbp :=
+      BoundaryGraft.boundaryPrefix_eq_of_prefix
+        (n := n) hxs hxge
     symm
-    exact BoundaryGraft.boundaryPrefix_eq_of_prefix
-      hxs (by rw [x.2 i])
+    calc
+      (⟨x.1 i, x.2 i⟩ : LevelNode ι n) =
+          BoundaryGraft.boundaryPrefix n (x.1 i) hxge := by
+            apply Subtype.ext
+            simp [BoundaryGraft.boundaryPrefix, x.2 i]
+      _ = BoundaryGraft.boundaryPrefix n s
+          (hxge.trans hxs.length_le) := hbp
+      _ = BoundaryGraft.boundaryPrefix n s hsge := by
+            apply Subtype.ext
+            rfl
   rw [hb]
-  simp [stabilizationBoundaryFamily]
+  unfold stabilizationBoundaryFamily
+  simp
 
 /-- One local fusion step makes the pullback of a product set constant above
 the selected boundary vector. -/
@@ -376,11 +390,10 @@ theorem exists_stabilizationGraft
     have hpref : (x.1 i).IsPrefix (x.1 i) :=
       List.prefix_refl _
     have hdrop : (x.1 i).drop n = [] := by
-      rw [x.2 i]
-      simp
+      have hxlen : (x.1 i).length = n := x.2 i
+      simpa [hxlen] using (List.drop_length (x.1 i))
     rw [stabilizationGraft_toFun_of_prefix
       x H levels hH i (x.1 i) hpref, hdrop]
-    rfl
   change
     (mapTuple F z ∈ A ↔ mapTuple F x.1 ∈ A)
   rw [hmapZ, hmapX]
@@ -390,14 +403,10 @@ theorem exists_stabilizationGraft
   · by_cases hxA :
         (fun i => x.1 i ++ (H i).toFun (zeros i)) ∈ A
     · exact ⟨fun _ => hxA, fun _ => hzA⟩
-    · have : (1 : Fin 2) = 0 := by
-        simpa [hzA, hxA] using hcolorEq
-      exact (by decide : (1 : Fin 2) ≠ 0) this
+    · simp [hzA, hxA] at hcolorEq
   · by_cases hxA :
         (fun i => x.1 i ++ (H i).toFun (zeros i)) ∈ A
-    · have : (0 : Fin 2) = 1 := by
-        simpa [hzA, hxA] using hcolorEq
-      exact (by decide : (0 : Fin 2) ≠ 1) this
+    · simp [hzA, hxA] at hcolorEq
     · exact ⟨fun h => (hzA h).elim,
         fun h => (hxA h).elim⟩
 
