@@ -37,8 +37,10 @@ structure FusionWitness
   monochromatic : ∀ x ∈ M.carrier, c x = color
   scale_le_level : scale ≤ level
 
-/-- Package one fixed-base monochromatic matrix as a fusion witness. -/
-noncomputable def chosenFusionWitness
+/-- A fusion witness exists at every requested scale.  The existential
+statement lives in `Prop`; the noncomputable selector below then chooses
+one without eliminating a proposition directly into data. -/
+theorem exists_fusionWitness
     [Nonempty ι]
     {d : ℕ} (hd : 0 < d)
     (c : (Fin d → Node ι) → Fin 2)
@@ -47,11 +49,10 @@ noncomputable def chosenFusionWitness
     (hbase : IsLevelVectorAt r base)
     (hrq : r ≤ q)
     (hall : ∀ q : ℕ, LevelMonochromaticAbove c base q) :
-    FusionWitness c base r := by
-  classical
+    ∃ W : FusionWitness c base r, W.scale = q := by
   rcases hall q with
     ⟨color, M, l, hlevel, hdense, hmono⟩
-  exact {
+  let W : FusionWitness c base r := {
     scale := q
     base_le_scale := hrq
     color := color
@@ -64,6 +65,34 @@ noncomputable def chosenFusionWitness
       M.support_ge_of_onLevel_denseAbove
         hd hbase hrq hlevel hdense
   }
+  exact ⟨W, rfl⟩
+
+/-- Package one fixed-base monochromatic matrix as a fusion witness. -/
+noncomputable def chosenFusionWitness
+    [Nonempty ι]
+    {d : ℕ} (hd : 0 < d)
+    (c : (Fin d → Node ι) → Fin 2)
+    (base : Fin d → Node ι)
+    (r q : ℕ)
+    (hbase : IsLevelVectorAt r base)
+    (hrq : r ≤ q)
+    (hall : ∀ q : ℕ, LevelMonochromaticAbove c base q) :
+    FusionWitness c base r :=
+  Classical.choose
+    (exists_fusionWitness hd c base r q hbase hrq hall)
+
+theorem chosenFusionWitness_scale
+    [Nonempty ι]
+    {d : ℕ} (hd : 0 < d)
+    (c : (Fin d → Node ι) → Fin 2)
+    (base : Fin d → Node ι)
+    (r q : ℕ)
+    (hbase : IsLevelVectorAt r base)
+    (hrq : r ≤ q)
+    (hall : ∀ q : ℕ, LevelMonochromaticAbove c base q) :
+    (chosenFusionWitness hd c base r q hbase hrq hall).scale = q :=
+  Classical.choose_spec
+    (exists_fusionWitness hd c base r q hbase hrq hall)
 
 /-- The sequence of monochromatic matrices used by the fusion.  The first
 matrix is dense one level above the base.  Every later matrix is dense one
@@ -108,7 +137,10 @@ noncomputable def fusionLevels
     (r : ℕ)
     (hbase : IsLevelVectorAt r base)
     (hall : ∀ q : ℕ, LevelMonochromaticAbove c base q) :
-    (fusionWitnesses hd c base r hbase hall 0).scale = r + 1 := rfl
+    (fusionWitnesses hd c base r hbase hall 0).scale = r + 1 := by
+  unfold fusionWitnesses
+  exact chosenFusionWitness_scale
+    hd c base r (r + 1) hbase (by omega) hall
 
 @[simp] theorem fusionWitnesses_succ_scale
     [Nonempty ι]
@@ -120,7 +152,17 @@ noncomputable def fusionLevels
     (hall : ∀ q : ℕ, LevelMonochromaticAbove c base q)
     (n : ℕ) :
     (fusionWitnesses hd c base r hbase hall (n + 1)).scale =
-      fusionLevels hd c base r hbase hall n + 1 := rfl
+      fusionLevels hd c base r hbase hall n + 1 := by
+  unfold fusionWitnesses
+  exact chosenFusionWitness_scale
+    hd c base r
+      ((fusionWitnesses hd c base r hbase hall n).level + 1)
+      hbase
+      ((fusionWitnesses hd c base r hbase hall n).base_le_scale.trans
+        ((fusionWitnesses hd c base r hbase hall n).scale_le_level.trans
+          (Nat.le_succ
+            (fusionWitnesses hd c base r hbase hall n).level)))
+      hall
 
 theorem fusionLevels_lt_succ
     [Nonempty ι]
@@ -415,11 +457,16 @@ theorem branchFusionNode_length
     (branchFusionNode
       hd c base r hbase hall i s).length =
       fusionLevels hd c base r hbase hall s.length := by
-  have h :=
-    (runBranchFusion
-      hd c base r hbase hall i s).2.length_eq
-  rw [runBranchFusion_index] at h
-  exact h
+  let R :=
+    runBranchFusion hd c base r hbase hall i s
+  have hidx :
+      R.1 = s.length := by
+    exact runBranchFusion_index
+      hd c base r hbase hall i s
+  rcases R with ⟨m, S⟩
+  dsimp at hidx
+  subst m
+  exact S.length_eq
 
 theorem branchFusionNode_stage_mem
     [Nonempty ι]
@@ -433,11 +480,16 @@ theorem branchFusionNode_stage_mem
     branchFusionNode hd c base r hbase hall i s ∈
       (fusionWitnesses
         hd c base r hbase hall s.length).M.coord i := by
-  have h :=
-    (runBranchFusion
-      hd c base r hbase hall i s).2.stage_mem
-  rw [runBranchFusion_index] at h
-  exact h
+  let R :=
+    runBranchFusion hd c base r hbase hall i s
+  have hidx :
+      R.1 = s.length := by
+    exact runBranchFusion_index
+      hd c base r hbase hall i s
+  rcases R with ⟨m, S⟩
+  dsimp at hidx
+  subst m
+  exact S.stage_mem
 
 theorem runBranchFusion_child
     [Nonempty ι]
@@ -468,17 +520,17 @@ theorem branchFusionNode_branch
       (branchFusionNode hd c base r hbase hall i s) a).IsPrefix
       (branchFusionNode
         hd c base r hbase hall i (child s a)) := by
-  let R :=
-    runBranchFusion hd c base r hbase hall i s
-  have h :=
-    nextBranchFusionState_branch
-      hd c base r hbase hall i R.2 a
   change
-    (child R.2.node a).IsPrefix
-      (branchFusionNode
-        hd c base r hbase hall i (child s a))
+    (child
+      (runBranchFusion
+        hd c base r hbase hall i s).2.node a).IsPrefix
+      (runBranchFusion
+        hd c base r hbase hall i (child s a)).2.node
   rw [runBranchFusion_child]
-  exact h
+  exact nextBranchFusionState_branch
+    hd c base r hbase hall i
+      (runBranchFusion
+        hd c base r hbase hall i s).2 a
 
 /-- Raw strong embedding in coordinate `i`. -/
 noncomputable def branchFusionEmbedding
@@ -542,9 +594,10 @@ theorem branchFusion_level_monochromatic
   change
     branchFusionNode hd c base r hbase hall i (x i) ∈
       W.M.coord i
-  rw [hx i]
-  exact branchFusionNode_stage_mem
-    hd c base r hbase hall i (x i)
+  have hmem :=
+    branchFusionNode_stage_mem
+      hd c base r hbase hall i (x i)
+  simpa [W, hx i] using hmem
 
 end HalpernLauchli
 end Milliken
