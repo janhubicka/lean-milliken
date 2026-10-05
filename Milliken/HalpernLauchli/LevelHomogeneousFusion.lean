@@ -457,13 +457,14 @@ theorem branchFusionNode_length
     (branchFusionNode
       hd c base r hbase hall i s).length =
       fusionLevels hd c base r hbase hall s.length := by
-  let R :=
-    runBranchFusion hd c base r hbase hall i s
-  have hidx :
-      R.1 = s.length := by
-    exact runBranchFusion_index
-      hd c base r hbase hall i s
+  unfold branchFusionNode
+  generalize hR :
+      runBranchFusion hd c base r hbase hall i s = R
   rcases R with ⟨m, S⟩
+  have hidx :=
+    runBranchFusion_index
+      hd c base r hbase hall i s
+  rw [hR] at hidx
   dsimp at hidx
   subst m
   exact S.length_eq
@@ -480,13 +481,14 @@ theorem branchFusionNode_stage_mem
     branchFusionNode hd c base r hbase hall i s ∈
       (fusionWitnesses
         hd c base r hbase hall s.length).M.coord i := by
-  let R :=
-    runBranchFusion hd c base r hbase hall i s
-  have hidx :
-      R.1 = s.length := by
-    exact runBranchFusion_index
-      hd c base r hbase hall i s
+  unfold branchFusionNode
+  generalize hR :
+      runBranchFusion hd c base r hbase hall i s = R
   rcases R with ⟨m, S⟩
+  have hidx :=
+    runBranchFusion_index
+      hd c base r hbase hall i s
+  rw [hR] at hidx
   dsimp at hidx
   subst m
   exact S.stage_mem
