@@ -130,7 +130,6 @@ theorem lemma316
       hd hstab hno k t
   have hk0 : 0 < levels 0 := by
     dsimp [levels]
-    rw [lemma316Tower_zero_n]
     have hpos : 0 < t.length + 1 := by omega
     exact hpos.trans_le (Nat.le_max_right _ _)
   have hk_le_zero : k ≤ levels 0 := by
