@@ -12,5 +12,10 @@ name = "ramsey-space-todorcevic"
 git = "https://github.com/janhubicka/lean-ramsey-space-todorcevic"
 rev = "d0e2073ad320240f3e0c9aed5285e94eef185d45"
 
+[[require]]
+name = "successor-tree-lean"
+git = "https://github.com/janhubicka/lean-successors"
+rev = "57d35508abd0e55cb2387f88360125d6320e3457"
+
 [[lean_lib]]
 name = "Milliken"
