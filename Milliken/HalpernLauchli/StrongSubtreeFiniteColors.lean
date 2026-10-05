@@ -127,7 +127,7 @@ theorem finiteColorStrongSubtree_of_binary
 /-- If binary strong-subtree Halpern--Läuchli is available in every
 dimension, then so is the full finite-color theorem. -/
 theorem strongSubtreeHL_of_binary
-    [Nonempty ι]
+    [Finite ι] [Nonempty ι]
     (hbin :
       ∀ d : ℕ,
         ∀ c : (Fin d → Node ι) → Fin 2,
