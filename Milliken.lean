@@ -44,6 +44,7 @@ import Milliken.HalpernLauchli.StrongSubtreeFiniteColors
 import Milliken.HalpernLauchli.StabilizationGraft
 import Milliken.HalpernLauchli.StabilizationPair
 import Milliken.HalpernLauchli.FrontPullback
+import Milliken.HalpernLauchli.StabilizationFinite
 import Milliken.HalpernLauchli.Lemma315
 import Milliken.HalpernLauchli.Induction
 import Milliken.HalpernLauchli.FiniteHL
