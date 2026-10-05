@@ -75,7 +75,8 @@ theorem blockSpan_add
   | zero =>
       simp [blockSpan]
   | succ m ih =>
-      simp only [Nat.succ_eq_add_one, blockSpan_succ]
+      rw [show m + 1 + n = (m + n) + 1 by omega]
+      simp only [blockSpan_succ]
       rw [ih (j := j + 1)]
       have hidx : j + 1 + m = j + (m + 1) := by omega
       rw [hidx]
@@ -125,8 +126,8 @@ theorem blockMapFrom_append
       simp only [List.cons_append, blockMapFrom, List.length_cons]
       rw [ih (j := j + 1)]
       simp only [List.append_assoc]
-      congr 2
-      omega
+      rw [show j + 1 + s.length =
+        j + (s.length + 1) by omega]
 
 theorem blockMap_append
     (G : ℕ) (gap : ℕ → ℕ)
@@ -286,7 +287,7 @@ theorem exists_blockMap_extension
   refine ⟨s ++ w, ?_, List.prefix_append _ _, ?_⟩
   · rw [List.length_append, hwlen, hnm]
   · rw [blockMap_append, hwmap]
-    exact htv.symm
+    exact htv
 
 end HalpernLauchli
 end Milliken
