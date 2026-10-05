@@ -157,8 +157,10 @@ theorem exists_requirements_refinement
             pullbackFront P₁ G := by
         dsimp [H, P₁]
         exact (pullbackFront_comp P F G).symm
-      rcases hQ with rfl | hQtail
-      · rw [hPull]
+      simp only [List.mem_cons] at hQ
+      rcases hQ with hQR | hQtail
+      · subst Q
+        rw [hPull]
         exact requirement_preserved
           hd hFR hGcommon hGboundary
       · rw [hPull]
