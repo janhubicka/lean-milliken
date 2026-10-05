@@ -41,6 +41,7 @@ import Milliken.HalpernLauchli.LevelHomogeneousFusion
 import Milliken.HalpernLauchli.LevelSelector
 import Milliken.HalpernLauchli.BinaryStrongSubtree
 import Milliken.HalpernLauchli.StrongSubtreeFiniteColors
+import Milliken.HalpernLauchli.StabilizationGraft
 import Milliken.HalpernLauchli.Lemma315
 import Milliken.HalpernLauchli.Induction
 import Milliken.HalpernLauchli.FiniteHL
