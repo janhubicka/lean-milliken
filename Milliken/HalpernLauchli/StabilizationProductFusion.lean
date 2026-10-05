@@ -40,7 +40,11 @@ theorem snocEmbeddingFamily_commonLevels
     HasCommonLevels (snocEmbeddingFamily F K) levels := by
   refine ⟨hF.1, ?_⟩
   intro i s
-  exact Fin.lastCases (hK s) (fun j => hF.2 j s) i
+  cases i using Fin.lastCases with
+  | last =>
+      simpa [snocEmbeddingFamily] using hK s
+  | cast j =>
+      simpa [snocEmbeddingFamily] using hF.2 j s
 
 theorem snocEmbeddingFamily_fixesBelow
     {d n : ℕ}
@@ -50,7 +54,11 @@ theorem snocEmbeddingFamily_fixesBelow
     (hK : ∀ s : Node ι, s.length < n → K.toFun s = s) :
     FixesBelow n (snocEmbeddingFamily F K) := by
   intro i s hs
-  exact Fin.lastCases (hK s hs) (fun j => hF j s hs) i
+  cases i using Fin.lastCases with
+  | last =>
+      simpa [snocEmbeddingFamily] using hK s hs
+  | cast j =>
+      simpa [snocEmbeddingFamily] using hF j s hs
 
 @[simp] theorem mapTuple_snocEmbeddingFamily_appendLast
     {d : ℕ}
@@ -60,7 +68,11 @@ theorem snocEmbeddingFamily_fixesBelow
     mapTuple (snocEmbeddingFamily F K) (appendLast x y) =
       appendLast (mapTuple F x) (K.toFun y) := by
   funext i
-  exact Fin.lastCases rfl (fun _ => rfl) i
+  cases i using Fin.lastCases with
+  | last =>
+      simp [mapTuple, snocEmbeddingFamily, appendLast]
+  | cast j =>
+      simp [mapTuple, snocEmbeddingFamily, appendLast]
 
 /-- Sections of a full product pullback are front pullbacks of the section
 at the image of the last-coordinate node. -/
