@@ -231,6 +231,74 @@ theorem lemma316Tower_good
     (nextLemma316TowerStep hd hstab hno
       (lemma316Tower hd hstab hno k t p)).good
 
+/-- The selected density levels form a strictly increasing sequence. -/
+theorem lemma316Tower_levels_strictMono
+    [Finite ι] [Nonempty ι]
+    {d : ℕ} (hd : 0 < d)
+    {P : Set (Fin (d + 1) → Node ι)}
+    (hstab : Stabilized P)
+    (hno : ¬ ContainsSomewhereDense Pᶜ)
+    (k : ℕ) (t : Node ι) :
+    StrictMono (fun p =>
+      (lemma316Tower hd hstab hno k t p).n) := by
+  apply strictMono_nat_of_lt_succ
+  intro p
+  exact lemma316Tower_n_lt_succ hd hstab hno k t p
+
+/-- A strictly increasing sequence of natural numbers eventually reaches
+every prescribed bound. -/
+theorem nat_strictMono_unbounded
+    (f : ℕ → ℕ) (hf : StrictMono f) :
+    ∀ r : ℕ, ∃ q : ℕ, r ≤ f q := by
+  have hdiag : ∀ q : ℕ, q ≤ f q := by
+    intro q
+    induction q with
+    | zero => omega
+    | succ q ih =>
+        have hstep : f q < f (q + 1) :=
+          hf (Nat.lt_succ_self q)
+        omega
+  intro r
+  exact ⟨r, hdiag r⟩
+
+/-- The selected tower levels are unbounded. -/
+theorem lemma316Tower_levels_unbounded
+    [Finite ι] [Nonempty ι]
+    {d : ℕ} (hd : 0 < d)
+    {P : Set (Fin (d + 1) → Node ι)}
+    (hstab : Stabilized P)
+    (hno : ¬ ContainsSomewhereDense Pᶜ)
+    (k : ℕ) (t : Node ι) :
+    ∀ r : ℕ, ∃ q : ℕ,
+      r ≤ (lemma316Tower hd hstab hno k t q).n :=
+  nat_strictMono_unbounded _
+    (lemma316Tower_levels_strictMono hd hstab hno k t)
+
+/-- The tower sets are decreasing at arbitrary comparable indices. -/
+theorem lemma316Tower_X_antitone
+    [Finite ι] [Nonempty ι]
+    {d : ℕ} (hd : 0 < d)
+    {P : Set (Fin (d + 1) → Node ι)}
+    (hstab : Stabilized P)
+    (hno : ¬ ContainsSomewhereDense Pᶜ)
+    (k : ℕ) (t : Node ι)
+    {p q : ℕ} (hpq : p ≤ q) :
+    (lemma316Tower hd hstab hno k t q).X ⊆
+      (lemma316Tower hd hstab hno k t p).X := by
+  induction q generalizing p with
+  | zero =>
+      have hp : p = 0 := Nat.eq_zero_of_le_zero hpq
+      subst p
+      exact fun _ hx => hx
+  | succ q ih =>
+      rcases Nat.eq_or_lt_of_le hpq with hp | hp
+      · subst p
+        exact fun _ hx => hx
+      · have hpq' : p ≤ q := Nat.le_of_lt_succ hp
+        exact
+          (lemma316Tower_X_succ_subset
+            hd hstab hno k t q).trans (ih hpq')
+
 /-- Every chosen tower point belongs to its current set and lies below the
 current density parameter. -/
 theorem lemma316Tower_sample_spec
