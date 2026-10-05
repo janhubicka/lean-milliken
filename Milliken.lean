@@ -52,6 +52,7 @@ import Milliken.HalpernLauchli.StabilizationProductFusion
 import Milliken.HalpernLauchli.StabilizationProductLimit
 import Milliken.HalpernLauchli.MatrixTransport
 import Milliken.HalpernLauchli.ReducedInductionStep
+import Milliken.HalpernLauchli.HighlyDenseObstruction
 import Milliken.HalpernLauchli.Lemma315
 import Milliken.HalpernLauchli.Induction
 import Milliken.HalpernLauchli.FiniteHL
