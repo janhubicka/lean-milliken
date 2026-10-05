@@ -89,6 +89,7 @@ theorem evalFrom_length
         List.length_cons, blockSpan_succ]
       rw [ih (i := i + 1)]
       simp [LeftVariableWord.eval, evalWord]
+      omega
 
 /-- Evaluation length depends only on source length. -/
 theorem eval_length
@@ -310,7 +311,9 @@ theorem strongSubtreeHL
     change
       ((coordinateSubspace W i).eval s).length =
         levels W s.length
-    rw [eval_length, levels_mapSubspace]
+    rw [eval_length]
+    simpa [coordinateSubspace] using
+      (levels_mapSubspace (fun a => a i) W s.length)
   let color : Fin colors := colour (W.eval [])
   refine ⟨color, L, F, hcommon, ?_⟩
   intro n x hx
