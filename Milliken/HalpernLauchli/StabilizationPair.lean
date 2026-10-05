@@ -289,25 +289,16 @@ theorem stabilizationGraft_toFun_of_prefix
   have hb :
       BoundaryGraft.boundaryPrefix n s hsge =
         (⟨x.1 i, x.2 i⟩ : LevelNode ι n) := by
-    have hxge : n ≤ (x.1 i).length := by
-      rw [x.2 i]
-    have hbp :=
-      BoundaryGraft.boundaryPrefix_eq_of_prefix
-        (n := n) hxs hxge
-    symm
-    calc
-      (⟨x.1 i, x.2 i⟩ : LevelNode ι n) =
-          BoundaryGraft.boundaryPrefix n (x.1 i) hxge := by
-            apply Subtype.ext
-            simp [BoundaryGraft.boundaryPrefix, x.2 i]
-      _ = BoundaryGraft.boundaryPrefix n s
-          (hxge.trans hxs.length_le) := hbp
-      _ = BoundaryGraft.boundaryPrefix n s hsge := by
-            apply Subtype.ext
-            rfl
+    apply Subtype.ext
+    change s.take n = x.1 i
+    have heq := List.prefix_iff_eq_take.mp hxs
+    rw [x.2 i] at heq
+    exact heq.symm
   rw [hb]
   unfold stabilizationBoundaryFamily
-  simp
+  simp only [if_pos (by
+    apply Subtype.ext
+    rfl)]
 
 /-- One local fusion step makes the pullback of a product set constant above
 the selected boundary vector. -/
