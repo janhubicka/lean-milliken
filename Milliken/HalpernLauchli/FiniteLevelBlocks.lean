@@ -77,9 +77,9 @@ theorem blockSpan_add
   | succ m ih =>
       simp only [Nat.succ_eq_add_one, blockSpan_succ]
       rw [ih (j := j + 1)]
-      congr 1
-      · omega
-      · omega
+      have hidx : j + 1 + m = j + (m + 1) := by omega
+      rw [hidx]
+      omega
 
 /-- Selected ambient height corresponding to a source level. -/
 def blockLevel (G : ℕ) (gap : ℕ → ℕ) (n : ℕ) : ℕ :=
@@ -234,13 +234,12 @@ theorem exists_blockMapFrom_preimage
             b.1.take g = head := by
           dsimp [b, bword]
           rw [extendToLevel]
-          have hheadG : head.length ≤ G := by
-            simpa [hhead] using hgG
+          have hghead : g ≤ head.length := by
+            omega
           rw [List.take_append_of_le_length
             (l₂ := List.replicate (G - head.length)
-              (padLetter ι)) (by simpa [hhead] using le_rfl)]
-          rw [List.take_eq_self_iff]
-          exact le_rfl
+              (padLetter ι)) hghead]
+          simpa [hhead] using (List.take_all head)
         rw [htake, hsmap]
         dsimp [head, tail]
         exact List.take_append_drop g t
