@@ -33,6 +33,23 @@ def HasCommonLevels {d : ℕ} (F : Fin d → StrongEmbedding ι)
   StrictMono levels ∧
     ∀ i s, ((F i).toFun s).length = levels s.length
 
+/-- Coordinatewise composition of two common-level families again has common
+levels, with the composed level map. -/
+theorem HasCommonLevels.comp
+    {d : ℕ}
+    {F G : Fin d → StrongEmbedding ι}
+    {f g : ℕ → ℕ}
+    (hF : HasCommonLevels F f)
+    (hG : HasCommonLevels G g) :
+    HasCommonLevels
+      (fun i => StrongEmbedding.comp (F i) (G i))
+      (fun n => f (g n)) := by
+  refine ⟨hF.1.comp hG.1, ?_⟩
+  intro i s
+  change ((F i).toFun ((G i).toFun s)).length =
+    f (g s.length)
+  rw [hF.2 i, hG.2 i]
+
 /-- A tuple of tree nodes lies on one common level. -/
 def IsLevelVector {d : ℕ} (x : Fin d → Node ι) : Prop :=
   ∃ n, ∀ i, (x i).length = n
