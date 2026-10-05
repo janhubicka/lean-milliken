@@ -54,6 +54,7 @@ import Milliken.HalpernLauchli.MatrixTransport
 import Milliken.HalpernLauchli.ReducedInductionStep
 import Milliken.HalpernLauchli.HighlyDenseObstruction
 import Milliken.HalpernLauchli.ReducedCompactness
+import Milliken.HalpernLauchli.FiniteLevelBlocks
 import Milliken.HalpernLauchli.Lemma315
 import Milliken.HalpernLauchli.Induction
 import Milliken.HalpernLauchli.FiniteHL
