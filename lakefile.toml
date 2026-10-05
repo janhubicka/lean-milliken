@@ -10,7 +10,7 @@ rev = "5bd58ac291422a21f412ae354c91e7d172255a2c"
 [[require]]
 name = "ramsey-space-todorcevic"
 git = "https://github.com/janhubicka/lean-ramsey-space-todorcevic"
-rev = "3bfec642146a9cdb96f3e6ff080519fb79ca957c"
+rev = "d0e2073ad320240f3e0c9aed5285e94eef185d45"
 
 [[lean_lib]]
 name = "Milliken"
