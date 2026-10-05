@@ -27,7 +27,7 @@ theorem exists_mem_of_somewhereConeDense
     (hX : SomewhereConeDense X) :
     ∃ y : Node ι, y ∈ X := by
   rcases hX with ⟨root, hroot⟩
-  rcases hroot root (by simp) with ⟨y, hy, _⟩
+  rcases hroot (u := root) (by simp) with ⟨y, hy, _⟩
   exact ⟨y, hy⟩
 
 /-- A tower state together with a point already lying below its density
@@ -69,17 +69,17 @@ structure Lemma316TowerStep {d : ℕ}
   X_subset : next.X ⊆ S.X
   good : SectionsGoodAt P S.n next.n next.X
 
-/-- Perform one Lemma 3.15 step, choose a point of the resulting
-somewhere-dense set, and then enlarge the returned input scale beyond that
-point. -/
-noncomputable def nextLemma316TowerStep
+/-- One bounded-witness step exists.  This theorem lives in `Prop`, so it can
+unpack the existential conclusion of Lemma 3.15; the noncomputable chooser
+below then selects one such step. -/
+theorem exists_nextLemma316TowerStep
     [Finite ι] [Nonempty ι]
     {d : ℕ} (hd : 0 < d)
     {P : Set (Fin (d + 1) → Node ι)}
     (hstab : Stabilized P)
     (hno : ¬ ContainsSomewhereDense Pᶜ)
     (S : Lemma316TowerState ι) :
-    Lemma316TowerStep (tailNormalize P) S := by
+    Nonempty (Lemma316TowerStep (tailNormalize P) S) := by
   classical
   rcases lemma315_tailNormalize_step
       hd hstab hno S.n S.X S.dense with
@@ -106,15 +106,29 @@ noncomputable def nextLemma316TowerStep
     sample_mem := hyY
     sample_below := hyn
   }
-  refine {
+  refine ⟨{
     next := T
     n_lt := ?_
     X_subset := ?_
     good := ?_
-  }
+  }⟩
   · exact hSn
   · exact hYS
   · exact sectionsGoodAt_mono_input hmn hgood
+
+/-- Perform one Lemma 3.15 step, choose a point of the resulting
+somewhere-dense set, and then enlarge the returned input scale beyond that
+point. -/
+noncomputable def nextLemma316TowerStep
+    [Finite ι] [Nonempty ι]
+    {d : ℕ} (hd : 0 < d)
+    {P : Set (Fin (d + 1) → Node ι)}
+    (hstab : Stabilized P)
+    (hno : ¬ ContainsSomewhereDense Pᶜ)
+    (S : Lemma316TowerState ι) :
+    Lemma316TowerStep (tailNormalize P) S :=
+  Classical.choice
+    (exists_nextLemma316TowerStep hd hstab hno S)
 
 /-- The recursively chosen bounded-witness tower. -/
 noncomputable def lemma316Tower
