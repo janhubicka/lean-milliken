@@ -56,7 +56,7 @@ theorem stabilizationFusionState_agrees_of_le
           _ =
               ((stabilizationFusionState
                 hd hHDHL P p).F i).toFun s :=
-            ih hpq' i s hs
+            ih hpq' hs
 
 /-- Permanent image of one source node in the diagonal fusion limit. -/
 noncomputable def stabilizationLimitFun
@@ -119,7 +119,13 @@ theorem stabilizationLimitLevels_strictMono
           hd hHDHL P (n + 2)).levels n =
         (stabilizationFusionState
           hd hHDHL P (n + 1)).levels n := by
-    simpa [r, rayNode_length] using hlen
+    rw [
+      (stabilizationFusionState
+        hd hHDHL P (n + 2)).common.2 i0 r,
+      (stabilizationFusionState
+        hd hHDHL P (n + 1)).common.2 i0 r,
+      rayNode_length] at hlen
+    exact hlen
   have hlt :
       (stabilizationFusionState
           hd hHDHL P (n + 2)).levels n <
@@ -163,7 +169,8 @@ theorem stabilizationLimitFun_branch
       hd hHDHL P (n + 1)).F i).branch s a
   rw [hagree] at hbranch
   simpa [stabilizationLimitFun, n, child,
-    Nat.add_assoc, Nat.add_left_comm, Nat.add_comm] using hbranch
+    List.length_append, Nat.add_assoc,
+    Nat.add_left_comm, Nat.add_comm] using hbranch
 
 /-- Coordinate strong embedding obtained from the diagonal limit. -/
 noncomputable def stabilizationLimitEmbedding
@@ -224,6 +231,7 @@ theorem stabilizationLimit_toFun_eq_stage
     (hs : s.length < N) :
     (stabilizationLimitFamily hd hHDHL P i).toFun s =
       ((stabilizationFusionState hd hHDHL P N).F i).toFun s := by
+  unfold stabilizationLimitFamily
   rw [stabilizationLimitEmbedding_toFun]
   unfold stabilizationLimitFun
   have hle : s.length + 1 ≤ N := by omega
