@@ -194,5 +194,42 @@ noncomputable def levelSelector
     (levelSelectorFun_length levels hlevels)
     (levelSelectorFun_branch levels)
 
+/-- Canonical increasing enumeration of an infinite set of natural numbers.
+We only use the order and membership properties, not any particular choice
+of the first element. -/
+noncomputable def increasingEnumeration
+    (A : Set ℕ) (hA : A.Infinite) : ℕ → ℕ
+  | 0 => Classical.choose (hA.exists_gt 0)
+  | n + 1 =>
+      Classical.choose
+        (hA.exists_gt (increasingEnumeration A hA n))
+
+theorem increasingEnumeration_mem
+    (A : Set ℕ) (hA : A.Infinite) (n : ℕ) :
+    increasingEnumeration A hA n ∈ A := by
+  cases n with
+  | zero =>
+      exact (Classical.choose_spec (hA.exists_gt 0)).1
+  | succ n =>
+      exact
+        (Classical.choose_spec
+          (hA.exists_gt (increasingEnumeration A hA n))).1
+
+theorem increasingEnumeration_lt_succ
+    (A : Set ℕ) (hA : A.Infinite) (n : ℕ) :
+    increasingEnumeration A hA n <
+      increasingEnumeration A hA (n + 1) := by
+  exact
+    (Classical.choose_spec
+      (hA.exists_gt (increasingEnumeration A hA n))).2
+
+theorem increasingEnumeration_strictMono
+    (A : Set ℕ) (hA : A.Infinite) :
+    StrictMono (increasingEnumeration A hA) := by
+  apply strictMono_nat_of_lt_succ
+  intro n
+  exact increasingEnumeration_lt_succ A hA n
+
+
 end HalpernLauchli
 end Milliken
