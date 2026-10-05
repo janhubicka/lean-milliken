@@ -32,6 +32,7 @@ import Milliken.HalpernLauchli.Lemma315Proof
 import Milliken.HalpernLauchli.Lemma316Tower
 import Milliken.HalpernLauchli.Lemma316BoundedTower
 import Milliken.HalpernLauchli.SparseFiniteHL
+import Milliken.HalpernLauchli.Lemma316Fill
 import Milliken.HalpernLauchli.Lemma315
 import Milliken.HalpernLauchli.Induction
 import Milliken.HalpernLauchli.FiniteHL
