@@ -74,6 +74,7 @@ theorem imageUnder_denseAt_one
     (hM : M.DenseAt 1) :
     (M.imageUnder F).DenseAt 1 := by
   intro i s hs
+  change s.length = 1 at hs
   have hchild :
       ∃ a : ι, child ([] : Node ι) a = s :=
     exists_child_eq_of_prefix_length_succ
@@ -141,14 +142,16 @@ theorem imageUnder_somewhereDense
     have hslen :
         s.length = ((F i).toFun (raised i)).length + 1 := by
       rw [hs.2, himage_len]
-      rfl
     rcases exists_child_eq_of_prefix_length_succ
         hs.1 hslen with
       ⟨a, ha⟩
     let u : Node ι := child (raised i) a
     have hulen : u.length = n := by
-      dsimp [u, child, r]
-      simp
+      have hu :
+          u.length = (raised i).length + 1 := by
+        simp [u, child]
+      rw [hu, hraised_len i]
+      dsimp [r]
       omega
     have hbaseu : (base i).IsPrefix u :=
       (hraised i).trans (List.prefix_append _ _)
