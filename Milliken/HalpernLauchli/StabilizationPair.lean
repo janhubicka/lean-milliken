@@ -52,6 +52,11 @@ def PreservesBoundary {d : ℕ}
   ∀ i s, n ≤ s.length →
     ((F i).toFun s).take n = s.take n
 
+/-- A refinement literally fixes every node below a prescribed boundary. -/
+def FixesBelow {d : ℕ}
+    (n : ℕ) (F : Fin d → StrongEmbedding ι) : Prop :=
+  ∀ i s, s.length < n → (F i).toFun s = s
+
 theorem mapTuple_level
     {d l : ℕ}
     {F : Fin d → StrongEmbedding ι}
@@ -238,6 +243,25 @@ theorem stabilizationGraft_preservesBoundary
     (stabilizationBoundaryFamily_levels
       x H levels hH)
 
+theorem stabilizationGraft_fixesBelow
+    [Nonempty ι]
+    {d n : ℕ}
+    (x : LevelVector ι d n)
+    (H : Fin d → StrongEmbedding ι)
+    (levels : ℕ → ℕ)
+    (hH : HasCommonLevels H levels) :
+    FixesBelow n
+      (stabilizationGraft x H levels hH) := by
+  intro i s hs
+  unfold stabilizationGraft
+  exact BoundaryGraft.graft_toFun_of_lt
+    (stabilizationBoundaryFamily
+      x H levels hH.1 i)
+    ⟨levels, hH.1,
+      stabilizationBoundaryFamily_levels
+        x H levels hH i⟩
+    s hs
+
 /-- On the selected boundary cone, the stabilization graft is exactly the
 Halpern--Läuchli refinement prefixed by that boundary node. -/
 theorem stabilizationGraft_toFun_of_prefix
@@ -284,6 +308,7 @@ theorem exists_stabilizationGraft
       ∃ F : Fin d → StrongEmbedding ι,
         HasCommonLevels F levels ∧
         PreservesBoundary n F ∧
+        FixesBelow n F ∧
         ConstantAbove (pullbackProduct F A) x := by
   classical
   let c : (Fin d → Node ι) → Fin 2 :=
@@ -303,8 +328,13 @@ theorem exists_stabilizationGraft
     dsimp [F]
     exact stabilizationGraft_preservesBoundary
       x H levels hH
+  have hFfix :
+      FixesBelow n F := by
+    dsimp [F]
+    exact stabilizationGraft_fixesBelow
+      x H levels hH
   refine ⟨graftLevelMap n levels, F,
-    hFcommon, hFboundary, ?_⟩
+    hFcommon, hFboundary, hFfix, ?_⟩
   intro l z hzlevel hxz
   have hnl : n ≤ l := by
     let i0 : Fin d := ⟨0, hd⟩
