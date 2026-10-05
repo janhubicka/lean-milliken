@@ -172,6 +172,21 @@ noncomputable def stabilizationBoundaryFamily
   else
     levelSelector levels hlevels
 
+@[simp] theorem stabilizationBoundaryFamily_selected
+    [Nonempty ι]
+    {d n : ℕ}
+    (x : LevelVector ι d n)
+    (H : Fin d → StrongEmbedding ι)
+    (levels : ℕ → ℕ)
+    (hlevels : StrictMono levels)
+    (i : Fin d) :
+    stabilizationBoundaryFamily x H levels hlevels i
+        (⟨x.1 i, x.2 i⟩ : LevelNode ι n) =
+      H i := by
+  classical
+  unfold stabilizationBoundaryFamily
+  simp
+
 theorem stabilizationBoundaryFamily_levels
     [Nonempty ι]
     {d n : ℕ}
@@ -295,10 +310,8 @@ theorem stabilizationGraft_toFun_of_prefix
     rw [x.2 i] at heq
     exact heq.symm
   rw [hb]
-  unfold stabilizationBoundaryFamily
-  simp only [if_pos (by
-    apply Subtype.ext
-    rfl)]
+  rw [stabilizationBoundaryFamily_selected
+    x H levels hH.1 i]
 
 /-- One local fusion step makes the pullback of a product set constant above
 the selected boundary vector. -/
