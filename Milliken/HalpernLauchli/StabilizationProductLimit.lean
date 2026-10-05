@@ -264,15 +264,15 @@ theorem productStabilizationLimit_stabilized
     funext i
     cases i using Fin.lastCases with
     | last =>
-        dsimp [mapTuple, appendLast]
-        exact productStabilizationLimit_toFun_eq_stage
-          hd hHDHL P l (Fin.last d) y (by omega)
+        simpa [mapTuple, appendLast] using
+          (productStabilizationLimit_toFun_eq_stage
+            hd hHDHL P l (Fin.last d) y (by omega))
     | cast j =>
-        dsimp [mapTuple, appendLast]
-        exact productStabilizationLimit_toFun_eq_stage
-          hd hHDHL P l (Fin.castSucc j) (z j) (by
-            rw [hzlevel j]
-            omega)
+        simpa [mapTuple, appendLast] using
+          (productStabilizationLimit_toFun_eq_stage
+            hd hHDHL P l (Fin.castSucc j) (z j) (by
+              rw [hzlevel j]
+              omega))
 
   have htruncLevel :
       IsLevelVectorAt (y.length + 1)
@@ -286,16 +286,16 @@ theorem productStabilizationLimit_stabilized
     funext i
     cases i using Fin.lastCases with
     | last =>
-        dsimp [mapTuple, appendLast]
-        exact productStabilizationLimit_toFun_eq_stage
-          hd hHDHL P l (Fin.last d) y (by omega)
+        simpa [mapTuple, appendLast] using
+          (productStabilizationLimit_toFun_eq_stage
+            hd hHDHL P l (Fin.last d) y (by omega))
     | cast j =>
-        dsimp [mapTuple, appendLast]
-        exact productStabilizationLimit_toFun_eq_stage
-          hd hHDHL P l (Fin.castSucc j)
-          (truncateVector (y.length + 1) z j) (by
-            rw [htruncLevel j]
-            omega)
+        simpa [mapTuple, appendLast] using
+          (productStabilizationLimit_toFun_eq_stage
+            hd hHDHL P l (Fin.castSucc j)
+            (truncateVector (y.length + 1) z j) (by
+              rw [htruncLevel j]
+              omega))
 
   change
     (mapTuple (productStabilizationLimitFamily hd hHDHL P)
