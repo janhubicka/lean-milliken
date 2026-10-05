@@ -120,6 +120,7 @@ theorem exists_sectionFusionStep
   classical
   have hchildle : ([a] : Node ι).length ≤ S.level := by
     simp
+    have hpos := S.level_pos
     omega
   let t : Node ι := extendToLevel ([a] : Node ι) S.level
   have hchildt : ([a] : Node ι).IsPrefix t := by
@@ -310,9 +311,9 @@ theorem fusedAllChildren_Y_dense
       simp at hslen
   | cons a tail =>
       have htail : tail = [] := by
-        have : tail.length = 0 := by
+        have hzero : tail.length = 0 := by
           simpa using hslen
-        exact List.length_eq_zero.mp this
+        simpa using hzero
       subst tail
       have ha : a ∈ as := by
         dsimp [as]
