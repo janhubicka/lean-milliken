@@ -97,9 +97,9 @@ theorem stabilizationCoordinateSequence_isFusion
   constructor
   · exact stabilizationFusionState_succ_le
       hd hHDHL P n i
-  · simpa [Nat.add_comm] using
-      (stabilizationFusionState_succ_approx
-        hd hHDHL P n i)
+  · rw [Nat.add_comm 1 n]
+    exact stabilizationFusionState_succ_approx
+      hd hHDHL P n i
 
 /-- Closedness plus A.2 gives fusion completeness for the strong-tree
 approximation system, independently of A.3 and A.4. -/
@@ -187,7 +187,7 @@ theorem stabilizationLimit_toFun_eq_stage
     (stabilizationLimitEmbedding_mem
       hd hHDHL P i n).2
   exact StrongTreeSpace.toFun_eq_of_approx_eq
-    happ (by simpa [Nat.add_comm] using hs)
+    ι happ (by simpa [Nat.add_comm] using hs)
 
 /-- Limit coordinates share the same target level on every source level. -/
 theorem stabilizationLimit_sameLevel
