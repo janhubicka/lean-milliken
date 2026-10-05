@@ -34,7 +34,7 @@ theorem prefix_mono_of_branch
       simp
   | cons a u ih =>
       have h₁ := hbranch s a
-      have h₂ := ih (child s a)
+      have h₂ := ih (s := child s a)
       simpa [child, List.append_assoc] using h₁.trans h₂
 
 /-- Auxiliary prefix reflection above a common source prefix. -/
@@ -55,7 +55,7 @@ theorem prefix_reflect_aux
     prefix_mono_of_branch f hbranch
   induction u generalizing p v with
   | nil =>
-      exact List.nil_prefix _
+      exact List.nil_prefix
   | cons a u ih =>
       cases v with
       | nil =>
@@ -68,7 +68,8 @@ theorem prefix_reflect_aux
               levels p.length <
                 levels (p ++ a :: u).length :=
             hlevels hsrc
-          omega
+          simp only [List.append_nil] at hlen
+          exact (not_lt_of_ge hlen) hlev
       | cons b v =>
           have hpa :
               (child p a).IsPrefix (p ++ a :: u) := by
@@ -193,10 +194,8 @@ theorem branch_reflect_of_branch
           exact List.append_cancel_left hmark
         simpa using hs
       subst j
-      exact
-        (show (s ++ [i]).IsPrefix
-            ((s ++ [i]) ++ u) from
-          List.prefix_append _ _)
+      simpa [child, List.append_assoc] using
+        (List.prefix_append (s ++ [i]) u)
 
 /-- Package the constructive level and branch clauses as a strong embedding. -/
 noncomputable def ofBranchLevels
