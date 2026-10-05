@@ -38,6 +38,7 @@ import Milliken.HalpernLauchli.Lemma316
 import Milliken.HalpernLauchli.FinalInduction
 import Milliken.HalpernLauchli.StrongSubtreePrep
 import Milliken.HalpernLauchli.LevelHomogeneousFusion
+import Milliken.HalpernLauchli.LevelSelector
 import Milliken.HalpernLauchli.Lemma315
 import Milliken.HalpernLauchli.Induction
 import Milliken.HalpernLauchli.FiniteHL
