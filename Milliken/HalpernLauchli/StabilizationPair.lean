@@ -92,10 +92,7 @@ theorem boundaryGraft_preservesBoundary
         (BoundaryGraft.boundaryPrefix n s hs).1.length := by
     rw [(BoundaryGraft.boundaryPrefix n s hs).2]
   rw [List.take_append_of_le_length hlen]
-  change
-    (BoundaryGraft.boundaryPrefix n s hs).1 =
-      s.take n
-  rfl
+  simp [BoundaryGraft.boundaryPrefix]
 
 /-- A boundary-preserving common-level refinement preserves any cone
 constancy property already established at that boundary. -/
@@ -132,7 +129,7 @@ theorem constantAbove_pullback
       exact hlen
     have htake :
         (Fz i).take n = x.1 i := by
-      dsimp [Fz]
+      change ((F i).toFun (z i)).take n = x.1 i
       rw [hboundary i (z i) (by simpa [hzlevel i] using hnl)]
       have hp := hxz i
       have heq := List.prefix_iff_eq_take.mp hp
@@ -145,7 +142,7 @@ theorem constantAbove_pullback
     intro i
     have htake :
         (Fx i).take n = x.1 i := by
-      dsimp [Fx]
+      change ((F i).toFun (x.1 i)).take n = x.1 i
       rw [hboundary i (x.1 i) (by rw [x.2 i])]
       rw [List.take_eq_self_iff]
       exact le_rfl
@@ -168,8 +165,9 @@ noncomputable def stabilizationBoundaryFamily
     (hlevels : StrictMono levels)
     (i : Fin d)
     (b : LevelNode ι n) :
-    StrongEmbedding ι :=
-  if h : b = ⟨x.1 i, x.2 i⟩ then
+    StrongEmbedding ι := by
+  classical
+  exact if h : b = ⟨x.1 i, x.2 i⟩ then
     H i
   else
     levelSelector levels hlevels
@@ -291,6 +289,7 @@ theorem stabilizationGraft_toFun_of_prefix
   have hb :
       BoundaryGraft.boundaryPrefix n s hsge =
         (⟨x.1 i, x.2 i⟩ : LevelNode ι n) := by
+    symm
     exact BoundaryGraft.boundaryPrefix_eq_of_prefix
       hxs (by rw [x.2 i])
   rw [hb]
@@ -359,7 +358,8 @@ theorem exists_stabilizationGraft
     hmono (l - n) tails htails
   have hcZero :=
     hmono 0 zeros hzeros
-  have hcolorEq : c tails = c zeros :=
+  have hcolorEq :
+      c (mapTuple H tails) = c (mapTuple H zeros) :=
     hcTail.trans hcZero.symm
   have hmapZ :
       mapTuple F z =
@@ -375,22 +375,29 @@ theorem exists_stabilizationGraft
     dsimp [mapTuple, F, zeros]
     have hpref : (x.1 i).IsPrefix (x.1 i) :=
       List.prefix_refl _
-    simpa [x.2 i] using
-      (stabilizationGraft_toFun_of_prefix
-        x H levels hH i (x.1 i) hpref)
+    have hdrop : (x.1 i).drop n = [] := by
+      rw [x.2 i]
+      simp
+    rw [stabilizationGraft_toFun_of_prefix
+      x H levels hH i (x.1 i) hpref, hdrop]
+    rfl
   change
     (mapTuple F z ∈ A ↔ mapTuple F x.1 ∈ A)
   rw [hmapZ, hmapX]
-  dsimp [c] at hcolorEq
+  dsimp [c, mapTuple] at hcolorEq
   by_cases hzA :
       (fun i => x.1 i ++ (H i).toFun (tails i)) ∈ A
   · by_cases hxA :
         (fun i => x.1 i ++ (H i).toFun (zeros i)) ∈ A
     · exact ⟨fun _ => hxA, fun _ => hzA⟩
-    · simp [hzA, hxA] at hcolorEq
+    · have : (1 : Fin 2) = 0 := by
+        simpa [hzA, hxA] using hcolorEq
+      exact (by decide : (1 : Fin 2) ≠ 0) this
   · by_cases hxA :
         (fun i => x.1 i ++ (H i).toFun (zeros i)) ∈ A
-    · simp [hzA, hxA] at hcolorEq
+    · have : (0 : Fin 2) = 1 := by
+        simpa [hzA, hxA] using hcolorEq
+      exact (by decide : (0 : Fin 2) ≠ 1) this
     · exact ⟨fun h => (hzA h).elim,
         fun h => (hxA h).elim⟩
 
