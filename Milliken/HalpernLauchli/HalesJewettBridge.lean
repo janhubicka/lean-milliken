@@ -53,11 +53,25 @@ theorem blockSpan_succ_right
   | zero =>
       simp [blockSpan]
   | succ n ih =>
-      simp only [blockSpan_succ]
-      rw [ih (i := i + 1)]
-      have hidx : i + 1 + n = i + (n + 1) := by omega
-      rw [hidx]
-      omega
+      calc
+        blockSpan W i ((n + 1) + 1) =
+            1 + (W.blocks i).tail.length +
+              blockSpan W (i + 1) (n + 1) := rfl
+        _ =
+            1 + (W.blocks i).tail.length +
+              (blockSpan W (i + 1) n +
+                (1 + (W.blocks (i + 1 + n)).tail.length)) := by
+              rw [ih (i := i + 1)]
+        _ =
+            (1 + (W.blocks i).tail.length +
+              blockSpan W (i + 1) n) +
+                (1 + (W.blocks (i + (n + 1))).tail.length) := by
+              have hidx : i + 1 + n = i + (n + 1) := by omega
+              rw [hidx]
+              omega
+        _ =
+            blockSpan W i (n + 1) +
+              (1 + (W.blocks (i + (n + 1))).tail.length) := rfl
 
 /-- Common target level of the subspace evaluation on source level `n`. -/
 def levels (W : Subspace α) (n : ℕ) : ℕ :=
@@ -72,9 +86,9 @@ theorem evalFrom_length
       rfl
   | cons a s ih =>
       simp only [Subspace.evalFrom, List.length_append,
-        LeftVariableWord.length_eval, List.length_cons,
-        blockSpan_succ]
+        List.length_cons, blockSpan_succ]
       rw [ih (i := i + 1)]
+      simp [LeftVariableWord.eval, evalWord]
 
 /-- Evaluation length depends only on source length. -/
 theorem eval_length
@@ -111,7 +125,7 @@ theorem eval_branch
     List.append_assoc]
 
 /-- Every Hales--Jewett subspace is canonically a strong tree embedding. -/
-def strongEmbedding (W : Subspace α) :
+noncomputable def strongEmbedding (W : Subspace α) :
     StrongEmbedding α :=
   StrongEmbedding.ofBranchLevels
     W.eval
@@ -134,7 +148,17 @@ theorem map_evalWord
   | nil =>
       rfl
   | cons x w ih =>
-      cases x <;> simp [evalWord, mapLineSymbol, ih]
+      cases x with
+      | const b =>
+          change
+            f b :: (evalWord a w).map f =
+              f b :: evalWord (f a) (w.map (mapLineSymbol f))
+          exact congrArg (List.cons (f b)) ih
+      | parameter =>
+          change
+            f a :: (evalWord a w).map f =
+              f a :: evalWord (f a) (w.map (mapLineSymbol f))
+          exact congrArg (List.cons (f a)) ih
 
 /-- Coordinatewise image of one left-variable block. -/
 def mapBlock (f : α → β)
@@ -146,7 +170,11 @@ theorem mapBlock_eval
     (f : α → β)
     (B : LeftVariableWord α) (a : α) :
     (B.eval a).map f = (mapBlock f B).eval (f a) := by
-  simp [LeftVariableWord.eval, mapBlock, map_evalWord]
+  change
+    f a :: (evalWord a B.tail).map f =
+      f a :: evalWord (f a) (B.tail.map (mapLineSymbol f))
+  exact congrArg (List.cons (f a))
+    (map_evalWord f a B.tail)
 
 /-- Map every constant of a subspace. -/
 def mapSubspace (f : α → β) (W : Subspace α) :
@@ -165,6 +193,7 @@ theorem mapSubspace_evalFrom
   | cons a s ih =>
       simp only [Subspace.evalFrom, List.map_append, List.map_cons]
       rw [mapBlock_eval, ih (i := i + 1)]
+      rfl
 
 theorem mapSubspace_eval
     (f : α → β) (W : Subspace α)
@@ -183,15 +212,25 @@ theorem blockSpan_mapSubspace
   | zero =>
       rfl
   | succ n ih =>
-      simp only [blockSpan_succ, mapSubspace, mapBlock,
-        List.length_map]
-      rw [ih (i := i + 1)]
+      change
+        1 + ((mapSubspace f W).blocks i).tail.length +
+              blockSpan (mapSubspace f W) (i + 1) n =
+          1 + (W.blocks i).tail.length +
+              blockSpan W (i + 1) n
+      have htail :
+          ((mapSubspace f W).blocks i).tail.length =
+            (W.blocks i).tail.length := by
+        simp [mapSubspace, mapBlock]
+      rw [htail, ih (i := i + 1)]
 
 theorem levels_mapSubspace
     (f : α → β) (W : Subspace α)
     (n : ℕ) :
     levels (mapSubspace f W) n = levels W n := by
-  simp [levels, mapSubspace, blockSpan_mapSubspace]
+  change
+    (W.head.map f).length + blockSpan (mapSubspace f W) 0 n =
+      W.head.length + blockSpan W 0 n
+  rw [List.length_map, blockSpan_mapSubspace]
 
 /-- Read coordinate `i` of every letter in a product-alphabet word. -/
 def column {d : ℕ}
@@ -268,7 +307,9 @@ theorem strongSubtreeHL
   have hcommon : HasCommonLevels F L := by
     refine ⟨levels_strictMono W, ?_⟩
     intro i s
-    dsimp [F]
+    change
+      ((coordinateSubspace W i).eval s).length =
+        levels W s.length
     rw [eval_length, levels_mapSubspace]
   let color : Fin colors := colour (W.eval [])
   refine ⟨color, L, F, hcommon, ?_⟩
