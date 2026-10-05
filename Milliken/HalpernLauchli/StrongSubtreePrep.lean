@@ -90,6 +90,8 @@ noncomputable def nextMonochromaticLevel
             ∀ q : ℕ, LevelMonochromaticAbove c base q)
     (n : ℕ) : ℕ := by
   classical
+  letI : Finite (LevelVector ι d n) :=
+    finite_levelVector d n
   letI : Fintype (LevelVector ι d n) :=
     Fintype.ofFinite _
   exact max (n + 1)
@@ -138,6 +140,8 @@ theorem badMonochromaticScale_lt_next
     badMonochromaticScale c hfail n x <
       nextMonochromaticLevel c hfail n := by
   classical
+  letI : Finite (LevelVector ι d n) :=
+    finite_levelVector d n
   letI : Fintype (LevelVector ι d n) :=
     Fintype.ofFinite _
   have hle :
@@ -222,10 +226,8 @@ theorem exists_base_levelMonochromaticAbove
     dsimp [levels]
     exact monochromaticSparseLevels_unbounded c hfail
   have hk : 0 < levels 1 := by
-    have h01 : levels 0 < levels 1 :=
-      hlevels (by omega)
-    dsimp [levels, monochromaticSparseLevels] at h01
-    omega
+    change 0 < nextMonochromaticLevel c hfail 0
+    exact nextMonochromaticLevel_gt c hfail 0
   rcases sparseFiniteHL_of_hdhl
       hHDHL hk hlevels hunbounded with
     ⟨L, hfinite⟩
@@ -276,8 +278,7 @@ theorem exists_base_levelMonochromaticAbove
     let base : Fin d → Node ι := fun _ => []
     have hbase : IsLevelVectorAt (levels 0) base := by
       intro i
-      dsimp [levels, monochromaticSparseLevels, base]
-      simp
+      simp [levels, monochromaticSparseLevels, base]
     let x : LevelVector ι d (levels 0) :=
       ⟨base, hbase⟩
     have hbad :
