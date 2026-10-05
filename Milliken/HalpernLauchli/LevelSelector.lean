@@ -74,6 +74,10 @@ theorem levelSelectorFold_index
       simp [levelSelectorFold]
   | cons a s ih =>
       simp only [levelSelectorFold, List.foldl]
+      change
+        (levelSelectorFold levels
+          (levelSelectorStep levels S a) s).1 =
+          S.1 + (a :: s).length
       rw [ih]
       simp [levelSelectorStep]
       omega
@@ -126,8 +130,18 @@ theorem runLevelSelector_length
       (0, rayNode (ι := ι) (levels 0))
       (by simp)
       s
-  rw [runLevelSelector_index] at h
-  exact h
+  change
+    (levelSelectorFold levels
+      (0, rayNode (ι := ι) (levels 0)) s).2.length =
+      levels s.length
+  have hidx :
+      (levelSelectorFold levels
+        (0, rayNode (ι := ι) (levels 0)) s).1 =
+        s.length := by
+    simpa using
+      (levelSelectorFold_index levels
+        (0, rayNode (ι := ι) (levels 0)) s)
+  exact h.trans (congrArg levels hidx)
 
 /-- Node map of the selector. -/
 noncomputable def levelSelectorFun
