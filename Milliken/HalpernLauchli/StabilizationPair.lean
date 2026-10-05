@@ -185,7 +185,10 @@ noncomputable def stabilizationBoundaryFamily
       H i := by
   classical
   unfold stabilizationBoundaryFamily
-  simp
+  split
+  · rfl
+  · rename_i hne
+    exact (hne rfl).elim
 
 theorem stabilizationBoundaryFamily_levels
     [Nonempty ι]
