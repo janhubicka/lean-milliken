@@ -194,6 +194,24 @@ noncomputable def levelSelector
     (levelSelectorFun_length levels hlevels)
     (levelSelectorFun_branch levels)
 
+@[simp] theorem levelSelector_toFun
+    [Nonempty ι]
+    (levels : ℕ → ℕ)
+    (hlevels : StrictMono levels)
+    (s : Node ι) :
+    (levelSelector (ι := ι) levels hlevels).toFun s =
+      levelSelectorFun levels s := rfl
+
+theorem levelSelector_toFun_length
+    [Nonempty ι]
+    (levels : ℕ → ℕ)
+    (hlevels : StrictMono levels)
+    (s : Node ι) :
+    ((levelSelector (ι := ι) levels hlevels).toFun s).length =
+      levels s.length := by
+  rw [levelSelector_toFun]
+  exact levelSelectorFun_length levels hlevels s
+
 /-- Canonical increasing enumeration of an infinite set of natural numbers.
 We only use the order and membership properties, not any particular choice
 of the first element. -/
