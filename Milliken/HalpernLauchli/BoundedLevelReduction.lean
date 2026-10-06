@@ -309,7 +309,13 @@ theorem restrictedReduced_of_boundedGaps
         hd hzero hmono hgap M hMsome
     have hMsub' :
         M.carrier ⊆ blockPullback gap Pᶜ := by
-      simpa [Q, blockPullback] using hMsub
+      intro x hxM
+      have hxQ : x ∈ Qᶜ := hMsub hxM
+      change blockTupleMap gap x ∈ Pᶜ
+      intro hxP
+      apply hxQ
+      change blockTupleMap gap x ∈ P
+      exact hxP
     have hNsub : N.carrier ⊆ Pᶜ := by
       dsimp [N]
       exact M.blockImage_carrier_subset_of_pullback
