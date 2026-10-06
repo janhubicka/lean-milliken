@@ -53,6 +53,7 @@ import Milliken.HalpernLauchli.StabilizationProductLimit
 import Milliken.HalpernLauchli.MatrixTransport
 import Milliken.HalpernLauchli.ReducedInductionStep
 import Milliken.HalpernLauchli.HighlyDenseObstruction
+import Milliken.HalpernLauchli.Remark38
 import Milliken.HalpernLauchli.ReducedCompactness
 import Milliken.HalpernLauchli.FiniteLevelBlocks
 import Milliken.HalpernLauchli.HalesJewettBridge
