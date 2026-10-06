@@ -47,3 +47,12 @@ jobs:
 
       - name: Build
         run: lake build
+
+      - name: Audit Milliken theorem axioms
+        run: |
+          mkdir -p proof-audit
+          lake env lean scripts/CheckMilliken.lean > proof-audit/milliken-axioms.log 2>&1
+          python3 scripts/check-axiom-log.py proof-audit/milliken-axioms.log 3 || {
+            cat proof-audit/milliken-axioms.log
+            exit 1
+          }
