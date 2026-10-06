@@ -1,6 +1,7 @@
 import Milliken.AmalgamationRefine
 import Milliken.PigeonholeLift
 import Milliken.Closed
+import Milliken.HalpernLauchli.HalesJewettBridge
 import RamseySpace.AbstractEllentuck
 
 /-!
@@ -56,6 +57,33 @@ theorem milliken_onBasicNeighborhoods_of_strongSubtreeHL
   RamseySpace.abstractEllentuck_onBasicNeighborhoods
     (abstractRamseySpace_of_strongSubtreeHL hHL)
     StrongTreeSpace.isMetricallyClosed
+
+
+/-- The canonical abstract Ramsey-space structure on homogeneous strong
+subtrees. Its A.4 instance is supplied by the verified infinite
+Hales--Jewett theorem through the strong-subtree Halpern--Läuchli bridge. -/
+noncomputable def abstractRamseySpace
+    [Finite ι] [Nonempty ι] :
+    RamseySpace.AbstractRamseySpace (TreeSystem ι) :=
+  abstractRamseySpace_of_strongSubtreeHL
+    (HalpernLauchli.HalesJewettBridge.strongSubtreeHL ι)
+
+/-- Milliken's strong-tree theorem, with no combinatorial hypothesis left
+as an argument. -/
+theorem milliken
+    [Finite ι] [Nonempty ι] :
+    RamseySpace.IsTopologicalRamseySpace
+      (abstractRamseySpace (ι := ι)) := by
+  exact milliken_of_strongSubtreeHL
+    (HalpernLauchli.HalesJewettBridge.strongSubtreeHL ι)
+
+/-- Milliken's theorem in the literal basic-neighborhood formulation. -/
+theorem milliken_onBasicNeighborhoods
+    [Finite ι] [Nonempty ι] :
+    RamseySpace.IsTopologicalRamseySpaceOnBasicNeighborhoods
+      (S := TreeSystem ι) := by
+  exact milliken_onBasicNeighborhoods_of_strongSubtreeHL
+    (HalpernLauchli.HalesJewettBridge.strongSubtreeHL ι)
 
 end Chapter6
 end Milliken
