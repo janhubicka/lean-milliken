@@ -57,6 +57,7 @@ import Milliken.HalpernLauchli.Remark38
 import Milliken.HalpernLauchli.BoundedLevelReduction
 import Milliken.HalpernLauchli.SelectedLevelTree
 import Milliken.HalpernLauchli.SelectedLevelDensity
+import Milliken.HalpernLauchli.SelectedLevelInduction
 import Milliken.HalpernLauchli.ReducedCompactness
 import Milliken.HalpernLauchli.FiniteLevelBlocks
 import Milliken.HalpernLauchli.HalesJewettBridge
