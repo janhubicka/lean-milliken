@@ -1,5 +1,5 @@
 import Milliken.Factor
-import RamseySpace.Closed
+import RamseySpace.ClosedTopology
 
 /-!
 # Closedness of the strong-subtree approximation space
@@ -146,6 +146,14 @@ theorem isMetricallyClosed [Nonempty ι] :
   refine ⟨pointOfCode c h, ?_⟩
   intro n
   exact approx_pointOfCode c h n
+
+/-- The same closedness statement in Todorčević's literal formulation:
+the approximation-code image is closed in the Tychonoff power of the
+discrete finite-approximation space. -/
+theorem isTychonoffClosed [Nonempty ι] :
+    (S ι).IsTychonoffClosed :=
+  ((S ι).isTychonoffClosed_iff_isClosedApproximationImage).2
+    isMetricallyClosed
 
 end StrongTreeSpace
 end Milliken
