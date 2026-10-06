@@ -11,7 +11,7 @@ the canonical stem `r_n(T)`.  Todorčević's full A.4 has an arbitrary finite
 approximation `a` of depth `d` in `B`.
 
 The passage is purely axiomatic: A.3(1) first produces some `T ∈ [a,B]`;
-the canonical lemma gives a homogeneous `S ∈ [n,T]`; textbook A.3(2)
+the canonical lemma gives a homogeneous `S ∈ [n,T]`; the basic-member consequence of A.3(2)
 then refines `S` to `A ∈ [d,B]` with `[a,A] ⊆ [a,S]`.  Hence every
 one-step extension below `A` is already one below `S`.
 -/
@@ -26,7 +26,7 @@ variable {ι : Type u}
 abbrev TreeSystem (ι : Type u) :=
   StrongTreeSpace.approximationSystem ι
 
-/-- Lift the canonical-stem pigeonhole lemma through textbook A.3(2). -/
+/-- Lift the canonical-stem pigeonhole lemma through the basic-member consequence of A.3(2). -/
 theorem pigeonhole_of_canonical_and_refine
     [Finite ι] [Nonempty ι]
     (hCanonical :
