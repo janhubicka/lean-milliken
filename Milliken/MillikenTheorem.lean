@@ -30,15 +30,15 @@ def abstractRamseySpace_of_strongSubtreeHL
     [Finite ι] [Nonempty ι]
     (hHL : HalpernLauchli.StrongSubtreeHL ι) :
     RamseySpace.AbstractRamseySpace (TreeSystem ι) :=
-  RamseySpace.AbstractRamseySpace.ofStandardAxioms
+  RamseySpace.AbstractRamseySpace.ofPublishedAxioms
     (StrongTreeSpace.finitization (ι := ι))
     StrongTreeSpace.amalgamation_nonempty
-    StrongTreeSpace.amalgamation_refine_standard
+    StrongTreeSpace.amalgamation_refine
     (pigeonhole_of_strongSubtreeHL_and_refine
-      hHL StrongTreeSpace.amalgamation_refine_standard)
+      hHL StrongTreeSpace.amalgamation_refine_onBasicMember)
 
-/-- Conditional Milliken theorem in the source-facing topological Ramsey
-space form. -/
+/-- Conditional Milliken theorem in the depth-form interface used internally
+by the Ramsey-space proof. -/
 theorem milliken_of_strongSubtreeHL
     [Finite ι] [Nonempty ι]
     (hHL : HalpernLauchli.StrongSubtreeHL ι) :
@@ -54,9 +54,9 @@ theorem milliken_onBasicNeighborhoods_of_strongSubtreeHL
     (hHL : HalpernLauchli.StrongSubtreeHL ι) :
     RamseySpace.IsTopologicalRamseySpaceOnBasicNeighborhoods
       (S := TreeSystem ι) :=
-  RamseySpace.abstractEllentuck_onBasicNeighborhoods
+  RamseySpace.abstractEllentuck_textbook
     (abstractRamseySpace_of_strongSubtreeHL hHL)
-    StrongTreeSpace.isMetricallyClosed
+    StrongTreeSpace.isTychonoffClosed
 
 
 /-- The canonical abstract Ramsey-space structure on homogeneous strong

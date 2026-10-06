@@ -1,8 +1,9 @@
+import Milliken.Amalgamation
 import Milliken.AmalgamationBoundary
 import RamseySpace.Axioms
 
 /-!
-# Textbook A.3(2) for the strong-subtree Ramsey space
+# A.3(2) for the strong-subtree Ramsey space
 
 This completes the amalgamation axiom from Todorčević, Chapter 6.
 
@@ -43,9 +44,11 @@ theorem depth_zero_of_level_zero
   have hpos : 0 < d := Nat.pos_of_ne_zero hd0
   exact (hd.2 0 hpos) hle0
 
-/-- Textbook A.3(2): if `A ∈ [a,B]` and `d = depth_B(a)`, there is
-`A' ∈ [d,B]` with `[a,A'] ⊆ [a,A]`. -/
-theorem amalgamation_refine_standard
+/-- Basic-member consequence used in the geometric proof: if `A ∈ [a,B]`
+and `d = depth_B(a)`, there is `A' ∈ [d,B]` with
+`[a,A'] ⊆ [a,A]`.  The full printed A.3(2) is
+`amalgamation_refine` below. -/
+theorem amalgamation_refine_onBasicMember
     [Finite ι] [Nonempty ι]
     {n : ℕ} (a : Approx ι n) (B : StrongEmbedding ι) {d : ℕ}
     (hd : (finitization (ι := ι)).HasDepth a B d)
@@ -171,6 +174,30 @@ theorem amalgamation_refine_standard
           (StrongEmbedding.comp B H) :=
       (le_iff_range_subset _ _).2 hrange
     exact ⟨hle, hX.2⟩
+
+
+/-- Todorčević's printed A.3(2): if `A ≤ B` and `[a,A]` is nonempty,
+then there is `A' ∈ [depth_B(a),B]` such that `[a,A']` is nonempty and
+contained in `[a,A]`. -/
+theorem amalgamation_refine
+    [Finite ι] [Nonempty ι]
+    {n : ℕ} (a : Approx ι n) (B : StrongEmbedding ι) {d : ℕ}
+    (hd : (finitization (ι := ι)).HasDepth a B d)
+    {A : StrongEmbedding ι}
+    (hAB : (S ι).le A B)
+    (hne : ((S ι).neighborhood a A).Nonempty) :
+    ∃ A', A' ∈ (S ι).levelNeighborhood d B ∧
+      ((S ι).neighborhood a A').Nonempty ∧
+      (S ι).neighborhood a A' ⊆ (S ι).neighborhood a A := by
+  rcases hne with ⟨X, hXaA⟩
+  have hXaB : X ∈ (S ι).neighborhood a B :=
+    (S ι).neighborhood_mono hAB hXaA
+  rcases amalgamation_refine_onBasicMember a B hd hXaB with
+    ⟨A', hA'B, hsub⟩
+  have hneA' : ((S ι).neighborhood a A').Nonempty :=
+    amalgamation_nonempty a B hd hA'B
+  refine ⟨A', hA'B, hneA', ?_⟩
+  exact hsub.trans ((S ι).neighborhood_mono hXaA.1)
 
 end StrongTreeSpace
 end Milliken
