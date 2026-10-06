@@ -59,8 +59,13 @@ instance childFinite
     [Finite ι]
     (S : Selection) {n : ℕ}
     (x : NodeAt (ι := ι) S n) :
-    Finite (Child S x) :=
-  inferInstance
+    Finite (Child S x) := by
+  letI : Finite (NodeAt (ι := ι) S (n + 1)) :=
+    nodeAtFinite S (n + 1)
+  apply Finite.of_injective
+    (fun y : Child S x => y.1)
+  intro a b hab
+  exact Subtype.ext hab
 
 /-- Canonical extension of a selected-level node to the next selected
 level. -/
