@@ -1,3 +1,4 @@
+import Milliken.Amalgamation
 import Milliken.AmalgamationBoundary
 import RamseySpace.Axioms
 
