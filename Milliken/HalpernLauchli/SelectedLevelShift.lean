@@ -33,7 +33,7 @@ def shift (S : Selection) (m : ℕ) : Selection where
     have hlt :
         S.levels (m + a) < S.levels (m + b) :=
       S.strictMono (by omega)
-    omega
+    exact Nat.sub_lt_sub_right hbase hlt
 
 @[simp] theorem shift_levels
     (S : Selection) (m n : ℕ) :
@@ -74,10 +74,6 @@ def dropToShifted
     NodeAt (ι := ι) (shift S m) n := by
   refine ⟨z.1.drop x.1.length, ?_⟩
   rw [List.length_drop, z.2, x.2, shift_levels]
-  have hle :
-      S.levels m ≤ S.levels (m + n) :=
-    S.strictMono.monotone (by omega)
-  omega
 
 theorem append_dropToShifted
     (S : Selection) {m n : ℕ}
@@ -100,7 +96,7 @@ theorem drop_appendShifted
     (dropToShifted S x (appendShifted S x t)
       (appendShifted_prefix S x t)).1 = t.1 := by
   change (x.1 ++ t.1).drop x.1.length = t.1
-  exact List.drop_left _ _
+  exact List.drop_left
 
 /-- Appending the same cone root preserves and reflects the prefix order. -/
 theorem appendShifted_prefix_iff
@@ -114,8 +110,8 @@ theorem appendShifted_prefix_iff
   change (x.1 ++ s.1).IsPrefix (x.1 ++ t.1) ↔
     s.1.IsPrefix t.1
   constructor
-  · exact prefix_cancel_left x.1
-  · exact prefix_append_left x.1
+  · exact StrongEmbedding.prefix_cancel_left x.1
+  · exact StrongEmbedding.prefix_append_left x.1
 
 /-- A prefix relation inside the original cone becomes a prefix relation
 between the corresponding shifted tails. -/
@@ -132,36 +128,16 @@ theorem dropToShifted_prefix
       (dropToShifted S x z hxz).1 := by
   exact hyz.drop x.1.length
 
-/-- Every shifted node corresponds to a unique original node in the cone,
-at the matching selected rank. -/
-theorem exists_unique_cone_node
+/-- Appending after dropping the fixed cone root recovers the original
+selected-level node as a subtype. -/
+theorem append_dropToShifted_eq
     (S : Selection) {m n : ℕ}
     (x : NodeAt (ι := ι) S m)
-    (t : NodeAt (ι := ι) (shift S m) n) :
-    ∃! z : NodeAt (ι := ι) S (m + n),
-      x.1.IsPrefix z.1 ∧
-        dropToShifted S x z ‹x.1.IsPrefix z.1› = t := by
-  let z := appendShifted S x t
-  have hxz : x.1.IsPrefix z.1 :=
-    appendShifted_prefix S x t
-  refine ⟨z, ⟨hxz, ?_⟩, ?_⟩
-  · apply Subtype.ext
-    exact drop_appendShifted S x t
-  · intro w hw
-    apply Subtype.ext
-    have hdrop :
-        (dropToShifted S x w hw.1).1 = t.1 :=
-      congrArg Subtype.val hw.2
-    calc
-      w.1 =
-          (appendShifted S x
-            (dropToShifted S x w hw.1)).1 := by
-              symm
-              exact append_dropToShifted S x w hw.1
-      _ = (appendShifted S x t).1 := by
-            simp only [appendShifted]
-            rw [hdrop]
-      _ = z.1 := rfl
+    (z : NodeAt (ι := ι) S (m + n))
+    (hxz : x.1.IsPrefix z.1) :
+    appendShifted S x (dropToShifted S x z hxz) = z := by
+  apply Subtype.ext
+  exact append_dropToShifted S x z hxz
 
 end SelectedLevelTree
 end HalpernLauchli
