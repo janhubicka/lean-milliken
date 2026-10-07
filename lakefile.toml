@@ -15,7 +15,7 @@ rev = "bc657d33fa330369896302ad48fd5b75316bc7af"
 [[require]]
 name = "successor-tree-lean"
 git = "https://github.com/janhubicka/lean-successors"
-rev = "57d35508abd0e55cb2387f88360125d6320e3457"
+rev = "f073735fb28c998e419128c16d28d212675f8600"
 
 [[lean_lib]]
 name = "Milliken"
