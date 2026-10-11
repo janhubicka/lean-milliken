@@ -38,6 +38,11 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.bookLeFin_iff
 #print axioms Milliken.GeneralTree.bookLeFin_trans
 
+#print axioms Milliken.GeneralTree.strictMono_eq_of_range_eq
+#print axioms Milliken.GeneralTree.StrongSubtree.range_levels_eq_carrier_ranks
+#print axioms Milliken.GeneralTree.StrongSubtree.ext_carrier
+#print axioms Milliken.GeneralTree.r_separated
+
 #print axioms Milliken.AmbientTree.level_mono
 #print axioms Milliken.AmbientTree.level_covBy
 #print axioms Milliken.AmbientTree.level_lt
