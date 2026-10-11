@@ -535,3 +535,18 @@ Together with the previously proved unique-boundary-ancestor
 map, this establishes surjectivity of the index correspondence.
 Injectivity, inverse boundary tuple realization and general
 Halpern–Läuchli transport remain open.
+
+## Finite boundary bijection under stem-preserving refinements
+
+`eq_of_same_boundary_ancestor` proves two selected nth-level
+nodes of S cannot share a T-boundary ancestor when r_n(S)=r_n(T).
+The verified ambient child-cone uniqueness of S forces them equal.
+Thus `boundaryAncestor_injective_of_sameStem`, together with
+surjectivity, yields
+`boundaryAncestor_bijective_of_sameStem`: an actual bijection
+of S's nth source level with T's nth canonical boundary index.
+
+This is the exact finite coordinate set of every one-step strong
+extension, needed for the HL tuple coloring and its factorization.
+The inverse tuple-graft realization and general HL for heterogeneous
+cones are separate pending tasks.
