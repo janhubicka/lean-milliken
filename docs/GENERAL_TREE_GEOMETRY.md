@@ -408,3 +408,21 @@ n,n+1,… exactly. Its root-zero and full-prefix identities are
 proved along with its tail-level equation. This is the common
 level schedule for the protected mixed-cone graft; A.3(2)
 itself remains to be constructed.
+
+
+## Published A.3 complete: protected amalgamation
+
+`generalAmalgamation_refine` establishes Todorčević A.3(2) for
+every arbitrary pruned locally finitely branching rooted ambient
+U using the **literal published depth** given by the verified
+`generalBookFinitization U`. The empty finite stem is handled
+at depth zero; for positive height, protect B's depth prefix
+using `protectedIndex` and `thinStrong`, mix X's used cones
+with the unused D-cones via `mixedStrong`, then apply the
+relative `basicNeighborhood_subset_of_protected_tail` theorem.
+
+Together with `generalAmalgamation_nonempty`, A.1 and A.2 this
+completes the source-faithful arbitrary-tree A.1--A.3 proof.
+The remaining Ramsey-space hypotheses are A.4 and closedness;
+the unrestricted Milliken theorem and vector application
+are NOT yet established by this statement alone.

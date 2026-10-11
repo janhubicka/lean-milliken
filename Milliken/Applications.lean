@@ -71,3 +71,5 @@ import Milliken.GeneralTree.ThinningPrefix
 import Milliken.GeneralTree.ThinningApprox
 
 import Milliken.GeneralTree.ProtectedIndex
+
+import Milliken.GeneralTree.PublishedAmalgamation

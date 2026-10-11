@@ -237,3 +237,5 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.StrongSubtree.protectedIndex_zero
 #print axioms Milliken.GeneralTree.StrongSubtree.protectedIndex_levels_at_tail
 #print axioms Milliken.GeneralTree.StrongSubtree.protectedIndex_strictMono
+
+#print axioms Milliken.GeneralTree.generalAmalgamation_refine
