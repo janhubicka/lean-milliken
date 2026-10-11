@@ -529,3 +529,13 @@ into dense matrices, conditional only on the heterogeneous HDHL
 property in the current dimension. This removes fixed-alphabet
 assumptions from this density reduction, but not from the yet-open
 higher-dimensional HDHL induction.
+
+### Actual-tree product sections for Todorčević's induction
+
+`GeneralTree.HeterogeneousSections` now provides the
+front/last coordinate decomposition, exact last-coordinate
+sections, heterogeneous matrix concatenation with same-level
+density preservation, and the avoidance lemma for all sections
+of a forbidden product class. These are the genuine arbitrary
+locally finite analogues of `HalpernLauchli.Sections`,
+with no global branching-degree restriction.
