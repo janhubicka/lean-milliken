@@ -65,3 +65,5 @@ import Milliken.GeneralTree.MixedPredecessor
 import Milliken.GeneralTree.MixedSuccessors
 
 import Milliken.GeneralTree.MixedStrong
+
+import Milliken.GeneralTree.ThinningPrefix

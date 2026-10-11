@@ -377,3 +377,15 @@ remaining application is to choose the background D by
 prefix-preserving thinning of B on the common protected-index
 schedule, and then invoke the already proved relative
 neighborhood-confinement lemma.
+
+## Initial-prefix preservation under selected-level thinning
+
+`longConeRepresentative_eq_next` identifies the canonical
+long-cone choice with the actual B-selected successor when the
+source index advances by exactly one. Hence a full thinned level
+stays full under a consecutive step (`thinningLevel_full_succ`).
+The induction `thinningLevel_full_prefix` establishes that
+an increasing index map equal to the identity through n retains
+B's entire first n+1 selected levels. This is the depth-prefix
+control needed in general A.3(2), not the protected mixed-cone
+graft itself.

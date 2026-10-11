@@ -221,3 +221,7 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.StrongSubtree.mixedStrong_approx_succ
 #print axioms Milliken.GeneralTree.StrongSubtree.mixedStrong_refines_common
 #print axioms Milliken.GeneralTree.StrongSubtree.mixedStrong_used_sector_in_X
+
+#print axioms Milliken.GeneralTree.StrongSubtree.longConeRepresentative_eq_next
+#print axioms Milliken.GeneralTree.StrongSubtree.thinningLevel_full_succ
+#print axioms Milliken.GeneralTree.StrongSubtree.thinningLevel_full_prefix
