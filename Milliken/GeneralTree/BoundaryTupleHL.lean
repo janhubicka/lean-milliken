@@ -83,9 +83,8 @@ theorem boundaryTuple_mem_graftFactors
     · exact (U.eq_of_le_of_level_eq hji hiJRank.symm).symm
     · exact U.eq_of_le_of_level_eq hij hiJRank
   have hij : i = j := Subtype.ext heqIJ
-  rw [hij]
-  change x j ∈ (F j).sourceLevel k
-  exact hxj
+  change x i ∈ (F i).sourceLevel k
+  simpa only [← hij] using hxj
 
 /-- The canonical A.4 pigeonhole property is a *formal consequence*
 of precisely the heterogeneous cone-product HL theorem. No extra
