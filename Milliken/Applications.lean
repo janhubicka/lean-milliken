@@ -10,3 +10,6 @@ import Milliken.GeneralTree.MaxLevel
 
 import Milliken.GeneralTree.Vector
 import Milliken.Applications.VectorHL
+
+import Milliken.GeneralTree.BoundaryIndex
+import Milliken.Applications.FiniteIndexedHL
