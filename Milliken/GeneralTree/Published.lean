@@ -90,13 +90,13 @@ theorem bookLeFin_zero_left {U : AmbientTree}
   · intro x hx
     have hempty : (r 0 T).carrier = ∅ := r_zero_carrier T
     rw [hempty] at hx
-    exact False.elim (Set.not_mem_empty x hx)
+    simp at hx
   · intro x hx
     have he : x ∈ (r 0 T).carrier :=
       maxLevel_subset_carrier (r 0 T) hx
     have hempty : (r 0 T).carrier = ∅ := r_zero_carrier T
     rw [hempty] at he
-    exact False.elim (Set.not_mem_empty x he)
+    simp at he
 
 end GeneralTree
 end Milliken
