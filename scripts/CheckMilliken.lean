@@ -88,3 +88,6 @@ Milliken endpoints.
 
 #print axioms Milliken.GeneralTree.boundedApprox_finite
 #print axioms Milliken.GeneralTree.bookLeFin_fixedHeight_lowerFinite
+
+#print axioms Milliken.GeneralTree.height_le_ncard_of_subset
+#print axioms Milliken.GeneralTree.bookLeFin_lowerFinite

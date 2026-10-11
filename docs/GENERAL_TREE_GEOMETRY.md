@@ -46,3 +46,16 @@ corresponding consequence for Todorčević's literal finite order (6.3).
 This proves **fixed-height** lower-finiteness. Full A.2 requires proving
 that the heights of all predecessors of a given finite approximation
 are bounded. It is not yet certified by this module.
+
+
+## Full published finite-order lower-finiteness (A.2(1))
+
+`GeneralTree.height_le_ncard_of_subset` uses a distinct witness from
+each selected source level to bound the source height of any finite
+approximation by the number of ambient nodes in a finite carrier.
+Combining it with fixed-height finiteness gives
+`GeneralTree.bookLeFin_lowerFinite`: the entire lower cone of any
+finite approximation under book relation (6.3) is finite.
+
+The remaining A.2 realization and prefix-compatibility laws, as well
+as A.3–A.4, remain open for arbitrary locally finite ambient trees.
