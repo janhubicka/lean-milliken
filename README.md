@@ -72,7 +72,9 @@ import Milliken.Applications
 
 **Scope warning.** These are unconditional theorems only for
 `List ι` with a fixed finite, nonempty branching alphabet.
-The library defines `AmbientTree` but has **not yet proved** Milliken
+The library defines `AmbientTree` and `GeneralTree.StrongSubtree` with
+exact (str1)–(str2), and the unproved *property definition*
+`GeneralTree.HasMillikenFiniteColourProperty`. It has **not yet proved** Milliken
 for arbitrary pruned, finitely branching rooted trees with unbounded degrees,
 as in Todorčević 6.2 and Milliken's 1979 abstract. Nor does the current
 application API prove a synchronized finite-vector-strong-subtree
