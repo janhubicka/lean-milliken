@@ -344,3 +344,20 @@ in the unused sectors, with same-cone membership preserved by the
 order of common ancestors. This is the actual predecessor clause
 of the pending mixed `StrongSubtree` constructor; the unique
 ambient child-cone successor law remains to be proved.
+
+## Unique successor cones in the protected mixed carrier
+
+`StrongSubtree.mixedCarrier_level_le` identifies every
+candidate mixed source level through the protected frontier
+with the corresponding complete D-source level.
+`mixedCarrier_successor_unique` verifies precisely one
+representative on the next mixed selected level in every ambient
+immediate-successor cone. Before the frontier this is D's
+successor law; afterward it is X's law in used cones and D's
+law in unused cones. Sector confinement excludes competing
+representatives from the opposite sector.
+
+Combined with the predecessor, root and selected-level lemmas,
+this completes the geometric proof obligations for packaging
+the mixed carrier as a genuine strong subtree. The constructor
+and resulting A.3(2) implication are next.
