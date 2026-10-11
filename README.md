@@ -362,6 +362,20 @@ to any finite coordinate type. These are separate interfaces:
 putting them together still requires Halpern–Läuchli on the possibly
 different successor cones of a general ambient tree.
 
+## Generic A.1 approximation systems
+
+`Milliken.GeneralTree.generalApproximationSystem U` and
+`vectorApproximationSystem U hd` now package all **A.1** laws
+(surjective finite restriction, height-zero agreement, separation,
+coherence, and reflexive/transitive refinement) into the exact
+`RamseySpace.ApproximationSystem` interface for arbitrary pruned
+locally finitely branching ambient trees. The basic-neighbourhood
+definitions coincide with their published carrier-based counterparts.
+
+**These are A.1 instances only.** A.2 finitisation, A.3 amalgamation,
+A.4 pigeonhole, and the final general-tree Ellentuck theorem remain
+separate proof obligations. The positive vector dimension is explicit.
+
 ## References
 
 * Stevo Todorčević, [*Introduction to Ramsey Spaces*](https://www.cs.umd.edu/~gasarch/COURSES/752/S26/BOOKS/IntroRamseySpaces.pdf),

@@ -79,3 +79,9 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.r_prev_eq_of_succ
 #print axioms Milliken.GeneralTree.r_coherent_le
 #print axioms Milliken.GeneralTree.vectorApprox_coherent
+
+#print axioms Milliken.GeneralTree.generalApproximationSystem
+#print axioms Milliken.GeneralTree.generalNeighborhood_eq
+#print axioms Milliken.GeneralTree.identityVectorStrongSubtree
+#print axioms Milliken.GeneralTree.vectorApproximationSystem
+#print axioms Milliken.GeneralTree.vectorNeighborhood_eq

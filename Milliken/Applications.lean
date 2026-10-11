@@ -15,3 +15,5 @@ import Milliken.GeneralTree.BoundaryIndex
 import Milliken.Applications.FiniteIndexedHL
 
 import Milliken.GeneralTree.Coherence
+
+import Milliken.GeneralTree.ApproximationSystem
