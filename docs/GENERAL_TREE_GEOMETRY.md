@@ -304,3 +304,19 @@ This is the separation invariant for the mixed protected A.3(2)
 tree: used sectors follow X, unused sectors follow a suitably
 thinned B. It is not yet the protected mixed strong-subtree
 constructor.
+
+## Actual candidate for the protected mixed cone carrier
+
+`StrongSubtree.mixedCarrier D X j n` retains D's first j
+source levels, X nodes in cones above X.sourceLevel n, and
+D nodes in the remaining j-th frontier cones. Under the frontier
+inclusion X.sourceLevel n ⊆ D.sourceLevel j, it agrees with D
+at every earlier selected level and contains the complete
+D frontier at level j. Critically,
+`mixedCarrier_used_sector_in_X` proves that every node of the
+mixed carrier in a used X cone belongs to X, exactly the relative
+protection condition for A.3(2).
+
+The candidate still requires a common selected-level sequence,
+selected-predecessor and ambient-successor uniqueness proofs to
+become a genuine strong subtree. Those statements are not assumed.

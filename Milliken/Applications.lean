@@ -55,3 +55,5 @@ import Milliken.GeneralTree.ProtectedTail
 import Milliken.AmbientChild
 
 import Milliken.GeneralTree.FrontierPartition
+
+import Milliken.GeneralTree.MixedCarrier
