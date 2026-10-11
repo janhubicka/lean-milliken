@@ -195,3 +195,11 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.StrongSubtree.frontier_used_unused_union
 #print axioms Milliken.GeneralTree.StrongSubtree.carrier_mem_frontier_cones_of_level_ge
 #print axioms Milliken.GeneralTree.StrongSubtree.carrier_used_or_unused_frontier
+
+#print axioms Milliken.GeneralTree.StrongSubtree.frontier_levels_eq_of_subset
+#print axioms Milliken.GeneralTree.StrongSubtree.mixedCarrier_subset_union
+#print axioms Milliken.GeneralTree.StrongSubtree.mixedCarrier_level_before
+#print axioms Milliken.GeneralTree.StrongSubtree.mixedCarrier_level_at
+#print axioms Milliken.GeneralTree.StrongSubtree.mixedCarrier_used_sector_in_X
+
+#print axioms Milliken.GeneralTree.StrongSubtree.mixedCarrier_unused_sector_in_D
