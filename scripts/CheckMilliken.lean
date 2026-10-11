@@ -130,3 +130,9 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.StrongSubtree.spliceCarrier_root_mem
 #print axioms Milliken.GeneralTree.StrongSubtree.spliceCarrier_root_below
 #print axioms Milliken.GeneralTree.StrongSubtree.spliceCarrier_tail_level_mem_T
+
+#print axioms Milliken.GeneralTree.StrongSubtree.levels_refinementIndex
+#print axioms Milliken.GeneralTree.StrongSubtree.refinementIndex_strictMono
+#print axioms Milliken.GeneralTree.StrongSubtree.sourceLevel_subset_refinementIndex
+#print axioms Milliken.GeneralTree.StrongSubtree.refinementIndex_eq_of_sourceLevel_subset
+#print axioms Milliken.GeneralTree.StrongSubtree.le_refinementIndex

@@ -141,3 +141,15 @@ all graft nodes; T-descendant tails remain tails.
 
 These statements are prerequisites of the genuine strongness
 constructor, not an assumption of, or proof of, A.3.
+
+## Selected-level reindexing of a strong refinement
+
+`StrongSubtree.refinementIndex S T hST k` is the unique source-level
+index of T at which the k-th selected ambient height of S occurs,
+whenever S refines T. Its strict monotonicity is verified, as is
+the inclusion `S.sourceLevel k ⊆ T.sourceLevel (refinementIndex k)`.
+This requires only local finite branching and no global alphabet.
+
+It prepares the common future level sequence for the protected
+B/X-cone graft required by A.3(2). The protected graft and
+A.3(2) itself remain separate proof obligations.
