@@ -27,3 +27,5 @@ import Milliken.GeneralTree.OrderRealization
 import Milliken.GeneralTree.PrefixFinitization
 
 import Milliken.GeneralTree.Ancestry
+
+import Milliken.GeneralTree.FrontierUniqueness

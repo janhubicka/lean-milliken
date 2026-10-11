@@ -97,3 +97,20 @@ retained ancestors on every earlier selected source level using
 places every node beyond a finite stem above a node of its top
 selected frontier. These are prerequisites for relative grafting
 and A.3 amalgamation, not proofs of A.3.
+
+## Unique frontier ancestors and published-depth boundaries
+
+`StrongSubtree.existsUnique_sourceLevel_ancestor` shows that
+an ancestor on each earlier selected level exists **uniquely**,
+using the chain property of ambient predecessors. The corresponding
+frontier form is `existsUnique_frontier_ancestor`.
+
+`bookLeFin_succ_lastLevel` and
+`bookDepth_succ_lastLevel` align the nonempty stem's last
+source level with the ambient height at the published depth in
+the larger tree; this is a key input for the A.3 graft.
+`bookDepth_zero_of_empty` and `neighborhood_nonempty_zero`
+handle the separate empty-stem case.
+
+All are geometric or A.3 base-case results, not general
+amalgamation or A.4.
