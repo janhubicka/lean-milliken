@@ -301,3 +301,8 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.codeCarrier_successor_unique
 #print axioms Milliken.GeneralTree.pointOfGeneralCode
 #print axioms Milliken.GeneralTree.pointOfGeneralCode_approx
+
+#print axioms Milliken.GeneralTree.generalIsMetricallyClosed
+#print axioms Milliken.GeneralTree.generalIsTychonoffClosed
+#print axioms Milliken.GeneralTree.generalMilliken_of_generalProductHL
+#print axioms Milliken.GeneralTree.generalMillikenDepth_of_generalProductHL

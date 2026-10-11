@@ -447,3 +447,17 @@ approximations. Under finite-prefix realizability the ranks strictly
 increase and each carrier node belongs to the unique matching source
 frontier. This is a step toward unrestricted Tychonoff closedness; the
 point-of-code strong-subtree construction remains to be completed.
+
+
+## General-tree closedness and the exact conditional topological theorem
+
+`Milliken.GeneralTree.generalIsMetricallyClosed` and
+`generalIsTychonoffClosed` establish the textbook closedness of the
+entire strong-tree approximation space for every arbitrary pruned locally
+finitely branching rooted tree. No uniform branching degree is used.
+
+`generalMilliken_of_generalProductHL U hHL` derives the textbook
+Abstract Ellentuck/Milliken topological Ramsey conclusion from the
+**single explicit heterogeneous product Halpern--Läuchli premise**.
+That general HL theorem remains to be proved unconditionally. The
+conditional result is not an unconditional general-tree theorem.

@@ -107,3 +107,5 @@ import Milliken.GeneralTree.BoundaryTupleHL
 import Milliken.GeneralTree.CodeGeometry
 
 import Milliken.GeneralTree.CodePoint
+
+import Milliken.GeneralTree.GeneralClosed
