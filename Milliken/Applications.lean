@@ -53,3 +53,5 @@ import Milliken.GeneralTree.SpliceAmalgamation
 import Milliken.GeneralTree.ProtectedTail
 
 import Milliken.AmbientChild
+
+import Milliken.GeneralTree.FrontierPartition

@@ -289,3 +289,18 @@ cones with a common descendant coincide by
 `children_eq_of_common_descendant`. These source-neutral order
 lemmas are prerequisites of finite-prefix-preserving thinning,
 not an A.3(2) proof in themselves.
+
+## Partition into used and unused frontier cones
+
+`AmbientTree.upwardCones F` is the ambient descendant closure
+of a frontier set F. Equal-rank disjoint frontiers have disjoint
+upward cones. For every chosen Used subset of B's selected
+frontier, `frontier_used_unused_disjoint` and
+`frontier_used_unused_union` give an exact disjoint partition
+of the descendant cones, and every B-carrier node at or beyond
+the selected rank lies in one of them.
+
+This is the separation invariant for the mixed protected A.3(2)
+tree: used sectors follow X, unused sectors follow a suitably
+thinned B. It is not yet the protected mixed strong-subtree
+constructor.
