@@ -69,7 +69,7 @@ theorem prepend_mem_carrier_iff
     rcases hx i with ⟨y, hyM, hy⟩
     have happ : base i ++ x i = base i ++ y := by
       simpa [prependTuple] using hy.symm
-    have hxy : x i = y := List.append_left_injective happ
+    have hxy : x i = y := List.append_cancel_left happ
     simpa only [hxy] using hyM
   · intro hx i
     exact ⟨x i, hx i, by simp [prependTuple]⟩
@@ -108,7 +108,7 @@ theorem prepend_denseAbove
   have htlen :
       t.length = (shift S m).levels n := by
     dsimp [t]
-    simp only [List.length_drop, hz.2, hbase i, shift_levels]
+    simp only [List.length_drop, hz.2, hbase i]
   rcases hM i
       (show t ∈ treeLevel (ι := ι) ((shift S m).levels n)
         from htlen) with
