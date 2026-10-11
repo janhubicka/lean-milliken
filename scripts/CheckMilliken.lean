@@ -136,3 +136,9 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.StrongSubtree.sourceLevel_subset_refinementIndex
 #print axioms Milliken.GeneralTree.StrongSubtree.refinementIndex_eq_of_sourceLevel_subset
 #print axioms Milliken.GeneralTree.StrongSubtree.le_refinementIndex
+
+#print axioms Milliken.AmbientTree.le_of_common_descendant_of_level_le
+#print axioms Milliken.GeneralTree.StrongSubtree.spliceTail_ancestor
+#print axioms Milliken.GeneralTree.StrongSubtree.splice_source_before
+#print axioms Milliken.GeneralTree.StrongSubtree.splice_source_at
+#print axioms Milliken.GeneralTree.StrongSubtree.splice_source_after

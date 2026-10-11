@@ -153,3 +153,17 @@ This requires only local finite branching and no global alphabet.
 It prepares the common future level sequence for the protected
 B/X-cone graft required by A.3(2). The protected graft and
 A.3(2) itself remain separate proof obligations.
+
+## Cone transport for A.3
+
+`AmbientTree.le_of_common_descendant_of_level_le` formalizes the
+linear ordering of common ancestors by ambient rank.
+`StrongSubtree.spliceTail_ancestor` uses it to prove that selected
+T-predecessors at or above the retained frontier cannot leave the
+grafted descendant cones. Exact conversions between the candidate
+source levels and S/T source levels are exported as
+`splice_source_before`, `splice_source_at`, and
+`splice_source_after`.
+
+These lemmas are for constructing the positive-height strong graft;
+they do not yet establish general A.3 or A.4.
