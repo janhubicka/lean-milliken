@@ -389,3 +389,11 @@ an increasing index map equal to the identity through n retains
 B's entire first n+1 selected levels. This is the depth-prefix
 control needed in general A.3(2), not the protected mixed-cone
 graft itself.
+
+## Full finite-stem preservation in strong thinning
+
+`thinStrong_sourceLevel_of_fixed` and
+`thinStrong_approx_succ_of_fixed` show that if a selected-level
+index map fixes 0,…,j, the *actual* strong thinning has the
+same height-(j+1) approximation as B. This is precisely the
+prefix equality required of the A.3(2) protected background.
