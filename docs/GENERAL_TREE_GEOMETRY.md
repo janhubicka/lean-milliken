@@ -361,3 +361,19 @@ Combined with the predecessor, root and selected-level lemmas,
 this completes the geometric proof obligations for packaging
 the mixed carrier as a genuine strong subtree. The constructor
 and resulting A.3(2) implication are next.
+
+## Genuine mixed strong tree preserving used and unused cones
+
+`StrongSubtree.mixedStrong D X j n hfront hlevels` is the
+actual strong subtree constructed by combining a background D
+with X in the used frontier cones, assuming synchronized future
+selected levels and frontier inclusion. It retains D's entire
+height-(j+1) finite approximation, so unused D-frontier cones
+remain represented. When both D and X refine B, the mixed tree
+refines B; all nodes in used X-frontier cones belong to X.
+
+This is the central geometric construction for A.3(2). The
+remaining application is to choose the background D by
+prefix-preserving thinning of B on the common protected-index
+schedule, and then invoke the already proved relative
+neighborhood-confinement lemma.
