@@ -64,7 +64,7 @@ theorem eq_of_same_boundary_ancestor
         · have hh : U.level p = U.level q :=
             congrArg (U.level) heq
           have hstrict :=
-            T.levels_strictMono (Nat.lt_succ_self m)
+            T.levels_strictMono (show m < m + 1 by omega)
           rw [hpLevel, hq.2] at hh
           omega
         · exact hlt
