@@ -481,3 +481,14 @@ calculus without a global degree bound. `HasHeterogeneousHDHL`
 remains explicitly an **unproved property**. Its multi-coordinate
 induction, subsequent strong-tree product HL, and the unconditional
 heterogeneous Milliken theorem are not yet certified.
+
+
+### Verified heterogeneous HDHL base case
+
+`GeneralTree.heterogeneousHDHL_one` proves Todorčević's
+one-dimensional highly-dense-set statement for a **genuine arbitrary
+locally finitely branching tree**, rather than merely for a fixed
+homogeneous `List ι` tree. It projects a highly dense unary set to a
+one-coordinate matrix, preserving both density and containment.
+The higher-dimensional heterogeneous induction and resulting
+`HasBoundaryProductHL` are still required for general Milliken.

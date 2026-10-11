@@ -115,3 +115,5 @@ import Milliken.GeneralTree.ProductHLBase
 import Milliken.GeneralTree.BoundaryMilliken
 
 import Milliken.GeneralTree.HeterogeneousDensity
+
+import Milliken.GeneralTree.HeterogeneousHDHLBase
