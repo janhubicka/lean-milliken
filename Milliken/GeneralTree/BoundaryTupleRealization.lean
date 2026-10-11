@@ -49,7 +49,7 @@ theorem exists_boundaryTuple_realization
     rfl
   have hM : StrictMono M := by
     intro a b hab
-    exact T.levels_strictMono (by dsimp [M]; omega)
+    exact T.levels_strictMono (by omega)
   let G : StrongSubtree U := T.boundaryGraftStrong n F M hF hlevels hM
   refine ⟨G, T.boundaryGraftStrong_refines n F M hF hlevels hM,
     T.boundaryGraftStrong_approx n F M hF hlevels hM, ?_⟩
