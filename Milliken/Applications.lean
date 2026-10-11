@@ -49,3 +49,5 @@ import Milliken.GeneralTree.StrongGraft
 import Milliken.GeneralTree.ThinningStrong
 
 import Milliken.GeneralTree.SpliceAmalgamation
+
+import Milliken.GeneralTree.ProtectedTail
