@@ -66,9 +66,29 @@ theorem approxMaxLevel_finite [Finite ι] {n : ℕ} (a : Approx ι n) :
 for comparison with the book. -/
 def bookLeFin (a b : Σ n, Approx ι n) : Prop :=
   (a.1 = 0 ∧ b.1 = 0) ∨
-    (0 < a.1 ∧
-      approxCarrier a.2 ⊆ approxCarrier b.2 ∧
-      approxMaxLevel a.2 ⊆ approxMaxLevel b.2)
+    (approxCarrier a.2 ⊆ approxCarrier b.2 ∧
+    approxMaxLevel a.2 ⊆ approxMaxLevel b.2)
+
+/-- Every finite approximation is below itself under the literal (6.3)
+maximal-level finitisation. -/
+theorem bookLeFin_refl (a : Σ n, Approx ι n) :
+    bookLeFin a a :=
+  Or.inr ⟨fun _ h => h, fun _ h => h⟩
+
+/-- In (6.3) an empty approximation is below *every* finite approximation,
+not just another empty one. This is implicit in the empty-carrier case of
+the second disjunct in the printed definition. -/
+theorem bookLeFin_of_zero (a b : Σ n, Approx ι n)
+    (ha : a.1 = 0) :
+    bookLeFin a b := by
+  apply Or.inr
+  constructor
+  · rintro x ⟨s, _⟩
+    have hs : s.1.length < 0 := by simpa only [ha] using s.2
+    exact (Nat.not_lt_zero _ hs).elim
+  · rintro x ⟨s, _, _⟩
+    have hs : s.1.length < 0 := by simpa only [ha] using s.2
+    exact (Nat.not_lt_zero _ hs).elim
 
 /-- A proof-friendly finitization used by the abstract Ramsey-space
 interface.  It records only the source height and carrier inclusion.

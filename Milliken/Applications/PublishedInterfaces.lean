@@ -25,7 +25,7 @@ universe u
 theorem todorcevic62_homogeneous
     {ι : Type u} [Finite ι] [Nonempty ι] :
     RamseySpace.IsTopologicalRamseySpaceOnBasicNeighborhoods
-      (S := TreeSystem ι) :=
+      (S := Chapter6.TreeSystem ι) :=
   Chapter6.milliken_onBasicNeighborhoods (ι := ι)
 
 end Applications

@@ -22,3 +22,5 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.StrongSubtree.initialPart_mono
 #print axioms Milliken.StrongTreeSpace.comparison_leFin
 #print axioms Milliken.StrongTreeSpace.comparison_not_bookLeFin
+#print axioms Milliken.StrongTreeSpace.bookLeFin_refl
+#print axioms Milliken.StrongTreeSpace.bookLeFin_of_zero

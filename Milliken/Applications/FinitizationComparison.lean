@@ -38,7 +38,7 @@ level of the two-level tree consists of depth-one nodes. -/
 theorem comparison_not_bookLeFin :
     ¬ bookLeFin comparisonOne comparisonTwo := by
   intro h
-  rcases h with hzero | ⟨_, _, hmax⟩
+  rcases h with hzero | ⟨_, hmax⟩
   · exact (by decide : (1 : ℕ) ≠ 0) hzero.1
   · have hnil :
         ([] : Node Unit) ∈
@@ -48,7 +48,9 @@ theorem comparison_not_bookLeFin :
     obtain ⟨s, hs, hvalue⟩ := hmax hnil
     have hsource : s.1 = ([] : Node Unit) := by
       exact hvalue
-    have hlength : s.1.length = 1 := by omega
+    have hlength : s.1.length = 1 := by
+      change s.1.length + 1 = 2 at hs
+      omega
     rw [hsource] at hlength
     simp at hlength
 
