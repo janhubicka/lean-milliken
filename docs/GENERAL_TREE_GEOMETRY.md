@@ -482,3 +482,22 @@ Halpern–Läuchli theorem must be applied in the canonical
 pigeonhole argument. The existing verified `StrongSubtreeHL ι`
 is for homogeneous `List ι` trees; no general-cone HL
 conclusion is claimed by these structural lemmas.
+
+## Exact generalized product Halpern–Läuchli endpoint
+
+`HasGeneralProductHL U` is the *unproved* strong-subtree
+Halpern–Läuchli theorem for a finite product of possibly
+non-isomorphic strong trees with synchronized selected ambient
+levels inside arbitrary pruned locally finite U.
+`HasBoundaryProductHL U` is that conclusion specialized to
+the finite genuine cone factors `boundaryCones T n i`.
+The checked conversion
+`boundaryProductHL_of_generalProductHL` is purely an index
+change through `Fintype.equivFin`, analogous to the already
+verified homogeneous `finiteIndexedStrongSubtreeHL` theorem.
+
+Thus the canonical A.4 proof uses **exactly** product HL on these
+cones. The existing `HalesJewettBridge.strongSubtreeHL`
+is unconditional only for homogeneous `List ι` factors.
+General HL for arbitrary node-dependent finite branching remains
+to be transported/formalized; neither target is an axiom.

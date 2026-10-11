@@ -81,3 +81,5 @@ import Milliken.GeneralTree.CanonicalPigeonhole
 import Milliken.GeneralTree.ConeStrong
 
 import Milliken.GeneralTree.BoundaryCones
+
+import Milliken.GeneralTree.ProductHL

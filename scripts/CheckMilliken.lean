@@ -252,3 +252,5 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.boundaryCones_levels
 #print axioms Milliken.GeneralTree.boundaryCones_sourceLevel
 #print axioms Milliken.GeneralTree.boundaryCones_pairwise_disjoint
+
+#print axioms Milliken.GeneralTree.boundaryProductHL_of_generalProductHL
