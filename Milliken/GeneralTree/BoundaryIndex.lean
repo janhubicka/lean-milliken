@@ -61,8 +61,8 @@ noncomputable def boundaryEquivFin (S : StrongSubtree U) (n : ℕ) :
 /-- Every enumerated boundary coordinate is an actual boundary node. -/
 theorem boundaryEquivFin_mem (S : StrongSubtree U) (n : ℕ)
     (i : Fin (Fintype.card (BoundaryIndex S n))) :
-    ((S.boundaryEquivFin n) i).1 ∈ S.boundaryAtStem n :=
-  ((S.boundaryEquivFin n) i).2
+    ((boundaryEquivFin S n) i).1 ∈ S.boundaryAtStem n :=
+  ((boundaryEquivFin S n) i).2
 
 end GeneralTree
 end Milliken
