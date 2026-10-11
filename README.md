@@ -515,3 +515,17 @@ The proof constructs a global dense matrix by completing the
 bad local cone matrix outside the base, exactly as in §3.2.
 This is a substantial preparation for the multi-coordinate HDHL
 induction, not yet the full heterogeneous product theorem.
+
+### Heterogeneous asymmetric density dichotomy
+
+`GeneralTree.heterogeneousHighlyDense_or_compl_arbitrarilyDense`
+proves the disjunction used at the start of Todorčević §3.2:
+either a product colour class is highly dense, or its complement
+contains arbitrarily dense matrices above one fixed base tuple.
+The proof uses the **finiteness of one actual source-level
+product** to find an infinitely recurring bad tuple.
+`heterogeneousAsymmetric_of_hdhl` then turns the first branch
+into dense matrices, conditional only on the heterogeneous HDHL
+property in the current dimension. This removes fixed-alphabet
+assumptions from this density reduction, but not from the yet-open
+higher-dimensional HDHL induction.
