@@ -13,8 +13,9 @@ on the last source level.
 
 The explicit height inequality in `leFin` is redundant for realized strong
 subtrees, but is retained in the Lean relation because it makes finiteness of
-lower cones transparent.  It will be proved equivalent to the book's
-carrier/maximal-level formulation.
+lower cones transparent.  The two relations are *not equivalent as binary relations*: see
+`Applications/FinitizationComparison.lean`. One can instead seek an
+exact comparison of their depth and basic-neighbourhood constructions.
 -/
 
 namespace Milliken
@@ -73,9 +74,9 @@ def bookLeFin (a b : Σ n, Approx ι n) : Prop :=
 interface.  It records only the source height and carrier inclusion.
 
 For realized strong subtrees this gives the same depth notion needed in
-Chapter 6.  Keeping it separate from `bookLeFin` lets us verify A.2 first
-without obscuring the exact (6.3) relation; the comparison theorem is proved
-later. -/
+Chapter 6.  Keeping it separate from `bookLeFin` lets us verify A.2 without
+obscuring the exact (6.3) relation; equality of the induced depth
+notions remains to be proved. -/
 def leFin (a b : Σ n, Approx ι n) : Prop :=
   a.1 ≤ b.1 ∧ approxCarrier a.2 ⊆ approxCarrier b.2
 

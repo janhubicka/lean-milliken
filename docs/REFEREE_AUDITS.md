@@ -122,3 +122,24 @@ member of source level `n+1` to have an ancestor in source level `n`.
 This is needed to encode the *regular rooted subtree* prerequisite
 of Todorčević (str1)–(str2). The formal general-theorem proof remains
 open. Referee A should independently verify the strengthened equivalence.
+
+
+## Internal adversarial check: finitization relation mismatch (2026-10-11)
+
+**Confirmed explicit counterexample:** In the homogeneous unary ambient
+tree, take `a = r_1(id)` and `b = r_2(id)`. Then `a` has carrier
+`{[]}`, `b` has the first two source levels, so
+`StrongTreeSpace.leFin a b` holds. But `a(max) = {[]}`,
+whereas `b(max)` consists of depth-one nodes: `bookLeFin a b`
+does **not** hold.
+
+The earlier prose claiming equivalence of the two *binary relations*
+was incorrect and has been repaired. Lean regression endpoints
+`comparison_leFin` and `comparison_not_bookLeFin` were added to
+`Applications/FinitizationComparison.lean`.
+
+This does not refute the checked A.1–A.4 proof based on `leFin`.
+The correct remaining proof obligation is equality (or suitable
+compatibility) of the **depth and neighbourhood notions** induced by
+the two relations, not a pointwise equivalence. Referee A should
+audit this distinction independently.
