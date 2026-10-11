@@ -197,3 +197,16 @@ are exported for subsequent strongness verification.
 The complete thinning `StrongSubtree` constructor,
 preservation of all ambient child cones, and the protected
 A.3(2) graft remain to be proved.
+
+## Thinning: predecessor and root clauses
+
+`thinningLevel_nonempty`, `thinningLevel_root_below`,
+`thinningLevel_predecessor_exists`, and the carrier-level
+identification `thinningCarrier_at_level` verify nonemptiness,
+the distinguished root, and the selected-predecessor clause of
+the thinning construction. `thinningCarrier_subset` keeps the
+entire candidate inside B.
+
+Only the ambient-successor **uniqueness** clause and packaging
+as a genuine `StrongSubtree` remain for the thinning operator,
+which will then be used in the protected A.3(2) graft.

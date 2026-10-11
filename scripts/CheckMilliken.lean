@@ -154,3 +154,12 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.StrongSubtree.thinningLevel_zero
 #print axioms Milliken.GeneralTree.StrongSubtree.thinningLevel_succ_iff
 #print axioms Milliken.GeneralTree.StrongSubtree.thinningCarrier_levels
+
+#print axioms Milliken.GeneralTree.StrongSubtree.thinningLevel_nonempty
+#print axioms Milliken.GeneralTree.StrongSubtree.thinningLevel_root_below
+#print axioms Milliken.GeneralTree.StrongSubtree.thinningLevel_predecessor_exists
+#print axioms Milliken.GeneralTree.StrongSubtree.thinningCarrier_subset
+#print axioms Milliken.GeneralTree.StrongSubtree.thinningCarrier_root_mem
+#print axioms Milliken.GeneralTree.StrongSubtree.thinningCarrier_root_below
+#print axioms Milliken.GeneralTree.StrongSubtree.thinningCarrier_at_level
+#print axioms Milliken.GeneralTree.StrongSubtree.thinningCarrier_predecessor_exists

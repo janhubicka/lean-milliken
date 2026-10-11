@@ -41,3 +41,5 @@ import Milliken.GeneralTree.SpliceCones
 import Milliken.GeneralTree.LongCones
 
 import Milliken.GeneralTree.ThinningLevels
+
+import Milliken.GeneralTree.ThinningAncestry
