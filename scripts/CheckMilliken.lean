@@ -331,3 +331,7 @@ Milliken endpoints.
 
 #print axioms Milliken.GeneralTree.HeterogeneousMatrix.denseAbove_of_le
 #print axioms Milliken.GeneralTree.no_arbitrarilyDenseAbove_compl_of_heterogeneousHighlyDense
+
+#print axioms Milliken.GeneralTree.exists_bad_heterogeneous_levelTuple
+#print axioms Milliken.GeneralTree.heterogeneousHighlyDense_or_compl_arbitrarilyDense
+#print axioms Milliken.GeneralTree.heterogeneousAsymmetric_of_hdhl
