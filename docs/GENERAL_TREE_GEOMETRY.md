@@ -86,3 +86,14 @@ and prefix compatibility (A.2(3)), into the verified Todorčević
 
 **Still unproved:** general A.3 amalgamation, A.4 pigeonhole, closedness,
 and the resulting unrestricted topological Milliken theorem.
+
+
+## A.3 stem/frontier geometry
+
+`StrongSubtree.sourceLevel_zero_eq_singleton` verifies the root
+level is a singleton. `exists_sourceLevel_ancestor` constructs
+retained ancestors on every earlier selected source level using
+`predecessor_exists`. Consequently `exists_frontier_ancestor`
+places every node beyond a finite stem above a node of its top
+selected frontier. These are prerequisites for relative grafting
+and A.3 amalgamation, not proofs of A.3.
