@@ -280,3 +280,10 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.StrongSubtree.boundaryGraftStrong
 #print axioms Milliken.GeneralTree.StrongSubtree.boundaryGraftStrong_approx
 #print axioms Milliken.GeneralTree.StrongSubtree.boundaryGraftStrong_approx_succ_carrier
+
+#print axioms Milliken.GeneralTree.exists_boundaryTuple_realization
+#print axioms Milliken.GeneralTree.boundaryTupleApprox_carrier
+#print axioms Milliken.GeneralTree.boundaryTuple_mem_graftFactors
+#print axioms Milliken.GeneralTree.canonicalPigeonhole_of_boundaryProductHL
+#print axioms Milliken.GeneralTree.generalPigeonhole_of_generalProductHL
+#print axioms Milliken.GeneralTree.abstractRamseySpace_of_generalProductHL
