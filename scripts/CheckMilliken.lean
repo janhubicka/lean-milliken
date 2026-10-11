@@ -260,3 +260,7 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.StrongSubtree.sourceLevel_subset_boundaryCones
 
 #print axioms Milliken.GeneralTree.StrongSubtree.boundaryAncestor_surjective_of_sameStem
+
+#print axioms Milliken.GeneralTree.StrongSubtree.eq_of_same_boundary_ancestor
+#print axioms Milliken.GeneralTree.StrongSubtree.boundaryAncestor_injective_of_sameStem
+#print axioms Milliken.GeneralTree.StrongSubtree.boundaryAncestor_bijective_of_sameStem

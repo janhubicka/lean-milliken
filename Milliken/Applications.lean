@@ -87,3 +87,5 @@ import Milliken.GeneralTree.ProductHL
 import Milliken.GeneralTree.BoundaryAncestor
 
 import Milliken.GeneralTree.BoundarySurjective
+
+import Milliken.GeneralTree.BoundaryBijection
