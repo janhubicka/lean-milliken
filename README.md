@@ -149,3 +149,10 @@ preceding selected source level (the induced rooted-subtree condition).
 The original-paper theorem is recorded as the **property**
 `GeneralTree.HasMillikenFiniteColourProperty U`; it has no
 constructors, proof or assumed instance in the library yet.
+
+The ongoing selected-level development already handles **increasing
+branching at selected levels** on [PR #3](https://github.com/janhubicka/lean-milliken/pull/3)
+(`SelectedLevelTree`). The general arbitrary-ambient theorem still
+requires its unfinished induction and a transport to possibly
+node-dependent branching. Avoid treating the compressed-tree geometry
+as a verified general theorem until those steps are closed.

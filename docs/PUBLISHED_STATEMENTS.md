@@ -74,3 +74,31 @@ generality. `StrongSubtree.successor_unique` is quantified over
 property is stated for every `U : AmbientTree` as a *Prop*, not
 as an unproved theorem. `predecessor_exists` rules out ghost nodes
 which otherwise defeat equivalence with published regular subtrees.
+
+
+### Existing increasing-branching development on PR #3
+
+The separate [`remark38-level-change` branch](https://github.com/janhubicka/lean-milliken/pull/3)
+already contains:
+
+- `SelectedLevelTree.Selection` and `Child`: the selected-level
+  compression of `List ι`, with finitely many children whose number
+  can grow with the chosen level gaps.
+- `childFinite`, `child_nonempty`, `truncate`, and
+  `exists_child_below`.
+- `SelectedLevelInduction.hdhl_one` and
+  `hdhl_of_all_selected`, connecting the *assumed* selected-level
+  HDHL property back to the usual one.
+
+Thus the variable-degree *geometry* is indeed already in the repository,
+though not merged into `main`. PR #3 does **not** yet contain a proof
+of selected-level `HDHL` in all dimensions, and its compressed tree
+has level-dependent but not node-dependent degrees. The first CI
+failure was localized to `SelectedLevelCone` and received the
+namespace-notation repair in commit
+[`e37b0fd`](https://github.com/janhubicka/lean-milliken/commit/e37b0fdd64cdf310835377fefb496919a6e6efd0).
+Compilation of that fix is pending.
+
+The eventual general-tree proof should reuse PR #3's selected-level
+shift, cone, and density interfaces where possible; it must also
+handle node-dependent finite branching of arbitrary `AmbientTree`.
