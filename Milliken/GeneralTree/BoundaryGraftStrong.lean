@@ -128,7 +128,8 @@ theorem boundaryGraftStrong_levels
       change (F i).levels = T.boundaryGraftLevels 0 M
       rw [hlevels i]
       funext k
-      exact (T.boundaryGraftLevels_at 0 M k).symm
+      simpa only [Nat.zero_add] using
+        (T.boundaryGraftLevels_at 0 M k).symm
   | succ k =>
       rfl
 
