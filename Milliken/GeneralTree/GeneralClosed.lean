@@ -38,9 +38,8 @@ theorem generalIsMetricallyClosed (U : AmbientTree) :
 strong-tree approximation code image. -/
 theorem generalIsTychonoffClosed (U : AmbientTree) :
     (generalApproximationSystem U).IsTychonoffClosed :=
-  ((generalApproximationSystem U).
-    isTychonoffClosed_iff_isClosedApproximationImage).2
-      (generalIsMetricallyClosed U)
+  ((generalApproximationSystem U).isTychonoffClosed_iff_isClosedApproximationImage).2
+    (generalIsMetricallyClosed U)
 
 /-- The full published general-tree Milliken/Ellentuck conclusion,
 conditional *only* on the standard heterogeneous finite-product HL
