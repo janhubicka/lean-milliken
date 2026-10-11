@@ -73,3 +73,5 @@ import Milliken.HalpernLauchli.FiniteHLTransport
 import Milliken.HalpernLauchli.FiniteHLFromHDHL
 
 import Milliken.MillikenTheorem
+
+import Milliken.Applications

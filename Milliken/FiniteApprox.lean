@@ -13,8 +13,9 @@ on the last source level.
 
 The explicit height inequality in `leFin` is redundant for realized strong
 subtrees, but is retained in the Lean relation because it makes finiteness of
-lower cones transparent.  It will be proved equivalent to the book's
-carrier/maximal-level formulation.
+lower cones transparent.  The two relations are *not equivalent as binary relations*: see
+`Applications/FinitizationComparison.lean`. One can instead seek an
+exact comparison of their depth and basic-neighbourhood constructions.
 -/
 
 namespace Milliken
@@ -65,17 +66,37 @@ theorem approxMaxLevel_finite [Finite ι] {n : ℕ} (a : Approx ι n) :
 for comparison with the book. -/
 def bookLeFin (a b : Σ n, Approx ι n) : Prop :=
   (a.1 = 0 ∧ b.1 = 0) ∨
-    (0 < a.1 ∧
-      approxCarrier a.2 ⊆ approxCarrier b.2 ∧
-      approxMaxLevel a.2 ⊆ approxMaxLevel b.2)
+    (approxCarrier a.2 ⊆ approxCarrier b.2 ∧
+    approxMaxLevel a.2 ⊆ approxMaxLevel b.2)
+
+/-- Every finite approximation is below itself under the literal (6.3)
+maximal-level finitisation. -/
+theorem bookLeFin_refl (a : Σ n, Approx ι n) :
+    bookLeFin a a :=
+  Or.inr ⟨fun _ h => h, fun _ h => h⟩
+
+/-- In (6.3) an empty approximation is below *every* finite approximation,
+not just another empty one. This is implicit in the empty-carrier case of
+the second disjunct in the printed definition. -/
+theorem bookLeFin_of_zero (a b : Σ n, Approx ι n)
+    (ha : a.1 = 0) :
+    bookLeFin a b := by
+  apply Or.inr
+  constructor
+  · rintro x ⟨s, _⟩
+    have hs : s.1.length < 0 := by simpa only [ha] using s.2
+    exact (Nat.not_lt_zero _ hs).elim
+  · rintro x ⟨s, _, _⟩
+    have hs : s.1.length < 0 := by simpa only [ha] using s.2
+    exact (Nat.not_lt_zero _ hs).elim
 
 /-- A proof-friendly finitization used by the abstract Ramsey-space
 interface.  It records only the source height and carrier inclusion.
 
 For realized strong subtrees this gives the same depth notion needed in
-Chapter 6.  Keeping it separate from `bookLeFin` lets us verify A.2 first
-without obscuring the exact (6.3) relation; the comparison theorem is proved
-later. -/
+Chapter 6.  Keeping it separate from `bookLeFin` lets us verify A.2 without
+obscuring the exact (6.3) relation; equality of the induced depth
+notions remains to be proved. -/
 def leFin (a b : Σ n, Approx ι n) : Prop :=
   a.1 ≤ b.1 ∧ approxCarrier a.2 ⊆ approxCarrier b.2
 
