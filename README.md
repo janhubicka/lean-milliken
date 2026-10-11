@@ -1,158 +1,317 @@
 # lean-milliken
 
-Lean 4 formalization of Milliken's strong-tree theorem, organized around
-Todorčević's *Introduction to Ramsey Spaces*, Chapters 3 and 6.
+A Lean 4 development of Milliken's theorem for **strong subtrees**, following
+Stevo Todorčević, *Introduction to Ramsey Spaces*, Chapter 6, and
+Keith R. Milliken, *A Ramsey theorem for trees* (1979). The main homogeneous
+tree theorem is derived from the checked infinite Hales–Jewett theorem and the
+Abstract Ellentuck theorem. The library also provides finite-colouring and
+fixed-stem interfaces for applications.
 
-## Main theorem
+**Scope and verification:** The unconditional theorem on the default branch
+is currently for a **homogeneous** ambient tree `List ι`, where `ι` is a
+finite nonempty alphabet. The `feat/application-milliken-api` branch adds a
+source-facing API for **arbitrary pruned, finitely branching rooted trees**,
+but **does not yet prove** the unrestricted general-tree theorem. Do not
+confuse a definition of the general theorem with a proof of it. CI status
+for the proposed application API is tracked in
+[PR #4](https://github.com/janhubicka/lean-milliken/pull/4).
+The separate [selected-level development, PR #3](https://github.com/janhubicka/lean-milliken/pull/3),
+handles the geometry of increasing level-dependent branching and remains
+under development.
 
-The repository now proves Milliken's theorem with no Halpern--Läuchli
-hypothesis left as an argument.
+## Quick start
 
-The public endpoints are:
-
-```lean
-Milliken.Chapter6.milliken
-Milliken.Chapter6.milliken_onBasicNeighborhoods
-```
-
-For every finite nonempty branching alphabet `ι`, the first theorem proves
-that the strong-subtree space is a topological Ramsey space; the second gives
-the literal basic-neighborhood formulation.
-
-The proof path is:
-
-1. the verified infinite Hales--Jewett subspace theorem from
-   `janhubicka/lean-successors`;
-2. a product-alphabet bridge yielding strong-subtree Halpern--Läuchli;
-3. Todorčević Chapter 6: A.1--A.4 for the strong-tree approximation space;
-4. metric closedness;
-5. the Abstract Ellentuck theorem from
-   `janhubicka/lean-ramsey-space-todorcevic`.
-
-The conditional Chapter 6 endpoints are retained as:
-
-```lean
-Milliken.Chapter6.milliken_of_strongSubtreeHL
-Milliken.Chapter6.milliken_onBasicNeighborhoods_of_strongSubtreeHL
-```
-
-The Hales--Jewett bridge itself is:
-
-```lean
-Milliken.HalpernLauchli.HalesJewettBridge.strongSubtreeHL
-```
-
-## Application API (homogeneous ambient trees)
-
-Use `import Milliken.Applications` rather than importing the proof files.
+Pin the library revision in your downstream Lake package. For the
+homogeneous theorem and applications, import:
 
 ```lean
 import Milliken.Applications
 
+#check Milliken.Chapter6.milliken
+#check Milliken.Chapter6.milliken_onBasicNeighborhoods
 #check Milliken.Applications.todorcevic62_homogeneous
 #check Milliken.Applications.millikenFiniteColouring
 #check Milliken.Applications.millikenFixedStemFiniteColouring
-#check Milliken.Applications.exists_refinement_realising
 #check Milliken.Applications.milliken1979_homogeneous
 #check Milliken.Applications.millikenFixedStem1979_homogeneous
 ```
 
-- `millikenFiniteColouring k colour`: an infinite strong embedding `B`
-  on which every height-`k` approximation of a refinement has the same colour.
-- `millikenFixedStemFiniteColouring n k A colour`: a refinement
-  `B ≤ A` with `r_n(B) = r_n(A)`, homogeneous for the height-`k`
-  approximations of all further refinements retaining that same stem.
-  Source level `n` is not necessarily ambient level `n`.
-- `millikenFixedStem1979_homogeneous ell k h A colour`: the direct\n  `Str_{ell,k}`-style consequence with `ell ≤ k`, colour all finite\n  height-`k` strong subtrees contained in `B` and having `r_ell(A)`\n  as their initial approximation.\n- `milliken1979_homogeneous k colour`: the direct finite-tree formulation:
-  *every* height-`k` realised finite strong subtree with its carrier
-  contained in `B` has the same colour. The bridge from carrier inclusion
-  is proved by `exists_refinement_realising`.
-- `todor...62_homogeneous`: Todorčević Theorem 6.2 in the homogeneous
-  case, on all basic Ellentuck neighbourhoods.
+For the definitions for a general ambient tree, use
+`import Milliken.GeneralTree.Published`:
 
-**Scope warning.** These are unconditional theorems only for
-`List ι` with a fixed finite, nonempty branching alphabet.
-The library defines `AmbientTree` and `GeneralTree.StrongSubtree` with
-exact (str1)–(str2), and the unproved *property definition*
-`GeneralTree.HasMillikenFiniteColourProperty`. It has **not yet proved** Milliken
-for arbitrary pruned, finitely branching rooted trees with unbounded degrees,
-as in Todorčević 6.2 and Milliken's 1979 abstract. Nor does the current
-application API prove a synchronized finite-vector-strong-subtree
-version for several trees. These two transports are needed for the
-three-coordinate variable-branching type trees in `3-uniform-diaries`.
+```lean
+import Milliken.GeneralTree.Published
 
-See [published-statement crosswalk](docs/PUBLISHED_STATEMENTS.md) and
-[referee audit checklist](docs/REFEREE_AUDITS.md). Both distinguish
-completed Lean results from unproved generalizations.
+#check Milliken.AmbientTree
+#check Milliken.GeneralTree.StrongSubtree
+#check Milliken.GeneralTree.FiniteApprox
+#check Milliken.GeneralTree.SInfinity
+#check Milliken.GeneralTree.SFinite
+#check Milliken.GeneralTree.r
+#check Milliken.GeneralTree.maxLevel
+#check Milliken.GeneralTree.bookLeFin
+#check Milliken.GeneralTree.BasicNeighborhood
+#check Milliken.GeneralTree.HasMillikenFiniteColourProperty
+```
 
-## Verified Chapter 6 route
+The last declaration is a **`Prop` describing an unproved target**, not
+an axiom, typeclass instance, or theorem. The complete implementation,
+including the separate Chapter 3 reconstruction, is available with
+`import Milliken`.
 
-The checked Chapter 6 path contains:
+### Conventions (important for applications)
 
-1. strong embeddings and finite approximations (A.1);
-2. the finite carrier/factorization order (A.2);
-3. finite-stem extension and the depth-boundary splice (A.3);
-4. Todorčević's Lemma 6.1 from strong-subtree Halpern--Läuchli, followed by
-   the lift from the canonical stem to arbitrary depth (A.4);
-5. metric closedness of the strong-tree space;
-6. assembly through Abstract Ellentuck.
+* A tree is rooted, **finitely branching at each node**, and of height
+  at most `ω`. For the infinite Ramsey theorem it has height `ω` and
+  **no terminal nodes**. The number of children can depend on the node
+  and can be unbounded over the tree.
+* A strong subtree need **not** contain the root of its ambient tree.
+* Its selected levels form a strictly increasing sequence of **ambient
+  levels**. A source level `n` is generally **not** ambient level `n`.
+* A finite tree of height `k` consists of source levels
+  `0, …, k−1`. The height-zero approximation is empty.
+* A strong subtree must account for **every immediate successor in
+  the ambient tree**: each successor cone has **exactly one**
+  representative at the next selected level. An arbitrary
+  meet-preserving or weak subtree is not enough.
+* For an anchored statement `r_ell(B)=r_ell(A)` means equality of
+  the first `ell` **source** levels, not equality of ambient truncations
+  at level `ell`.
 
-## Chapter 3 / Halpern--Läuchli reconstruction
+## 1. Arbitrary ambient trees — published-source data model
 
-The repository also contains a separate reconstruction of Todorčević's
-Chapter 3 density proof.  This is no longer a dependency of the final
-Milliken theorem, but is kept as an independent formalization project.
+Namespace: `Milliken` and `Milliken.GeneralTree`.
+Modules: [`AmbientTree.lean`](Milliken/AmbientTree.lean),
+[`GeneralTree.lean`](Milliken/GeneralTree.lean),
+[`GeneralTree/Published.lean`](Milliken/GeneralTree/Published.lean).
 
-Checked components include:
+| Declaration | Meaning and hypotheses |
+| --- | --- |
+| `AmbientTree` | A Mathlib `RootedTree` together with `finite_children : ∀ x, (children x).Finite` and `has_child : ∀ x, ∃ y, x ⋖ y`. Thus the branching is locally finite and the tree has no leaves. |
+| `AmbientTree.children U x` | Set of **immediate ambient successors** `{y : U \| x ⋖ y}`. |
+| `AmbientTree.children_finite`, `children_nonempty` | The two main structural hypotheses exported as lemmas. |
+| `AmbientTree.level U x`, `levelSet U n` | Ambient height above the root and the set of nodes at ambient level `n`. |
+| `GeneralTree.StrongSubtree U` | Infinite strong subtree represented by its **carrier**, strictly increasing selected ambient levels, a selected root, ancestral closure and the ambient-successor uniqueness property. |
+| `StrongSubtree.sourceLevel S n` | `S` at its `n`th selected level. `sourceLevel_nonempty` establishes nonemptiness. |
+| `StrongSubtree.initialPart S n` | First `n` source levels, the book's `T ↾ n`. `initialPart_zero`, `initialPart_mono`, `initialPart_subset` describe truncation. |
+| `StrongSubtree.Refines S T` | Strong-subtree inclusion `S.carrier ⊆ T.carrier`, with both objects strong in the same ambient `U`. |
+| `GeneralTree.FiniteApprox U n` | A finite approximation of source height `n`, stored as a carrier together with a witness that it is the first `n` levels of some infinite strong subtree. |
+| `GeneralTree.approx n S` | Restriction to the first `n` source levels, keeping the realizer. |
+| `GeneralTree.SInfinity U`, `SFinite U n` | Book-facing aliases for `S_∞(U)` and `S_n(U)` (with finite approximations represented by infinite realizers). |
+| `GeneralTree.r n S` | Source-facing alias for `r_n(S)=S↾n`, formula (6.1). |
+| `GeneralTree.maxLevel a` | The set of maximal nodes of finite approximation `a` in its **induced tree order**, i.e. `a(max)`. |
+| `GeneralTree.bookLeFin a b` | Literal (6.3): both carriers empty, **or** `a.carrier ⊆ b.carrier` and `maxLevel a ⊆ maxLevel b`. |
+| `GeneralTree.BasicNeighborhood a T` | `[a,T]`: strong refinements `S ⊆ T` with `r_n(S)=a`, where `a` has height `n`. |
+| `GeneralTree.HasMillikenFiniteColourProperty U` | **Unproved target** for the original general-tree theorem: every finite colouring of height-`n` approximations has a monochromatic infinite strong subtree of `U`. |
 
-- the density and level-matrix language;
-- Lemma 3.5 and the asymmetric formulation;
-- stabilization/section machinery and its closedness fusion limit;
-- the minimal-`D` argument in Lemma 3.15;
-- explicit tail normalization and nested matrix refinement for the implicit
-  step around equation (3);
-- the normalized Lemma 3.15;
-- the increasing `(n_p,X_p)` tower and Lemma 3.16;
-- the stabilized reduced successor induction step;
-- compactness for the reduced dichotomy;
-- finite level-block coding and the obstruction supplied by highly dense
-  sets.
+The fields of `GeneralTree.StrongSubtree U` are intentionally more explicit
+than the printed (str1)–(str2). `root_mem`/`root_below` make the induced
+subtree rooted; `carrier_levels` expresses regularity;
+`successor_unique` is **(str2)** quantified over all immediate successors
+in `U`, while `predecessor_exists` prevents nodes at a later selected
+level that do not descend from any node of the preceding selected level.
+Otherwise a “ghost” node could satisfy the forward successor condition
+without being part of a regular rooted strong subtree. The chosen root can
+lie strictly above the root of `U`.
 
-The remaining source-faithful Chapter 3 item is the final Remark 3.8
-level-change upgrade from the reduced dichotomy to the full highly-dense
-formulation.  This does **not** block the main Milliken theorem, because the
-verified Hales--Jewett bridge supplies strong-subtree Halpern--Läuchli
-directly.
+**Important modeling distinction:** `FiniteApprox U n` currently requires
+an infinite realizer. This represents the approximations used by the
+Ramsey-space construction. To identify it with the *intrinsic* class
+of all finite strong subtrees in `S_n(U)` without that witness, prove a
+finite-strong-subtree extension lemma. The arbitrary-tree topological
+Ramsey-space instance, its A.1–A.4 proof and that identification are
+not exported as proved results yet.
 
-## CI and proof audit
+## 2. Homogeneous strong-tree API (proved core)
 
-The project is pinned to fixed revisions of Mathlib,
-`lean-ramsey-space-todorcevic`, and `lean-successors`.  CI runs the full
-`lake build` and a transitive `#print axioms` audit for:
+Namespace: `Milliken`, `Milliken.StrongEmbedding` and
+`Milliken.StrongTreeSpace`.
 
-- the Hales--Jewett to Halpern--Läuchli bridge;
-- `Milliken.Chapter6.milliken`;
-- `Milliken.Chapter6.milliken_onBasicNeighborhoods`.
+| Declaration | Description |
+| --- | --- |
+| `Node ι`, `child s i` | Nodes are finite words `List ι`; a labelled child is `s ++ [i]`. |
+| `StrongEmbedding ι` | Canonical embedding of the full homogeneous tree into itself, with `toFun`, injectivity, prefix preservation/reflection, branch preservation/reflection and a strictly increasing common level map. **Root not fixed.** |
+| `StrongEmbedding.id`, `comp`, `comp_assoc` | Identity, composition and associativity of strong embeddings. |
+| `StrongEmbedding.range F` | Node carrier of the embedded strong subtree. |
+| `StrongTreeSpace.le ι X Y` | Refinement/factorisation: `∃ Z, X = Y.comp Z`. |
+| `StrongTreeSpace.le_iff_range_subset` | Equivalent to inclusion of strong-subtree node carriers, assuming `[Nonempty ι]`. |
+| `StrongTreeSpace.FiniteNode ι n` | Words of source length **strictly less** than `n`. |
+| `StrongTreeSpace.Approx ι n` | A restriction of a strong embedding to its first `n` source levels, with a realisation witness. |
+| `StrongTreeSpace.approx ι n X` | The restriction `r_n(X)`; `approx_surjective`, `approx_zero`, `coherent`, `separated` prove basic A.1 properties. |
+| `StrongTreeSpace.approxCarrier a` | The image nodes of a finite approximation. |
+| `StrongTreeSpace.approxMaxLevel a` | The image of its last source level, empty for height zero. |
+| `StrongTreeSpace.bookLeFin a b` | Source-facing **(6.3)** maximal-level order. An empty first approximation is below any target (`bookLeFin_of_zero`); reflexivity is `bookLeFin_refl`. |
+| `StrongTreeSpace.leFin a b` | Alternative order used **internally** by the checked Chapter 6 A.2/A.3/A.4 construction: height inequality and carrier inclusion. |
+| `StrongTreeSpace.stemExtension`, `approx_comp_stemExtension` | Extend a finite strong stem lying in an infinite strong subtree and realize it by a further strong embedding. |
+| `StrongTreeSpace.finitization` | Checked A.2 witness **for `leFin`**, not yet an A.2 witness for `bookLeFin`. |
+| `StrongTreeSpace.amalgamation_nonempty`, `amalgamation_refine` | Checked A.3 nonempty and refinement instances. |
+| `StrongTreeSpace.isMetricallyClosed`, `isTychonoffClosed` | The approximation-code image is closed, allowing Abstract Ellentuck. |
 
-The audit rejects `sorryAx` and any axioms beyond Lean's standard
-`propext`, `Classical.choice`, and `Quot.sound`.
+**Finitisation caveat:** `leFin` and `bookLeFin` are **not identical
+binary relations**. For example `r_1(id) ≤fin r_2(id)` holds for
+`leFin` but fails for `bookLeFin`: the top levels differ. The test
+`comparison_leFin` / `comparison_not_bookLeFin` is in
+[`FinitizationComparison.lean`](Milliken/Applications/FinitizationComparison.lean).
+The A.1–A.4 development is Lean-checked for `leFin`. To claim literal
+identity with Todorčević's topology, the relevant **depth and
+basic-neighbourhood equivalence** must additionally be verified. The
+public `bookLeFin` definition is supplied for that comparison.
 
+## 3. Unconditional theorem exports
 
-### Arbitrary locally finite branching
+Modules: [`MillikenTheorem.lean`](Milliken/MillikenTheorem.lean),
+[`Applications`](Milliken/Applications.lean).
 
-`import Milliken.GeneralTree` exposes `StrongSubtree U` and
-`FiniteApprox U n` for `U : AmbientTree` without imposing a uniform
-degree bound. `StrongSubtree.successor_unique` captures the
-ambient-successor property (str2), while `predecessor_exists`
-enforces that every higher-level node has a predecessor in the
-preceding selected source level (the induced rooted-subtree condition).
-The original-paper theorem is recorded as the **property**
-`GeneralTree.HasMillikenFiniteColourProperty U`; it has no
-constructors, proof or assumed instance in the library yet.
+All listed unconditional homogeneous theorems assume a finite nonempty
+branching alphabet `ι`. Finite-colouring corollaries take a colour type
+`κ` with `[Fintype κ]`.
 
-The ongoing selected-level development already handles **increasing
-branching at selected levels** on [PR #3](https://github.com/janhubicka/lean-milliken/pull/3)
-(`SelectedLevelTree`). The general arbitrary-ambient theorem still
-requires its unfinished induction and a transport to possibly
-node-dependent branching. Avoid treating the compressed-tree geometry
-as a verified general theorem until those steps are closed.
+| Declaration | What it proves |
+| --- | --- |
+| `Milliken.HalpernLauchli.HalesJewettBridge.strongSubtreeHL` | The full finite-dimensional strong-subtree Halpern–Läuchli property on a product of homogeneous trees: **one common selected level map** and monochromatic level products, via Hales–Jewett. |
+| `Milliken.Chapter6.abstractRamseySpace` | The A.1–A.4 structure for the homogeneous approximation system, assembled from the internal finitisation, amalgamation and pigeonhole lemmas. |
+| `Milliken.Chapter6.milliken` | The full topological Ramsey-space conclusion `RamseySpace.IsTopologicalRamseySpace` for that structure. |
+| `Milliken.Chapter6.milliken_onBasicNeighborhoods` | Source-facing result on **all** basic Ellentuck neighbourhoods (`IsTopologicalRamseySpaceOnBasicNeighborhoods`). |
+| `Milliken.Applications.todorcevic62_homogeneous` | Alias for Theorem 6.2 restricted to homogeneous ambient trees and the checked approximation system. |
+| `RamseySpace.finiteApproximationColouring_for_Milliken` | Generic finite-colour corollary of any topological Ramsey-space basic-neighbourhood theorem. |
+| `Milliken.Applications.millikenFiniteColouring k colour` | There exists an infinite strong embedding `B` such that all `r_k(X)` with `X ≤ B` have one colour. |
+| `Milliken.Applications.millikenFixedStemFiniteColouring ell k A colour` | Refinement `B ≤ A` with `r_ell(B)=r_ell(A)`, homogeneous for `r_k(X)` of refinements `X ≤ B` which retain that initial stem. |
+| `Milliken.Applications.exists_refinement_realising a B h` | A realized finite approximation with carrier inside `B` extends to a refinement `X ≤ B` with `r_k(X)=a`. |
+| `Milliken.Applications.milliken1979_homogeneous k colour` | **Direct finite-tree form:** for some infinite strong `B` and colour `c`, every finite height-`k` strong subtree whose carrier is contained in `B` has colour `c`. |
+| `Milliken.Applications.truncateApprox h a` | Restriction of a finite height-`k` approximation to height `ell` when `h : ell ≤ k`. Theorems `truncateApprox_approx` and `truncateApprox_trans` establish compatibility. |
+| `Milliken.Applications.millikenFixedStem1979_homogeneous ell k h A colour` | **Direct anchored finite-tree form:** a refinement `B ≤ A` retains `r_ell(A)` and all finite height-`k` subtrees in `B` with that stem have one colour. Suitable for a homogeneous-tree `Str_{ell,k}` statement. |
+
+The theorem `millikenFixedStemFiniteColouring` does **not** demand
+`ell ≤ k`, since it colours infinite realizers in a basic
+neighbourhood. The finite-tree `Str_{ell,k}` theorem does demand
+`h : ell ≤ k`, so the prescribed prefix of a finite height-`k`
+object is defined.
+
+### Example: colour all finite strong subtrees
+
+```lean
+import Milliken.Applications
+
+open Milliken
+
+example (ι : Type) [Finite ι] [Nonempty ι]
+    (k : ℕ) (χ : StrongTreeSpace.Approx ι k → Fin 3) :
+    ∃ B : StrongEmbedding ι, ∃ c : Fin 3,
+      ∀ a : StrongTreeSpace.Approx ι k,
+        StrongTreeSpace.approxCarrier a ⊆ StrongEmbedding.range B →
+          χ a = c := by
+  exact Applications.milliken1979_homogeneous k χ
+```
+
+For an anchored `Str_{ell,k}` assertion, call
+`Applications.millikenFixedStem1979_homogeneous ell k h A χ`,
+with `h : ell ≤ k`. It returns the refined `B`, retained finite
+stem and the chosen colour.
+
+## 4. Conditional and proof-level interfaces
+
+Users formalising new Ramsey spaces can reuse the combinatorial lemmas
+without introducing an unproved axiom.
+
+| Declaration | Purpose |
+| --- | --- |
+| `HalpernLauchli.StrongSubtreeHL ι` | Proposition specifying strong-subtree Halpern–Läuchli for every finite dimension and positive number of colours. |
+| `HalpernLauchli.HasLevels`, `HasCommonLevels` | Witness a strictly increasing level map for one subtree or for a finite vector of subtrees; `HasCommonLevels.comp` handles coordinatewise composition. |
+| `Chapter6.BoundaryHL ι`, `boundaryHL_of_strongSubtreeHL` | Reindex the level-product theorem by the finitely many boundary nodes of a stem (Lemma 6.1). |
+| `Chapter6.tupleGraft`, `tupleApprox` | Reconstruct the next selected level from one common-level boundary tuple. |
+| `Chapter6.boundaryColor`, `boundaryColor_eq_zero_iff` | Turn a colouring of one-step approximations into the boundary-vector colouring used by A.4. |
+| `Chapter6.milliken_of_strongSubtreeHL` | Conditional form: derive the depth-form topological Ramsey theorem from an assumed strong-subtree HL proof. |
+| `Chapter6.milliken_onBasicNeighborhoods_of_strongSubtreeHL` | Conditional source-facing basic-neighbourhood form. |
+| `StrongTreeSpace.pigeonhole_of_strongSubtreeHL_and_refine` | A.4 from boundary HL and amalgamation refinement. |
+| `StrongTreeSpace.approx_comp_stemExtension` | Constructively realize a prescribed finite stem inside a containing strong subtree. |
+
+The unconditional result does not leave Halpern–Läuchli as a theorem
+hypothesis: the verified [Hales–Jewett bridge](Milliken/HalpernLauchli/HalesJewettBridge.lean)
+provides it.
+
+## 5. Increasing branching and synchronized vector trees
+
+The [`remark38-level-change` branch](https://github.com/janhubicka/lean-milliken/pull/3)
+has an additional selected-level interface for compressions
+`n ↦ L(n)` of a fixed-alphabet tree. The successor set in the
+compressed tree is finite, but its degree grows with
+`L(n+1)−L(n)`. Its exported geometry includes:
+
+* `HalpernLauchli.SelectedLevelTree.Selection`:
+  increasing chosen ambient levels starting at zero;
+* `NodeAt S n` and `Child S x`:
+  nodes and immediate successors at those selected levels;
+* `nodeAtFinite`, `childFinite`, `child_nonempty`:
+  local finiteness/nonemptiness;
+* `truncate`, `truncate_prefix`, `exists_child_below`:
+  ancestry across selected levels;
+* `SelectedLevelTree.hdhl_one`:
+  the one-dimensional selected-level HDHL case;
+* `HalpernLauchli.hdhl_of_all_selected`:
+  an **implication** from HDHL on **all** selected-level trees.
+
+This is valuable proof infrastructure, **not yet** an unconditional
+arbitrary-tree HL/Milliken theorem: its remaining selected-level
+induction must be completed and node-dependent finite branching
+requires an additional transport. Do not equate homogeneity of
+level-product vectors with homogeneity of **finite vector strong
+subtrees**. The latter also requires the synchronized-vector
+Milliken extension used by the three-coordinate type-tree application.
+
+## 6. Module map and proof architecture
+
+| Import / file | Responsibility |
+| --- | --- |
+| `Milliken.Tree`, `Milliken.BranchEmbedding` | Homogeneous strong embeddings and branch/level constructors. |
+| `Milliken.AmbientTree`, `Milliken.GeneralTree`, `Milliken.GeneralTree.Published` | Published arbitrary-branching definitions, restrictions and (6.3) finite order. |
+| `Milliken.RamseyBasic`, `Milliken.FiniteApprox`, `Milliken.FinitizationOrder` | Approximation system, carriers, book/internal finitisations and A.2. |
+| `Milliken.Stem`, `Milliken.StemExtension`, `Milliken.AmalgamationRefine` | Finite-stem realisation and A.3. |
+| `Milliken.Chapter6`, `Milliken.PigeonholeLift` | Finite boundary tuples, Halpern–Läuchli reduction and A.4. |
+| `Milliken.Closed` | Metric and Tychonoff closedness. |
+| `Milliken.HalpernLauchli.HalesJewettBridge` | Hales–Jewett to strong-subtree Halpern–Läuchli. |
+| `Milliken.MillikenTheorem` | A.1–A.4 + closedness + Abstract Ellentuck, conditional and unconditional theorems. |
+| `Milliken.Applications` | End-user homogeneous finite-colour, original finite-tree and anchored interfaces; published-source tree types. |
+| `Milliken` | Full umbrella import, including separate Chapter 3 reconstruction modules. |
+
+## 7. Build, axiom audit, and review
+
+The Lake package pins fixed revisions of Mathlib,
+[`lean-ramsey-space-todorcevic`](https://github.com/janhubicka/lean-ramsey-space-todorcevic)
+and [`lean-successors`](https://github.com/janhubicka/lean-successors).
+
+```sh
+lake update
+lake exe cache get
+lake build
+lake env lean scripts/CheckMilliken.lean
+```
+
+GitHub Actions performs `lake build` and checks the transitive
+`#print axioms` output for the theorem and application endpoints.
+The audit rejects `sorryAx` and any axioms other than the standard
+`propext`, `Classical.choice`, and `Quot.sound`. The number of checked
+endpoints is maintained alongside the workflow invocation; see
+[`scripts/CheckMilliken.lean`](scripts/CheckMilliken.lean) and
+[`scripts/check-axiom-log.py`](scripts/check-axiom-log.py).
+
+Review and reference documents:
+
+* [Published-statement crosswalk](docs/PUBLISHED_STATEMENTS.md)
+  compares (str1)–(str2), (6.1)–(6.3), Theorem 6.2 and the original
+  finite-height formulation, carefully marking remaining theorems.
+* [Referee audit dossier](docs/REFEREE_AUDITS.md)
+  includes separate source, original-paper and Lean/application
+  review briefs and explicit counterexamples.
+* [PR #3](https://github.com/janhubicka/lean-milliken/pull/3)
+  develops variable selected-level geometry.
+* [PR #4](https://github.com/janhubicka/lean-milliken/pull/4)
+  supplies the published-source application API and documentation.
+
+## References
+
+* Stevo Todorčević, [*Introduction to Ramsey Spaces*](https://www.cs.umd.edu/~gasarch/COURSES/752/S26/BOOKS/IntroRamseySpaces.pdf),
+  Princeton University Press, 2010, Chapter 6, especially pp. 135–137,
+  (str1)–(str2), (6.1)–(6.3), Lemma 6.1, Theorem 6.2,
+  Corollaries 6.5–6.6.
+* Keith R. Milliken, [*A Ramsey theorem for trees*](https://doi.org/10.1016/0097-3165(79)90101-8),
+  *Journal of Combinatorial Theory, Series A* **26** (1979), 215–237.
