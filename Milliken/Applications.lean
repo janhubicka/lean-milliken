@@ -93,3 +93,5 @@ import Milliken.GeneralTree.BoundaryBijection
 import Milliken.GeneralTree.BoundaryTuple
 
 import Milliken.GeneralTree.BoundaryGraftData
+
+import Milliken.GeneralTree.BoundaryGraftPredecessor
