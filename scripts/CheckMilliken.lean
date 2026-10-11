@@ -174,3 +174,9 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.StrongSubtree.thinStrong
 #print axioms Milliken.GeneralTree.StrongSubtree.thinStrong_refines
 #print axioms Milliken.GeneralTree.StrongSubtree.thinStrong_sourceLevel
+
+#print axioms Milliken.GeneralTree.StrongSubtree.spliceStrong_sourceLevel_before
+#print axioms Milliken.GeneralTree.StrongSubtree.spliceStrong_sourceLevel_at
+#print axioms Milliken.GeneralTree.StrongSubtree.spliceStrong_initialPart
+#print axioms Milliken.GeneralTree.StrongSubtree.spliceStrong_approx_succ
+#print axioms Milliken.GeneralTree.generalAmalgamation_nonempty

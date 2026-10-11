@@ -47,3 +47,5 @@ import Milliken.GeneralTree.ThinningAncestry
 import Milliken.GeneralTree.StrongGraft
 
 import Milliken.GeneralTree.ThinningStrong
+
+import Milliken.GeneralTree.SpliceAmalgamation
