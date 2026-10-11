@@ -346,3 +346,11 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.exists_childAlphabetMap
 #print axioms Milliken.GeneralTree.childAlphabetMap_surjective
 #print axioms Milliken.GeneralTree.exists_label_of_child
+
+#print axioms Milliken.GeneralTree.childFromLabel_covBy
+#print axioms Milliken.GeneralTree.exists_childFromLabel
+#print axioms Milliken.GeneralTree.evalPath_append
+#print axioms Milliken.GeneralTree.evalPath_level
+#print axioms Milliken.GeneralTree.le_evalPath
+#print axioms Milliken.GeneralTree.exists_evalPath_of_le
+#print axioms Milliken.GeneralTree.evalPath_length_of_eq
