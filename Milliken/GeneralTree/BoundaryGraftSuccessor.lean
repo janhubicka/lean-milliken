@@ -128,7 +128,9 @@ theorem boundaryGraft_successor_succ
         have hstrict :=
           T.levels_strictMono (Nat.lt_succ_self n)
         have hrankj : U.level j.1 = T.levels (n + 1) := j.2.2
-        omega
+        have hyBound : U.level y ≤ T.levels (n + 1) := by
+          omega
+        simpa only [hrankj] using hyBound
       have hyj : y ≤ j.1 :=
         U.le_of_common_descendant_of_level_le hw.2.2 hrootw hyrank
       have hjq : j.1 = q :=
