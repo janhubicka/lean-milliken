@@ -98,6 +98,21 @@ theorem mem_carrier_of_fillOutsideAbove_of_above
   · exact hM
   · exact (hout.2 (hbase i)).elim
 
+/-- Cone-density at a later selected source index implies cone-density
+at every earlier index. Extend each test node to the later level,
+remaining in the same cone above its base. -/
+theorem denseAbove_of_le
+    (M : HeterogeneousMatrix P)
+    (base : Fin d → U) {m n : ℕ}
+    (hmn : m ≤ n) (hM : M.DenseAbove base n) :
+    M.DenseAbove base m := by
+  intro i x hx hbase
+  obtain ⟨z, hz, hxz⟩ :=
+    (P i).exists_sourceLevel_descendant hmn hx
+  obtain ⟨y, hy, hzy⟩ :=
+    hM i z hz (hbase.trans hxz)
+  exact ⟨y, hy, hxz.trans hzy⟩
+
 end HeterogeneousMatrix
 
 /-- Product density is downward closed in its selected source index.
