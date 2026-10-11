@@ -254,3 +254,7 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.boundaryCones_pairwise_disjoint
 
 #print axioms Milliken.GeneralTree.boundaryProductHL_of_generalProductHL
+
+#print axioms Milliken.GeneralTree.StrongSubtree.existsUnique_boundaryAncestor
+#print axioms Milliken.GeneralTree.StrongSubtree.boundaryAncestor_le
+#print axioms Milliken.GeneralTree.StrongSubtree.sourceLevel_subset_boundaryCones
