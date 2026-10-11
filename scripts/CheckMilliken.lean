@@ -122,3 +122,11 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.StrongSubtree.spliceCarrier_level_before
 #print axioms Milliken.GeneralTree.StrongSubtree.spliceCarrier_level_at
 #print axioms Milliken.GeneralTree.StrongSubtree.disjoint_initialPart_spliceTail
+
+#print axioms Milliken.GeneralTree.StrongSubtree.spliceLevels_ge
+#print axioms Milliken.GeneralTree.StrongSubtree.spliceTail_upward_in_T
+#print axioms Milliken.GeneralTree.StrongSubtree.spliceCarrier_level_tail
+#print axioms Milliken.GeneralTree.StrongSubtree.spliceCarrier_levels
+#print axioms Milliken.GeneralTree.StrongSubtree.spliceCarrier_root_mem
+#print axioms Milliken.GeneralTree.StrongSubtree.spliceCarrier_root_below
+#print axioms Milliken.GeneralTree.StrongSubtree.spliceCarrier_tail_level_mem_T

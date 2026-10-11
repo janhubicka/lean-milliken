@@ -31,3 +31,5 @@ import Milliken.GeneralTree.Ancestry
 import Milliken.GeneralTree.FrontierUniqueness
 
 import Milliken.GeneralTree.SpliceCarrier
+
+import Milliken.GeneralTree.SpliceLevels
