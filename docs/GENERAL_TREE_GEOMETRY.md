@@ -260,3 +260,22 @@ trees using the actual `generalBookFinitization U` and
 
 This is not A.3(2) (protected refinements), A.4, closedness,
 or the general Milliken theorem.
+
+## A.3(2) protected-tail confinement (formal endpoint)
+
+`selectedLastLevel_eq_of_r_succ_eq` shows agreement of a
+finite nonempty strong stem fixes its final ambient rank.
+`refines_of_protected_tail` proves that every further strong
+refinement Y of C with this fixed stem lies inside X when
+**only the descendant cones of X's last selected stem frontier**
+are confined to X. All unused C/B-frontier cones may extend
+outside X. This relative formulation is essential: requiring
+the entire C-tail to lie in X would generally be incompatible
+with preserving B's complete depth-d frontier.
+`basicNeighborhood_subset_of_protected_tail` packages the
+A.3(2) neighborhood inclusion under the repaired condition.
+
+The remaining task is **constructing** such a protected C
+which preserves B's complete depth-d prefix, continues unused
+cones freely, and follows X within the used cones. No such
+construction is asserted or assumed by these results.

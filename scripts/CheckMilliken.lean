@@ -180,3 +180,7 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.StrongSubtree.spliceStrong_initialPart
 #print axioms Milliken.GeneralTree.StrongSubtree.spliceStrong_approx_succ
 #print axioms Milliken.GeneralTree.generalAmalgamation_nonempty
+
+#print axioms Milliken.GeneralTree.selectedLastLevel_eq_of_r_succ_eq
+#print axioms Milliken.GeneralTree.refines_of_protected_tail
+#print axioms Milliken.GeneralTree.basicNeighborhood_subset_of_protected_tail
