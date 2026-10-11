@@ -187,3 +187,11 @@ Milliken endpoints.
 
 #print axioms Milliken.AmbientTree.exists_child_le_of_lt
 #print axioms Milliken.AmbientTree.children_eq_of_common_descendant
+
+#print axioms Milliken.AmbientTree.upwardCones_upwards
+#print axioms Milliken.AmbientTree.upwardCones_union
+#print axioms Milliken.AmbientTree.upwardCones_disjoint_of_same_rank
+#print axioms Milliken.GeneralTree.StrongSubtree.frontier_used_unused_disjoint
+#print axioms Milliken.GeneralTree.StrongSubtree.frontier_used_unused_union
+#print axioms Milliken.GeneralTree.StrongSubtree.carrier_mem_frontier_cones_of_level_ge
+#print axioms Milliken.GeneralTree.StrongSubtree.carrier_used_or_unused_frontier
