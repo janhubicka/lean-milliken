@@ -24,3 +24,6 @@ Milliken endpoints.
 #print axioms Milliken.StrongTreeSpace.comparison_not_bookLeFin
 #print axioms Milliken.StrongTreeSpace.bookLeFin_refl
 #print axioms Milliken.StrongTreeSpace.bookLeFin_of_zero
+#print axioms Milliken.GeneralTree.bookLeFin_refl
+#print axioms Milliken.GeneralTree.bookLeFin_zero_left
+#print axioms Milliken.GeneralTree.self_mem_basicNeighborhood
