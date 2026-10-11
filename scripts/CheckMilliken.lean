@@ -44,3 +44,4 @@ Milliken endpoints.
 #print axioms Milliken.AmbientTree.eq_of_le_of_level_eq
 #print axioms Milliken.GeneralTree.identityStrongSubtree
 #print axioms Milliken.GeneralTree.sinfinity_nonempty
+#print axioms Milliken.GeneralTree.milliken_zero

@@ -66,5 +66,27 @@ theorem sinfinity_nonempty (U : AmbientTree) :
 @[simp] theorem identityStrongSubtree_levels (U : AmbientTree) (n : ℕ) :
     (identityStrongSubtree U).levels n = n := rfl
 
+/-- Milliken's height-zero finite-colour theorem for every pruned locally
+finite ambient tree. This is the unconditional base case of the full
+general-tree finite-colour property. -/
+theorem milliken_zero (U : AmbientTree)
+    (colors : ℕ) [NeZero colors]
+    (colour : FiniteApprox U 0 → Fin colors) :
+    ∃ S : StrongSubtree U, ∃ c : Fin colors,
+      ∀ a : FiniteApprox U 0,
+        a.carrier ⊆ S.carrier → colour a = c := by
+  let S : StrongSubtree U := identityStrongSubtree U
+  refine ⟨S, colour (r 0 S), ?_⟩
+  intro a ha
+  have haS : a = r 0 S := by
+    obtain ⟨T, hT⟩ := a.realised
+    calc
+      a = r 0 T := by
+        apply FiniteApprox.ext_carrier
+        exact hT
+      _ = r 0 S := r_zero_eq T S
+  rw [haS]
+
+
 end GeneralTree
 end Milliken
