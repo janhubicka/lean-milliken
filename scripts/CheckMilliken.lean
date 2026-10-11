@@ -322,3 +322,9 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.heterogeneousUnaryProjection_carrier_subset
 #print axioms Milliken.GeneralTree.heterogeneousUnaryProjection_dense
 #print axioms Milliken.GeneralTree.heterogeneousHDHL_one
+
+#print axioms Milliken.GeneralTree.HeterogeneousMatrix.restrictAbove_denseAbove
+#print axioms Milliken.GeneralTree.HeterogeneousMatrix.restrictAbove_carrier_subset
+#print axioms Milliken.GeneralTree.HeterogeneousMatrix.fillOutsideAbove_denseAt
+#print axioms Milliken.GeneralTree.HeterogeneousMatrix.mem_carrier_of_fillOutsideAbove_of_above
+#print axioms Milliken.GeneralTree.heterogeneousProductDenseAt_of_le

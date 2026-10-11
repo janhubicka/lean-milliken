@@ -492,3 +492,14 @@ homogeneous `List ι` tree. It projects a highly dense unary set to a
 one-coordinate matrix, preserving both density and containment.
 The higher-dimensional heterogeneous induction and resulting
 `HasBoundaryProductHL` are still required for general Milliken.
+
+
+### Heterogeneous cone-density calculus
+
+`HeterogeneousMatrix.DenseAbove` and `restrictAbove` use
+the actual descendant cones of arbitrary strong coordinate trees;
+`fillOutsideAbove` completes a locally dense cone matrix to a
+globally dense one by filling the other n-th source-level nodes.
+The relevant density and carrier transport identities, and downward
+closure of product density, are checked as prerequisites of the
+unbounded-branching Chapter 3 asymmetric dichotomy.
