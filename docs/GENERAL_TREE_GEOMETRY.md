@@ -397,3 +397,14 @@ graft itself.
 index map fixes 0,…,j, the *actual* strong thinning has the
 same height-(j+1) approximation as B. This is precisely the
 prefix equality required of the A.3(2) protected background.
+
+## Protected level-index schedule for A.3(2)
+
+Given a strong refinement X of B with X's n-th source level at
+B's j-th selected ambient level, `protectedIndex X B hXB n j`
+is a strictly increasing index map. It fixes all B indices
+0,…,j and then follows X's selected ambient levels at indices
+n,n+1,… exactly. Its root-zero and full-prefix identities are
+proved along with its tail-level equation. This is the common
+level schedule for the protected mixed-cone graft; A.3(2)
+itself remains to be constructed.

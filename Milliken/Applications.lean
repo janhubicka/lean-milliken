@@ -69,3 +69,5 @@ import Milliken.GeneralTree.MixedStrong
 import Milliken.GeneralTree.ThinningPrefix
 
 import Milliken.GeneralTree.ThinningApprox
+
+import Milliken.GeneralTree.ProtectedIndex
