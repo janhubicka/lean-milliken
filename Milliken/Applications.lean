@@ -59,3 +59,5 @@ import Milliken.GeneralTree.FrontierPartition
 import Milliken.GeneralTree.MixedCarrier
 
 import Milliken.GeneralTree.MixedLevels
+
+import Milliken.GeneralTree.MixedPredecessor

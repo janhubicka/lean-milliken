@@ -332,3 +332,15 @@ frontier cut is at source level zero. If X and D both refine B,
 in B. Together with the previous exact frontier laws this checks
 root and regularity for the final mixed strong-subtree constructor.
 Selected-predecessor and unique ambient child-cone clauses remain.
+
+## Mixed protected-cone selected predecessor law
+
+`StrongSubtree.mixedCarrier_predecessor_exists` verifies that
+when X and D have synchronized selected ambient levels after the
+mixing frontier, every candidate mixed node at source level k+1
+has a mixed predecessor at source level k. Before the mixing cut
+the proof uses D; afterward it uses X in the used sectors and D
+in the unused sectors, with same-cone membership preserved by the
+order of common ancestors. This is the actual predecessor clause
+of the pending mixed `StrongSubtree` constructor; the unique
+ambient child-cone successor law remains to be proved.
