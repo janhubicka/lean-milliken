@@ -467,7 +467,7 @@ T-descendants of x and using T's ambient selected level map
 shifted by n. It refines T, with no fixed branching alphabet.
 This constructs the heterogeneous successor-cone factors of
 the finite product used by the published A.4 boundary HL proof.
-The product theorem and boundary graft remain separate tasks.
+The heterogeneous HL product theorem remains open. The genuine inverse boundary graft has since been constructed in `BoundaryGraftStrong.lean`.
 
 ## Finite synchronized heterogeneous boundary cones for A.4
 
@@ -533,8 +533,9 @@ successors of S and T and the checked refinement level map.
 
 Together with the previously proved unique-boundary-ancestor
 map, this establishes surjectivity of the index correspondence.
-Injectivity, inverse boundary tuple realization and general
-Halpern–Läuchli transport remain open.
+Injectivity is proved in `BoundaryBijection.lean`, and a genuine
+boundary-cone graft is proved in `BoundaryGraftStrong.lean`.
+The heterogeneous Halpern–Läuchli theorem remains open.
 
 ## Finite boundary bijection under stem-preserving refinements
 
@@ -548,8 +549,9 @@ of S's nth source level with T's nth canonical boundary index.
 
 This is the exact finite coordinate set of every one-step strong
 extension, needed for the HL tuple coloring and its factorization.
-The inverse tuple-graft realization and general HL for heterogeneous
-cones are separate pending tasks.
+The genuine inverse graft constructor is provided by
+`StrongSubtree.boundaryGraftStrong`. General HL for heterogeneous
+cones remains a separate pending theorem.
 
 ## Exact one-step encoding by a common-level boundary tuple
 
@@ -565,5 +567,34 @@ The tuple's image is exactly S.sourceLevel n, and
 approximation r_(n+1)(S) with the fixed r_n(T) stem plus the
 finite tuple image. These give the forward parametrization of
 one-step colorings by Halpern–Läuchli level products.
-The inverse tuple-grafting and general cone-product HL proof
-remain the two outstanding geometric/combinatorial tasks.
+The inverse *strong-tree graft* and its exact one-step approximation
+carrier are now established in `BoundaryGraftStrong.lean`. Completing
+the arbitrary-tree A.4 implication still requires converting all
+synchronized boundary tuples into finite realizations and proving
+the general heterogeneous product HL theorem.
+
+## Verified synchronized inverse boundary graft (PR #53)
+
+`boundaryGraftCarrier` is the exact union of T's finite
+height-n stem with the carriers of a finite family F of refinements
+of the genuine `SourceBoundary T n` cone factors. The family shares
+one strictly increasing ambient level map M. The following new
+results use no global bound on branching or fixed alphabet:
+
+- `boundaryGraft_level_before`: all old levels before n are retained;
+- `boundaryGraft_level_after` and `boundaryGraft_level_at`:
+  synchronized cone source levels, with the first new level exactly
+  the finite tuple of selected coordinate roots;
+- `boundaryGraft_predecessor_succ` and
+  `boundaryGraft_successor_succ`: predecessor closure and genuine
+  uniqueness in **every ambient immediate child cone**, including
+  the delicate step crossing the retained stem;
+- `boundaryGraftStrong`: an actual `StrongSubtree U` for every
+  stem height (including n=0), refining T and preserving r_n(T);
+- `boundaryGraftStrong_approx_succ_carrier`: exact inverse encoding
+  of the one-step finite approximation as the stem plus the root tuple.
+
+This completes the structural inverse graft, *not* the product-HL
+argument: `HasBoundaryProductHL` remains a theorem target rather than
+a proved fact or Lean axiom. The canonical A.4 implication and the
+unrestricted Milliken Theorem 6.2 therefore remain open.

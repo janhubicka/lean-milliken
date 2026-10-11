@@ -269,3 +269,14 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.StrongSubtree.boundaryTuple_mem_cone
 #print axioms Milliken.GeneralTree.StrongSubtree.boundaryTuple_range
 #print axioms Milliken.GeneralTree.StrongSubtree.approx_succ_carrier_eq_boundaryTuple
+
+#print axioms Milliken.GeneralTree.StrongSubtree.boundaryGraftLevels_strictMono
+#print axioms Milliken.GeneralTree.StrongSubtree.boundaryGraftCarrier_refines
+#print axioms Milliken.GeneralTree.StrongSubtree.boundaryGraft_level_before
+#print axioms Milliken.GeneralTree.StrongSubtree.boundaryGraft_level_at
+#print axioms Milliken.GeneralTree.StrongSubtree.boundaryGraft_level_after
+#print axioms Milliken.GeneralTree.StrongSubtree.boundaryGraft_predecessor_succ
+#print axioms Milliken.GeneralTree.StrongSubtree.boundaryGraft_successor_succ
+#print axioms Milliken.GeneralTree.StrongSubtree.boundaryGraftStrong
+#print axioms Milliken.GeneralTree.StrongSubtree.boundaryGraftStrong_approx
+#print axioms Milliken.GeneralTree.StrongSubtree.boundaryGraftStrong_approx_succ_carrier
