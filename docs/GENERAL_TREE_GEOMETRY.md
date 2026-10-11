@@ -210,3 +210,20 @@ entire candidate inside B.
 Only the ambient-successor **uniqueness** clause and packaging
 as a genuine `StrongSubtree` remain for the thinning operator,
 which will then be used in the protected A.3(2) graft.
+
+## The genuine positive-height strong graft
+
+`StrongSubtree.spliceStrong S T n j hn htop` is an explicit
+positive-height strong subtree of the arbitrary ambient U. Its
+frontier level n lies on T's source level j; the old prefix
+comes from S and the descendant cones after the frontier come
+from T.
+
+The theorem separately proves selected-predecessor existence
+and ambient-successor uniqueness for the splice, without a global
+bound on branching. When the finite S-prefix lies inside T,
+`spliceStrong_refines` gives the inclusion into T.
+
+This theorem is the core geometric step of positive-height A.3(1).
+The exact finite approximation identity and A.3(1) conclusion
+still need proof; A.3(2), A.4 and Milliken remain open.
