@@ -142,3 +142,9 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.StrongSubtree.splice_source_before
 #print axioms Milliken.GeneralTree.StrongSubtree.splice_source_at
 #print axioms Milliken.GeneralTree.StrongSubtree.splice_source_after
+
+#print axioms Milliken.GeneralTree.StrongSubtree.exists_sourceLevel_descendant
+#print axioms Milliken.GeneralTree.StrongSubtree.exists_sourceLevel_descendant_in_childCone
+#print axioms Milliken.GeneralTree.StrongSubtree.longConeRepresentative_spec
+#print axioms Milliken.GeneralTree.StrongSubtree.immediateChildren_eq_of_common_descendant
+#print axioms Milliken.GeneralTree.StrongSubtree.longConeRepresentative_injective

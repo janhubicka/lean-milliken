@@ -167,3 +167,18 @@ source levels and S/T source levels are exported as
 
 These lemmas are for constructing the positive-height strong graft;
 they do not yet establish general A.3 or A.4.
+
+## Arbitrarily long selected successor cones
+
+`exists_sourceLevel_descendant_in_childCone` proves that every
+immediate ambient successor cone of a retained node of B
+meets each strictly later selected source level of B. The
+classically selected `longConeRepresentative` chooses one
+such node at any prescribed later source level. Different
+ambient child cones yield distinct representatives, proved
+by `longConeRepresentative_injective`.
+
+These lemmas allow subsequent thinning to a prescribed
+subsequence of selected levels without any global degree bound.
+The simultaneous thinning and protected A.3(2) splice
+are not yet proved.
