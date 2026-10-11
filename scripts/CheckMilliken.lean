@@ -295,3 +295,9 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.codeFrontier_level
 #print axioms Milliken.GeneralTree.codeSelectedLevels_strictMono
 #print axioms Milliken.GeneralTree.codeCarrier_mem_frontier_of_level
+
+#print axioms Milliken.GeneralTree.codeFrontierNode_root_below
+#print axioms Milliken.GeneralTree.codeCarrier_predecessor_exists
+#print axioms Milliken.GeneralTree.codeCarrier_successor_unique
+#print axioms Milliken.GeneralTree.pointOfGeneralCode
+#print axioms Milliken.GeneralTree.pointOfGeneralCode_approx
