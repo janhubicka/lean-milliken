@@ -114,3 +114,18 @@ handle the separate empty-stem case.
 
 All are geometric or A.3 base-case results, not general
 amalgamation or A.4.
+
+## Explicit relative stem-graft carrier
+
+`StrongSubtree.spliceCarrier S T n` retains the first n
+source levels of S, plus T-nodes above the n-th selected frontier
+of S. `spliceLevels S T n j` uses S's earlier selected levels
+and T's levels from j onward. The checked geometric lemmas show
+strict level increase under matching frontier levels, exact
+agreement on every earlier selected level, exact agreement on
+the frontier (when it lies in T), and separation of prefix and
+tail by ambient rank.
+
+This is the geometric candidate for A.3(1). Its strongness
+and the resulting extension and protected-splice claims remain
+to be proved; they are **not** axioms or established theorems.

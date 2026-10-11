@@ -29,3 +29,5 @@ import Milliken.GeneralTree.PrefixFinitization
 import Milliken.GeneralTree.Ancestry
 
 import Milliken.GeneralTree.FrontierUniqueness
+
+import Milliken.GeneralTree.SpliceCarrier

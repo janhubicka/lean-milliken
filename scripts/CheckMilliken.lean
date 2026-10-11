@@ -112,3 +112,13 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.bookDepth_zero_of_empty
 #print axioms Milliken.GeneralTree.bookDepth_succ_lastLevel
 #print axioms Milliken.GeneralTree.neighborhood_nonempty_zero
+
+#print axioms Milliken.GeneralTree.StrongSubtree.spliceLevels_before
+#print axioms Milliken.GeneralTree.StrongSubtree.spliceLevels_at
+#print axioms Milliken.GeneralTree.StrongSubtree.spliceLevels_strictMono
+#print axioms Milliken.GeneralTree.StrongSubtree.initialPart_level_lt
+#print axioms Milliken.GeneralTree.StrongSubtree.spliceTail_level_ge
+#print axioms Milliken.GeneralTree.StrongSubtree.spliceTail_at_frontier
+#print axioms Milliken.GeneralTree.StrongSubtree.spliceCarrier_level_before
+#print axioms Milliken.GeneralTree.StrongSubtree.spliceCarrier_level_at
+#print axioms Milliken.GeneralTree.StrongSubtree.disjoint_initialPart_spliceTail
