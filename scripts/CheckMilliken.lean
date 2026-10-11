@@ -100,3 +100,7 @@ Milliken endpoints.
 
 #print axioms Milliken.GeneralTree.bookLeFin_prefix_compatible
 #print axioms Milliken.GeneralTree.generalBookFinitization
+
+#print axioms Milliken.GeneralTree.StrongSubtree.sourceLevel_zero_eq_singleton
+#print axioms Milliken.GeneralTree.StrongSubtree.exists_sourceLevel_ancestor
+#print axioms Milliken.GeneralTree.StrongSubtree.exists_frontier_ancestor
