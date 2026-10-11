@@ -384,3 +384,28 @@ separate proof obligations. The positive vector dimension is explicit.
   Corollaries 6.5–6.6.
 * Keith R. Milliken, [*A Ramsey theorem for trees*](https://doi.org/10.1016/0097-3165(79)90101-8),
   *Journal of Combinatorial Theory, Series A* **26** (1979), 215–237.
+
+## General-tree A.4 inverse boundary graft (proved geometry)
+
+The checked `StrongSubtree.boundaryGraftStrong` constructor in
+`Milliken.GeneralTree.BoundaryGraftStrong` takes any finite family of
+genuine boundary-cone refinements with **one common selected-level
+sequence** and returns a genuine infinite strong subtree of an
+arbitrary pruned locally finitely branching ambient tree. It preserves
+the entire old finite stem, refines its background strong tree, and
+has one-step approximation carrier equal to the old finite carrier
+united with the range of the tuple of chosen cone roots.
+
+This provides the converse geometric step to the forward tuple encoding
+from PR #52. The predecessor and ambient-immediate-successor uniqueness
+conditions of the graft are separately proved and compiled, including
+the empty stem and the stem/tail cut. Ten dedicated transitive axiom
+audit endpoints cover this step.
+
+**Still open:** The arbitrary-node-degree heterogeneous product
+Halpern--Läuchli statement `HasGeneralProductHL`/
+`HasBoundaryProductHL` introduced in PR #48 is a definition of
+the desired standard HL property, not a proved theorem or an axiom.
+Its proof and the resulting general A.4/general topological Milliken
+theorem remain necessary. The unconditional proof currently covers
+homogeneous finite-alphabet trees.
