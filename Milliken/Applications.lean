@@ -3,3 +3,4 @@ import Milliken.GeneralTree
 import Milliken.Applications.FinitizationComparison
 import Milliken.GeneralTree.Published
 import Milliken.GeneralTree.OrderLemmas
+import Milliken.GeneralTree.Identity

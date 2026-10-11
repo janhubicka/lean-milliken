@@ -37,3 +37,10 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.basicNeighborhood_trans
 #print axioms Milliken.GeneralTree.bookLeFin_iff
 #print axioms Milliken.GeneralTree.bookLeFin_trans
+
+#print axioms Milliken.AmbientTree.level_mono
+#print axioms Milliken.AmbientTree.level_covBy
+#print axioms Milliken.AmbientTree.level_lt
+#print axioms Milliken.AmbientTree.eq_of_le_of_level_eq
+#print axioms Milliken.GeneralTree.identityStrongSubtree
+#print axioms Milliken.GeneralTree.sinfinity_nonempty
