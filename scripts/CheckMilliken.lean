@@ -27,3 +27,13 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.bookLeFin_refl
 #print axioms Milliken.GeneralTree.bookLeFin_zero_left
 #print axioms Milliken.GeneralTree.self_mem_basicNeighborhood
+
+#print axioms Milliken.GeneralTree.StrongSubtree.initialPart_succ
+#print axioms Milliken.GeneralTree.StrongSubtree.carrier_eq_iUnion_sourceLevel
+#print axioms Milliken.GeneralTree.StrongSubtree.sourceLevel_disjoint
+#print axioms Milliken.GeneralTree.FiniteApprox.ext_carrier
+#print axioms Milliken.GeneralTree.r_surjective
+#print axioms Milliken.GeneralTree.r_zero_eq
+#print axioms Milliken.GeneralTree.basicNeighborhood_trans
+#print axioms Milliken.GeneralTree.bookLeFin_iff
+#print axioms Milliken.GeneralTree.bookLeFin_trans
