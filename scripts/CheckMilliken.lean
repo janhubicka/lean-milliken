@@ -184,3 +184,6 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.selectedLastLevel_eq_of_r_succ_eq
 #print axioms Milliken.GeneralTree.refines_of_protected_tail
 #print axioms Milliken.GeneralTree.basicNeighborhood_subset_of_protected_tail
+
+#print axioms Milliken.AmbientTree.exists_child_le_of_lt
+#print axioms Milliken.AmbientTree.children_eq_of_common_descendant
