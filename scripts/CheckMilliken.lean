@@ -318,3 +318,7 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.HeterogeneousMatrix.fullLevel_denseAt
 #print axioms Milliken.GeneralTree.HeterogeneousMatrix.fullLevel_onLevel
 #print axioms Milliken.GeneralTree.HeterogeneousMatrix.denseAt_of_le
+
+#print axioms Milliken.GeneralTree.heterogeneousUnaryProjection_carrier_subset
+#print axioms Milliken.GeneralTree.heterogeneousUnaryProjection_dense
+#print axioms Milliken.GeneralTree.heterogeneousHDHL_one
