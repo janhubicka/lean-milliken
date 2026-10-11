@@ -39,3 +39,5 @@ import Milliken.GeneralTree.RefinementLevels
 import Milliken.GeneralTree.SpliceCones
 
 import Milliken.GeneralTree.LongCones
+
+import Milliken.GeneralTree.ThinningLevels
