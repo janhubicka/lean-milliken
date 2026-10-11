@@ -1,4 +1,5 @@
 import Milliken.GeneralTree.MaxLevel
+import Milliken.GeneralTree.Extensionality
 
 /-!
 # A.1 coherence for arbitrary pruned finitely branching ambient trees
