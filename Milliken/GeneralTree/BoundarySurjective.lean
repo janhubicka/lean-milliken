@@ -41,14 +41,13 @@ theorem boundaryAncestor_surjective_of_sameStem
       let zS : SourceBoundary S 0 :=
         ⟨S.root, ⟨S.root_mem, S.root_level⟩⟩
       have hq : q.1 = T.root := by
-        have h := q.2
-        rw [T.sourceLevel_zero_eq_singleton] at h
-        exact h
+        simpa only [T.sourceLevel_zero_eq_singleton,
+          Set.mem_singleton_iff] using q.2
       have hmap : (S.boundaryAncestor T hST 0 zS).1 =
           T.root := by
-        have h := (S.boundaryAncestor T hST 0 zS).2
-        rw [T.sourceLevel_zero_eq_singleton] at h
-        exact h
+        simpa only [T.sourceLevel_zero_eq_singleton,
+          Set.mem_singleton_iff] using
+            (S.boundaryAncestor T hST 0 zS).2
       exact ⟨zS, Subtype.ext (hmap.trans hq.symm)⟩
   | succ m =>
       intro q
@@ -68,7 +67,7 @@ theorem boundaryAncestor_surjective_of_sameStem
         · have hh : U.level p = U.level q.1 :=
             congrArg (U.level) heq
           have hstrict :=
-            T.levels_strictMono (Nat.lt_succ_self m)
+            T.levels_strictMono (show m < m + 1 by omega)
           rw [hpLevel, q.2.2] at hh
           omega
         · exact hlt
@@ -86,7 +85,7 @@ theorem boundaryAncestor_surjective_of_sameStem
           (S.le_refinementIndex T hST (m + 1)) hzT
       have hyrank : U.level y ≤ U.level q' := by
         have hstrict :=
-          T.levels_strictMono (Nat.lt_succ_self m)
+          T.levels_strictMono (show m < m + 1 by omega)
         calc
           U.level y = U.level p + 1 := U.level_covBy hpy
           _ = T.levels m + 1 := by rw [hpLevel]
