@@ -69,3 +69,20 @@ with a selected level of the larger tree. Combined with the intrinsic
 maximal-level identification and prefix inclusion, this proves
 `refines_iff_forall_bookLeFin_r`, precisely A.2(2) for the book order.
 The only remaining A.2 clause is prefix compatibility (A.2(3)).
+
+
+## Published A.2 completed (2026-10-11)
+
+`bookLeFin_prefix_compatible` proves A.2(3) for the literal
+published maximal-level order (6.3). The key construction chooses the
+selected ambient height of the last level of a nonempty prefix and
+reconstructs the corresponding prefix in a realizer of the larger
+finite approximation. The empty prefix is treated separately.
+
+`generalBookFinitization U` packages all A.2 clauses, including finite
+lower cones (A.2(1)), realization of infinite refinement (A.2(2)),
+and prefix compatibility (A.2(3)), into the verified Todorčević
+`RamseySpace.Finitization` interface. No global degree bound is used.
+
+**Still unproved:** general A.3 amalgamation, A.4 pigeonhole, closedness,
+and the resulting unrestricted topological Milliken theorem.

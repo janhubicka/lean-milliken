@@ -97,3 +97,6 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.exists_bookLeFin_r_of_refines
 #print axioms Milliken.GeneralTree.refines_of_forall_bookLeFin_r
 #print axioms Milliken.GeneralTree.refines_iff_forall_bookLeFin_r
+
+#print axioms Milliken.GeneralTree.bookLeFin_prefix_compatible
+#print axioms Milliken.GeneralTree.generalBookFinitization
