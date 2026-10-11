@@ -36,11 +36,11 @@ theorem existsUnique_sourceLevel_ancestor
     S.exists_sourceLevel_ancestor hnm hz
   refine ⟨x, ⟨hx, hxz⟩, ?_⟩
   intro y hy
-  rcases le_total_of_directed hxz hy.2 with hxy | hyx
-  · exact (U.eq_of_le_of_level_eq hxy
-      (hx.2.trans hy.1.2.symm)).symm
+  rcases le_total_of_directed hxz hy.2 with hyx | hxy
   · exact U.eq_of_le_of_level_eq hyx
       (hy.1.2.trans hx.2.symm)
+  · exact (U.eq_of_le_of_level_eq hxy
+      (hx.2.trans hy.1.2.symm)).symm
 
 /-- Every retained node at or beyond source level n has a
 unique frontier ancestor at level n. -/
@@ -86,7 +86,7 @@ theorem bookLeFin_succ_lastLevel
       obtain ⟨x, hx⟩ := maxLevel_nonempty_succ a
       have hxB := (bookLeFin_iff.mp h).2 hx
       rw [maxLevel_r_zero] at hxB
-      exact (Set.not_mem_empty x hxB).elim
+      simpa using hxB
   | succ j =>
       refine ⟨j, rfl, ?_⟩
       intro x hx
