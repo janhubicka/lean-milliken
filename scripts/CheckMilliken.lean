@@ -335,3 +335,8 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.exists_bad_heterogeneous_levelTuple
 #print axioms Milliken.GeneralTree.heterogeneousHighlyDense_or_compl_arbitrarilyDense
 #print axioms Milliken.GeneralTree.heterogeneousAsymmetric_of_hdhl
+
+#print axioms Milliken.GeneralTree.heteroAppendLast_front_last
+#print axioms Milliken.GeneralTree.HeterogeneousMatrix.mem_snoc_carrier_appendLast
+#print axioms Milliken.GeneralTree.HeterogeneousMatrix.snoc_denseAt
+#print axioms Milliken.GeneralTree.heterogeneousSnoc_carrier_subset_compl
