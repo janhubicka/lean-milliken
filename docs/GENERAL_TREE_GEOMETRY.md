@@ -440,3 +440,20 @@ with any future proof of A.4, using the native
 `RamseySpace.AbstractRamseySpace` definition. The additional
 closedness requirement and the unrestricted general Milliken
 conclusion remain independent proof obligations.
+
+
+## A.4 as the boundary Halpern–Läuchli pigeonhole
+
+`HasCanonicalPigeonhole U` is the explicit *unproved* canonical
+one-step consequence of heterogeneous-cone Halpern–Läuchli for an
+arbitrary locally finite ambient tree U. The checked theorem
+`generalPigeonhole_of_canonical` derives exactly Todorčević's
+published A.4 from the canonical case using the checked A.3(1)
+and A.3(2). No combinatorial work is hidden in this lifting.
+
+The unconditional theorem
+`HalpernLauchli.HalesJewettBridge.strongSubtreeHL` and its
+finite-indexed reindexing do prove the corresponding canonical
+pigeonhole for homogeneous `List ι` trees (see
+`Chapter6.Pigeonhole`). For arbitrary node-dependent local
+branching, a transport/general-cone HL theorem is still needed.

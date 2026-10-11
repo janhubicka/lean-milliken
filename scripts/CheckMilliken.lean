@@ -241,3 +241,5 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.generalAmalgamation_refine
 
 #print axioms Milliken.GeneralTree.abstractRamseySpace_of_pigeonhole
+
+#print axioms Milliken.GeneralTree.generalPigeonhole_of_canonical
