@@ -53,8 +53,8 @@ theorem boundaryTuple_mem_cone
   let E := S.boundaryEquiv T hST n hStem
   let zS : SourceBoundary S n := E.symm i
   have hInv : S.boundaryAncestor T hST n zS = i := by
-    simpa only [boundaryEquiv, Equiv.ofBijective_apply] using
-      (E.apply_symm_apply i)
+    change E (E.symm i) = i
+    exact E.apply_symm_apply i
   have hAncestor : i.1 ≤ zS.1 := by
     rw [← hInv]
     exact S.boundaryAncestor_le T hST n zS
