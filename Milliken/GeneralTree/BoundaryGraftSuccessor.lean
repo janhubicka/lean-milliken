@@ -124,13 +124,13 @@ theorem boundaryGraft_successor_succ
           j.1 ≤ (F j).root := ((hF j) (F j).root_mem).2
           _ = w := hjw
       have hyrank : U.level y ≤ U.level j.1 := by
-        have hstep := U.level_covBy hxy
-        have hstrict :=
-          T.levels_strictMono (Nat.lt_succ_self n)
-        have hrankj : U.level j.1 = T.levels (n + 1) := j.2.2
-        have hyBound : U.level y ≤ T.levels (n + 1) := by
-          omega
-        simpa only [hrankj] using hyBound
+        calc
+          U.level y = U.level x + 1 := U.level_covBy hxy
+          _ = T.levels n + 1 := by rw [hxlevelT]
+          _ ≤ T.levels (n + 1) :=
+            Nat.succ_le_of_lt
+              (T.levels_strictMono (Nat.lt_succ_self n))
+          _ = U.level j.1 := j.2.2.symm
       have hyj : y ≤ j.1 :=
         U.le_of_common_descendant_of_level_le hw.2.2 hrootw hyrank
       have hjq : j.1 = q :=
