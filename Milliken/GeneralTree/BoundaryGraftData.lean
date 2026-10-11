@@ -250,7 +250,7 @@ theorem boundaryGraftCarrier_zero
     change z ∈ T.initialPart 0 ∪ ⋃ j, (F j).carrier at hz
     rcases hz with hprefix | htail
     · rw [T.initialPart_zero] at hprefix
-      exact (Set.not_mem_empty z hprefix).elim
+      simp at hprefix
     · obtain ⟨j, hj⟩ := Set.mem_iUnion.mp htail
       rw [T.sourceBoundary_zero_eq j i] at hj
       exact hj
