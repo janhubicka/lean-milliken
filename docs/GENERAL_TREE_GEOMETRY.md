@@ -279,3 +279,13 @@ The remaining task is **constructing** such a protected C
 which preserves B's complete depth-d prefix, continues unused
 cones freely, and follows X within the used cones. No such
 construction is asserted or assumed by these results.
+
+## First ambient child of an ancestor
+
+`AmbientTree.exists_child_le_of_lt` proves that for every proper
+ancestor x of z there exists an immediate child of x below z,
+by induction on the finite ambient rank. Equal-level successor
+cones with a common descendant coincide by
+`children_eq_of_common_descendant`. These source-neutral order
+lemmas are prerequisites of finite-prefix-preserving thinning,
+not an A.3(2) proof in themselves.
