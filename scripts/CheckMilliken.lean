@@ -91,3 +91,9 @@ Milliken endpoints.
 
 #print axioms Milliken.GeneralTree.height_le_ncard_of_subset
 #print axioms Milliken.GeneralTree.bookLeFin_lowerFinite
+
+#print axioms Milliken.GeneralTree.StrongSubtree.selectedLevel_of_refines
+#print axioms Milliken.GeneralTree.StrongSubtree.mem_initialPart_of_level_le
+#print axioms Milliken.GeneralTree.exists_bookLeFin_r_of_refines
+#print axioms Milliken.GeneralTree.refines_of_forall_bookLeFin_r
+#print axioms Milliken.GeneralTree.refines_iff_forall_bookLeFin_r

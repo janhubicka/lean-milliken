@@ -59,3 +59,13 @@ finite approximation under book relation (6.3) is finite.
 
 The remaining A.2 realization and prefix-compatibility laws, as well
 as A.3–A.4, remain open for arbitrary locally finite ambient trees.
+
+
+## A.2 refinement-order realization
+
+`StrongSubtree.selectedLevel_of_refines` shows that a strong subtree
+contained in another aligns every one of its selected ambient levels
+with a selected level of the larger tree. Combined with the intrinsic
+maximal-level identification and prefix inclusion, this proves
+`refines_iff_forall_bookLeFin_r`, precisely A.2(2) for the book order.
+The only remaining A.2 clause is prefix compatibility (A.2(3)).
