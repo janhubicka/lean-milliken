@@ -18,3 +18,5 @@ Milliken endpoints.
 #print axioms Milliken.Applications.todorcevic62_homogeneous
 
 #print axioms Milliken.Applications.millikenFixedStem1979_homogeneous
+#print axioms Milliken.GeneralTree.StrongSubtree.sourceLevel_nonempty
+#print axioms Milliken.GeneralTree.StrongSubtree.initialPart_mono

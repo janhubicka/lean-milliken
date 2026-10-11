@@ -56,3 +56,21 @@ discharged by the published single-tree API.
 
 - [Todorčević, Chapter 6](https://www.cs.umd.edu/~gasarch/COURSES/752/S26/BOOKS/IntroRamseySpaces.pdf#page=144) (PDF, printed pp. 135–137).
 - [Milliken, 1979, DOI](https://doi.org/10.1016/0097-3165(79)90101-8).
+
+
+### Local finiteness versus globally fixed branching
+
+The induction in `HalpernLauchli/FinalInduction.lean` processes the
+finite immediate-successor set by iteration. Therefore the underlying
+combinatorial reasoning can plausibly be instantiated with different
+finite successor sets at successive stages; there is no evident reason
+to demand one global degree bound. However, the **currently checked**
+Chapter 6 proof specializes the tree to `Node ι = List ι`, where
+`ι` is fixed along all source levels.
+
+The new `GeneralTree` definitions separate these two levels of
+generality. `StrongSubtree.successor_unique` is quantified over
+`x ⋖ y` in the arbitrary ambient tree `U`, and the finite-approximation
+property is stated for every `U : AmbientTree` as a *Prop*, not
+as an unproved theorem. `predecessor_exists` rules out ghost nodes
+which otherwise defeat equivalence with published regular subtrees.

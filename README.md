@@ -136,3 +136,16 @@ The project is pinned to fixed revisions of Mathlib,
 
 The audit rejects `sorryAx` and any axioms beyond Lean's standard
 `propext`, `Classical.choice`, and `Quot.sound`.
+
+
+### Arbitrary locally finite branching
+
+`import Milliken.GeneralTree` exposes `StrongSubtree U` and
+`FiniteApprox U n` for `U : AmbientTree` without imposing a uniform
+degree bound. `StrongSubtree.successor_unique` captures the
+ambient-successor property (str2), while `predecessor_exists`
+enforces that every higher-level node has a predecessor in the
+preceding selected source level (the induced rooted-subtree condition).
+The original-paper theorem is recorded as the **property**
+`GeneralTree.HasMillikenFiniteColourProperty U`; it has no
+constructors, proof or assumed instance in the library yet.

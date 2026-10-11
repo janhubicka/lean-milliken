@@ -96,3 +96,29 @@ the tested commit SHA, all critical counterexamples, and a clear
 PASS / PASS WITH QUALIFICATIONS / FAIL verdict **only after examining
 the sources and Lean declarations independently**. This file currently
 records initial audit findings and the work needed for actual signoff.
+
+
+## Internal adversarial check: absent predecessors (2026-10-11)
+
+A first pass over the abstract arbitrary-degree carrier representation
+found a real trap in a *proposed definition*, before any proof was exported.
+Simply requiring a common selected-level sequence, a least root, and
+(str2)'s unique next-level extension would still permit **ghost nodes**
+on later selected levels which descend from the root but not from a
+node on the immediately preceding selected level.
+
+Example: in the full binary tree, use ambient selected levels
+0, 2, 3, ... . At ambient level 2 choose `00` and `10` as
+representatives above the two children of the root. At level 3,
+choose all their mandatory extensions and also `010`,
+which has no predecessor in the selected level-2 nodes.
+The one-way successor condition alone would allow this ghost branch
+to continue forever even though it is not part of the intended
+regular strong subtree.
+
+**Resolution in this branch:** add
+`GeneralTree.StrongSubtree.predecessor_exists`, requiring every
+member of source level `n+1` to have an ancestor in source level `n`.
+This is needed to encode the *regular rooted subtree* prerequisite
+of Todorčević (str1)–(str2). The formal general-theorem proof remains
+open. Referee A should independently verify the strengthened equivalence.
