@@ -174,3 +174,89 @@ theorem boundaryGraft_level_at
 end StrongSubtree
 end GeneralTree
 end Milliken
+
+
+/-!
+## Exact tail levels and the empty-stem boundary
+
+The initial boundary at height zero is a singleton. Therefore the
+zero-stem graft really is the selected coordinate refinement, and
+every positive level of a general graft is a disjoint union of its
+synchronized coordinate levels.
+-/
+
+namespace Milliken
+namespace GeneralTree
+namespace StrongSubtree
+
+variable {U : AmbientTree}
+
+/-- Every tail level is exactly the union of the corresponding
+coordinate source levels, using the *same* ambient rank. -/
+theorem boundaryGraft_level_after
+    (T : StrongSubtree U) (n : ℕ)
+    (F : SourceBoundary T n → StrongSubtree U)
+    (M : ℕ → ℕ)
+    (hF : ∀ i, (F i).Refines (boundaryCones T n i))
+    (hlevels : ∀ i, (F i).levels = M)
+    (hM : StrictMono M)
+    (k : ℕ) :
+    {z : U | z ∈ T.boundaryGraftCarrier n F ∧ U.level z = M k} =
+      ⋃ i, (F i).sourceLevel k := by
+  ext z
+  constructor
+  · rintro ⟨hz, hzlevel⟩
+    rcases hz with hprefix | htail
+    · have hlt : U.level z < T.levels n :=
+        T.initialPart_level_lt n hprefix
+      have hstart : T.levels n ≤ M 0 :=
+        T.boundaryGraft_start_le n F M hF hlevels
+      have hk : M 0 ≤ M k :=
+        hM.monotone (Nat.zero_le k)
+      omega
+    · obtain ⟨i, hi⟩ := Set.mem_iUnion.mp htail
+      refine Set.mem_iUnion.mpr ⟨i, ⟨hi, ?_⟩⟩
+      exact hzlevel.trans (congrFun (hlevels i) k).symm
+  · intro hz
+    obtain ⟨i, hi⟩ := Set.mem_iUnion.mp hz
+    refine ⟨Or.inr (Set.mem_iUnion.mpr ⟨i, hi.1⟩), ?_⟩
+    exact hi.2.trans (congrFun (hlevels i) k)
+
+/-- A source-height-zero boundary has exactly one coordinate.
+This is necessary for a graft starting strictly above the
+ambient root: it must not introduce a second root. -/
+theorem sourceBoundary_zero_eq
+    (T : StrongSubtree U)
+    (i j : SourceBoundary T 0) : i = j := by
+  apply Subtype.ext
+  have hi : i.1 = T.root := by
+    simpa only [T.sourceLevel_zero_eq_singleton,
+      Set.mem_singleton_iff] using i.2
+  have hj : j.1 = T.root := by
+    simpa only [T.sourceLevel_zero_eq_singleton,
+      Set.mem_singleton_iff] using j.2
+  exact hi.trans hj.symm
+
+/-- The zero-stem candidate carrier is exactly the carrier of
+its unique boundary-coordinate strong refinement. -/
+theorem boundaryGraftCarrier_zero
+    (T : StrongSubtree U)
+    (F : SourceBoundary T 0 → StrongSubtree U)
+    (i : SourceBoundary T 0) :
+    T.boundaryGraftCarrier 0 F = (F i).carrier := by
+  ext z
+  constructor
+  · intro hz
+    change z ∈ T.initialPart 0 ∪ ⋃ j, (F j).carrier at hz
+    rcases hz with hprefix | htail
+    · rw [T.initialPart_zero] at hprefix
+      exact (Set.not_mem_empty z hprefix).elim
+    · obtain ⟨j, hj⟩ := Set.mem_iUnion.mp htail
+      rw [T.sourceBoundary_zero_eq j i] at hj
+      exact hj
+  · intro hz
+    exact Or.inr (Set.mem_iUnion.mpr ⟨i, hz⟩)
+
+end StrongSubtree
+end GeneralTree
+end Milliken
