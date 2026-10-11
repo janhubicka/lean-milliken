@@ -129,3 +129,15 @@ tail by ambient rank.
 This is the geometric candidate for A.3(1). Its strongness
 and the resulting extension and protected-splice claims remain
 to be proved; they are **not** axioms or established theorems.
+
+## Exact source levels and carrier of the graft
+
+`spliceCarrier_level_tail` identifies every tail source level of the
+candidate graft with T-nodes in the descendant cones of S's selected
+frontier. `spliceCarrier_levels` checks that every candidate node
+lies on one selected level of the spliced level map. The root belongs
+to the candidate when the retained prefix is nonempty and is below
+all graft nodes; T-descendant tails remain tails.
+
+These statements are prerequisites of the genuine strongness
+constructor, not an assumption of, or proof of, A.3.
