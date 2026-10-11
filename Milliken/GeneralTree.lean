@@ -37,6 +37,15 @@ structure StrongSubtree (U : AmbientTree) where
   root_level : U.level root = levels 0
   root_below : ∀ x ∈ carrier, root ≤ x
   carrier_levels : ∀ x ∈ carrier, ∃ n, U.level x = levels n
+  /-- No ghost nodes: every node on a positive selected level lies above
+  a node on the preceding selected level. This makes the induced
+  source-level structure a genuine rooted subtree, rather than merely
+  a set satisfying a one-way extension property. -/
+  predecessor_exists :
+    ∀ (n : ℕ) (z : U),
+      z ∈ carrier → U.level z = levels (n + 1) →
+        ∃ x : U,
+          x ∈ carrier ∧ U.level x = levels n ∧ x ≤ z
   successor_unique :
     ∀ (n : ℕ) (x : U),
       x ∈ carrier → U.level x = levels n →
