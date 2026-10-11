@@ -23,3 +23,5 @@ import Milliken.GeneralTree.FiniteOrder
 import Milliken.GeneralTree.LowerFinite
 
 import Milliken.GeneralTree.OrderRealization
+
+import Milliken.GeneralTree.PrefixFinitization
