@@ -213,3 +213,11 @@ Milliken endpoints.
 
 #print axioms Milliken.GeneralTree.StrongSubtree.mixedCarrier_level_le
 #print axioms Milliken.GeneralTree.StrongSubtree.mixedCarrier_successor_unique
+
+#print axioms Milliken.GeneralTree.StrongSubtree.mixedStrong
+#print axioms Milliken.GeneralTree.StrongSubtree.mixedStrong_sourceLevel_before
+#print axioms Milliken.GeneralTree.StrongSubtree.mixedStrong_sourceLevel_at
+#print axioms Milliken.GeneralTree.StrongSubtree.mixedStrong_initialPart
+#print axioms Milliken.GeneralTree.StrongSubtree.mixedStrong_approx_succ
+#print axioms Milliken.GeneralTree.StrongSubtree.mixedStrong_refines_common
+#print axioms Milliken.GeneralTree.StrongSubtree.mixedStrong_used_sector_in_X
