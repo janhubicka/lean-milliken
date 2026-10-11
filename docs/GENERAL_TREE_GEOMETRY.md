@@ -320,3 +320,15 @@ protection condition for A.3(2).
 The candidate still requires a common selected-level sequence,
 selected-predecessor and ambient-successor uniqueness proofs to
 become a genuine strong subtree. Those statements are not assumed.
+
+## Root and rank structure of the mixed protected carrier
+
+With the future levels of X and D synchronized after their chosen
+frontiers, `mixedCarrier_levels` verifies that every mixed node
+lies at a selected ambient level of D. The original D-root is in
+the mixed carrier and is below every mixed node, even when the
+frontier cut is at source level zero. If X and D both refine B,
+`mixedCarrier_subset_of_common_refinement` preserves inclusion
+in B. Together with the previous exact frontier laws this checks
+root and regularity for the final mixed strong-subtree constructor.
+Selected-predecessor and unique ambient child-cone clauses remain.
