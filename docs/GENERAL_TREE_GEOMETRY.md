@@ -182,3 +182,18 @@ These lemmas allow subsequent thinning to a prescribed
 subsequence of selected levels without any global degree bound.
 The simultaneous thinning and protected A.3(2) splice
 are not yet proved.
+
+## Recursive selected-level thinning data
+
+`StrongSubtree.thinningLevelData B f hf hf0 k` recursively
+chooses a set of retained nodes at B's source level f(k),
+carrying a *proof of level membership* in its dependent type.
+At each successor stage one representative is chosen inside
+every ambient child cone of every previously retained node.
+The definitions `thinningLevel` and `thinningCarrier` and
+the successor recursion law `thinningLevel_succ_iff`
+are exported for subsequent strongness verification.
+
+The complete thinning `StrongSubtree` constructor,
+preservation of all ambient child cones, and the protected
+A.3(2) graft remain to be proved.

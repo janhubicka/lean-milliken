@@ -148,3 +148,9 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.StrongSubtree.longConeRepresentative_spec
 #print axioms Milliken.GeneralTree.StrongSubtree.immediateChildren_eq_of_common_descendant
 #print axioms Milliken.GeneralTree.StrongSubtree.longConeRepresentative_injective
+
+#print axioms Milliken.GeneralTree.StrongSubtree.thinningLevelData
+#print axioms Milliken.GeneralTree.StrongSubtree.thinningLevel_subset_sourceLevel
+#print axioms Milliken.GeneralTree.StrongSubtree.thinningLevel_zero
+#print axioms Milliken.GeneralTree.StrongSubtree.thinningLevel_succ_iff
+#print axioms Milliken.GeneralTree.StrongSubtree.thinningCarrier_levels
