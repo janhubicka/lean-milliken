@@ -312,3 +312,9 @@ Milliken endpoints.
 
 #print axioms Milliken.GeneralTree.generalMilliken_of_boundaryProductHL
 #print axioms Milliken.GeneralTree.generalMillikenDepth_of_boundaryProductHL
+
+#print axioms Milliken.GeneralTree.heterogeneousLevelTuple_finite
+#print axioms Milliken.GeneralTree.heterogeneousLevelTuple_nonempty
+#print axioms Milliken.GeneralTree.HeterogeneousMatrix.fullLevel_denseAt
+#print axioms Milliken.GeneralTree.HeterogeneousMatrix.fullLevel_onLevel
+#print axioms Milliken.GeneralTree.HeterogeneousMatrix.denseAt_of_le

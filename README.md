@@ -461,3 +461,23 @@ Abstract Ellentuck/Milliken topological Ramsey conclusion from the
 **single explicit heterogeneous product Halpern--Läuchli premise**.
 That general HL theorem remains to be proved unconditionally. The
 conditional result is not an unconditional general-tree theorem.
+
+
+## General heterogeneous Halpern–Läuchli induction (in development)
+
+The source-faithful Todorčević Chapter 3 induction over a homogeneous
+alphabet enumerates its finite successor list and therefore handles
+arbitrarily **large finite branching degrees across different input
+alphabets**. It does not, however, prove a single theorem for one
+ambient tree whose branching degree varies with the node and is
+unbounded across its levels: the checked `HDHL ι d` and
+`StrongSubtreeHL ι` still use the fixed `Node ι = List ι` type.
+
+`GeneralTree.HeterogeneousDensity` now starts the port of the same
+induction to the actual ambient `StrongSubtree U` coordinates.
+It verifies finite/nonempty common selected-level products, defines
+heterogeneous coordinate matrices, and checks elementary density
+calculus without a global degree bound. `HasHeterogeneousHDHL`
+remains explicitly an **unproved property**. Its multi-coordinate
+induction, subsequent strong-tree product HL, and the unconditional
+heterogeneous Milliken theorem are not yet certified.
