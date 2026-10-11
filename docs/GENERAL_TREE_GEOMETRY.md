@@ -23,3 +23,13 @@ global bound on branching degree**:
 These are A.1 and ambient-tree geometry prerequisites, **not** a proof
 of general Theorem 6.2. The finite-boundary and level-finiteness
 development is stacked separately in PR #12.
+
+
+## General A.1 coherence (no degree bound)
+
+`GeneralTree.StrongSubtree.initialPart_eq_diff` reconstructs the preceding
+stem by deleting the intrinsic maximal level. Combined with
+`maxLevel_r_succ`, it yields `GeneralTree.r_prev_eq_of_succ` and
+`GeneralTree.r_coherent_le` for all locally finitely branching pruned
+ambient trees. `vectorApprox_coherent` is the coordinatewise extension
+for synchronized vector strong trees. This is A.1 coherence, **not** A.4.

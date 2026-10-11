@@ -13,3 +13,5 @@ import Milliken.Applications.VectorHL
 
 import Milliken.GeneralTree.BoundaryIndex
 import Milliken.Applications.FiniteIndexedHL
+
+import Milliken.GeneralTree.Coherence
