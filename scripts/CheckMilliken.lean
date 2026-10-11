@@ -104,3 +104,11 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.StrongSubtree.sourceLevel_zero_eq_singleton
 #print axioms Milliken.GeneralTree.StrongSubtree.exists_sourceLevel_ancestor
 #print axioms Milliken.GeneralTree.StrongSubtree.exists_frontier_ancestor
+
+#print axioms Milliken.GeneralTree.StrongSubtree.existsUnique_sourceLevel_ancestor
+#print axioms Milliken.GeneralTree.StrongSubtree.existsUnique_frontier_ancestor
+#print axioms Milliken.GeneralTree.maxLevel_nonempty_succ
+#print axioms Milliken.GeneralTree.bookLeFin_succ_lastLevel
+#print axioms Milliken.GeneralTree.bookDepth_zero_of_empty
+#print axioms Milliken.GeneralTree.bookDepth_succ_lastLevel
+#print axioms Milliken.GeneralTree.neighborhood_nonempty_zero
