@@ -97,3 +97,5 @@ import Milliken.GeneralTree.BoundaryGraftData
 import Milliken.GeneralTree.BoundaryGraftPredecessor
 
 import Milliken.GeneralTree.BoundaryGraftSuccessor
+
+import Milliken.GeneralTree.BoundaryGraftStrong
