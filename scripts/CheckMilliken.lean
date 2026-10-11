@@ -225,3 +225,6 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.StrongSubtree.longConeRepresentative_eq_next
 #print axioms Milliken.GeneralTree.StrongSubtree.thinningLevel_full_succ
 #print axioms Milliken.GeneralTree.StrongSubtree.thinningLevel_full_prefix
+
+#print axioms Milliken.GeneralTree.StrongSubtree.thinStrong_sourceLevel_of_fixed
+#print axioms Milliken.GeneralTree.StrongSubtree.thinStrong_approx_succ_of_fixed
