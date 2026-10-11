@@ -247,3 +247,16 @@ This is the reusable thinning construction needed to keep
 following X in the **used** cones of the A.3(2) graft. The mixed
 protected graft, general A.3(2), A.4 and general Milliken
 remain separate proof obligations.
+
+## General-tree A.3(1) (amalgamation nonemptiness)
+
+`StrongSubtree.spliceStrong_approx_succ` proves that the genuine
+strong graft exactly preserves the first n+1 source levels, including
+the cut at source index zero. With the published A.2 depth
+identification, `generalAmalgamation_nonempty` establishes
+Todorčević's A.3(1) for arbitrary pruned locally finite ambient
+trees using the actual `generalBookFinitization U` and
+`generalApproximationSystem U` interfaces.
+
+This is not A.3(2) (protected refinements), A.4, closedness,
+or the general Milliken theorem.
