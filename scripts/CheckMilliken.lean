@@ -287,3 +287,11 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.canonicalPigeonhole_of_boundaryProductHL
 #print axioms Milliken.GeneralTree.generalPigeonhole_of_generalProductHL
 #print axioms Milliken.GeneralTree.abstractRamseySpace_of_generalProductHL
+
+#print axioms Milliken.GeneralTree.codeFrontier_nonempty
+#print axioms Milliken.GeneralTree.codeFrontierNode_mem
+#print axioms Milliken.GeneralTree.codeFrontier_eq_sourceLevel
+#print axioms Milliken.GeneralTree.codeSelectedLevels_eq
+#print axioms Milliken.GeneralTree.codeFrontier_level
+#print axioms Milliken.GeneralTree.codeSelectedLevels_strictMono
+#print axioms Milliken.GeneralTree.codeCarrier_mem_frontier_of_level

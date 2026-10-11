@@ -437,3 +437,13 @@ statement. To finish Todorčević's unrestricted Theorem 6.2, that
 heterogeneous HL theorem and the appropriate general-tree closedness
 must still be proved. The library's homogeneous main theorem remains
 unconditional.
+
+
+## General-tree approximation-code geometry (closedness preparation)
+
+The code-frontier development recovers selected ambient ranks and the full
+node carrier from maximal levels of a full sequence of realised finite
+approximations. Under finite-prefix realizability the ranks strictly
+increase and each carrier node belongs to the unique matching source
+frontier. This is a step toward unrestricted Tychonoff closedness; the
+point-of-code strong-subtree construction remains to be completed.
