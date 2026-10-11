@@ -309,3 +309,6 @@ Milliken endpoints.
 
 #print axioms Milliken.GeneralTree.generalProductHL_dimZero
 #print axioms Milliken.GeneralTree.generalProductHL_oneColour
+
+#print axioms Milliken.GeneralTree.generalMilliken_of_boundaryProductHL
+#print axioms Milliken.GeneralTree.generalMillikenDepth_of_boundaryProductHL
