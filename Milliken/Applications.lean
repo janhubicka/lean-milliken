@@ -103,3 +103,5 @@ import Milliken.GeneralTree.BoundaryGraftStrong
 import Milliken.GeneralTree.BoundaryTupleRealization
 
 import Milliken.GeneralTree.BoundaryTupleHL
+
+import Milliken.GeneralTree.CodeGeometry
