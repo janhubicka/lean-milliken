@@ -239,3 +239,5 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.StrongSubtree.protectedIndex_strictMono
 
 #print axioms Milliken.GeneralTree.generalAmalgamation_refine
+
+#print axioms Milliken.GeneralTree.abstractRamseySpace_of_pigeonhole

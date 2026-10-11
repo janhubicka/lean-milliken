@@ -426,3 +426,17 @@ completes the source-faithful arbitrary-tree A.1--A.3 proof.
 The remaining Ramsey-space hypotheses are A.4 and closedness;
 the unrestricted Milliken theorem and vector application
 are NOT yet established by this statement alone.
+
+
+## Exact outstanding A.4 interface
+
+`HasGeneralPigeonhole U` is an explicitly **unproved Prop** for
+the published arbitrary-tree one-step pigeonhole axiom A.4. It is
+not an assumed axiom or available instance.
+
+`abstractRamseySpace_of_pigeonhole U hA4` is a proved conditional
+constructor that packages the verified general A.1–A.3 results
+with any future proof of A.4, using the native
+`RamseySpace.AbstractRamseySpace` definition. The additional
+closedness requirement and the unrestricted general Milliken
+conclusion remain independent proof obligations.

@@ -73,3 +73,5 @@ import Milliken.GeneralTree.ThinningApprox
 import Milliken.GeneralTree.ProtectedIndex
 
 import Milliken.GeneralTree.PublishedAmalgamation
+
+import Milliken.GeneralTree.PigeonholeInterface
