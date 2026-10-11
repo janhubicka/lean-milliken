@@ -5,3 +5,5 @@ import Milliken.GeneralTree.Published
 import Milliken.GeneralTree.OrderLemmas
 import Milliken.GeneralTree.Extensionality
 import Milliken.GeneralTree.Identity
+import Milliken.GeneralTree.FiniteLevels
+import Milliken.GeneralTree.MaxLevel
