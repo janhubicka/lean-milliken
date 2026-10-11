@@ -409,3 +409,31 @@ the desired standard HL property, not a proved theorem or an axiom.
 Its proof and the resulting general A.4/general topological Milliken
 theorem remain necessary. The unconditional proof currently covers
 homogeneous finite-alphabet trees.
+
+## Canonical A.4 as exactly heterogeneous Halpern--Läuchli (conditional)
+
+`Milliken.GeneralTree.BoundaryTupleRealization` constructs a genuine strong
+refinement of an arbitrary locally finitely branching tree from **each**
+finite synchronized tuple of actual boundary-cone nodes. The exact finite
+one-step carrier is the old stem plus the tuple image. Together with
+`StrongSubtree.boundaryTuple` and the inverse graft this gives both directions
+of the canonical finite-approximation/HL-tuple correspondence.
+
+`Milliken.GeneralTree.BoundaryTupleHL` proves:
+- `boundaryTuple_mem_graftFactors`: every one-step refinement of a
+  synchronized boundary graft corresponds to a common-level vector in
+  its chosen HL cone factors;
+- `canonicalPigeonhole_of_boundaryProductHL`: the canonical
+  one-step pigeonhole (Lemma 6.1) follows *exactly* from the
+  heterogeneous cone-product HL property;
+- `generalPigeonhole_of_generalProductHL`: the published full A.4
+  follows by finite-boundary reindexing plus checked A.3;
+- `abstractRamseySpace_of_generalProductHL`: full abstract
+  A.1--A.4 data under the **sole standard general product HL premise**.
+
+These are conditional formal implications. They do **not** declare HL
+as a new Lean axiom or prove the unrestricted `HasGeneralProductHL`
+statement. To finish Todorčević's unrestricted Theorem 6.2, that
+heterogeneous HL theorem and the appropriate general-tree closedness
+must still be proved. The library's homogeneous main theorem remains
+unconditional.
