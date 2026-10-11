@@ -85,3 +85,9 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.identityVectorStrongSubtree
 #print axioms Milliken.GeneralTree.vectorApproximationSystem
 #print axioms Milliken.GeneralTree.vectorNeighborhood_eq
+
+#print axioms Milliken.GeneralTree.boundedApprox_finite
+#print axioms Milliken.GeneralTree.bookLeFin_fixedHeight_lowerFinite
+
+#print axioms Milliken.GeneralTree.height_le_ncard_of_subset
+#print axioms Milliken.GeneralTree.bookLeFin_lowerFinite

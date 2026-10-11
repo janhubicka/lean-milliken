@@ -17,3 +17,7 @@ import Milliken.Applications.FiniteIndexedHL
 import Milliken.GeneralTree.Coherence
 
 import Milliken.GeneralTree.ApproximationSystem
+
+import Milliken.GeneralTree.FiniteOrder
+
+import Milliken.GeneralTree.LowerFinite
