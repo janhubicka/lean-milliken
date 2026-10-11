@@ -468,3 +468,17 @@ shifted by n. It refines T, with no fixed branching alphabet.
 This constructs the heterogeneous successor-cone factors of
 the finite product used by the published A.4 boundary HL proof.
 The product theorem and boundary graft remain separate tasks.
+
+## Finite synchronized heterogeneous boundary cones for A.4
+
+`SourceBoundary T n` is a finite nonempty subtype of T's n-th
+source-level nodes. Every coordinate `boundaryCones T n i` is a
+genuine strong subtree of the same ambient tree, rooted at i,
+refining T, and all factors have the common ambient levels
+`k ↦ T.levels(n+k)`. Distinct factor carriers are disjoint.
+
+This is the actual finite product to which the **general**
+Halpern–Läuchli theorem must be applied in the canonical
+pigeonhole argument. The existing verified `StrongSubtreeHL ι`
+is for homogeneous `List ι` trees; no general-cone HL
+conclusion is claimed by these structural lemmas.
