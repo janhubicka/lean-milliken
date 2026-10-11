@@ -519,3 +519,19 @@ Halpern–Läuchli's common-level product.
 The surjectivity/bijection for a *fixed common finite stem* and
 the inverse tuple-grafting construction are separate pending
 lemmas. General A.4 is not claimed here.
+
+
+## Every canonical boundary cone is represented after stem-preserving refinement
+
+`StrongSubtree.boundaryAncestor_surjective_of_sameStem`
+asserts that, if S refines T and their first n finite
+source-level approximations agree, then every node on T's
+n-th boundary source level occurs as the unique ancestor of
+some S-node on the same source level. The zero-root case is
+separate; positive n uses the unique ambient child-cone
+successors of S and T and the checked refinement level map.
+
+Together with the previously proved unique-boundary-ancestor
+map, this establishes surjectivity of the index correspondence.
+Injectivity, inverse boundary tuple realization and general
+Halpern–Läuchli transport remain open.
