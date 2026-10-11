@@ -42,6 +42,46 @@ The Hales--Jewett bridge itself is:
 Milliken.HalpernLauchli.HalesJewettBridge.strongSubtreeHL
 ```
 
+## Application API (homogeneous ambient trees)
+
+Use `import Milliken.Applications` rather than importing the proof files.
+
+```lean
+import Milliken.Applications
+
+#check Milliken.Applications.todorcevic62_homogeneous
+#check Milliken.Applications.millikenFiniteColouring
+#check Milliken.Applications.millikenFixedStemFiniteColouring
+#check Milliken.Applications.exists_refinement_realising
+#check Milliken.Applications.milliken1979_homogeneous
+```
+
+- `millikenFiniteColouring k colour`: an infinite strong embedding `B`
+  on which every height-`k` approximation of a refinement has the same colour.
+- `millikenFixedStemFiniteColouring n k A colour`: a refinement
+  `B ≤ A` with `r_n(B) = r_n(A)`, homogeneous for the height-`k`
+  approximations of all further refinements retaining that same stem.
+  Source level `n` is not necessarily ambient level `n`.
+- `milliken1979_homogeneous k colour`: the direct finite-tree formulation:
+  *every* height-`k` realised finite strong subtree with its carrier
+  contained in `B` has the same colour. The bridge from carrier inclusion
+  is proved by `exists_refinement_realising`.
+- `todor...62_homogeneous`: Todorčević Theorem 6.2 in the homogeneous
+  case, on all basic Ellentuck neighbourhoods.
+
+**Scope warning.** These are unconditional theorems only for
+`List ι` with a fixed finite, nonempty branching alphabet.
+The library defines `AmbientTree` but has **not yet proved** Milliken
+for arbitrary pruned, finitely branching rooted trees with unbounded degrees,
+as in Todorčević 6.2 and Milliken's 1979 abstract. Nor does the current
+application API prove a synchronized finite-vector-strong-subtree
+version for several trees. These two transports are needed for the
+three-coordinate variable-branching type trees in `3-uniform-diaries`.
+
+See [published-statement crosswalk](docs/PUBLISHED_STATEMENTS.md) and
+[referee audit checklist](docs/REFEREE_AUDITS.md). Both distinguish
+completed Lean results from unproved generalizations.
+
 ## Verified Chapter 6 route
 
 The checked Chapter 6 path contains:
