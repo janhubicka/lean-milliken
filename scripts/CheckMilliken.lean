@@ -168,3 +168,9 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.StrongSubtree.spliceCarrier_successor_unique
 #print axioms Milliken.GeneralTree.StrongSubtree.spliceStrong
 #print axioms Milliken.GeneralTree.StrongSubtree.spliceStrong_refines
+
+#print axioms Milliken.AmbientTree.eq_of_common_descendant_of_level_eq
+#print axioms Milliken.GeneralTree.StrongSubtree.thinningLevel_successor_unique
+#print axioms Milliken.GeneralTree.StrongSubtree.thinStrong
+#print axioms Milliken.GeneralTree.StrongSubtree.thinStrong_refines
+#print axioms Milliken.GeneralTree.StrongSubtree.thinStrong_sourceLevel

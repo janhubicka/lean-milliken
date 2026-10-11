@@ -213,7 +213,7 @@ which will then be used in the protected A.3(2) graft.
 
 ## The genuine positive-height strong graft
 
-`StrongSubtree.spliceStrong S T n j hn htop` is an explicit
+`StrongSubtree.spliceStrong S T n j htop` is an explicit
 positive-height strong subtree of the arbitrary ambient U. Its
 frontier level n lies on T's source level j; the old prefix
 comes from S and the descendant cones after the frontier come
@@ -227,3 +227,23 @@ bound on branching. When the finite S-prefix lies inside T,
 This theorem is the core geometric step of positive-height A.3(1).
 The exact finite approximation identity and A.3(1) conclusion
 still need proof; A.3(2), A.4 and Milliken remain open.
+
+## Complete arbitrary-tree selected-level thinning
+
+`StrongSubtree.thinStrong B f hf hf0` is a **genuine**
+strong subtree of any pruned locally finitely branching B,
+with selected ambient levels `B.levels (f k)` for every
+strictly increasing source-index map f satisfying f 0=0.
+The root and predecessor clauses come from the recursive
+thinning levels, and `thinningLevel_successor_unique`
+establishes unique next-level representatives in each
+ambient immediate-child cone by common-descendant ancestry.
+
+`thinStrong_refines` establishes inclusion into B and
+`thinStrong_sourceLevel` identifies its exact source levels.
+
+This is the reusable thinning construction needed to keep
+**unused** B-frontier cones on a common sparse sequence while
+following X in the **used** cones of the A.3(2) graft. The mixed
+protected graft, general A.3(2), A.4 and general Milliken
+remain separate proof obligations.
