@@ -350,6 +350,18 @@ when importing into `lean-3-uniform-diaries`.
 **A.1 caveat:** the vector type requires positive dimension. Without a
 coordinate, no finite approximation can recover the stored level map.
 
+## Finite boundary indexing (A.4 preparation)
+
+`Milliken.GeneralTree.BoundaryIndex S n` packages the ambient successor
+boundary of a finite strong stem as an actual finite nonempty type.
+`boundaryEquivFin` enumerates this type by `Fin d` with a
+stem-dependent dimension: there is **no global branching bound**.
+`Milliken.Applications.finiteIndexedStrongSubtreeHL` separately
+reindexes the **proved homogeneous-tree** Halpern–Läuchli statement
+to any finite coordinate type. These are separate interfaces:
+putting them together still requires Halpern–Läuchli on the possibly
+different successor cones of a general ambient tree.
+
 ## References
 
 * Stevo Todorčević, [*Introduction to Ramsey Spaces*](https://www.cs.umd.edu/~gasarch/COURSES/752/S26/BOOKS/IntroRamseySpaces.pdf),

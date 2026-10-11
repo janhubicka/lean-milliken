@@ -1,4 +1,4 @@
-import Milliken.GeneralTree.Extensionality
+import Milliken.GeneralTree.Coherence
 
 /-!
 # Synchronized vector strong subtrees of arbitrary finitely branching trees
@@ -148,6 +148,23 @@ theorem vectorApprox_separated {d : ℕ} {U : Fin d → AmbientTree}
   apply FiniteApprox.ext_carrier
   exact congrArg
     (fun a : FiniteVectorApprox U n => a.carriers i) (h n)
+
+/-- A.1 coherence for synchronized vector approximations: equality of
+finite height-n pictures implies equality of all lower restrictions. -/
+theorem vectorApprox_coherent {d : ℕ} {U : Fin d → AmbientTree}
+    {S T : StrongVectorSubtree U} {n m : ℕ}
+    (h : vectorApprox n S = vectorApprox n T)
+    (hm : m ≤ n) :
+    vectorApprox m S = vectorApprox m T := by
+  apply FiniteVectorApprox.ext_carriers
+  intro i
+  have hi : r n (S.coordinate i) = r n (T.coordinate i) := by
+    apply FiniteApprox.ext_carrier
+    exact congrArg
+      (fun a : FiniteVectorApprox U n => a.carriers i) h
+  have him := r_coherent_le (S.coordinate i) (T.coordinate i)
+    n hi m hm
+  exact congrArg FiniteApprox.carrier him
 
 /-- Basic vector Ellentuck neighbourhood with a fixed finite vector stem. -/
 def VectorBasicNeighborhood {d : ℕ}

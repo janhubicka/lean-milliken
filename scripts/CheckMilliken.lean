@@ -70,3 +70,12 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.vectorApprox_zero_eq
 #print axioms Milliken.GeneralTree.vectorApprox_separated
 #print axioms Milliken.Applications.homogeneousVectorHalpernLauchli
+
+#print axioms Milliken.GeneralTree.boundaryEquivFin_mem
+#print axioms Milliken.GeneralTree.childIndex_nonempty
+#print axioms Milliken.Applications.finiteIndexedStrongSubtreeHL
+
+#print axioms Milliken.GeneralTree.StrongSubtree.initialPart_eq_diff
+#print axioms Milliken.GeneralTree.r_prev_eq_of_succ
+#print axioms Milliken.GeneralTree.r_coherent_le
+#print axioms Milliken.GeneralTree.vectorApprox_coherent
