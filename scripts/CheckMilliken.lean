@@ -340,3 +340,9 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.HeterogeneousMatrix.mem_snoc_carrier_appendLast
 #print axioms Milliken.GeneralTree.HeterogeneousMatrix.snoc_denseAt
 #print axioms Milliken.GeneralTree.heterogeneousSnoc_carrier_subset_compl
+
+#print axioms Milliken.GeneralTree.levelBranchBound_pos
+#print axioms Milliken.GeneralTree.childCard_le_levelBranchBound
+#print axioms Milliken.GeneralTree.exists_childAlphabetMap
+#print axioms Milliken.GeneralTree.childAlphabetMap_surjective
+#print axioms Milliken.GeneralTree.exists_label_of_child
