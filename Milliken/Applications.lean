@@ -77,3 +77,5 @@ import Milliken.GeneralTree.PublishedAmalgamation
 import Milliken.GeneralTree.PigeonholeInterface
 
 import Milliken.GeneralTree.CanonicalPigeonhole
+
+import Milliken.GeneralTree.ConeStrong

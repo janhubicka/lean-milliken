@@ -243,3 +243,7 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.abstractRamseySpace_of_pigeonhole
 
 #print axioms Milliken.GeneralTree.generalPigeonhole_of_canonical
+
+#print axioms Milliken.GeneralTree.StrongSubtree.coneStrong
+#print axioms Milliken.GeneralTree.StrongSubtree.coneStrong_refines
+#print axioms Milliken.GeneralTree.StrongSubtree.coneStrong_sourceLevel

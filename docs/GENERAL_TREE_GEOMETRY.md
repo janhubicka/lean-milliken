@@ -457,3 +457,14 @@ finite-indexed reindexing do prove the corresponding canonical
 pigeonhole for homogeneous `List ι` trees (see
 `Chapter6.Pigeonhole`). For arbitrary node-dependent local
 branching, a transport/general-cone HL theorem is still needed.
+
+## Genuine successor-cone factors for the A.4 Halpern–Läuchli product
+
+For each selected node x on source level n of an arbitrary strong
+T, `StrongSubtree.coneStrong T n x hx` is a genuine infinite
+strong subtree rooted at x, containing exactly the retained
+T-descendants of x and using T's ambient selected level map
+shifted by n. It refines T, with no fixed branching alphabet.
+This constructs the heterogeneous successor-cone factors of
+the finite product used by the published A.4 boundary HL proof.
+The product theorem and boundary graft remain separate tasks.
