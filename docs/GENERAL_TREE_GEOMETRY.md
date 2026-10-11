@@ -33,3 +33,16 @@ stem by deleting the intrinsic maximal level. Combined with
 `GeneralTree.r_coherent_le` for all locally finitely branching pruned
 ambient trees. `vectorApprox_coherent` is the coordinatewise extension
 for synchronized vector strong trees. This is A.1 coherence, **not** A.4.
+
+
+## A.2 fixed-height lower-finiteness
+
+`GeneralTree.boundedApprox_finite`: for any *finite* ambient carrier
+`B`, there are finitely many height-`n` realized strong subtrees with
+carrier contained in `B`. The argument uses only finite subsets and
+carrier extensionality. `bookLeFin_fixedHeight_lowerFinite` is the
+corresponding consequence for Todorčević's literal finite order (6.3).
+
+This proves **fixed-height** lower-finiteness. Full A.2 requires proving
+that the heights of all predecessors of a given finite approximation
+are bounded. It is not yet certified by this module.
