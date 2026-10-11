@@ -1,4 +1,4 @@
-import Milliken.GeneralTree.OrderLemmas
+import Milliken.GeneralTree.Extensionality
 
 /-!
 # Synchronized vector strong subtrees of arbitrary finitely branching trees
