@@ -7,3 +7,6 @@ import Milliken.GeneralTree.Extensionality
 import Milliken.GeneralTree.Identity
 import Milliken.GeneralTree.FiniteLevels
 import Milliken.GeneralTree.MaxLevel
+
+import Milliken.GeneralTree.Vector
+import Milliken.Applications.VectorHL

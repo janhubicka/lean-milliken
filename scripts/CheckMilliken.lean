@@ -62,3 +62,11 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.FiniteApprox.carrier_finite
 #print axioms Milliken.GeneralTree.maxLevel_r_succ
 #print axioms Milliken.GeneralTree.maxLevel_r_zero
+
+#print axioms Milliken.GeneralTree.StrongVectorSubtree.refines_trans
+#print axioms Milliken.GeneralTree.StrongVectorSubtree.ext_coordinate
+#print axioms Milliken.GeneralTree.FiniteVectorApprox.ext_carriers
+#print axioms Milliken.GeneralTree.vectorApprox_surjective
+#print axioms Milliken.GeneralTree.vectorApprox_zero_eq
+#print axioms Milliken.GeneralTree.vectorApprox_separated
+#print axioms Milliken.Applications.homogeneousVectorHalpernLauchli
