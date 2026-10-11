@@ -210,3 +210,6 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.StrongSubtree.mixedCarrier_subset_of_common_refinement
 
 #print axioms Milliken.GeneralTree.StrongSubtree.mixedCarrier_predecessor_exists
+
+#print axioms Milliken.GeneralTree.StrongSubtree.mixedCarrier_level_le
+#print axioms Milliken.GeneralTree.StrongSubtree.mixedCarrier_successor_unique
