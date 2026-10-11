@@ -264,3 +264,8 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.StrongSubtree.eq_of_same_boundary_ancestor
 #print axioms Milliken.GeneralTree.StrongSubtree.boundaryAncestor_injective_of_sameStem
 #print axioms Milliken.GeneralTree.StrongSubtree.boundaryAncestor_bijective_of_sameStem
+
+#print axioms Milliken.GeneralTree.StrongSubtree.boundaryEquiv
+#print axioms Milliken.GeneralTree.StrongSubtree.boundaryTuple_mem_cone
+#print axioms Milliken.GeneralTree.StrongSubtree.boundaryTuple_range
+#print axioms Milliken.GeneralTree.StrongSubtree.approx_succ_carrier_eq_boundaryTuple

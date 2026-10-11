@@ -550,3 +550,20 @@ This is the exact finite coordinate set of every one-step strong
 extension, needed for the HL tuple coloring and its factorization.
 The inverse tuple-graft realization and general HL for heterogeneous
 cones are separate pending tasks.
+
+## Exact one-step encoding by a common-level boundary tuple
+
+The finite boundary bijection of a stem-preserving refinement
+S⊆T is bundled as `StrongSubtree.boundaryEquiv`.
+Its inverse produces `boundaryTuple S T hST n hStem`, with
+one selected S-node for each T boundary cone. The entire tuple
+lies on a **single common T-source level** (checked by
+`boundaryTuple_mem_cone`).
+
+The tuple's image is exactly S.sourceLevel n, and
+`approx_succ_carrier_eq_boundaryTuple` identifies the next finite
+approximation r_(n+1)(S) with the fixed r_n(T) stem plus the
+finite tuple image. These give the forward parametrization of
+one-step colorings by Halpern–Läuchli level products.
+The inverse tuple-grafting and general cone-product HL proof
+remain the two outstanding geometric/combinatorial tasks.
