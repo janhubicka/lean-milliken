@@ -247,3 +247,8 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.StrongSubtree.coneStrong
 #print axioms Milliken.GeneralTree.StrongSubtree.coneStrong_refines
 #print axioms Milliken.GeneralTree.StrongSubtree.coneStrong_sourceLevel
+
+#print axioms Milliken.GeneralTree.boundaryCones_refines
+#print axioms Milliken.GeneralTree.boundaryCones_levels
+#print axioms Milliken.GeneralTree.boundaryCones_sourceLevel
+#print axioms Milliken.GeneralTree.boundaryCones_pairwise_disjoint
