@@ -50,3 +50,15 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.identityStrongSubtree
 #print axioms Milliken.GeneralTree.sinfinity_nonempty
 #print axioms Milliken.GeneralTree.milliken_zero
+
+#print axioms Milliken.AmbientTree.levelSet_finite
+#print axioms Milliken.AmbientTree.levelSet_nonempty
+#print axioms Milliken.GeneralTree.StrongSubtree.sourceLevel_finite
+#print axioms Milliken.GeneralTree.StrongSubtree.initialPart_finite
+#print axioms Milliken.GeneralTree.StrongSubtree.ambientBoundary_finite
+#print axioms Milliken.GeneralTree.StrongSubtree.ambientBoundary_nonempty
+#print axioms Milliken.GeneralTree.StrongSubtree.boundaryAtStem_finite
+#print axioms Milliken.GeneralTree.StrongSubtree.boundaryAtStem_nonempty
+#print axioms Milliken.GeneralTree.FiniteApprox.carrier_finite
+#print axioms Milliken.GeneralTree.maxLevel_r_succ
+#print axioms Milliken.GeneralTree.maxLevel_r_zero
