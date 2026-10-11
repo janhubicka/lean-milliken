@@ -328,3 +328,6 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.HeterogeneousMatrix.fillOutsideAbove_denseAt
 #print axioms Milliken.GeneralTree.HeterogeneousMatrix.mem_carrier_of_fillOutsideAbove_of_above
 #print axioms Milliken.GeneralTree.heterogeneousProductDenseAt_of_le
+
+#print axioms Milliken.GeneralTree.HeterogeneousMatrix.denseAbove_of_le
+#print axioms Milliken.GeneralTree.no_arbitrarilyDenseAbove_compl_of_heterogeneousHighlyDense

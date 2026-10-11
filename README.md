@@ -503,3 +503,15 @@ globally dense one by filling the other n-th source-level nodes.
 The relevant density and carrier transport identities, and downward
 closure of product density, are checked as prerequisites of the
 unbounded-branching Chapter 3 asymmetric dichotomy.
+
+### High-density obstruction for arbitrary heterogeneous trees
+
+`HeterogeneousContainsArbitrarilyDenseAbove P Q` records a fixed
+product of descendant cones containing arbitrarily dense matrices.
+`no_arbitrarilyDenseAbove_compl_of_heterogeneousHighlyDense`
+proves, for locally finitely branching arbitrary coordinate trees,
+that no highly dense colour class Q has such a complement cone.
+The proof constructs a global dense matrix by completing the
+bad local cone matrix outside the base, exactly as in §3.2.
+This is a substantial preparation for the multi-coordinate HDHL
+induction, not yet the full heterogeneous product theorem.

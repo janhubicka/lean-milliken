@@ -119,3 +119,5 @@ import Milliken.GeneralTree.HeterogeneousDensity
 import Milliken.GeneralTree.HeterogeneousHDHLBase
 
 import Milliken.GeneralTree.HeterogeneousConeDensity
+
+import Milliken.GeneralTree.HeterogeneousObstruction
