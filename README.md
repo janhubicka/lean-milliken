@@ -7,17 +7,20 @@ tree theorem is derived from the checked infinite Hales–Jewett theorem and the
 Abstract Ellentuck theorem. The library also provides finite-colouring and
 fixed-stem interfaces for applications.
 
-**Scope and verification:** The unconditional theorem on the default branch
-is currently for a **homogeneous** ambient tree `List ι`, where `ι` is a
-finite nonempty alphabet. The `feat/application-milliken-api` branch adds a
-source-facing API for **arbitrary pruned, finitely branching rooted trees**,
-but **does not yet prove** the unrestricted general-tree theorem. Do not
-confuse a definition of the general theorem with a proof of it. CI status
-for the proposed application API is tracked in
-[PR #4](https://github.com/janhubicka/lean-milliken/pull/4).
-The separate [selected-level development, PR #3](https://github.com/janhubicka/lean-milliken/pull/3),
-handles the geometry of increasing level-dependent branching and remains
-under development.
+**Scope and verification:** The unconditional theorem is currently for a
+**homogeneous** ambient tree `List ι`, where `ι` is a finite nonempty
+alphabet. The **main branch** also includes a source-facing API for
+**arbitrary pruned, finitely branching rooted trees**. This is a checked
+collection of definitions and elementary lemmas; the unrestricted
+general-tree Ramsey theorem is **not yet proved**. Do not confuse a
+proposition stating that theorem with its proof.
+
+The selected-level geometry with increasing branching and the application
+API were merged in [PR #3](https://github.com/janhubicka/lean-milliken/pull/3)
+and [PR #4](https://github.com/janhubicka/lean-milliken/pull/4).
+Both their branches and the combined main revision passed Lean CI.
+The full selected-level induction and arbitrary node-dependent branching
+transfer remain open.
 
 ## Quick start
 
@@ -231,7 +234,7 @@ provides it.
 
 ## 5. Increasing branching and synchronized vector trees
 
-The [`remark38-level-change` branch](https://github.com/janhubicka/lean-milliken/pull/3)
+The [merged selected-level development](https://github.com/janhubicka/lean-milliken/pull/3)
 has an additional selected-level interface for compressions
 `n ↦ L(n)` of a fixed-alphabet tree. The successor set in the
 compressed tree is finite, but its degree grows with
@@ -302,10 +305,10 @@ Review and reference documents:
 * [Referee audit dossier](docs/REFEREE_AUDITS.md)
   includes separate source, original-paper and Lean/application
   review briefs and explicit counterexamples.
-* [PR #3](https://github.com/janhubicka/lean-milliken/pull/3)
-  develops variable selected-level geometry.
-* [PR #4](https://github.com/janhubicka/lean-milliken/pull/4)
-  supplies the published-source application API and documentation.
+* [Merged PR #3](https://github.com/janhubicka/lean-milliken/pull/3)
+  provides variable selected-level geometry (not the completed induction).
+* [Merged PR #4](https://github.com/janhubicka/lean-milliken/pull/4)
+  provides the published-source application API and documentation.
 
 ## References
 
