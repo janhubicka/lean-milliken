@@ -83,3 +83,5 @@ import Milliken.GeneralTree.ConeStrong
 import Milliken.GeneralTree.BoundaryCones
 
 import Milliken.GeneralTree.ProductHL
+
+import Milliken.GeneralTree.BoundaryAncestor

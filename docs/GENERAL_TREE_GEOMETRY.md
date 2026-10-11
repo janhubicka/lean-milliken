@@ -501,3 +501,21 @@ cones. The existing `HalesJewettBridge.strongSubtreeHL`
 is unconditional only for homogeneous `List ι` factors.
 General HL for arbitrary node-dependent finite branching remains
 to be transported/formalized; neither target is an axiom.
+
+
+## Unique source-boundary ancestor map for HL tuple coding
+
+For a strong refinement S⊆T and each node z on S's source
+level n, `StrongSubtree.existsUnique_boundaryAncestor` produces
+exactly one node of T.sourceLevel n below z. The definable
+`boundaryAncestor` names this finite coordinate; its
+ancestry is proved by `boundaryAncestor_le`.
+`sourceLevel_subset_boundaryCones` then shows that all selected
+S-level nodes lie in the union of the genuine T-boundary
+successor-cone factors. This is the intrinsic labeling needed
+to encode arbitrary one-step approximations as vectors in
+Halpern–Läuchli's common-level product.
+
+The surjectivity/bijection for a *fixed common finite stem* and
+the inverse tuple-grafting construction are separate pending
+lemmas. General A.4 is not claimed here.
