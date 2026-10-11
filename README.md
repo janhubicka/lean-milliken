@@ -310,6 +310,46 @@ Review and reference documents:
 * [Merged PR #4](https://github.com/janhubicka/lean-milliken/pull/4)
   provides the published-source application API and documentation.
 
+### Synchronized vector strong-subtree API
+
+`import Milliken.GeneralTree.Vector` exports `GeneralTree.StrongVectorSubtree U`,
+where `U : Fin d → AmbientTree`. Coordinate `i` is an arbitrary locally
+finitely branching pruned tree, and all coordinates have **one common**
+strictly increasing selected ambient-level sequence:
+
+- `StrongVectorSubtree.coordinate i`, `.levels`, and `.synchronized i`
+  provide the coordinate strong trees and their common level map.
+- `StrongVectorSubtree.Refines`, `refines_refl`, `refines_trans`, and
+  `coordinate_level` give coordinatewise inclusion and synchronization.
+- `FiniteVectorApprox U k`, `vectorApprox k S`,
+  `FiniteVectorApprox.ext_carriers`, and `vectorApprox_surjective`
+  represent finite synchronized vector restrictions (currently with
+  infinite-realizer witnesses).
+- `vectorApprox_zero_eq` and `VectorBasicNeighborhood a T`
+  provide the empty approximation and anchored-neighbourhood interface.
+- `HasVectorMillikenFiniteColourProperty U` and
+  `HasVectorFixedStemColourProperty U` are **definitions of as-yet-unproved
+  properties**, not exported theorems.
+
+For an unconditional **vector Halpern–Läuchli theorem on common-level
+node tuples** of homogeneous trees, import `Milliken.Applications.VectorHL`:
+
+```lean
+import Milliken.Applications.VectorHL
+
+#check Milliken.Applications.HomogeneousVectorStrongEmbedding
+#check Milliken.Applications.homogeneousVectorHalpernLauchli
+```
+
+The latter theorem returns a family of independent strong embeddings with
+one shared level map; it is proved from the checked Hales–Jewett bridge,
+for every finite number of coordinates. **It is not yet a vector Milliken
+finite-strong-subtree colouring theorem.** This distinction is essential
+when importing into `lean-3-uniform-diaries`.
+
+**A.1 caveat:** the vector type requires positive dimension. Without a
+coordinate, no finite approximation can recover the stored level map.
+
 ## References
 
 * Stevo Todorčević, [*Introduction to Ramsey Spaces*](https://www.cs.umd.edu/~gasarch/COURSES/752/S26/BOOKS/IntroRamseySpaces.pdf),
