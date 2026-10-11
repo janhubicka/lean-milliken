@@ -228,3 +228,12 @@ Milliken endpoints.
 
 #print axioms Milliken.GeneralTree.StrongSubtree.thinStrong_sourceLevel_of_fixed
 #print axioms Milliken.GeneralTree.StrongSubtree.thinStrong_approx_succ_of_fixed
+
+#print axioms Milliken.GeneralTree.StrongSubtree.protectedIndex_before
+#print axioms Milliken.GeneralTree.StrongSubtree.protectedIndex_ge
+#print axioms Milliken.GeneralTree.StrongSubtree.protectedIndex_at_tail
+#print axioms Milliken.GeneralTree.StrongSubtree.refinementIndex_eq_at_aligned_level
+#print axioms Milliken.GeneralTree.StrongSubtree.protectedIndex_initial
+#print axioms Milliken.GeneralTree.StrongSubtree.protectedIndex_zero
+#print axioms Milliken.GeneralTree.StrongSubtree.protectedIndex_levels_at_tail
+#print axioms Milliken.GeneralTree.StrongSubtree.protectedIndex_strictMono
