@@ -82,6 +82,84 @@ theorem level_minimal (U : AmbientTree) (x : U) {n : ℕ}
 def levelSet (U : AmbientTree) (n : ℕ) : Set U :=
   {x | U.level x = n}
 
+/-- Ambient rank is monotone along the ancestor order.  This elementary
+lemma is crucial for source-level and finite-strong-subtree arguments. -/
+theorem level_mono (U : AmbientTree) {x y : U} (hxy : x ≤ y) :
+    U.level x ≤ U.level y := by
+  have hiter :
+      ∀ k : ℕ, (Order.pred^[k]) x ≤ (Order.pred^[k]) y := by
+    intro k
+    induction k with
+    | zero =>
+        simpa only [Function.iterate_zero_apply] using hxy
+    | succ k ih =>
+        simp only [Function.iterate_succ_apply']
+        exact Order.pred_mono ih
+  apply U.level_minimal x
+  have hx := hiter (U.level y)
+  rw [U.pred_iterate_level y] at hx
+  exact le_antisymm hx bot_le
+
+/-- The ambient height increases by exactly one along an immediate
+successor. No assumption of globally bounded branching is used. -/
+theorem level_covBy (U : AmbientTree) {x y : U}
+    (hxy : x ⋖ y) :
+    U.level y = U.level x + 1 := by
+  have hpred : Order.pred y = x :=
+    Order.pred_eq_of_covBy hxy
+  have hbot_lt : (⊥ : U) < y :=
+    lt_of_le_of_lt bot_le hxy.lt
+  have hyne : y ≠ (⊥ : U) := ne_of_gt hbot_lt
+  have hypos : 0 < U.level y := by
+    by_contra hn
+    have hz : U.level y = 0 := by omega
+    have hybot : y = (⊥ : U) := by
+      simpa [hz] using (U.pred_iterate_level y)
+    exact hyne hybot
+  have hyn : U.level y = (U.level y - 1) + 1 := by omega
+  have hxiter :
+      (Order.pred^[U.level y - 1]) x = (⊥ : U) := by
+    calc
+      (Order.pred^[U.level y - 1]) x =
+          (Order.pred^[(U.level y - 1) + 1]) y := by
+            rw [Function.iterate_succ_apply, hpred]
+      _ = (⊥ : U) := by
+            rw [← hyn]
+            exact U.pred_iterate_level y
+  have hyiter :
+      (Order.pred^[U.level x + 1]) y = (⊥ : U) := by
+    rw [Function.iterate_succ_apply, hpred]
+    exact U.pred_iterate_level x
+  have hxle := U.level_minimal x hxiter
+  have hyle := U.level_minimal y hyiter
+  omega
+
+/-- Ambient levels are strictly increasing along proper ancestor
+relations. -/
+theorem level_lt (U : AmbientTree) {x y : U}
+    (hxy : x < y) : U.level x < U.level y := by
+  have hpred : x ≤ Order.pred y := Order.le_pred_of_lt hxy
+  have hyne : y ≠ (⊥ : U) := by
+    intro hy
+    have hbot : x < (⊥ : U) := by simpa [hy] using hxy
+    exact (not_lt_of_ge bot_le) hbot
+  have hcov : Order.pred y ⋖ y :=
+    Order.pred_covBy_of_not_isMin
+      ((not_isMin_iff_ne_bot).mpr hyne)
+  have hle := U.level_mono hpred
+  have hstep := U.level_covBy hcov
+  omega
+
+/-- Ancestor comparison together with equal ambient levels forces
+equality. -/
+theorem eq_of_le_of_level_eq (U : AmbientTree) {x y : U}
+    (hxy : x ≤ y)
+    (hlevels : U.level x = U.level y) : x = y := by
+  rcases hxy.eq_or_lt with heq | hlt
+  · exact heq
+  · have hlevels_lt := U.level_lt hlt
+    omega
+
 end AmbientTree
 
 end Milliken
