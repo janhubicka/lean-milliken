@@ -111,3 +111,5 @@ import Milliken.GeneralTree.CodePoint
 import Milliken.GeneralTree.GeneralClosed
 
 import Milliken.GeneralTree.ProductHLBase
+
+import Milliken.GeneralTree.BoundaryMilliken
