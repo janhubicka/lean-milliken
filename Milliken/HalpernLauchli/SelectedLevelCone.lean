@@ -62,7 +62,7 @@ theorem prepend_mem_carrier_iff
     (base : Fin d → Node ι)
     (M : Matrix ι d)
     (x : Fin d → Node ι) :
-    prependTuple base x ∈ (M.prepend base).carrier ↔
+    prependTuple base x ∈ (prepend base M).carrier ↔
       x ∈ M.carrier := by
   constructor
   · intro hx i
@@ -79,7 +79,7 @@ theorem prepend_carrier_subset_of_pullback
     (M : Matrix ι d)
     (P : Set (Fin d → Node ι))
     (hM : M.carrier ⊆ conePullback base P) :
-    (M.prepend base).carrier ⊆ P := by
+    (prepend base M).carrier ⊆ P := by
   intro z hz
   choose x hxM hxz using fun i => hz i
   have hxCarrier : x ∈ M.carrier := by
@@ -101,7 +101,7 @@ theorem prepend_denseAbove
     (hbase : IsLevelVectorAt (S.levels m) base)
     (M : Matrix ι d)
     (hM : M.DenseAt ((shift S m).levels n)) :
-    (M.prepend base).DenseAbove base (S.levels (m + n)) := by
+    (prepend base M).DenseAbove base (S.levels (m + n)) := by
   intro i z hz
   let t : Node ι := (z.drop (base i).length)
   have htlen :
@@ -134,7 +134,7 @@ theorem dropAbove_denseAt
     (hbase : IsLevelVectorAt (S.levels m) base)
     (M : Matrix ι d)
     (hM : M.DenseAbove base (S.levels (m + n))) :
-    (M.dropAbove base).DenseAt ((shift S m).levels n) := by
+    (dropAbove base M).DenseAt ((shift S m).levels n) := by
   intro i t ht
   let z : Node ι := base i ++ t
   have hzlen : z.length = S.levels (m + n) := by
@@ -163,7 +163,7 @@ theorem dropAbove_carrier_subset
     (hcone :
       ∀ x ∈ M.carrier, ∀ i,
         (base i).IsPrefix (x i)) :
-    (M.dropAbove base).carrier ⊆ conePullback base P := by
+    (dropAbove base M).carrier ⊆ conePullback base P := by
   intro t ht
   choose y hyM hyt using fun i => ht i
   have hyCarrier : y ∈ M.carrier := by
