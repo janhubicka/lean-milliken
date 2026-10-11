@@ -109,3 +109,5 @@ import Milliken.GeneralTree.CodeGeometry
 import Milliken.GeneralTree.CodePoint
 
 import Milliken.GeneralTree.GeneralClosed
+
+import Milliken.GeneralTree.ProductHLBase

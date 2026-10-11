@@ -306,3 +306,6 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.generalIsTychonoffClosed
 #print axioms Milliken.GeneralTree.generalMilliken_of_generalProductHL
 #print axioms Milliken.GeneralTree.generalMillikenDepth_of_generalProductHL
+
+#print axioms Milliken.GeneralTree.generalProductHL_dimZero
+#print axioms Milliken.GeneralTree.generalProductHL_oneColour
