@@ -43,3 +43,5 @@ import Milliken.GeneralTree.LongCones
 import Milliken.GeneralTree.ThinningLevels
 
 import Milliken.GeneralTree.ThinningAncestry
+
+import Milliken.GeneralTree.StrongGraft

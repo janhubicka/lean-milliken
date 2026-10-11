@@ -163,3 +163,8 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.StrongSubtree.thinningCarrier_root_below
 #print axioms Milliken.GeneralTree.StrongSubtree.thinningCarrier_at_level
 #print axioms Milliken.GeneralTree.StrongSubtree.thinningCarrier_predecessor_exists
+
+#print axioms Milliken.GeneralTree.StrongSubtree.spliceCarrier_predecessor_exists
+#print axioms Milliken.GeneralTree.StrongSubtree.spliceCarrier_successor_unique
+#print axioms Milliken.GeneralTree.StrongSubtree.spliceStrong
+#print axioms Milliken.GeneralTree.StrongSubtree.spliceStrong_refines
