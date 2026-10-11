@@ -54,6 +54,7 @@ import Milliken.Applications
 #check Milliken.Applications.millikenFixedStemFiniteColouring
 #check Milliken.Applications.exists_refinement_realising
 #check Milliken.Applications.milliken1979_homogeneous
+#check Milliken.Applications.millikenFixedStem1979_homogeneous
 ```
 
 - `millikenFiniteColouring k colour`: an infinite strong embedding `B`
@@ -62,7 +63,7 @@ import Milliken.Applications
   `B ≤ A` with `r_n(B) = r_n(A)`, homogeneous for the height-`k`
   approximations of all further refinements retaining that same stem.
   Source level `n` is not necessarily ambient level `n`.
-- `milliken1979_homogeneous k colour`: the direct finite-tree formulation:
+- `millikenFixedStem1979_homogeneous ell k h A colour`: the direct\n  `Str_{ell,k}`-style consequence with `ell ≤ k`, colour all finite\n  height-`k` strong subtrees contained in `B` and having `r_ell(A)`\n  as their initial approximation.\n- `milliken1979_homogeneous k colour`: the direct finite-tree formulation:
   *every* height-`k` realised finite strong subtree with its carrier
   contained in `B` has the same colour. The bridge from carrier inclusion
   is proved by `exists_refinement_realising`.

@@ -16,3 +16,5 @@ Milliken endpoints.
 #print axioms Milliken.Applications.exists_refinement_realising
 #print axioms Milliken.Applications.milliken1979_homogeneous
 #print axioms Milliken.Applications.todorcevic62_homogeneous
+
+#print axioms Milliken.Applications.millikenFixedStem1979_homogeneous

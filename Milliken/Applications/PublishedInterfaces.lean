@@ -1,5 +1,5 @@
 import Milliken.Applications.FiniteColour
-import Milliken.Applications.Original1979
+import Milliken.Applications.FixedPrefix
 
 /-!
 # Published interfaces for the verified homogeneous case
