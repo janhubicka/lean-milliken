@@ -434,3 +434,9 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.HeterogeneousMatrix.finiteDenseAboveCore_carrier_finite
 #print axioms Milliken.GeneralTree.HeterogeneousMatrix.finiteDenseAboveCore_denseAbove
 #print axioms Milliken.GeneralTree.HeterogeneousMatrix.finiteDenseAboveCore_subset
+
+#print axioms Milliken.GeneralTree.HeterogeneousSparseFiniteHLWitness.carrierFinite
+#print axioms Milliken.GeneralTree.HeterogeneousSparseFiniteHLWitness.cylinder_isOpen
+#print axioms Milliken.GeneralTree.exists_heterogeneousSparseFiniteHLWitness_of_hdhl
+#print axioms Milliken.GeneralTree.heterogeneousSparseFiniteHLWitness_cover
+#print axioms Milliken.GeneralTree.exists_heterogeneousSparseFiniteHLWitness_subcover
