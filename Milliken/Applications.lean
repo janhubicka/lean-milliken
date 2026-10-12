@@ -145,3 +145,5 @@ import Milliken.GeneralTree.HeterogeneousAvoidCover
 import Milliken.GeneralTree.HeterogeneousMinimalAvoid
 
 import Milliken.GeneralTree.HeterogeneousAvoidPropagation
+
+import Milliken.GeneralTree.HeterogeneousBadSectionDensity

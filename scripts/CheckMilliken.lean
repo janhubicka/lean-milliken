@@ -391,3 +391,7 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.exists_heterogeneousAvoidWitness_above_of_minimal
 
 #print axioms Milliken.GeneralTree.heterogeneousSectionAvoidAt_propagates
+
+#print axioms Milliken.GeneralTree.heterogeneousGoodComplement_not_somewhere
+#print axioms Milliken.GeneralTree.heterogeneousExists_bad_in_somewhere
+#print axioms Milliken.GeneralTree.heterogeneousMinimalAvoidCover_nonempty
