@@ -169,3 +169,5 @@ import Milliken.GeneralTree.HeterogeneousSparseWitness
 import Milliken.GeneralTree.HeterogeneousSparseTransport
 
 import Milliken.GeneralTree.HeterogeneousSparseFiniteHL
+
+import Milliken.GeneralTree.HeterogeneousFillOutside

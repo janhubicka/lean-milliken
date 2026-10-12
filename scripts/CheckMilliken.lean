@@ -451,3 +451,7 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.HeterogeneousSparseFiniteHLWitness.transport_sparse
 
 #print axioms Milliken.GeneralTree.heterogeneousSparseFiniteHL_of_hdhl
+
+#print axioms Milliken.GeneralTree.HeterogeneousMatrix.fillOutsideAbove_onLevel
+#print axioms Milliken.GeneralTree.HeterogeneousMatrix.fillOutsideAbove_denseAt_of_later
+#print axioms Milliken.GeneralTree.HeterogeneousMatrix.fillOutsideAbove_levelDenseAt_of_later
