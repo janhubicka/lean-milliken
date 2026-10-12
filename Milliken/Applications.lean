@@ -171,3 +171,5 @@ import Milliken.GeneralTree.HeterogeneousSparseTransport
 import Milliken.GeneralTree.HeterogeneousSparseFiniteHL
 
 import Milliken.GeneralTree.HeterogeneousFillOutside
+
+import Milliken.GeneralTree.HeterogeneousLemma316Proof
