@@ -1,4 +1,5 @@
 import Milliken.GeneralTree.HeterogeneousStrongSubtreePrep
+import Milliken.GeneralTree.HeterogeneousNormalizedRefinement
 
 /-!
 # Coherent density/support sequence for heterogeneous HL fusion
