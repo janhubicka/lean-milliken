@@ -181,3 +181,5 @@ import Milliken.GeneralTree.HeterogeneousFinalInduction
 import Milliken.GeneralTree.HeterogeneousRemark38
 
 import Milliken.GeneralTree.ChosenStrong
+
+import Milliken.GeneralTree.SubsequenceStrong

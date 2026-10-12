@@ -481,3 +481,8 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.StrongSubtree.LevelChoice.toStrongSubtree_refines
 #print axioms Milliken.GeneralTree.StrongSubtree.LevelChoice.toStrongSubtree_levels
 #print axioms Milliken.GeneralTree.StrongSubtree.LevelChoice.toStrongSubtree_sourceLevel
+
+#print axioms Milliken.GeneralTree.StrongSubtree.subsequenceStrong_refines
+#print axioms Milliken.GeneralTree.StrongSubtree.subsequenceStrong_levels
+#print axioms Milliken.GeneralTree.StrongSubtree.subsequenceStrong_sourceLevel_subset
+#print axioms Milliken.GeneralTree.StrongSubtree.subsequenceStrong_root_sourceLevel
