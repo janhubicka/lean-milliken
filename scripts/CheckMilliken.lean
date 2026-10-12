@@ -471,3 +471,13 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.heterogeneousRemark38Levels_scale_le_succ
 #print axioms Milliken.GeneralTree.heterogeneous_no_restricted_compl_of_highlyDense
 #print axioms Milliken.GeneralTree.heterogeneous_no_sparse_compl_of_highlyDense
+
+#print axioms Milliken.GeneralTree.StrongSubtree.LevelChoice.level_subset_sourceLevel
+#print axioms Milliken.GeneralTree.StrongSubtree.LevelChoice.level_nonempty
+#print axioms Milliken.GeneralTree.StrongSubtree.LevelChoice.level_root_below
+#print axioms Milliken.GeneralTree.StrongSubtree.LevelChoice.level_predecessor_exists
+#print axioms Milliken.GeneralTree.StrongSubtree.LevelChoice.carrier_at_level
+#print axioms Milliken.GeneralTree.StrongSubtree.LevelChoice.level_successor_unique
+#print axioms Milliken.GeneralTree.StrongSubtree.LevelChoice.toStrongSubtree_refines
+#print axioms Milliken.GeneralTree.StrongSubtree.LevelChoice.toStrongSubtree_levels
+#print axioms Milliken.GeneralTree.StrongSubtree.LevelChoice.toStrongSubtree_sourceLevel
