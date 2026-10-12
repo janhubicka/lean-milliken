@@ -395,3 +395,10 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.heterogeneousGoodComplement_not_somewhere
 #print axioms Milliken.GeneralTree.heterogeneousExists_bad_in_somewhere
 #print axioms Milliken.GeneralTree.heterogeneousMinimalAvoidCover_nonempty
+
+#print axioms Milliken.GeneralTree.heterogeneousTailNormalize_section_of_above
+#print axioms Milliken.GeneralTree.heterogeneousTailNormalize_section_of_le
+#print axioms Milliken.GeneralTree.heterogeneousStabilized_tailNormalize
+#print axioms Milliken.GeneralTree.subset_heterogeneousTailNormalize
+#print axioms Milliken.GeneralTree.heterogeneousTailNormalize_compl_subset
+#print axioms Milliken.GeneralTree.heterogeneousSectionAvoid_normalized_support_gt
