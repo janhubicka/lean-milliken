@@ -460,3 +460,7 @@ Milliken endpoints.
 
 #print axioms Milliken.GeneralTree.exists_refinement_realising_general
 #print axioms Milliken.GeneralTree.milliken1979_of_boundaryProductHL
+
+#print axioms Milliken.GeneralTree.exists_heterogeneousSectionFusionStep
+#print axioms Milliken.GeneralTree.exists_heterogeneousSectionFusionState
+#print axioms Milliken.GeneralTree.heterogeneousExists_one_dense_of_stabilized
