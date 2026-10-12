@@ -559,3 +559,9 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.HeterogeneousProtectedFusion.limit_sourceLevel_eq_stage
 #print axioms Milliken.GeneralTree.heterogeneousStabilized_iff_at
 #print axioms Milliken.GeneralTree.HeterogeneousProtectedFusion.limit_stabilized
+
+#print axioms Milliken.GeneralTree.StrongSubtree.existsUnique_sourceLevel_lift_of_refines
+#print axioms Milliken.GeneralTree.StrongSubtree.protectedBoundaryLift_above
+#print axioms Milliken.GeneralTree.StrongSubtree.protectedBoundaryLift_injective
+#print axioms Milliken.GeneralTree.StrongSubtree.protectedBoundaryLift_surjective
+#print axioms Milliken.GeneralTree.StrongSubtree.protectedBoundaryEquiv
