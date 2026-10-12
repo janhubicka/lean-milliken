@@ -185,3 +185,6 @@ import Milliken.GeneralTree.ChosenStrong
 import Milliken.GeneralTree.SubsequenceStrong
 
 import Milliken.GeneralTree.HeterogeneousStrongSubtreePrep
+
+import Milliken.GeneralTree.HeterogeneousFusionWitnesses
+import Milliken.GeneralTree.HeterogeneousBranchFusion

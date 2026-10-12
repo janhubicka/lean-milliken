@@ -495,3 +495,21 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.heterogeneousMonochromaticSparseLevels_unbounded
 #print axioms Milliken.GeneralTree.heterogeneousBadScale_lt_sparse_succ
 #print axioms Milliken.GeneralTree.heterogeneous_exists_base_levelMonochromaticAbove
+
+#print axioms Milliken.GeneralTree.exists_heterogeneousFusionWitness
+#print axioms Milliken.GeneralTree.heterogeneousChosenFusionWitness_scale
+#print axioms Milliken.GeneralTree.heterogeneousFusionWitnesses_zero_scale
+#print axioms Milliken.GeneralTree.heterogeneousFusionWitnesses_succ_scale
+#print axioms Milliken.GeneralTree.heterogeneousFusionLevels_lt_succ
+#print axioms Milliken.GeneralTree.heterogeneousFusionLevels_strictMono
+#print axioms Milliken.GeneralTree.StrongSubtree.LevelChoice.level_property
+#print axioms Milliken.GeneralTree.exists_heterogeneousFusionRoot
+#print axioms Milliken.GeneralTree.heterogeneousFusionRoot_spec
+#print axioms Milliken.GeneralTree.exists_heterogeneousFusionNext_in_matrix
+#print axioms Milliken.GeneralTree.heterogeneousFusionNext_spec
+#print axioms Milliken.GeneralTree.heterogeneousFusionNext_mem_of_base
+#print axioms Milliken.GeneralTree.heterogeneousFusionLevelChoice_level_spec
+#print axioms Milliken.GeneralTree.heterogeneousFusionLevel_monochromatic
+#print axioms Milliken.GeneralTree.heterogeneousFusionTrees_refines
+#print axioms Milliken.GeneralTree.heterogeneousFusionTrees_levels
+#print axioms Milliken.GeneralTree.heterogeneousFusionTrees_monochromatic_at
