@@ -167,3 +167,5 @@ import Milliken.GeneralTree.HeterogeneousFiniteWitness
 import Milliken.GeneralTree.HeterogeneousSparseWitness
 
 import Milliken.GeneralTree.HeterogeneousSparseTransport
+
+import Milliken.GeneralTree.HeterogeneousSparseFiniteHL

@@ -449,3 +449,5 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.HeterogeneousSparseFiniteHLWitness.exists_source_of_transport
 #print axioms Milliken.GeneralTree.HeterogeneousSparseFiniteHLWitness.transport_denseAt
 #print axioms Milliken.GeneralTree.HeterogeneousSparseFiniteHLWitness.transport_sparse
+
+#print axioms Milliken.GeneralTree.heterogeneousSparseFiniteHL_of_hdhl
