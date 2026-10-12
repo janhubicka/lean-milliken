@@ -208,3 +208,5 @@ import Milliken.GeneralTree.ProtectedFusionLimit
 import Milliken.GeneralTree.ProtectedBoundaryLift
 
 import Milliken.GeneralTree.HeterogeneousFiniteStabilization
+
+import Milliken.GeneralTree.HeterogeneousProtectedFusionLimit
