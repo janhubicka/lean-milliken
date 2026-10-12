@@ -548,3 +548,10 @@ Milliken endpoints.
 
 #print axioms Milliken.GeneralTree.exists_heterogeneousFiniteStabilizationStep
 #print axioms Milliken.GeneralTree.exists_heterogeneousFiniteStabilization
+
+#print axioms Milliken.GeneralTree.HeterogeneousProtectedFusion.limit_sourceLevel
+#print axioms Milliken.GeneralTree.HeterogeneousProtectedFusion.limit_approx
+#print axioms Milliken.GeneralTree.HeterogeneousProtectedFusion.limit_levels
+#print axioms Milliken.GeneralTree.HeterogeneousProtectedFusion.limitLevels_strictMono
+#print axioms Milliken.GeneralTree.HeterogeneousProtectedFusion.limit_refines
+#print axioms Milliken.GeneralTree.HeterogeneousProtectedFusion.limit_tuple_at_stage
