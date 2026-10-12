@@ -542,3 +542,6 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.generalFusionLimit_approx
 #print axioms Milliken.GeneralTree.generalFusionLimit_sourceLevel
 #print axioms Milliken.GeneralTree.generalFusionLimit_refines
+
+#print axioms Milliken.GeneralTree.StrongSubtree.exists_sourceLevel_lift_of_refines
+#print axioms Milliken.GeneralTree.exists_heterogeneousBoundaryTuple_lift
