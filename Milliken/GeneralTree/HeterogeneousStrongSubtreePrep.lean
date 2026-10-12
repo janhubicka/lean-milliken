@@ -140,8 +140,7 @@ theorem heterogeneousBadScale_lt_next
       (f := heterogeneousBadMonochromaticScale P c hfail n)
       (Finset.mem_univ base)
   unfold heterogeneousNextMonochromaticLevel
-  exact (Nat.lt_succ_of_le hsup).trans_le
-    (Nat.le_max_right _ _)
+  omega
 
 /-- Recursively chosen source indices avoiding every proposed
 fixed-base monochromatic density witness. -/
