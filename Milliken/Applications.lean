@@ -220,3 +220,5 @@ import Milliken.GeneralTree.ProtectedBoundaryBijection
 import Milliken.GeneralTree.HeterogeneousAllConeStabilization
 
 import Milliken.GeneralTree.HeterogeneousUniformFiniteFamily
+
+import Milliken.GeneralTree.NextLevelRefinementCoverage
