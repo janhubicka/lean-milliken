@@ -464,3 +464,10 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.exists_heterogeneousSectionFusionStep
 #print axioms Milliken.GeneralTree.exists_heterogeneousSectionFusionState
 #print axioms Milliken.GeneralTree.heterogeneousExists_one_dense_of_stabilized
+
+#print axioms Milliken.GeneralTree.heterogeneousHighlyDenseScale_spec
+#print axioms Milliken.GeneralTree.heterogeneousRemark38Levels_strictMono
+#print axioms Milliken.GeneralTree.heterogeneousRemark38Levels_target_le_succ
+#print axioms Milliken.GeneralTree.heterogeneousRemark38Levels_scale_le_succ
+#print axioms Milliken.GeneralTree.heterogeneous_no_restricted_compl_of_highlyDense
+#print axioms Milliken.GeneralTree.heterogeneous_no_sparse_compl_of_highlyDense
