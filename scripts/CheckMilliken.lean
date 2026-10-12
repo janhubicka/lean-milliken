@@ -519,3 +519,9 @@ Milliken endpoints.
 
 #print axioms Milliken.GeneralTree.heterogeneousBinaryStrongHL_of_hdhl
 #print axioms Milliken.GeneralTree.heterogeneousBinarySynchronizedHL_of_hdhl
+
+#print axioms Milliken.GeneralTree.heterogeneousFiniteSynchronizedHL_of_all_hdhl
+#print axioms Milliken.GeneralTree.generalProductHL_of_all_heterogeneousHDHL
+#print axioms Milliken.GeneralTree.boundaryProductHL_of_all_heterogeneousHDHL
+#print axioms Milliken.GeneralTree.generalMilliken_of_all_heterogeneousHDHL
+#print axioms Milliken.GeneralTree.milliken1979_of_all_heterogeneousHDHL

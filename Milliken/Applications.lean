@@ -192,3 +192,5 @@ import Milliken.GeneralTree.HeterogeneousBranchFusion
 import Milliken.GeneralTree.SynchronizedRefinementLevels
 
 import Milliken.GeneralTree.HeterogeneousBinaryStrongHL
+
+import Milliken.GeneralTree.HeterogeneousFiniteStrongHL
