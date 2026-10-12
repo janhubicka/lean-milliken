@@ -149,3 +149,5 @@ import Milliken.GeneralTree.HeterogeneousAvoidPropagation
 import Milliken.GeneralTree.HeterogeneousBadSectionDensity
 
 import Milliken.GeneralTree.HeterogeneousTailNormalization
+
+import Milliken.GeneralTree.HeterogeneousNormalizedRefinement

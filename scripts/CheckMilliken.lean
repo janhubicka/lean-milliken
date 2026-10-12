@@ -402,3 +402,6 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.subset_heterogeneousTailNormalize
 #print axioms Milliken.GeneralTree.heterogeneousTailNormalize_compl_subset
 #print axioms Milliken.GeneralTree.heterogeneousSectionAvoid_normalized_support_gt
+
+#print axioms Milliken.GeneralTree.heterogeneous_support_ge_of_onLevel_denseAbove
+#print axioms Milliken.GeneralTree.heterogeneousNormalizedRefinementStep
