@@ -411,3 +411,5 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.heterogeneousBinarySomewhere_of_hdhl
 
 #print axioms Milliken.GeneralTree.exists_heterogeneousNormalizedAvoidState
+
+#print axioms Milliken.GeneralTree.exists_heterogeneousAtScaleAvoidState

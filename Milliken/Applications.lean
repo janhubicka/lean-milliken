@@ -155,3 +155,5 @@ import Milliken.GeneralTree.HeterogeneousNormalizedRefinement
 import Milliken.GeneralTree.HeterogeneousSomewhereDense
 
 import Milliken.GeneralTree.HeterogeneousNormalizedAvoidState
+
+import Milliken.GeneralTree.HeterogeneousAtScaleAvoid
