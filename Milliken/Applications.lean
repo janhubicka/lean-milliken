@@ -161,3 +161,5 @@ import Milliken.GeneralTree.HeterogeneousAtScaleAvoid
 import Milliken.GeneralTree.HeterogeneousLemma315Proof
 
 import Milliken.GeneralTree.HeterogeneousLemma316Tower
+
+import Milliken.GeneralTree.HeterogeneousFiniteWitness
