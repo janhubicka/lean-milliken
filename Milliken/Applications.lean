@@ -196,3 +196,5 @@ import Milliken.GeneralTree.HeterogeneousBinaryStrongHL
 import Milliken.GeneralTree.HeterogeneousFiniteStrongHL
 
 import Milliken.GeneralTree.HeterogeneousCommonIndex
+
+import Milliken.GeneralTree.HeterogeneousMarkedBoundaryGraft

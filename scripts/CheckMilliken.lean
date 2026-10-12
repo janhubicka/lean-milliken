@@ -529,3 +529,5 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.exists_synchronizedRefinement_commonIndex
 #print axioms Milliken.GeneralTree.heterogeneousBoundaryCones_levels
 #print axioms Milliken.GeneralTree.exists_heterogeneousBoundary_commonIndex
+
+#print axioms Milliken.GeneralTree.exists_synchronizedMarkedBoundaryGraft
