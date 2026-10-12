@@ -377,3 +377,8 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.HeterogeneousStabilized.compl
 #print axioms Milliken.GeneralTree.HeterogeneousMatrix.refineOver_preserves_section
 #print axioms Milliken.GeneralTree.HeterogeneousMatrix.refineOver_avoids_section
+
+#print axioms Milliken.GeneralTree.heterogeneousBadSectionAt_has_avoidWitness
+#print axioms Milliken.GeneralTree.heterogeneousBadSectionAt_of_le
+#print axioms Milliken.GeneralTree.heterogeneousSectionAvoidAt_of_le
+#print axioms Milliken.GeneralTree.heterogeneousSectionsGoodAt_iff
