@@ -423,3 +423,14 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.heterogeneousLemma316Tower_levels_unbounded
 #print axioms Milliken.GeneralTree.heterogeneousLemma316Tower_X_antitone
 #print axioms Milliken.GeneralTree.heterogeneousLemma316Tower_good
+
+#print axioms Milliken.GeneralTree.HeterogeneousMatrix.carrier_finite
+#print axioms Milliken.GeneralTree.HeterogeneousMatrix.finiteDenseCore_coord_finite
+#print axioms Milliken.GeneralTree.HeterogeneousMatrix.finiteDenseCore_carrier_finite
+#print axioms Milliken.GeneralTree.HeterogeneousMatrix.finiteDenseCore_denseAt
+#print axioms Milliken.GeneralTree.HeterogeneousMatrix.finiteDenseCore_subset
+#print axioms Milliken.GeneralTree.HeterogeneousMatrix.coneSourceBoundary_finite
+#print axioms Milliken.GeneralTree.HeterogeneousMatrix.finiteDenseAboveCore_coord_finite
+#print axioms Milliken.GeneralTree.HeterogeneousMatrix.finiteDenseAboveCore_carrier_finite
+#print axioms Milliken.GeneralTree.HeterogeneousMatrix.finiteDenseAboveCore_denseAbove
+#print axioms Milliken.GeneralTree.HeterogeneousMatrix.finiteDenseAboveCore_subset
