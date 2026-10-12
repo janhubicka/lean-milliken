@@ -179,3 +179,5 @@ import Milliken.GeneralTree.Original1979Conditional
 import Milliken.GeneralTree.HeterogeneousFinalInduction
 
 import Milliken.GeneralTree.HeterogeneousRemark38
+
+import Milliken.GeneralTree.ChosenStrong
