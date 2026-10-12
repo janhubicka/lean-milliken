@@ -545,3 +545,6 @@ Milliken endpoints.
 
 #print axioms Milliken.GeneralTree.StrongSubtree.exists_sourceLevel_lift_of_refines
 #print axioms Milliken.GeneralTree.exists_heterogeneousBoundaryTuple_lift
+
+#print axioms Milliken.GeneralTree.exists_heterogeneousFiniteStabilizationStep
+#print axioms Milliken.GeneralTree.exists_heterogeneousFiniteStabilization

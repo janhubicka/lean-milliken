@@ -206,3 +206,5 @@ import Milliken.GeneralTree.HeterogeneousLocalConstancyPersistence
 import Milliken.GeneralTree.ProtectedFusionLimit
 
 import Milliken.GeneralTree.ProtectedBoundaryLift
+
+import Milliken.GeneralTree.HeterogeneousFiniteStabilization
