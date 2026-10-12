@@ -1,4 +1,5 @@
 import Milliken.GeneralTree.HeterogeneousLevelSupport
+import Milliken.GeneralTree.HeterogeneousConeDensity
 
 /-!
 # Refining one heterogeneous dense matrix over another
