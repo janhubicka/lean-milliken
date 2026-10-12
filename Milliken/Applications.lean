@@ -157,3 +157,5 @@ import Milliken.GeneralTree.HeterogeneousSomewhereDense
 import Milliken.GeneralTree.HeterogeneousNormalizedAvoidState
 
 import Milliken.GeneralTree.HeterogeneousAtScaleAvoid
+
+import Milliken.GeneralTree.HeterogeneousLemma315Proof

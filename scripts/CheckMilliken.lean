@@ -413,3 +413,6 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.exists_heterogeneousNormalizedAvoidState
 
 #print axioms Milliken.GeneralTree.exists_heterogeneousAtScaleAvoidState
+
+#print axioms Milliken.GeneralTree.HeterogeneousMatrix.snoc_denseAbove
+#print axioms Milliken.GeneralTree.heterogeneousLemma315_tailNormalize
