@@ -194,3 +194,5 @@ import Milliken.GeneralTree.SynchronizedRefinementLevels
 import Milliken.GeneralTree.HeterogeneousBinaryStrongHL
 
 import Milliken.GeneralTree.HeterogeneousFiniteStrongHL
+
+import Milliken.GeneralTree.HeterogeneousCommonIndex
