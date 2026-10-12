@@ -360,3 +360,11 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.HeterogeneousMatrix.support_ge_of_onLevel_denseAt
 #print axioms Milliken.GeneralTree.HeterogeneousMatrix.onLevel_of_carrier_subset_of_coord_nonempty
 #print axioms Milliken.GeneralTree.HeterogeneousMatrix.denseAt_of_levelDenseAt
+
+#print axioms Milliken.GeneralTree.HeterogeneousMatrix.refineOver_carrier_subset_right
+#print axioms Milliken.GeneralTree.HeterogeneousMatrix.refineOver_onLevel
+#print axioms Milliken.GeneralTree.HeterogeneousMatrix.exists_predecessor_of_mem_refineOver
+#print axioms Milliken.GeneralTree.HeterogeneousMatrix.refineOver_denseAt
+#print axioms Milliken.GeneralTree.HeterogeneousMatrix.refineOver_denseAbove
+#print axioms Milliken.GeneralTree.HeterogeneousMatrix.refineOver_denseAbove_of_denseAt
+#print axioms Milliken.GeneralTree.HeterogeneousMatrix.refineOver_fullLevel_carrier

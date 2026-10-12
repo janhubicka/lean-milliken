@@ -131,3 +131,5 @@ import Milliken.GeneralTree.LevelAlphabet
 import Milliken.GeneralTree.LevelPathSurjective
 
 import Milliken.GeneralTree.HeterogeneousLevelSupport
+
+import Milliken.GeneralTree.HeterogeneousRefinement

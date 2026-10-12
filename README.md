@@ -550,3 +550,14 @@ of Cartesian carriers. These lemmas port Todorčević's Lemma 3.16
 and final section-fusion prerequisites to arbitrary pruned locally
 finitely branching input factors, without a globally bounded
 branching alphabet. The higher-dimensional induction is still open.
+
+
+### Heterogeneous matrix refinement for the HDHL induction
+
+`GeneralTree.HeterogeneousRefinement` implements `A.refineOver B` for
+matrices of actual arbitrary strong-tree coordinates: keep B-nodes
+above some A-coordinate. The seven checked endpoints cover carrier
+inclusion, level support, predecessor decoding, global and cone
+density preservation, and the same-level full-matrix identity.
+There is no fixed alphabet or global branching bound. The
+higher-dimensional stabilization and HDHL induction remain open.
