@@ -159,3 +159,5 @@ import Milliken.GeneralTree.HeterogeneousNormalizedAvoidState
 import Milliken.GeneralTree.HeterogeneousAtScaleAvoid
 
 import Milliken.GeneralTree.HeterogeneousLemma315Proof
+
+import Milliken.GeneralTree.HeterogeneousLemma316Tower
