@@ -409,3 +409,5 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.HeterogeneousMatrix.denseAt_one_somewhereDense
 #print axioms Milliken.GeneralTree.heterogeneousHighlyDense_of_no_somewhere
 #print axioms Milliken.GeneralTree.heterogeneousBinarySomewhere_of_hdhl
+
+#print axioms Milliken.GeneralTree.exists_heterogeneousNormalizedAvoidState
