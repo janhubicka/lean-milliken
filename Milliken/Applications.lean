@@ -183,3 +183,5 @@ import Milliken.GeneralTree.HeterogeneousRemark38
 import Milliken.GeneralTree.ChosenStrong
 
 import Milliken.GeneralTree.SubsequenceStrong
+
+import Milliken.GeneralTree.HeterogeneousStrongSubtreePrep

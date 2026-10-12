@@ -486,3 +486,12 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.StrongSubtree.subsequenceStrong_levels
 #print axioms Milliken.GeneralTree.StrongSubtree.subsequenceStrong_sourceLevel_subset
 #print axioms Milliken.GeneralTree.StrongSubtree.subsequenceStrong_root_sourceLevel
+
+#print axioms Milliken.GeneralTree.heterogeneous_exists_bad_monochromatic_scale
+#print axioms Milliken.GeneralTree.heterogeneousBadMonochromaticScale_spec
+#print axioms Milliken.GeneralTree.heterogeneousNextMonochromaticLevel_gt
+#print axioms Milliken.GeneralTree.heterogeneousBadScale_lt_next
+#print axioms Milliken.GeneralTree.heterogeneousMonochromaticSparseLevels_strictMono
+#print axioms Milliken.GeneralTree.heterogeneousMonochromaticSparseLevels_unbounded
+#print axioms Milliken.GeneralTree.heterogeneousBadScale_lt_sparse_succ
+#print axioms Milliken.GeneralTree.heterogeneous_exists_base_levelMonochromaticAbove
