@@ -382,3 +382,7 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.heterogeneousBadSectionAt_of_le
 #print axioms Milliken.GeneralTree.heterogeneousSectionAvoidAt_of_le
 #print axioms Milliken.GeneralTree.heterogeneousSectionsGoodAt_iff
+
+#print axioms Milliken.GeneralTree.heterogeneousConeDense_restrict
+#print axioms Milliken.GeneralTree.exists_heterogeneousAvoidCover
+#print axioms Milliken.GeneralTree.exists_minimalHeterogeneousAvoidCover

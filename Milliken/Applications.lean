@@ -139,3 +139,5 @@ import Milliken.GeneralTree.HeterogeneousTruncation
 import Milliken.GeneralTree.HeterogeneousStabilization
 
 import Milliken.GeneralTree.HeterogeneousBadSections
+
+import Milliken.GeneralTree.HeterogeneousAvoidCover
