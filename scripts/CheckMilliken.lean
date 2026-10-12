@@ -535,3 +535,10 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.exists_heterogeneousLocalConeStabilization
 
 #print axioms Milliken.GeneralTree.HeterogeneousConeConstant.refinement
+
+#print axioms Milliken.GeneralTree.generalFusionApprox_stable
+#print axioms Milliken.GeneralTree.generalFusionSequence_refines
+#print axioms Milliken.GeneralTree.generalFusionCode_prefixRealizable
+#print axioms Milliken.GeneralTree.generalFusionLimit_approx
+#print axioms Milliken.GeneralTree.generalFusionLimit_sourceLevel
+#print axioms Milliken.GeneralTree.generalFusionLimit_refines
