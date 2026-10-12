@@ -567,3 +567,7 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.StrongSubtree.protectedBoundaryEquiv
 
 #print axioms Milliken.GeneralTree.exists_heterogeneousUniformConeStabilization
+
+#print axioms Milliken.GeneralTree.exists_oldBoundaryTuple_of_protected
+#print axioms Milliken.GeneralTree.HeterogeneousUniformConeConstant.refinement
+#print axioms Milliken.GeneralTree.exists_heterogeneousUniformConeStabilization_finset

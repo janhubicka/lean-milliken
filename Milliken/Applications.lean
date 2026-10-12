@@ -216,3 +216,5 @@ import Milliken.GeneralTree.HeterogeneousStabilizationLimit
 import Milliken.GeneralTree.ProtectedBoundaryBijection
 
 import Milliken.GeneralTree.HeterogeneousAllConeStabilization
+
+import Milliken.GeneralTree.HeterogeneousUniformFiniteFamily
