@@ -460,3 +460,12 @@ Milliken endpoints.
 
 #print axioms Milliken.GeneralTree.exists_refinement_realising_general
 #print axioms Milliken.GeneralTree.milliken1979_of_boundaryProductHL
+
+#print axioms Milliken.GeneralTree.heterogeneous_exists_bad_monochromatic_scale
+#print axioms Milliken.GeneralTree.heterogeneousBadMonochromaticScale_spec
+#print axioms Milliken.GeneralTree.heterogeneousNextMonochromaticLevel_gt
+#print axioms Milliken.GeneralTree.heterogeneousBadScale_lt_next
+#print axioms Milliken.GeneralTree.heterogeneousMonochromaticSparseLevels_strictMono
+#print axioms Milliken.GeneralTree.heterogeneousMonochromaticSparseLevels_unbounded
+#print axioms Milliken.GeneralTree.heterogeneousBadScale_lt_sparse_succ
+#print axioms Milliken.GeneralTree.heterogeneous_exists_base_levelMonochromaticAbove
