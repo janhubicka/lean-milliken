@@ -525,3 +525,7 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.boundaryProductHL_of_all_heterogeneousHDHL
 #print axioms Milliken.GeneralTree.generalMilliken_of_all_heterogeneousHDHL
 #print axioms Milliken.GeneralTree.milliken1979_of_all_heterogeneousHDHL
+
+#print axioms Milliken.GeneralTree.exists_synchronizedRefinement_commonIndex
+#print axioms Milliken.GeneralTree.heterogeneousBoundaryCones_levels
+#print axioms Milliken.GeneralTree.exists_heterogeneousBoundary_commonIndex
