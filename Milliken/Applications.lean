@@ -212,3 +212,5 @@ import Milliken.GeneralTree.HeterogeneousFiniteStabilization
 import Milliken.GeneralTree.HeterogeneousProtectedFusionLimit
 
 import Milliken.GeneralTree.HeterogeneousStabilizationLimit
+
+import Milliken.GeneralTree.HeterogeneousLastCoordinateSelector
