@@ -513,3 +513,6 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.heterogeneousFusionTrees_refines
 #print axioms Milliken.GeneralTree.heterogeneousFusionTrees_levels
 #print axioms Milliken.GeneralTree.heterogeneousFusionTrees_monochromatic_at
+
+#print axioms Milliken.GeneralTree.synchronizedRefinement_sourceLevel
+#print axioms Milliken.GeneralTree.synchronizedRefinement_preserves_homogeneity

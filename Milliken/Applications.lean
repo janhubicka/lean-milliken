@@ -188,3 +188,5 @@ import Milliken.GeneralTree.HeterogeneousStrongSubtreePrep
 
 import Milliken.GeneralTree.HeterogeneousFusionWitnesses
 import Milliken.GeneralTree.HeterogeneousBranchFusion
+
+import Milliken.GeneralTree.SynchronizedRefinementLevels
