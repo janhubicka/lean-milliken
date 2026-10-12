@@ -516,3 +516,6 @@ Milliken endpoints.
 
 #print axioms Milliken.GeneralTree.synchronizedRefinement_sourceLevel
 #print axioms Milliken.GeneralTree.synchronizedRefinement_preserves_homogeneity
+
+#print axioms Milliken.GeneralTree.heterogeneousBinaryStrongHL_of_hdhl
+#print axioms Milliken.GeneralTree.heterogeneousBinarySynchronizedHL_of_hdhl
