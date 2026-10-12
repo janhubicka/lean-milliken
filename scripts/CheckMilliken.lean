@@ -354,3 +354,9 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.le_evalPath
 #print axioms Milliken.GeneralTree.exists_evalPath_of_le
 #print axioms Milliken.GeneralTree.evalPath_length_of_eq
+
+#print axioms Milliken.GeneralTree.HeterogeneousMatrix.coord_nonempty_of_denseAt
+#print axioms Milliken.GeneralTree.HeterogeneousMatrix.productDenseAt_carrier
+#print axioms Milliken.GeneralTree.HeterogeneousMatrix.support_ge_of_onLevel_denseAt
+#print axioms Milliken.GeneralTree.HeterogeneousMatrix.onLevel_of_carrier_subset_of_coord_nonempty
+#print axioms Milliken.GeneralTree.HeterogeneousMatrix.denseAt_of_levelDenseAt

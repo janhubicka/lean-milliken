@@ -539,3 +539,14 @@ density preservation, and the avoidance lemma for all sections
 of a forbidden product class. These are the genuine arbitrary
 locally finite analogues of `HalpernLauchli.Sections`,
 with no global branching-degree restriction.
+
+
+### Actual heterogeneous source-level matrix support
+
+`GeneralTree.HeterogeneousLevelSupport` proves support-rank
+inequalities, nonempty coordinates, product density of dense matrices,
+and the deduction of coordinatewise level support from inclusion
+of Cartesian carriers. These lemmas port Todorčević's Lemma 3.16
+and final section-fusion prerequisites to arbitrary pruned locally
+finitely branching input factors, without a globally bounded
+branching alphabet. The higher-dimensional induction is still open.
