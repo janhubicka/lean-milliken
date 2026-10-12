@@ -135,3 +135,5 @@ import Milliken.GeneralTree.HeterogeneousLevelSupport
 import Milliken.GeneralTree.HeterogeneousRefinement
 
 import Milliken.GeneralTree.HeterogeneousTruncation
+
+import Milliken.GeneralTree.HeterogeneousStabilization

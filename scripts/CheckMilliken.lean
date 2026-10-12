@@ -373,3 +373,7 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.StrongSubtree.sourceAncestorAt_eq_of_le
 #print axioms Milliken.GeneralTree.heterogeneousTruncate_le
 #print axioms Milliken.GeneralTree.heterogeneousTruncate_eq_of_le
+
+#print axioms Milliken.GeneralTree.HeterogeneousStabilized.compl
+#print axioms Milliken.GeneralTree.HeterogeneousMatrix.refineOver_preserves_section
+#print axioms Milliken.GeneralTree.HeterogeneousMatrix.refineOver_avoids_section
