@@ -198,3 +198,5 @@ import Milliken.GeneralTree.HeterogeneousFiniteStrongHL
 import Milliken.GeneralTree.HeterogeneousCommonIndex
 
 import Milliken.GeneralTree.HeterogeneousMarkedBoundaryGraft
+
+import Milliken.GeneralTree.HeterogeneousLocalStabilization
