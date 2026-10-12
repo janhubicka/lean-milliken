@@ -173,3 +173,5 @@ import Milliken.GeneralTree.HeterogeneousSparseFiniteHL
 import Milliken.GeneralTree.HeterogeneousFillOutside
 
 import Milliken.GeneralTree.HeterogeneousLemma316Proof
+
+import Milliken.GeneralTree.Original1979Conditional

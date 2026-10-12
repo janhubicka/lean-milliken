@@ -457,3 +457,6 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.HeterogeneousMatrix.fillOutsideAbove_levelDenseAt_of_later
 
 #print axioms Milliken.GeneralTree.heterogeneousLemma316
+
+#print axioms Milliken.GeneralTree.exists_refinement_realising_general
+#print axioms Milliken.GeneralTree.milliken1979_of_boundaryProductHL
