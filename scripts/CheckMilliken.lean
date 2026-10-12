@@ -533,3 +533,5 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.exists_synchronizedMarkedBoundaryGraft
 
 #print axioms Milliken.GeneralTree.exists_heterogeneousLocalConeStabilization
+
+#print axioms Milliken.GeneralTree.HeterogeneousConeConstant.refinement

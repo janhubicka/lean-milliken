@@ -200,3 +200,5 @@ import Milliken.GeneralTree.HeterogeneousCommonIndex
 import Milliken.GeneralTree.HeterogeneousMarkedBoundaryGraft
 
 import Milliken.GeneralTree.HeterogeneousLocalStabilization
+
+import Milliken.GeneralTree.HeterogeneousLocalConstancyPersistence
