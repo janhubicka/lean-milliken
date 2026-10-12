@@ -221,3 +221,5 @@ import Milliken.GeneralTree.HeterogeneousUniformFiniteFamily
 
 import Milliken.GeneralTree.HeterogeneousLastCoordinateSelector
 import Milliken.GeneralTree.HeterogeneousFullProductStage
+
+import Milliken.GeneralTree.HeterogeneousStabilizationInheritance
