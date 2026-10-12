@@ -368,3 +368,8 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.HeterogeneousMatrix.refineOver_denseAbove
 #print axioms Milliken.GeneralTree.HeterogeneousMatrix.refineOver_denseAbove_of_denseAt
 #print axioms Milliken.GeneralTree.HeterogeneousMatrix.refineOver_fullLevel_carrier
+
+#print axioms Milliken.GeneralTree.StrongSubtree.sourceAncestorAt_spec
+#print axioms Milliken.GeneralTree.StrongSubtree.sourceAncestorAt_eq_of_le
+#print axioms Milliken.GeneralTree.heterogeneousTruncate_le
+#print axioms Milliken.GeneralTree.heterogeneousTruncate_eq_of_le

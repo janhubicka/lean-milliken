@@ -133,3 +133,5 @@ import Milliken.GeneralTree.LevelPathSurjective
 import Milliken.GeneralTree.HeterogeneousLevelSupport
 
 import Milliken.GeneralTree.HeterogeneousRefinement
+
+import Milliken.GeneralTree.HeterogeneousTruncation
