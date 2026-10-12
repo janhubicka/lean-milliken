@@ -440,3 +440,12 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.exists_heterogeneousSparseFiniteHLWitness_of_hdhl
 #print axioms Milliken.GeneralTree.heterogeneousSparseFiniteHLWitness_cover
 #print axioms Milliken.GeneralTree.exists_heterogeneousSparseFiniteHLWitness_subcover
+
+#print axioms Milliken.GeneralTree.StrongSubtree.mem_sourceLevel_sourceIndex
+#print axioms Milliken.GeneralTree.HeterogeneousSparseFiniteHLWitness.sourceIndex_le_sourceBound
+#print axioms Milliken.GeneralTree.HeterogeneousMatrix.extendIntoDense_mem
+#print axioms Milliken.GeneralTree.HeterogeneousMatrix.le_extendIntoDense
+#print axioms Milliken.GeneralTree.HeterogeneousSparseFiniteHLWitness.transport_carrier_subset
+#print axioms Milliken.GeneralTree.HeterogeneousSparseFiniteHLWitness.exists_source_of_transport
+#print axioms Milliken.GeneralTree.HeterogeneousSparseFiniteHLWitness.transport_denseAt
+#print axioms Milliken.GeneralTree.HeterogeneousSparseFiniteHLWitness.transport_sparse
