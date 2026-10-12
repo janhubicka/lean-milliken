@@ -405,3 +405,7 @@ Milliken endpoints.
 
 #print axioms Milliken.GeneralTree.heterogeneous_support_ge_of_onLevel_denseAbove
 #print axioms Milliken.GeneralTree.heterogeneousNormalizedRefinementStep
+
+#print axioms Milliken.GeneralTree.HeterogeneousMatrix.denseAt_one_somewhereDense
+#print axioms Milliken.GeneralTree.heterogeneousHighlyDense_of_no_somewhere
+#print axioms Milliken.GeneralTree.heterogeneousBinarySomewhere_of_hdhl
