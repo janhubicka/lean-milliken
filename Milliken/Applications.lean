@@ -141,3 +141,5 @@ import Milliken.GeneralTree.HeterogeneousStabilization
 import Milliken.GeneralTree.HeterogeneousBadSections
 
 import Milliken.GeneralTree.HeterogeneousAvoidCover
+
+import Milliken.GeneralTree.HeterogeneousMinimalAvoid

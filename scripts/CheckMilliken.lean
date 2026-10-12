@@ -386,3 +386,6 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.heterogeneousConeDense_restrict
 #print axioms Milliken.GeneralTree.exists_heterogeneousAvoidCover
 #print axioms Milliken.GeneralTree.exists_minimalHeterogeneousAvoidCover
+
+#print axioms Milliken.GeneralTree.heterogeneousAvoidWitnessSet_coneDense_of_minimal
+#print axioms Milliken.GeneralTree.exists_heterogeneousAvoidWitness_above_of_minimal
