@@ -416,3 +416,10 @@ Milliken endpoints.
 
 #print axioms Milliken.GeneralTree.HeterogeneousMatrix.snoc_denseAbove
 #print axioms Milliken.GeneralTree.heterogeneousLemma315_tailNormalize
+
+#print axioms Milliken.GeneralTree.heterogeneousSectionsGoodAt_mono_input
+#print axioms Milliken.GeneralTree.exists_nextHeterogeneousLemma316TowerStep
+#print axioms Milliken.GeneralTree.heterogeneousLemma316Tower_levels_strictMono
+#print axioms Milliken.GeneralTree.heterogeneousLemma316Tower_levels_unbounded
+#print axioms Milliken.GeneralTree.heterogeneousLemma316Tower_X_antitone
+#print axioms Milliken.GeneralTree.heterogeneousLemma316Tower_good
