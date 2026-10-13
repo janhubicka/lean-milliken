@@ -150,6 +150,7 @@ theorem original_restricted_somewhereDense
       intro i
       have hi : (base i).fst = p := hbase i
       have hs := (base i).snd.property
+      change (base i).2.1 ∈ (P i).sourceLevel (f.indices p)
       simpa only [hi] using hs⟩
   refine ⟨p, q, hpq, B, ?_⟩
   intro i x hx hbx
