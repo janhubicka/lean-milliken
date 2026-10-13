@@ -48,6 +48,12 @@ jobs:
       - name: Build
         run: lake build
 
+      - name: Audit general-theorem imports and redundant dependencies
+        run: python3 scripts/audit_dependency_graph.py
+
+      - name: Audit all Lean source for local axioms and admissions
+        run: python3 scripts/audit_source_integrity.py
+
       - name: Audit Milliken theorem axioms
         run: |
           mkdir -p proof-audit

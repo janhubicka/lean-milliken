@@ -1,5 +1,5 @@
 import Milliken.GeneralTree.HeterogeneousUniversalMilliken
-import Milliken.Applications.FiniteColour
+import Milliken.FiniteColourRamseySpace
 
 /-!
 # Fixed-stem finite-colouring Milliken for arbitrary locally finite trees
