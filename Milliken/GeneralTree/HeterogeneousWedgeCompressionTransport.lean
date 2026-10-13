@@ -52,7 +52,7 @@ noncomputable def strong
 
 /-- Encode one fully compressed coordinate as its corresponding
 tagged node of the common wedge. -/
-def tag
+noncomputable def tag
     (P : Fin d → StrongSubtree U)
     (f : CompressedSourceSelection)
     (hd : 0 < d)
@@ -115,7 +115,7 @@ theorem strong_levels
 
 /-- Tag a dependent tuple of compressed nodes into one ordinary
 product tuple in the common ambient. -/
-def tagTuple
+noncomputable def tagTuple
     (P : Fin d → StrongSubtree U)
     (f : CompressedSourceSelection)
     (hd : 0 < d)
@@ -126,7 +126,7 @@ def tagTuple
 /-- Test the original colour after decoding a correctly tagged tuple.
 For tuples outside the intended component product, the test is false;
 that convention has no effect on matrices inside the strong family. -/
-def liftedColour
+noncomputable def liftedColour
     (P : Fin d → StrongSubtree U)
     (f : CompressedSourceSelection)
     (hd : 0 < d)
@@ -138,7 +138,7 @@ def liftedColour
 
 /-- Pull back coordinate sets of a wedge product matrix along the
 tagged full-compression maps. -/
-def decodeMatrix
+noncomputable def decodeMatrix
     (P : Fin d → StrongSubtree U)
     (f : CompressedSourceSelection)
     (hd : 0 < d)
