@@ -109,14 +109,14 @@ noncomputable instance semilatticeInf : SemilatticeInf (WedgeNode T) where
     · exact False.elim (WithBot.not_coe_le_bot _ hza)
     rcases b with _ | ⟨k, y⟩
     · exact False.elim (WithBot.not_coe_le_bot _ hzb)
+    change embed T i z ≤ embed T j x at hza
+    change embed T i z ≤ embed T k y at hzb
     have hij : i = j :=
       (Sigma.le_def.mp (WithBot.coe_le_coe.mp hza)).1
     have hik : i = k :=
       (Sigma.le_def.mp (WithBot.coe_le_coe.mp hzb)).1
     subst j
     subst k
-    change embed T i z ≤ embed T i x at hza
-    change embed T i z ≤ embed T i y at hzb
     change embed T i z ≤ meet T (embed T i x) (embed T i y)
     rw [meet_embed_same]
     exact (embed_le_embed_iff T i z (x ⊓ y)).mpr
