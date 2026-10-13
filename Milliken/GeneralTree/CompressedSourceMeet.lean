@@ -65,12 +65,14 @@ noncomputable def commonIndex (x y : Node S f) : ℕ := by
     (CommonRank S f x y) (min x.1 y.1)
 
 theorem commonIndex_le_left (x y : Node S f) :
-    commonIndex S f x y ≤ x.1 :=
-  (Nat.findGreatest_le (CommonRank S f x y) _).trans (min_le_left _ _)
+    commonIndex S f x y ≤ x.1 := by
+  classical
+  exact (Nat.findGreatest_le (P := CommonRank S f x y) _).trans (min_le_left _ _)
 
 theorem commonIndex_le_right (x y : Node S f) :
-    commonIndex S f x y ≤ y.1 :=
-  (Nat.findGreatest_le (CommonRank S f x y) _).trans (min_le_right _ _)
+    commonIndex S f x y ≤ y.1 := by
+  classical
+  exact (Nat.findGreatest_le (P := CommonRank S f x y) _).trans (min_le_right _ _)
 
 theorem commonIndex_spec (x y : Node S f) :
     CommonRank S f x y (commonIndex S f x y) := by
