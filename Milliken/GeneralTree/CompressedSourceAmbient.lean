@@ -43,20 +43,22 @@ theorem node_covBy_iff (a b : Node S f) :
         nodeAncestor S f hstep b rfl
       have hac : a ≤ c :=
         node_le_ancestor_of_index_le S f b a hab.le
-          hstep (by dsimp [c]; omega)
+          hstep (Nat.le_succ _)
       have hcb : c ≤ b :=
         nodeAncestor_le S f hstep b rfl
       have halt : a < c := by
         apply lt_of_le_of_ne hac
         intro heq
         have heqi := congrArg (fun z : Node S f => z.1) heq
-        dsimp [c] at heqi
+        have hcindex : c.1 = a.1 + 1 :=
+          nodeAncestor_index S f hstep b rfl
         omega
       have hclt : c < b := by
         apply lt_of_le_of_ne hcb
         intro heq
         have heqi := congrArg (fun z : Node S f => z.1) heq
-        dsimp [c] at heqi
+        have hcindex : c.1 = a.1 + 1 :=
+          nodeAncestor_index S f hstep b rfl
         omega
       exact hab.2 halt hclt
     exact ⟨hab.le, by omega⟩
