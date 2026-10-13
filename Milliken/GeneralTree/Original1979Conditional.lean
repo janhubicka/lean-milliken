@@ -1,7 +1,7 @@
 import Milliken.GeneralTree.BoundaryMilliken
 import Milliken.GeneralTree.Identity
 import Milliken.GeneralTree.SpliceAmalgamation
-import Milliken.Applications.FiniteColour
+import Milliken.FiniteColourRamseySpace
 
 /-!
 # Milliken 1979 from the general-tree topological theorem
