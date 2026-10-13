@@ -627,3 +627,7 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.CompressedSourceSelection.compressedInf_le_left
 #print axioms Milliken.GeneralTree.CompressedSourceSelection.compressedInf_le_right
 #print axioms Milliken.GeneralTree.CompressedSourceSelection.le_compressedInf
+
+#print axioms Milliken.GeneralTree.CompressedSourceSelection.node_covBy_iff
+#print axioms Milliken.GeneralTree.CompressedSourceSelection.node_children_finite
+#print axioms Milliken.GeneralTree.CompressedSourceSelection.node_has_child
