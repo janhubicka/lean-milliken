@@ -232,3 +232,5 @@ import Milliken.GeneralTree.NextLevelRefinementCoverage
 import Milliken.GeneralTree.HeterogeneousSomewhereDensityBackward
 
 import Milliken.GeneralTree.HeterogeneousReducedInduction
+
+import Milliken.GeneralTree.HeterogeneousRestrictedReduction

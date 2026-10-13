@@ -591,3 +591,5 @@ Milliken endpoints.
 
 #print axioms Milliken.GeneralTree.heterogeneousCumulativeProtectedFusion_root_eq
 #print axioms Milliken.GeneralTree.heterogeneousReducedHDHL_of_previous
+
+#print axioms Milliken.GeneralTree.heterogeneousHDHL_of_restrictedReduced
