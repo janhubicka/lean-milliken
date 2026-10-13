@@ -27,10 +27,15 @@ variable (T : Fin d → AmbientTree)
 theorem rank_eq_zero_iff (z : WedgeNode T) :
     rank T z = 0 ↔ z = ⊥ := by
   rcases z with _ | ⟨i, x⟩
-  · simp
-  · change rank T (embed T i x) = 0 ↔
-      (embed T i x) = (⊥ : WedgeNode T)
-    simp
+  · change (0 : ℕ) = 0 ↔ (⊥ : WedgeNode T) = ⊥
+    exact ⟨fun _ => rfl, fun _ => rfl⟩
+  · change (T i).level x + 1 = 0 ↔
+      embed T i x = (⊥ : WedgeNode T)
+    constructor
+    · intro h
+      omega
+    · intro h
+      exact (WithBot.coe_ne_bot h).elim
 
 /-- New ambient height equals one plus coordinate height, or zero
 at the added root. This is proved by induction on the actual rank
