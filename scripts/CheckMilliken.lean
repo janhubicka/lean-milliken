@@ -613,3 +613,10 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.CompressedSourceSelection.existsUnique_nodeAncestor
 #print axioms Milliken.GeneralTree.CompressedSourceSelection.node_level_finite
 #print axioms Milliken.GeneralTree.CompressedSourceSelection.node_level_nonempty
+
+#print axioms Milliken.GeneralTree.CompressedSourceSelection.nodeParent_index
+#print axioms Milliken.GeneralTree.CompressedSourceSelection.nodeParent_le
+#print axioms Milliken.GeneralTree.CompressedSourceSelection.node_le_ancestor_of_index_le
+#print axioms Milliken.GeneralTree.CompressedSourceSelection.nodeIndex_lt_of_lt
+#print axioms Milliken.GeneralTree.CompressedSourceSelection.node_le_parent_of_lt
+#print axioms Milliken.GeneralTree.CompressedSourceSelection.node_exists_parent_iterate_of_le
