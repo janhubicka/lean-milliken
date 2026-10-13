@@ -224,3 +224,5 @@ import Milliken.GeneralTree.HeterogeneousUniformFiniteFamily
 import Milliken.GeneralTree.HeterogeneousFullProductStage
 
 import Milliken.GeneralTree.HeterogeneousStabilizationInheritance
+
+import Milliken.GeneralTree.HeterogeneousCumulativeStabilization
