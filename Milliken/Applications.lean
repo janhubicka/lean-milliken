@@ -230,3 +230,5 @@ import Milliken.GeneralTree.HeterogeneousCumulativeStabilization
 import Milliken.GeneralTree.NextLevelRefinementCoverage
 
 import Milliken.GeneralTree.HeterogeneousSomewhereDensityBackward
+
+import Milliken.GeneralTree.HeterogeneousReducedInduction

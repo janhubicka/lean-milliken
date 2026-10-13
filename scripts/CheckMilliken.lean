@@ -588,3 +588,6 @@ Milliken endpoints.
 
 #print axioms Milliken.GeneralTree.heterogeneousSomewhereDense_lift_refinement
 #print axioms Milliken.GeneralTree.heterogeneousNoSomewhereDense_refinement
+
+#print axioms Milliken.GeneralTree.heterogeneousCumulativeProtectedFusion_root_eq
+#print axioms Milliken.GeneralTree.heterogeneousReducedHDHL_of_previous
