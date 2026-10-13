@@ -1,36 +1,159 @@
-import Milliken.Applications
-import Milliken.GeneralTree.UnconditionalHLAPI
+import Milliken
+import Milliken.GeneralTree.Ancestry
+import Milliken.GeneralTree.ApproximationSystem
+import Milliken.GeneralTree.BoundaryAncestor
+import Milliken.GeneralTree.BoundaryBijection
+import Milliken.GeneralTree.BoundaryCones
+import Milliken.GeneralTree.BoundaryGraftData
+import Milliken.GeneralTree.BoundaryGraftPredecessor
+import Milliken.GeneralTree.BoundaryGraftStrong
+import Milliken.GeneralTree.BoundaryGraftSuccessor
+import Milliken.GeneralTree.BoundaryIndex
+import Milliken.GeneralTree.BoundaryMilliken
+import Milliken.GeneralTree.BoundarySurjective
+import Milliken.GeneralTree.BoundaryTuple
+import Milliken.GeneralTree.BoundaryTupleHL
+import Milliken.GeneralTree.BoundaryTupleRealization
+import Milliken.GeneralTree.CanonicalPigeonhole
+import Milliken.GeneralTree.ChosenStrong
+import Milliken.GeneralTree.CodeGeometry
+import Milliken.GeneralTree.CodePoint
+import Milliken.GeneralTree.Coherence
+import Milliken.GeneralTree.CompressedSourceAmbient
+import Milliken.GeneralTree.CompressedSourceFrame
+import Milliken.GeneralTree.CompressedSourceMeet
+import Milliken.GeneralTree.CompressedSourceOrder
+import Milliken.GeneralTree.CompressedSourcePred
+import Milliken.GeneralTree.CompressedSourceRank
+import Milliken.GeneralTree.ConeStrong
+import Milliken.GeneralTree.Extensionality
+import Milliken.GeneralTree.FiniteLevels
+import Milliken.GeneralTree.FiniteOrder
 import Milliken.GeneralTree.FixedStemUnconditional
+import Milliken.GeneralTree.FrontierPartition
+import Milliken.GeneralTree.FrontierUniqueness
+import Milliken.GeneralTree.GeneralClosed
+import Milliken.GeneralTree.HeterogeneousAllConeStabilization
+import Milliken.GeneralTree.HeterogeneousAsymmetric
+import Milliken.GeneralTree.HeterogeneousAtScaleAvoid
+import Milliken.GeneralTree.HeterogeneousAvoidCover
+import Milliken.GeneralTree.HeterogeneousAvoidPropagation
+import Milliken.GeneralTree.HeterogeneousBadSectionDensity
+import Milliken.GeneralTree.HeterogeneousBadSections
+import Milliken.GeneralTree.HeterogeneousBinaryStrongHL
+import Milliken.GeneralTree.HeterogeneousBranchFusion
+import Milliken.GeneralTree.HeterogeneousCommonIndex
+import Milliken.GeneralTree.HeterogeneousCompressionTransport
+import Milliken.GeneralTree.HeterogeneousConeDensity
+import Milliken.GeneralTree.HeterogeneousCumulativeStabilization
+import Milliken.GeneralTree.HeterogeneousDensity
+import Milliken.GeneralTree.HeterogeneousFillOutside
+import Milliken.GeneralTree.HeterogeneousFinalInduction
+import Milliken.GeneralTree.HeterogeneousFiniteStabilization
+import Milliken.GeneralTree.HeterogeneousFiniteStrongHL
+import Milliken.GeneralTree.HeterogeneousFiniteWitness
+import Milliken.GeneralTree.HeterogeneousFullProductStage
+import Milliken.GeneralTree.HeterogeneousFusionWitnesses
+import Milliken.GeneralTree.HeterogeneousHDHLBase
+import Milliken.GeneralTree.HeterogeneousIdentityBridge
+import Milliken.GeneralTree.HeterogeneousLastCoordinateSelector
+import Milliken.GeneralTree.HeterogeneousLemma315Proof
+import Milliken.GeneralTree.HeterogeneousLemma316Proof
+import Milliken.GeneralTree.HeterogeneousLemma316Tower
+import Milliken.GeneralTree.HeterogeneousLevelSupport
+import Milliken.GeneralTree.HeterogeneousLocalConstancyPersistence
+import Milliken.GeneralTree.HeterogeneousLocalStabilization
+import Milliken.GeneralTree.HeterogeneousMarkedBoundaryGraft
+import Milliken.GeneralTree.HeterogeneousMinimalAvoid
+import Milliken.GeneralTree.HeterogeneousNormalizedAvoidState
+import Milliken.GeneralTree.HeterogeneousNormalizedRefinement
+import Milliken.GeneralTree.HeterogeneousObstruction
+import Milliken.GeneralTree.HeterogeneousProtectedFusionLimit
+import Milliken.GeneralTree.HeterogeneousReducedInduction
+import Milliken.GeneralTree.HeterogeneousRefinement
+import Milliken.GeneralTree.HeterogeneousRemark38
+import Milliken.GeneralTree.HeterogeneousRestrictedReduction
+import Milliken.GeneralTree.HeterogeneousRestrictedUnary
+import Milliken.GeneralTree.HeterogeneousSections
+import Milliken.GeneralTree.HeterogeneousSomewhereDense
+import Milliken.GeneralTree.HeterogeneousSomewhereDensityBackward
+import Milliken.GeneralTree.HeterogeneousSparseFiniteHL
+import Milliken.GeneralTree.HeterogeneousSparseTransport
+import Milliken.GeneralTree.HeterogeneousSparseWitness
+import Milliken.GeneralTree.HeterogeneousStabilization
+import Milliken.GeneralTree.HeterogeneousStabilizationInheritance
+import Milliken.GeneralTree.HeterogeneousStabilizationLimit
+import Milliken.GeneralTree.HeterogeneousStrongSubtreePrep
+import Milliken.GeneralTree.HeterogeneousTailNormalization
+import Milliken.GeneralTree.HeterogeneousTruncation
+import Milliken.GeneralTree.HeterogeneousUniformFiniteFamily
 import Milliken.GeneralTree.HeterogeneousUniversalMilliken
+import Milliken.GeneralTree.HeterogeneousWedgeAmbient
+import Milliken.GeneralTree.HeterogeneousWedgeComplementTransfer
+import Milliken.GeneralTree.HeterogeneousWedgeComponentCones
+import Milliken.GeneralTree.HeterogeneousWedgeCompressionTransport
+import Milliken.GeneralTree.HeterogeneousWedgeHeights
+import Milliken.GeneralTree.HeterogeneousWedgeOrder
+import Milliken.GeneralTree.HeterogeneousWedgePred
+import Milliken.GeneralTree.Identity
+import Milliken.GeneralTree.IncreasingEnumeration
+import Milliken.GeneralTree.LevelAlphabet
+import Milliken.GeneralTree.LevelPathCoding
+import Milliken.GeneralTree.LevelPathSurjective
+import Milliken.GeneralTree.LongCones
+import Milliken.GeneralTree.LowerFinite
+import Milliken.GeneralTree.MaxLevel
+import Milliken.GeneralTree.MixedCarrier
+import Milliken.GeneralTree.MixedLevels
+import Milliken.GeneralTree.MixedPredecessor
+import Milliken.GeneralTree.MixedStrong
+import Milliken.GeneralTree.MixedSuccessors
+import Milliken.GeneralTree.NextLevelRefinementCoverage
+import Milliken.GeneralTree.OrderLemmas
+import Milliken.GeneralTree.OrderRealization
+import Milliken.GeneralTree.Original1979Conditional
+import Milliken.GeneralTree.PigeonholeInterface
+import Milliken.GeneralTree.PrefixFinitization
+import Milliken.GeneralTree.ProductHL
+import Milliken.GeneralTree.ProductHLBase
+import Milliken.GeneralTree.ProtectedBoundaryBijection
+import Milliken.GeneralTree.ProtectedBoundaryLift
+import Milliken.GeneralTree.ProtectedFusionLimit
+import Milliken.GeneralTree.ProtectedIndex
+import Milliken.GeneralTree.ProtectedTail
+import Milliken.GeneralTree.Published
+import Milliken.GeneralTree.PublishedAmalgamation
+import Milliken.GeneralTree.RefinementLevels
+import Milliken.GeneralTree.SourceLevels
+import Milliken.GeneralTree.SpliceAmalgamation
+import Milliken.GeneralTree.SpliceCarrier
+import Milliken.GeneralTree.SpliceCones
+import Milliken.GeneralTree.SpliceLevels
+import Milliken.GeneralTree.StrongGraft
+import Milliken.GeneralTree.SubsequenceStrong
+import Milliken.GeneralTree.SynchronizedRefinementLevels
+import Milliken.GeneralTree.ThinningAncestry
+import Milliken.GeneralTree.ThinningApprox
+import Milliken.GeneralTree.ThinningLevels
+import Milliken.GeneralTree.ThinningPrefix
+import Milliken.GeneralTree.ThinningStrong
+import Milliken.GeneralTree.UnconditionalHLAPI
+import Milliken.GeneralTree.Vector
 
 /-!
-Transitive axiom audit for the unconditional Halpern--Läuchli bridge and
-Milliken endpoints.
+# Transitive kernel-axiom audit of all ATR-facing general-tree theorems
+
+The historical homogeneous StrongEmbedding/Hales–Jewett development has
+been retired because the only maintained client, 3-uniform ATR, uses the
+unrestricted strongly branching general-tree theorem. Every surviving
+endpoint below must remain free of sorryAx and nonstandard axioms.
 -/
 
-#print axioms Milliken.StrongTreeSpace.amalgamation_refine
-#print axioms Milliken.StrongTreeSpace.isTychonoffClosed
-#print axioms Milliken.HalpernLauchli.HalesJewettBridge.strongSubtreeHL
-#print axioms Milliken.Chapter6.milliken
-#print axioms Milliken.Chapter6.milliken_onBasicNeighborhoods
-
-#print axioms Milliken.Applications.millikenFiniteColouring
-#print axioms Milliken.Applications.millikenFixedStemFiniteColouring
-#print axioms Milliken.Applications.exists_refinement_realising
-#print axioms Milliken.Applications.milliken1979_homogeneous
-#print axioms Milliken.Applications.todorcevic62_homogeneous
-
-#print axioms Milliken.Applications.millikenFixedStem1979_homogeneous
 #print axioms Milliken.GeneralTree.StrongSubtree.sourceLevel_nonempty
 #print axioms Milliken.GeneralTree.StrongSubtree.initialPart_mono
-#print axioms Milliken.StrongTreeSpace.comparison_leFin
-#print axioms Milliken.StrongTreeSpace.comparison_not_bookLeFin
-#print axioms Milliken.StrongTreeSpace.bookLeFin_refl
-#print axioms Milliken.StrongTreeSpace.bookLeFin_of_zero
 #print axioms Milliken.GeneralTree.bookLeFin_refl
 #print axioms Milliken.GeneralTree.bookLeFin_zero_left
 #print axioms Milliken.GeneralTree.self_mem_basicNeighborhood
-
 #print axioms Milliken.GeneralTree.StrongSubtree.initialPart_succ
 #print axioms Milliken.GeneralTree.StrongSubtree.carrier_eq_iUnion_sourceLevel
 #print axioms Milliken.GeneralTree.StrongSubtree.sourceLevel_disjoint
@@ -40,12 +163,10 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.basicNeighborhood_trans
 #print axioms Milliken.GeneralTree.bookLeFin_iff
 #print axioms Milliken.GeneralTree.bookLeFin_trans
-
 #print axioms Milliken.GeneralTree.strictMono_eq_of_range_eq
 #print axioms Milliken.GeneralTree.StrongSubtree.range_levels_eq_carrier_ranks
 #print axioms Milliken.GeneralTree.StrongSubtree.ext_carrier
 #print axioms Milliken.GeneralTree.r_separated
-
 #print axioms Milliken.AmbientTree.level_mono
 #print axioms Milliken.AmbientTree.level_covBy
 #print axioms Milliken.AmbientTree.level_lt
@@ -53,7 +174,6 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.identityStrongSubtree
 #print axioms Milliken.GeneralTree.sinfinity_nonempty
 #print axioms Milliken.GeneralTree.milliken_zero
-
 #print axioms Milliken.AmbientTree.levelSet_finite
 #print axioms Milliken.AmbientTree.levelSet_nonempty
 #print axioms Milliken.GeneralTree.StrongSubtree.sourceLevel_finite
@@ -65,49 +185,37 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.FiniteApprox.carrier_finite
 #print axioms Milliken.GeneralTree.maxLevel_r_succ
 #print axioms Milliken.GeneralTree.maxLevel_r_zero
-
 #print axioms Milliken.GeneralTree.StrongVectorSubtree.refines_trans
 #print axioms Milliken.GeneralTree.StrongVectorSubtree.ext_coordinate
 #print axioms Milliken.GeneralTree.FiniteVectorApprox.ext_carriers
 #print axioms Milliken.GeneralTree.vectorApprox_surjective
 #print axioms Milliken.GeneralTree.vectorApprox_zero_eq
 #print axioms Milliken.GeneralTree.vectorApprox_separated
-#print axioms Milliken.Applications.homogeneousVectorHalpernLauchli
-
 #print axioms Milliken.GeneralTree.boundaryEquivFin_mem
 #print axioms Milliken.GeneralTree.childIndex_nonempty
-#print axioms Milliken.Applications.finiteIndexedStrongSubtreeHL
-
 #print axioms Milliken.GeneralTree.StrongSubtree.initialPart_eq_diff
 #print axioms Milliken.GeneralTree.r_prev_eq_of_succ
 #print axioms Milliken.GeneralTree.r_coherent_le
 #print axioms Milliken.GeneralTree.vectorApprox_coherent
-
 #print axioms Milliken.GeneralTree.generalApproximationSystem
 #print axioms Milliken.GeneralTree.generalNeighborhood_eq
 #print axioms Milliken.GeneralTree.identityVectorStrongSubtree
 #print axioms Milliken.GeneralTree.vectorApproximationSystem
 #print axioms Milliken.GeneralTree.vectorNeighborhood_eq
-
 #print axioms Milliken.GeneralTree.boundedApprox_finite
 #print axioms Milliken.GeneralTree.bookLeFin_fixedHeight_lowerFinite
-
 #print axioms Milliken.GeneralTree.height_le_ncard_of_subset
 #print axioms Milliken.GeneralTree.bookLeFin_lowerFinite
-
 #print axioms Milliken.GeneralTree.StrongSubtree.selectedLevel_of_refines
 #print axioms Milliken.GeneralTree.StrongSubtree.mem_initialPart_of_level_le
 #print axioms Milliken.GeneralTree.exists_bookLeFin_r_of_refines
 #print axioms Milliken.GeneralTree.refines_of_forall_bookLeFin_r
 #print axioms Milliken.GeneralTree.refines_iff_forall_bookLeFin_r
-
 #print axioms Milliken.GeneralTree.bookLeFin_prefix_compatible
 #print axioms Milliken.GeneralTree.generalBookFinitization
-
 #print axioms Milliken.GeneralTree.StrongSubtree.sourceLevel_zero_eq_singleton
 #print axioms Milliken.GeneralTree.StrongSubtree.exists_sourceLevel_ancestor
 #print axioms Milliken.GeneralTree.StrongSubtree.exists_frontier_ancestor
-
 #print axioms Milliken.GeneralTree.StrongSubtree.existsUnique_sourceLevel_ancestor
 #print axioms Milliken.GeneralTree.StrongSubtree.existsUnique_frontier_ancestor
 #print axioms Milliken.GeneralTree.maxLevel_nonempty_succ
@@ -115,7 +223,6 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.bookDepth_zero_of_empty
 #print axioms Milliken.GeneralTree.bookDepth_succ_lastLevel
 #print axioms Milliken.GeneralTree.neighborhood_nonempty_zero
-
 #print axioms Milliken.GeneralTree.StrongSubtree.spliceLevels_before
 #print axioms Milliken.GeneralTree.StrongSubtree.spliceLevels_at
 #print axioms Milliken.GeneralTree.StrongSubtree.spliceLevels_strictMono
@@ -125,7 +232,6 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.StrongSubtree.spliceCarrier_level_before
 #print axioms Milliken.GeneralTree.StrongSubtree.spliceCarrier_level_at
 #print axioms Milliken.GeneralTree.StrongSubtree.disjoint_initialPart_spliceTail
-
 #print axioms Milliken.GeneralTree.StrongSubtree.spliceLevels_ge
 #print axioms Milliken.GeneralTree.StrongSubtree.spliceTail_upward_in_T
 #print axioms Milliken.GeneralTree.StrongSubtree.spliceCarrier_level_tail
@@ -133,31 +239,26 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.StrongSubtree.spliceCarrier_root_mem
 #print axioms Milliken.GeneralTree.StrongSubtree.spliceCarrier_root_below
 #print axioms Milliken.GeneralTree.StrongSubtree.spliceCarrier_tail_level_mem_T
-
 #print axioms Milliken.GeneralTree.StrongSubtree.levels_refinementIndex
 #print axioms Milliken.GeneralTree.StrongSubtree.refinementIndex_strictMono
 #print axioms Milliken.GeneralTree.StrongSubtree.sourceLevel_subset_refinementIndex
 #print axioms Milliken.GeneralTree.StrongSubtree.refinementIndex_eq_of_sourceLevel_subset
 #print axioms Milliken.GeneralTree.StrongSubtree.le_refinementIndex
-
 #print axioms Milliken.AmbientTree.le_of_common_descendant_of_level_le
 #print axioms Milliken.GeneralTree.StrongSubtree.spliceTail_ancestor
 #print axioms Milliken.GeneralTree.StrongSubtree.splice_source_before
 #print axioms Milliken.GeneralTree.StrongSubtree.splice_source_at
 #print axioms Milliken.GeneralTree.StrongSubtree.splice_source_after
-
 #print axioms Milliken.GeneralTree.StrongSubtree.exists_sourceLevel_descendant
 #print axioms Milliken.GeneralTree.StrongSubtree.exists_sourceLevel_descendant_in_childCone
 #print axioms Milliken.GeneralTree.StrongSubtree.longConeRepresentative_spec
 #print axioms Milliken.GeneralTree.StrongSubtree.immediateChildren_eq_of_common_descendant
 #print axioms Milliken.GeneralTree.StrongSubtree.longConeRepresentative_injective
-
 #print axioms Milliken.GeneralTree.StrongSubtree.thinningLevelData
 #print axioms Milliken.GeneralTree.StrongSubtree.thinningLevel_subset_sourceLevel
 #print axioms Milliken.GeneralTree.StrongSubtree.thinningLevel_zero
 #print axioms Milliken.GeneralTree.StrongSubtree.thinningLevel_succ_iff
 #print axioms Milliken.GeneralTree.StrongSubtree.thinningCarrier_levels
-
 #print axioms Milliken.GeneralTree.StrongSubtree.thinningLevel_nonempty
 #print axioms Milliken.GeneralTree.StrongSubtree.thinningLevel_root_below
 #print axioms Milliken.GeneralTree.StrongSubtree.thinningLevel_predecessor_exists
@@ -166,31 +267,25 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.StrongSubtree.thinningCarrier_root_below
 #print axioms Milliken.GeneralTree.StrongSubtree.thinningCarrier_at_level
 #print axioms Milliken.GeneralTree.StrongSubtree.thinningCarrier_predecessor_exists
-
 #print axioms Milliken.GeneralTree.StrongSubtree.spliceCarrier_predecessor_exists
 #print axioms Milliken.GeneralTree.StrongSubtree.spliceCarrier_successor_unique
 #print axioms Milliken.GeneralTree.StrongSubtree.spliceStrong
 #print axioms Milliken.GeneralTree.StrongSubtree.spliceStrong_refines
-
 #print axioms Milliken.AmbientTree.eq_of_common_descendant_of_level_eq
 #print axioms Milliken.GeneralTree.StrongSubtree.thinningLevel_successor_unique
 #print axioms Milliken.GeneralTree.StrongSubtree.thinStrong
 #print axioms Milliken.GeneralTree.StrongSubtree.thinStrong_refines
 #print axioms Milliken.GeneralTree.StrongSubtree.thinStrong_sourceLevel
-
 #print axioms Milliken.GeneralTree.StrongSubtree.spliceStrong_sourceLevel_before
 #print axioms Milliken.GeneralTree.StrongSubtree.spliceStrong_sourceLevel_at
 #print axioms Milliken.GeneralTree.StrongSubtree.spliceStrong_initialPart
 #print axioms Milliken.GeneralTree.StrongSubtree.spliceStrong_approx_succ
 #print axioms Milliken.GeneralTree.generalAmalgamation_nonempty
-
 #print axioms Milliken.GeneralTree.selectedLastLevel_eq_of_r_succ_eq
 #print axioms Milliken.GeneralTree.refines_of_protected_tail
 #print axioms Milliken.GeneralTree.basicNeighborhood_subset_of_protected_tail
-
 #print axioms Milliken.AmbientTree.exists_child_le_of_lt
 #print axioms Milliken.AmbientTree.children_eq_of_common_descendant
-
 #print axioms Milliken.AmbientTree.upwardCones_upwards
 #print axioms Milliken.AmbientTree.upwardCones_union
 #print axioms Milliken.AmbientTree.upwardCones_disjoint_of_same_rank
@@ -198,25 +293,19 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.StrongSubtree.frontier_used_unused_union
 #print axioms Milliken.GeneralTree.StrongSubtree.carrier_mem_frontier_cones_of_level_ge
 #print axioms Milliken.GeneralTree.StrongSubtree.carrier_used_or_unused_frontier
-
 #print axioms Milliken.GeneralTree.StrongSubtree.frontier_levels_eq_of_subset
 #print axioms Milliken.GeneralTree.StrongSubtree.mixedCarrier_subset_union
 #print axioms Milliken.GeneralTree.StrongSubtree.mixedCarrier_level_before
 #print axioms Milliken.GeneralTree.StrongSubtree.mixedCarrier_level_at
 #print axioms Milliken.GeneralTree.StrongSubtree.mixedCarrier_used_sector_in_X
-
 #print axioms Milliken.GeneralTree.StrongSubtree.mixedCarrier_unused_sector_in_D
-
 #print axioms Milliken.GeneralTree.StrongSubtree.mixedCarrier_root_mem
 #print axioms Milliken.GeneralTree.StrongSubtree.mixedCarrier_root_below
 #print axioms Milliken.GeneralTree.StrongSubtree.mixedCarrier_levels
 #print axioms Milliken.GeneralTree.StrongSubtree.mixedCarrier_subset_of_common_refinement
-
 #print axioms Milliken.GeneralTree.StrongSubtree.mixedCarrier_predecessor_exists
-
 #print axioms Milliken.GeneralTree.StrongSubtree.mixedCarrier_level_le
 #print axioms Milliken.GeneralTree.StrongSubtree.mixedCarrier_successor_unique
-
 #print axioms Milliken.GeneralTree.StrongSubtree.mixedStrong
 #print axioms Milliken.GeneralTree.StrongSubtree.mixedStrong_sourceLevel_before
 #print axioms Milliken.GeneralTree.StrongSubtree.mixedStrong_sourceLevel_at
@@ -224,14 +313,11 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.StrongSubtree.mixedStrong_approx_succ
 #print axioms Milliken.GeneralTree.StrongSubtree.mixedStrong_refines_common
 #print axioms Milliken.GeneralTree.StrongSubtree.mixedStrong_used_sector_in_X
-
 #print axioms Milliken.GeneralTree.StrongSubtree.longConeRepresentative_eq_next
 #print axioms Milliken.GeneralTree.StrongSubtree.thinningLevel_full_succ
 #print axioms Milliken.GeneralTree.StrongSubtree.thinningLevel_full_prefix
-
 #print axioms Milliken.GeneralTree.StrongSubtree.thinStrong_sourceLevel_of_fixed
 #print axioms Milliken.GeneralTree.StrongSubtree.thinStrong_approx_succ_of_fixed
-
 #print axioms Milliken.GeneralTree.StrongSubtree.protectedIndex_before
 #print axioms Milliken.GeneralTree.StrongSubtree.protectedIndex_ge
 #print axioms Milliken.GeneralTree.StrongSubtree.protectedIndex_at_tail
@@ -240,39 +326,28 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.StrongSubtree.protectedIndex_zero
 #print axioms Milliken.GeneralTree.StrongSubtree.protectedIndex_levels_at_tail
 #print axioms Milliken.GeneralTree.StrongSubtree.protectedIndex_strictMono
-
 #print axioms Milliken.GeneralTree.generalAmalgamation_refine
-
 #print axioms Milliken.GeneralTree.abstractRamseySpace_of_pigeonhole
-
 #print axioms Milliken.GeneralTree.generalPigeonhole_of_canonical
-
 #print axioms Milliken.GeneralTree.StrongSubtree.coneStrong
 #print axioms Milliken.GeneralTree.StrongSubtree.coneStrong_refines
 #print axioms Milliken.GeneralTree.StrongSubtree.coneStrong_sourceLevel
-
 #print axioms Milliken.GeneralTree.boundaryCones_refines
 #print axioms Milliken.GeneralTree.boundaryCones_levels
 #print axioms Milliken.GeneralTree.boundaryCones_sourceLevel
 #print axioms Milliken.GeneralTree.boundaryCones_pairwise_disjoint
-
 #print axioms Milliken.GeneralTree.boundaryProductHL_of_generalProductHL
-
 #print axioms Milliken.GeneralTree.StrongSubtree.existsUnique_boundaryAncestor
 #print axioms Milliken.GeneralTree.StrongSubtree.boundaryAncestor_le
 #print axioms Milliken.GeneralTree.StrongSubtree.sourceLevel_subset_boundaryCones
-
 #print axioms Milliken.GeneralTree.StrongSubtree.boundaryAncestor_surjective_of_sameStem
-
 #print axioms Milliken.GeneralTree.StrongSubtree.eq_of_same_boundary_ancestor
 #print axioms Milliken.GeneralTree.StrongSubtree.boundaryAncestor_injective_of_sameStem
 #print axioms Milliken.GeneralTree.StrongSubtree.boundaryAncestor_bijective_of_sameStem
-
 #print axioms Milliken.GeneralTree.StrongSubtree.boundaryEquiv
 #print axioms Milliken.GeneralTree.StrongSubtree.boundaryTuple_mem_cone
 #print axioms Milliken.GeneralTree.StrongSubtree.boundaryTuple_range
 #print axioms Milliken.GeneralTree.StrongSubtree.approx_succ_carrier_eq_boundaryTuple
-
 #print axioms Milliken.GeneralTree.StrongSubtree.boundaryGraftLevels_strictMono
 #print axioms Milliken.GeneralTree.StrongSubtree.boundaryGraftCarrier_refines
 #print axioms Milliken.GeneralTree.StrongSubtree.boundaryGraft_level_before
@@ -283,14 +358,12 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.StrongSubtree.boundaryGraftStrong
 #print axioms Milliken.GeneralTree.StrongSubtree.boundaryGraftStrong_approx
 #print axioms Milliken.GeneralTree.StrongSubtree.boundaryGraftStrong_approx_succ_carrier
-
 #print axioms Milliken.GeneralTree.exists_boundaryTuple_realization
 #print axioms Milliken.GeneralTree.boundaryTupleApprox_carrier
 #print axioms Milliken.GeneralTree.boundaryTuple_mem_graftFactors
 #print axioms Milliken.GeneralTree.canonicalPigeonhole_of_boundaryProductHL
 #print axioms Milliken.GeneralTree.generalPigeonhole_of_generalProductHL
 #print axioms Milliken.GeneralTree.abstractRamseySpace_of_generalProductHL
-
 #print axioms Milliken.GeneralTree.codeFrontier_nonempty
 #print axioms Milliken.GeneralTree.codeFrontierNode_mem
 #print axioms Milliken.GeneralTree.codeFrontier_eq_sourceLevel
@@ -298,58 +371,46 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.codeFrontier_level
 #print axioms Milliken.GeneralTree.codeSelectedLevels_strictMono
 #print axioms Milliken.GeneralTree.codeCarrier_mem_frontier_of_level
-
 #print axioms Milliken.GeneralTree.codeFrontierNode_root_below
 #print axioms Milliken.GeneralTree.codeCarrier_predecessor_exists
 #print axioms Milliken.GeneralTree.codeCarrier_successor_unique
 #print axioms Milliken.GeneralTree.pointOfGeneralCode
 #print axioms Milliken.GeneralTree.pointOfGeneralCode_approx
-
 #print axioms Milliken.GeneralTree.generalIsMetricallyClosed
 #print axioms Milliken.GeneralTree.generalIsTychonoffClosed
 #print axioms Milliken.GeneralTree.generalMilliken_of_generalProductHL
 #print axioms Milliken.GeneralTree.generalMillikenDepth_of_generalProductHL
-
 #print axioms Milliken.GeneralTree.generalProductHL_dimZero
 #print axioms Milliken.GeneralTree.generalProductHL_oneColour
-
 #print axioms Milliken.GeneralTree.generalMilliken_of_boundaryProductHL
 #print axioms Milliken.GeneralTree.generalMillikenDepth_of_boundaryProductHL
-
 #print axioms Milliken.GeneralTree.heterogeneousLevelTuple_finite
 #print axioms Milliken.GeneralTree.heterogeneousLevelTuple_nonempty
 #print axioms Milliken.GeneralTree.HeterogeneousMatrix.fullLevel_denseAt
 #print axioms Milliken.GeneralTree.HeterogeneousMatrix.fullLevel_onLevel
 #print axioms Milliken.GeneralTree.HeterogeneousMatrix.denseAt_of_le
-
 #print axioms Milliken.GeneralTree.heterogeneousUnaryProjection_carrier_subset
 #print axioms Milliken.GeneralTree.heterogeneousUnaryProjection_dense
 #print axioms Milliken.GeneralTree.heterogeneousHDHL_one
-
 #print axioms Milliken.GeneralTree.HeterogeneousMatrix.restrictAbove_denseAbove
 #print axioms Milliken.GeneralTree.HeterogeneousMatrix.restrictAbove_carrier_subset
 #print axioms Milliken.GeneralTree.HeterogeneousMatrix.fillOutsideAbove_denseAt
 #print axioms Milliken.GeneralTree.HeterogeneousMatrix.mem_carrier_of_fillOutsideAbove_of_above
 #print axioms Milliken.GeneralTree.heterogeneousProductDenseAt_of_le
-
 #print axioms Milliken.GeneralTree.HeterogeneousMatrix.denseAbove_of_le
 #print axioms Milliken.GeneralTree.no_arbitrarilyDenseAbove_compl_of_heterogeneousHighlyDense
-
 #print axioms Milliken.GeneralTree.exists_bad_heterogeneous_levelTuple
 #print axioms Milliken.GeneralTree.heterogeneousHighlyDense_or_compl_arbitrarilyDense
 #print axioms Milliken.GeneralTree.heterogeneousAsymmetric_of_hdhl
-
 #print axioms Milliken.GeneralTree.heteroAppendLast_front_last
 #print axioms Milliken.GeneralTree.HeterogeneousMatrix.mem_snoc_carrier_appendLast
 #print axioms Milliken.GeneralTree.HeterogeneousMatrix.snoc_denseAt
 #print axioms Milliken.GeneralTree.heterogeneousSnoc_carrier_subset_compl
-
 #print axioms Milliken.GeneralTree.levelBranchBound_pos
 #print axioms Milliken.GeneralTree.childCard_le_levelBranchBound
 #print axioms Milliken.GeneralTree.exists_childAlphabetMap
 #print axioms Milliken.GeneralTree.childAlphabetMap_surjective
 #print axioms Milliken.GeneralTree.exists_label_of_child
-
 #print axioms Milliken.GeneralTree.childFromLabel_covBy
 #print axioms Milliken.GeneralTree.exists_childFromLabel
 #print axioms Milliken.GeneralTree.evalPath_append
@@ -357,13 +418,11 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.le_evalPath
 #print axioms Milliken.GeneralTree.exists_evalPath_of_le
 #print axioms Milliken.GeneralTree.evalPath_length_of_eq
-
 #print axioms Milliken.GeneralTree.HeterogeneousMatrix.coord_nonempty_of_denseAt
 #print axioms Milliken.GeneralTree.HeterogeneousMatrix.productDenseAt_carrier
 #print axioms Milliken.GeneralTree.HeterogeneousMatrix.support_ge_of_onLevel_denseAt
 #print axioms Milliken.GeneralTree.HeterogeneousMatrix.onLevel_of_carrier_subset_of_coord_nonempty
 #print axioms Milliken.GeneralTree.HeterogeneousMatrix.denseAt_of_levelDenseAt
-
 #print axioms Milliken.GeneralTree.HeterogeneousMatrix.refineOver_carrier_subset_right
 #print axioms Milliken.GeneralTree.HeterogeneousMatrix.refineOver_onLevel
 #print axioms Milliken.GeneralTree.HeterogeneousMatrix.exists_predecessor_of_mem_refineOver
@@ -371,62 +430,47 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.HeterogeneousMatrix.refineOver_denseAbove
 #print axioms Milliken.GeneralTree.HeterogeneousMatrix.refineOver_denseAbove_of_denseAt
 #print axioms Milliken.GeneralTree.HeterogeneousMatrix.refineOver_fullLevel_carrier
-
 #print axioms Milliken.GeneralTree.StrongSubtree.sourceAncestorAt_spec
 #print axioms Milliken.GeneralTree.StrongSubtree.sourceAncestorAt_eq_of_le
 #print axioms Milliken.GeneralTree.heterogeneousTruncate_le
 #print axioms Milliken.GeneralTree.heterogeneousTruncate_eq_of_le
-
 #print axioms Milliken.GeneralTree.HeterogeneousStabilized.compl
 #print axioms Milliken.GeneralTree.HeterogeneousMatrix.refineOver_preserves_section
 #print axioms Milliken.GeneralTree.HeterogeneousMatrix.refineOver_avoids_section
-
 #print axioms Milliken.GeneralTree.heterogeneousBadSectionAt_has_avoidWitness
 #print axioms Milliken.GeneralTree.heterogeneousBadSectionAt_of_le
 #print axioms Milliken.GeneralTree.heterogeneousSectionAvoidAt_of_le
 #print axioms Milliken.GeneralTree.heterogeneousSectionsGoodAt_iff
-
 #print axioms Milliken.GeneralTree.heterogeneousConeDense_restrict
 #print axioms Milliken.GeneralTree.exists_heterogeneousAvoidCover
 #print axioms Milliken.GeneralTree.exists_minimalHeterogeneousAvoidCover
-
 #print axioms Milliken.GeneralTree.heterogeneousAvoidWitnessSet_coneDense_of_minimal
 #print axioms Milliken.GeneralTree.exists_heterogeneousAvoidWitness_above_of_minimal
-
 #print axioms Milliken.GeneralTree.heterogeneousSectionAvoidAt_propagates
-
 #print axioms Milliken.GeneralTree.heterogeneousGoodComplement_not_somewhere
 #print axioms Milliken.GeneralTree.heterogeneousExists_bad_in_somewhere
 #print axioms Milliken.GeneralTree.heterogeneousMinimalAvoidCover_nonempty
-
 #print axioms Milliken.GeneralTree.heterogeneousTailNormalize_section_of_above
 #print axioms Milliken.GeneralTree.heterogeneousTailNormalize_section_of_le
 #print axioms Milliken.GeneralTree.heterogeneousStabilized_tailNormalize
 #print axioms Milliken.GeneralTree.subset_heterogeneousTailNormalize
 #print axioms Milliken.GeneralTree.heterogeneousTailNormalize_compl_subset
 #print axioms Milliken.GeneralTree.heterogeneousSectionAvoid_normalized_support_gt
-
 #print axioms Milliken.GeneralTree.heterogeneous_support_ge_of_onLevel_denseAbove
 #print axioms Milliken.GeneralTree.heterogeneousNormalizedRefinementStep
-
 #print axioms Milliken.GeneralTree.HeterogeneousMatrix.denseAt_one_somewhereDense
 #print axioms Milliken.GeneralTree.heterogeneousHighlyDense_of_no_somewhere
 #print axioms Milliken.GeneralTree.heterogeneousBinarySomewhere_of_hdhl
-
 #print axioms Milliken.GeneralTree.exists_heterogeneousNormalizedAvoidState
-
 #print axioms Milliken.GeneralTree.exists_heterogeneousAtScaleAvoidState
-
 #print axioms Milliken.GeneralTree.HeterogeneousMatrix.snoc_denseAbove
 #print axioms Milliken.GeneralTree.heterogeneousLemma315_tailNormalize
-
 #print axioms Milliken.GeneralTree.heterogeneousSectionsGoodAt_mono_input
 #print axioms Milliken.GeneralTree.exists_nextHeterogeneousLemma316TowerStep
 #print axioms Milliken.GeneralTree.heterogeneousLemma316Tower_levels_strictMono
 #print axioms Milliken.GeneralTree.heterogeneousLemma316Tower_levels_unbounded
 #print axioms Milliken.GeneralTree.heterogeneousLemma316Tower_X_antitone
 #print axioms Milliken.GeneralTree.heterogeneousLemma316Tower_good
-
 #print axioms Milliken.GeneralTree.HeterogeneousMatrix.carrier_finite
 #print axioms Milliken.GeneralTree.HeterogeneousMatrix.finiteDenseCore_coord_finite
 #print axioms Milliken.GeneralTree.HeterogeneousMatrix.finiteDenseCore_carrier_finite
@@ -437,13 +481,11 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.HeterogeneousMatrix.finiteDenseAboveCore_carrier_finite
 #print axioms Milliken.GeneralTree.HeterogeneousMatrix.finiteDenseAboveCore_denseAbove
 #print axioms Milliken.GeneralTree.HeterogeneousMatrix.finiteDenseAboveCore_subset
-
 #print axioms Milliken.GeneralTree.HeterogeneousSparseFiniteHLWitness.carrierFinite
 #print axioms Milliken.GeneralTree.HeterogeneousSparseFiniteHLWitness.cylinder_isOpen
 #print axioms Milliken.GeneralTree.exists_heterogeneousSparseFiniteHLWitness_of_hdhl
 #print axioms Milliken.GeneralTree.heterogeneousSparseFiniteHLWitness_cover
 #print axioms Milliken.GeneralTree.exists_heterogeneousSparseFiniteHLWitness_subcover
-
 #print axioms Milliken.GeneralTree.StrongSubtree.mem_sourceLevel_sourceIndex
 #print axioms Milliken.GeneralTree.HeterogeneousSparseFiniteHLWitness.sourceIndex_le_sourceBound
 #print axioms Milliken.GeneralTree.HeterogeneousMatrix.extendIntoDense_mem
@@ -452,29 +494,22 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.HeterogeneousSparseFiniteHLWitness.exists_source_of_transport
 #print axioms Milliken.GeneralTree.HeterogeneousSparseFiniteHLWitness.transport_denseAt
 #print axioms Milliken.GeneralTree.HeterogeneousSparseFiniteHLWitness.transport_sparse
-
 #print axioms Milliken.GeneralTree.heterogeneousSparseFiniteHL_of_hdhl
-
 #print axioms Milliken.GeneralTree.HeterogeneousMatrix.fillOutsideAbove_onLevel
 #print axioms Milliken.GeneralTree.HeterogeneousMatrix.fillOutsideAbove_denseAt_of_later
 #print axioms Milliken.GeneralTree.HeterogeneousMatrix.fillOutsideAbove_levelDenseAt_of_later
-
 #print axioms Milliken.GeneralTree.heterogeneousLemma316
-
 #print axioms Milliken.GeneralTree.exists_refinement_realising_general
 #print axioms Milliken.GeneralTree.milliken1979_of_boundaryProductHL
-
 #print axioms Milliken.GeneralTree.exists_heterogeneousSectionFusionStep
 #print axioms Milliken.GeneralTree.exists_heterogeneousSectionFusionState
 #print axioms Milliken.GeneralTree.heterogeneousExists_one_dense_of_stabilized
-
 #print axioms Milliken.GeneralTree.heterogeneousHighlyDenseScale_spec
 #print axioms Milliken.GeneralTree.heterogeneousRemark38Levels_strictMono
 #print axioms Milliken.GeneralTree.heterogeneousRemark38Levels_target_le_succ
 #print axioms Milliken.GeneralTree.heterogeneousRemark38Levels_scale_le_succ
 #print axioms Milliken.GeneralTree.heterogeneous_no_restricted_compl_of_highlyDense
 #print axioms Milliken.GeneralTree.heterogeneous_no_sparse_compl_of_highlyDense
-
 #print axioms Milliken.GeneralTree.StrongSubtree.LevelChoice.level_subset_sourceLevel
 #print axioms Milliken.GeneralTree.StrongSubtree.LevelChoice.level_nonempty
 #print axioms Milliken.GeneralTree.StrongSubtree.LevelChoice.level_root_below
@@ -484,12 +519,10 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.StrongSubtree.LevelChoice.toStrongSubtree_refines
 #print axioms Milliken.GeneralTree.StrongSubtree.LevelChoice.toStrongSubtree_levels
 #print axioms Milliken.GeneralTree.StrongSubtree.LevelChoice.toStrongSubtree_sourceLevel
-
 #print axioms Milliken.GeneralTree.StrongSubtree.subsequenceStrong_refines
 #print axioms Milliken.GeneralTree.StrongSubtree.subsequenceStrong_levels
 #print axioms Milliken.GeneralTree.StrongSubtree.subsequenceStrong_sourceLevel_subset
 #print axioms Milliken.GeneralTree.StrongSubtree.subsequenceStrong_root_sourceLevel
-
 #print axioms Milliken.GeneralTree.heterogeneous_exists_bad_monochromatic_scale
 #print axioms Milliken.GeneralTree.heterogeneousBadMonochromaticScale_spec
 #print axioms Milliken.GeneralTree.heterogeneousNextMonochromaticLevel_gt
@@ -498,7 +531,6 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.heterogeneousMonochromaticSparseLevels_unbounded
 #print axioms Milliken.GeneralTree.heterogeneousBadScale_lt_sparse_succ
 #print axioms Milliken.GeneralTree.heterogeneous_exists_base_levelMonochromaticAbove
-
 #print axioms Milliken.GeneralTree.exists_heterogeneousFusionWitness
 #print axioms Milliken.GeneralTree.heterogeneousChosenFusionWitness_scale
 #print axioms Milliken.GeneralTree.heterogeneousFusionWitnesses_zero_scale
@@ -516,98 +548,72 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.heterogeneousFusionTrees_refines
 #print axioms Milliken.GeneralTree.heterogeneousFusionTrees_levels
 #print axioms Milliken.GeneralTree.heterogeneousFusionTrees_monochromatic_at
-
 #print axioms Milliken.GeneralTree.synchronizedRefinement_sourceLevel
 #print axioms Milliken.GeneralTree.synchronizedRefinement_preserves_homogeneity
-
 #print axioms Milliken.GeneralTree.heterogeneousBinaryStrongHL_of_hdhl
 #print axioms Milliken.GeneralTree.heterogeneousBinarySynchronizedHL_of_hdhl
-
 #print axioms Milliken.GeneralTree.heterogeneousFiniteSynchronizedHL_of_all_hdhl
 #print axioms Milliken.GeneralTree.generalProductHL_of_all_heterogeneousHDHL
 #print axioms Milliken.GeneralTree.boundaryProductHL_of_all_heterogeneousHDHL
 #print axioms Milliken.GeneralTree.generalMilliken_of_all_heterogeneousHDHL
 #print axioms Milliken.GeneralTree.milliken1979_of_all_heterogeneousHDHL
-
 #print axioms Milliken.GeneralTree.exists_synchronizedRefinement_commonIndex
 #print axioms Milliken.GeneralTree.heterogeneousBoundaryCones_levels
 #print axioms Milliken.GeneralTree.exists_heterogeneousBoundary_commonIndex
-
 #print axioms Milliken.GeneralTree.exists_synchronizedMarkedBoundaryGraft
-
 #print axioms Milliken.GeneralTree.exists_heterogeneousLocalConeStabilization
-
 #print axioms Milliken.GeneralTree.HeterogeneousConeConstant.refinement
-
 #print axioms Milliken.GeneralTree.generalFusionApprox_stable
 #print axioms Milliken.GeneralTree.generalFusionSequence_refines
 #print axioms Milliken.GeneralTree.generalFusionCode_prefixRealizable
 #print axioms Milliken.GeneralTree.generalFusionLimit_approx
 #print axioms Milliken.GeneralTree.generalFusionLimit_sourceLevel
 #print axioms Milliken.GeneralTree.generalFusionLimit_refines
-
 #print axioms Milliken.GeneralTree.StrongSubtree.exists_sourceLevel_lift_of_refines
 #print axioms Milliken.GeneralTree.exists_heterogeneousBoundaryTuple_lift
-
 #print axioms Milliken.GeneralTree.exists_heterogeneousFiniteStabilizationStep
 #print axioms Milliken.GeneralTree.exists_heterogeneousFiniteStabilization
-
 #print axioms Milliken.GeneralTree.HeterogeneousProtectedFusion.limit_sourceLevel
 #print axioms Milliken.GeneralTree.HeterogeneousProtectedFusion.limit_approx
 #print axioms Milliken.GeneralTree.HeterogeneousProtectedFusion.limit_levels
 #print axioms Milliken.GeneralTree.HeterogeneousProtectedFusion.limitLevels_strictMono
 #print axioms Milliken.GeneralTree.HeterogeneousProtectedFusion.limit_refines
 #print axioms Milliken.GeneralTree.HeterogeneousProtectedFusion.limit_tuple_at_stage
-
 #print axioms Milliken.GeneralTree.HeterogeneousProtectedFusion.limit_sourceLevel_eq_stage
 #print axioms Milliken.GeneralTree.heterogeneousStabilized_iff_at
 #print axioms Milliken.GeneralTree.HeterogeneousProtectedFusion.limit_stabilized
-
 #print axioms Milliken.GeneralTree.exists_synchronizedLastRefinement_of_front
-
 #print axioms Milliken.GeneralTree.StrongSubtree.existsUnique_sourceLevel_lift_of_refines
 #print axioms Milliken.GeneralTree.StrongSubtree.protectedBoundaryLift_above
 #print axioms Milliken.GeneralTree.StrongSubtree.protectedBoundaryLift_injective
 #print axioms Milliken.GeneralTree.StrongSubtree.protectedBoundaryLift_surjective
 #print axioms Milliken.GeneralTree.StrongSubtree.protectedBoundaryEquiv
-
 #print axioms Milliken.GeneralTree.exists_heterogeneousUniformConeStabilization
-
 #print axioms Milliken.GeneralTree.exists_oldBoundaryTuple_of_protected
 #print axioms Milliken.GeneralTree.HeterogeneousUniformConeConstant.refinement
 #print axioms Milliken.GeneralTree.exists_heterogeneousUniformConeStabilization_finset
-
 #print axioms Milliken.GeneralTree.exists_heterogeneousStabilizedAt_stage
-
 #print axioms Milliken.GeneralTree.HeterogeneousStabilizedAt.refinement
-
 #print axioms Milliken.GeneralTree.exists_heterogeneousCumulativeStabilizationStep
 #print axioms Milliken.GeneralTree.heterogeneousCumulativeStabilizationState_succ_refines
 #print axioms Milliken.GeneralTree.heterogeneousCumulativeStabilizationState_succ_protects
 #print axioms Milliken.GeneralTree.heterogeneousCumulativeProtectedFusion_stabilized
 #print axioms Milliken.GeneralTree.exists_heterogeneousStabilizedRefinement
-
 #print axioms Milliken.GeneralTree.StrongSubtree.exists_next_sourceLevel_descendant_of_refines
-
 #print axioms Milliken.GeneralTree.heterogeneousSomewhereDense_lift_refinement
 #print axioms Milliken.GeneralTree.heterogeneousNoSomewhereDense_refinement
-
 #print axioms Milliken.GeneralTree.heterogeneousCumulativeProtectedFusion_root_eq
 #print axioms Milliken.GeneralTree.heterogeneousReducedHDHL_of_previous
-
 #print axioms Milliken.GeneralTree.heterogeneousHDHL_of_restrictedReduced
-
 #print axioms Milliken.GeneralTree.heterogeneousFullCarrier_denseAt
 #print axioms Milliken.GeneralTree.heterogeneousProductDense_of_noRestrictedComplement
 #print axioms Milliken.GeneralTree.heterogeneousRestrictedReduced_one
-
 #print axioms Milliken.GeneralTree.CompressedSourceSelection.child_nonempty
 #print axioms Milliken.GeneralTree.CompressedSourceSelection.truncate_below
 #print axioms Milliken.GeneralTree.CompressedSourceSelection.truncate_eq_of_le
 #print axioms Milliken.GeneralTree.CompressedSourceSelection.exists_child_below
 #print axioms Milliken.GeneralTree.CompressedSourceSelection.root_below
 #print axioms Milliken.GeneralTree.CompressedSourceSelection.nodeAt_carrier_eq
-
 #print axioms Milliken.GeneralTree.CompressedSourceSelection.nodeValue_injective
 #print axioms Milliken.GeneralTree.CompressedSourceSelection.nodeIndex_mono
 #print axioms Milliken.GeneralTree.CompressedSourceSelection.node_eq_of_le_index_eq
@@ -616,31 +622,25 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.CompressedSourceSelection.existsUnique_nodeAncestor
 #print axioms Milliken.GeneralTree.CompressedSourceSelection.node_level_finite
 #print axioms Milliken.GeneralTree.CompressedSourceSelection.node_level_nonempty
-
 #print axioms Milliken.GeneralTree.CompressedSourceSelection.nodeParent_index
 #print axioms Milliken.GeneralTree.CompressedSourceSelection.nodeParent_le
 #print axioms Milliken.GeneralTree.CompressedSourceSelection.node_le_ancestor_of_index_le
 #print axioms Milliken.GeneralTree.CompressedSourceSelection.nodeIndex_lt_of_lt
 #print axioms Milliken.GeneralTree.CompressedSourceSelection.node_le_parent_of_lt
 #print axioms Milliken.GeneralTree.CompressedSourceSelection.node_exists_parent_iterate_of_le
-
 #print axioms Milliken.GeneralTree.CompressedSourceSelection.node_eq_bot_of_index_zero
 #print axioms Milliken.GeneralTree.CompressedSourceSelection.commonRank_zero
 #print axioms Milliken.GeneralTree.CompressedSourceSelection.commonIndex_spec
 #print axioms Milliken.GeneralTree.CompressedSourceSelection.compressedInf_le_left
 #print axioms Milliken.GeneralTree.CompressedSourceSelection.compressedInf_le_right
 #print axioms Milliken.GeneralTree.CompressedSourceSelection.le_compressedInf
-
 #print axioms Milliken.GeneralTree.CompressedSourceSelection.node_covBy_iff
 #print axioms Milliken.GeneralTree.CompressedSourceSelection.node_children_finite
 #print axioms Milliken.GeneralTree.CompressedSourceSelection.node_has_child
-
 #print axioms Milliken.GeneralTree.CompressedSourceSelection.compressedAmbient_level_eq_index
 #print axioms Milliken.GeneralTree.CompressedSourceSelection.compressedAmbient_levelSet_eq
 #print axioms Milliken.GeneralTree.CompressedSourceSelection.compressedAmbient_level_finite
 #print axioms Milliken.GeneralTree.CompressedSourceSelection.compressedAmbient_level_nonempty
-
-/-! Final arbitrary-ambient HDHL/Milliken transitive axiom audit. -/
 #print axioms Milliken.GeneralTree.HeterogeneousCompressionWedge.tag_mem_sourceLevel
 #print axioms Milliken.GeneralTree.HeterogeneousCompressionWedge.decodeMatrix_original_denseAt
 #print axioms Milliken.GeneralTree.HeterogeneousCompressionWedge.no_wedge_complement_somewhereDense
@@ -649,11 +649,12 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.heterogeneousHDHL_unconditional
 #print axioms Milliken.GeneralTree.generalMilliken_unconditional
 #print axioms Milliken.GeneralTree.milliken1979_general_unconditional
-
 #print axioms Milliken.GeneralTree.millikenFixedStemFiniteColouring_general
 #print axioms Milliken.GeneralTree.millikenFixedStemMonochromatic_general
-
 #print axioms Milliken.GeneralTree.generalProductHL_unconditional
 #print axioms Milliken.GeneralTree.boundaryProductHL_unconditional
 #print axioms Milliken.GeneralTree.generalPigeonhole_unconditional
 #print axioms Milliken.GeneralTree.generalAbstractRamseySpace_unconditional
+
+#print axioms Milliken.GeneralTree.increasingEnumeration_mem
+#print axioms Milliken.GeneralTree.increasingEnumeration_strictMono
