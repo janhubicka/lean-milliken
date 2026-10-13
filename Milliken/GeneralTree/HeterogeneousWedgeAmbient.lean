@@ -81,14 +81,13 @@ theorem rank_level_finite (n : ℕ) :
         ⋃ i : Fin d, (embed T i) '' (T i).levelSet n
       have hC : C.Finite := by
         dsimp [C]
-        exact Set.Finite.iUnion
+        exact Set.finite_iUnion
           (fun i => ((T i).levelSet_finite n).image (embed T i))
       apply hC.subset
       intro z hz
       rcases z with _ | ⟨i, x⟩
-      · have hzero : rank T (⊥ : WedgeNode T) = 0 :=
-          rank_bot T
-        simp only [hzero] at hz
+      · change rank T (⊥ : WedgeNode T) = n + 1 at hz
+        rw [rank_bot] at hz
         omega
       · have hx : (T i).level x = n := by
           change rank T (embed T i x) = n + 1 at hz
@@ -121,7 +120,10 @@ theorem has_child (hd : 0 < d) (x : WedgeNode T) :
     have hc : Order.pred (embed T i (⊥ : T i)) ⋖
         embed T i (⊥ : T i) :=
       Order.pred_covBy_of_not_isMin hmin
-    simpa only [parent_embed_root] using hc
+    change parent T (embed T i (⊥ : T i)) ⋖
+      embed T i (⊥ : T i) at hc
+    rw [parent_embed_root] at hc
+    exact hc
   · change ∃ y : WedgeNode T, embed T i x ⋖ y
     obtain ⟨y, hxy⟩ := (T i).has_child x
     have hyne : y ≠ (⊥ : T i) := by
@@ -139,7 +141,9 @@ theorem has_child (hd : 0 < d) (x : WedgeNode T) :
     have hcov : Order.pred (embed T i y) ⋖ embed T i y :=
       Order.pred_covBy_of_not_isMin hmin
     refine ⟨embed T i y, ?_⟩
-    simpa only [hparent] using hcov
+    change parent T (embed T i y) ⋖ embed T i y at hcov
+    rw [hparent] at hcov
+    exact hcov
 
 /-- The finite forest with a shared root is a real AmbientTree.
 Only positivity of the number of components is required. -/
