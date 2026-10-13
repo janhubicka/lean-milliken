@@ -81,23 +81,25 @@ noncomputable instance semilatticeInf : SemilatticeInf (WedgeNode T) where
     · exact bot_le
     rcases b with _ | ⟨j, y⟩
     · exact bot_le
+    change meet T (embed T i x) (embed T j y) ≤ embed T i x
     by_cases hij : i = j
     · subst j
-      simpa [meet, embed] using
-        (inf_le_left : x ⊓ y ≤ x)
-    · simp [meet, Ne.symm hij]
+      rw [meet_embed_same]
+      exact (embed_le_embed_iff T i (x ⊓ y) x).mpr inf_le_left
+    · rw [meet_embed_diff T hij]
+      exact bot_le
   inf_le_right := by
     intro a b
     rcases a with _ | ⟨i, x⟩
     · exact bot_le
     rcases b with _ | ⟨j, y⟩
     · exact bot_le
+    change meet T (embed T i x) (embed T j y) ≤ embed T j y
     by_cases hij : i = j
     · subst j
-      simpa [meet, embed] using
-        (inf_le_right : x ⊓ y ≤ y)
-    · have hji : j ≠ i := Ne.symm hij
-      rw [meet_embed_diff T hji]
+      rw [meet_embed_same]
+      exact (embed_le_embed_iff T i (x ⊓ y) y).mpr inf_le_right
+    · rw [meet_embed_diff T hij]
       exact bot_le
   le_inf := by
     intro z a b hza hzb
@@ -113,12 +115,13 @@ noncomputable instance semilatticeInf : SemilatticeInf (WedgeNode T) where
       (Sigma.le_def.mp (WithBot.coe_le_coe.mp hzb)).1
     subst j
     subst k
-    have hzx : z ≤ x := by
-      simpa [embed] using hza
-    have hzy : z ≤ y := by
-      simpa [embed] using hzb
-    have hmin : z ≤ x ⊓ y := le_inf hzx hzy
-    simpa [meet, embed] using hmin
+    change embed T i z ≤ embed T i x at hza
+    change embed T i z ≤ embed T i y at hzb
+    change embed T i z ≤ meet T (embed T i x) (embed T i y)
+    rw [meet_embed_same]
+    exact (embed_le_embed_iff T i z (x ⊓ y)).mpr
+      (le_inf ((embed_le_embed_iff T i z x).mp hza)
+        ((embed_le_embed_iff T i z y).mp hzb))
 
 end WedgeNode
 end GeneralTree
