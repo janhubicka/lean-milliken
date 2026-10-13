@@ -61,9 +61,11 @@ theorem decodeMatrix_somewhereDense
       (WedgeNode.mem_componentStrong_sourceLevel_iff
         (factors P f) hd i p (b.1 i)).mp hbi'
     have hzRank : z.fst = p := by
-      change (compressedAmbientTree (P i) f).level z = p at hzlev
-      rw [compressedAmbient_level_eq_index] at hzlev
-      exact hzlev
+      have hRank :
+          (compressedAmbientTree (P i) f).level z = z.fst :=
+        CompressedSourceSelection.compressedAmbient_level_eq_index
+          (P i) f z
+      exact hRank.symm.trans hzlev
     exact ⟨z, hzRank, hzTag⟩
   let beta : (i : Fin d) → CompressedSourceSelection.Node (P i) f :=
     fun i => Classical.choose (hex i)
