@@ -226,3 +226,5 @@ import Milliken.GeneralTree.HeterogeneousFullProductStage
 import Milliken.GeneralTree.HeterogeneousStabilizationInheritance
 
 import Milliken.GeneralTree.HeterogeneousCumulativeStabilization
+
+import Milliken.GeneralTree.NextLevelRefinementCoverage
