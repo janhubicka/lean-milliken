@@ -234,3 +234,5 @@ import Milliken.GeneralTree.HeterogeneousSomewhereDensityBackward
 import Milliken.GeneralTree.HeterogeneousReducedInduction
 
 import Milliken.GeneralTree.HeterogeneousRestrictedReduction
+
+import Milliken.GeneralTree.HeterogeneousRestrictedUnary
