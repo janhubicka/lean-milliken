@@ -246,3 +246,5 @@ import Milliken.GeneralTree.CompressedSourcePred
 import Milliken.GeneralTree.CompressedSourceMeet
 
 import Milliken.GeneralTree.CompressedSourceAmbient
+
+import Milliken.GeneralTree.CompressedSourceRank
