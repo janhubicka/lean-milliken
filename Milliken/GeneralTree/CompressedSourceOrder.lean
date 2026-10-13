@@ -29,8 +29,16 @@ namespace CompressedSourceSelection
 
 variable (S : StrongSubtree U) (f : CompressedSourceSelection)
 
-/-- An indexed node of the full compression. -/
-abbrev Node := Σ n : ℕ, NodeAt S f n
+/-- An indexed node of the full compression.
+
+This is deliberately a new structure, not a Sigma abbreviation:
+Mathlib equips Sigma types with a disjoint-fibre order, which
+does not compare nodes at distinct compressed source indices.
+A new structure allows us to install the actual ancestry order
+without conflicting order instances. -/
+structure Node where
+  fst : ℕ
+  snd : NodeAt S f fst
 
 /-- Recover its original ambient node. -/
 def nodeValue (x : Node S f) : U := x.2.1
@@ -62,8 +70,7 @@ instance nodePartialOrder : PartialOrder (Node S f) :=
   PartialOrder.lift (nodeValue S f) (nodeValue_injective S f)
 
 theorem node_le_iff (a b : Node S f) :
-    a ≤ b ↔ nodeValue S f a ≤ nodeValue S f b := by
-  simp only [nodePartialOrder, PartialOrder.lift, nodeValue]
+    a ≤ b ↔ nodeValue S f a ≤ nodeValue S f b := Iff.rfl
 
 /-- The original source-zero root is the unique compressed root. -/
 def nodeRoot : Node S f := ⟨0, root S f⟩
