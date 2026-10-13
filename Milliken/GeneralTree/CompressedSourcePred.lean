@@ -97,10 +97,12 @@ theorem node_le_parent_of_lt
   cases n with
   | zero =>
       have hr := nodeIndex_lt_of_lt S f hxz
+      change x.1 < 0 at hr
       omega
   | succ n =>
       have hr : x.1 ≤ n := by
         have hh := nodeIndex_lt_of_lt S f hxz
+        change x.1 < n + 1 at hh
         omega
       exact node_le_ancestor_of_index_le S f
         (⟨n + 1, y⟩ : Node S f) x hxz.le
@@ -116,7 +118,7 @@ noncomputable instance nodePredOrder : PredOrder (Node S f) where
     by_cases hzero : x.1 = 0
     · have hbot : x = (⊥ : Node S f) := by
         have hle : (⊥ : Node S f) ≤ x := bot_le
-        apply node_eq_of_le_index_eq S f hle
+        apply (node_eq_of_le_index_eq S f hle _).symm
         simpa [nodeIndex_bot S f] using hzero.symm
       subst x
       exact isMin_bot
@@ -163,7 +165,7 @@ theorem node_exists_parent_iterate_of_le
           obtain ⟨k, hk⟩ :=
             ih (nodeParent S f z) hpindex x hxp
           refine ⟨k + 1, ?_⟩
-          rw [Function.iterate_succ_apply']
+          rw [Function.iterate_succ_apply]
           exact hk
   exact aux z.1 z rfl x hxz
 
