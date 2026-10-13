@@ -75,3 +75,5 @@ import Milliken.HalpernLauchli.FiniteHLFromHDHL
 import Milliken.MillikenTheorem
 
 import Milliken.Applications
+
+import Milliken.GeneralTree.HeterogeneousIdentityBridge
