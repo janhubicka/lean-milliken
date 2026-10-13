@@ -62,7 +62,8 @@ instance nodePartialOrder : PartialOrder (Node S f) :=
   PartialOrder.lift (nodeValue S f) (nodeValue_injective S f)
 
 theorem node_le_iff (a b : Node S f) :
-    a ≤ b ↔ nodeValue S f a ≤ nodeValue S f b := Iff.rfl
+    a ≤ b ↔ nodeValue S f a ≤ nodeValue S f b := by
+  simp only [nodePartialOrder, PartialOrder.lift, nodeValue]
 
 /-- The original source-zero root is the unique compressed root. -/
 def nodeRoot : Node S f := ⟨0, root S f⟩
@@ -71,6 +72,7 @@ instance nodeOrderBot : OrderBot (Node S f) where
   bot := nodeRoot S f
   bot_le := by
     intro x
+    apply (node_le_iff S f _ _).mpr
     exact root_below S f x.1 x.2
 
 @[simp] theorem nodeValue_bot :
