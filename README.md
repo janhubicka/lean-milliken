@@ -19,8 +19,22 @@ The selected-level geometry with increasing branching and the application
 API were merged in [PR #3](https://github.com/janhubicka/lean-milliken/pull/3)
 and [PR #4](https://github.com/janhubicka/lean-milliken/pull/4).
 Both their branches and the combined main revision passed Lean CI.
-The full selected-level induction and arbitrary node-dependent branching
-transfer remain open.
+**Updated 13 October 2026.** The full selected-source-level compressed
+tree (unique ancestors, predecessor, meet, fresh locally finite
+`AmbientTree`, and exact new height) is now Lean-checked and merged in
+[PRs #123–#127](https://github.com/janhubicka/lean-milliken/pulls?q=is%3Apr+is%3Amerged+123+124+125+126+127).
+The identity selected-level obstruction comparison and the
+compressed-product density/obstruction transport are likewise checked
+in [#128](https://github.com/janhubicka/lean-milliken/pull/128) and
+[#129](https://github.com/janhubicka/lean-milliken/pull/129).
+
+**The unconditional heterogeneous Milliken theorem is still open.**
+The remaining essential glue is to put the different full compressed
+coordinate trees inside **one common forest-with-root ambient tree**,
+construct the corresponding synchronized strong subtrees, transport
+matrices through that realization, and run the universal induction on
+dimension. See the [precise proof reduction and adversarial checklist](docs/HETEROGENEOUS_COMPRESSION_REDUCTION.md). The existing conditional
+theorem endpoints become unconditional once this induction is proved.
 
 ## Quick start
 
