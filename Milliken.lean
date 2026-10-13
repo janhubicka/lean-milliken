@@ -83,3 +83,5 @@ import Milliken.GeneralTree.HeterogeneousCompressionTransport
 import Milliken.GeneralTree.HeterogeneousWedgeOrder
 
 import Milliken.GeneralTree.HeterogeneousWedgePred
+
+import Milliken.GeneralTree.HeterogeneousWedgeAmbient
