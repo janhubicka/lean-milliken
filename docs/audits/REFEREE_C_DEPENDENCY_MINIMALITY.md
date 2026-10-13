@@ -67,6 +67,23 @@ amalgamation, stabilization, compressed-source ancestor lemmas, or
 the wedge geometry. They contribute necessary proof obligations or
 serve as published-source application interfaces.
 
+## Refactoring outcome (verified by graph analysis; Lean CI follows)
+
+A recursive import-graph analysis found that:
+- `Milliken.lean` had **87 direct imports**, of which **78** were
+  transitively available from other direct imports.
+- `Milliken/Applications.lean` had **131 direct imports**, of which
+  **121** were similarly redundant.
+
+All **199 unnecessary direct import statements** were removed,
+leaving **9** and **10** direct imports respectively. This preserves
+the transitive public import closure by construction: an import was
+deleted only when another retained import transitively reaches it.
+
+This is a source/API cleanup, not deletion of the underlying theorem
+files or their proofs. Removing the homogeneous implementation itself
+still requires the representation bridge detailed above.
+
 ## Criterion for deleting old files
 
 A proposed deletion must satisfy: (i) replacement of the old
