@@ -91,3 +91,5 @@ import Milliken.GeneralTree.HeterogeneousWedgeHeights
 import Milliken.GeneralTree.HeterogeneousWedgeComponentCones
 
 import Milliken.GeneralTree.HeterogeneousWedgeCompressionTransport
+
+import Milliken.GeneralTree.HeterogeneousWedgeComplementTransfer
