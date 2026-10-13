@@ -50,7 +50,9 @@ noncomputable def componentStrong (i : Fin d) :
 /-- Every component uses exactly the same selected ambient heights. -/
 theorem componentStrong_levels (i : Fin d) :
     (componentStrong T hd i).levels = (fun n : ℕ => n + 1) := by
-  rfl
+  funext n
+  change 1 + n = n + 1
+  omega
 
 /-- Each component is rooted at its original tagged root. -/
 @[simp] theorem componentStrong_root (i : Fin d) :
@@ -103,8 +105,9 @@ theorem mem_componentStrong_sourceLevel_iff
     refine ⟨x, ?_, hx⟩
     have hlev :
         (ambientTree T hd).level z = n + 1 := by
-      rw [← componentStrong_levels T hd i]
-      exact hz.2
+      have hl := hz.2
+      rw [componentStrong_levels T hd i] at hl
+      exact hl
     rw [← hx, ambient_level_embed T hd i x] at hlev
     omega
   · rintro ⟨x, hlev, rfl⟩
