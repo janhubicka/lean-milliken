@@ -597,3 +597,10 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.heterogeneousFullCarrier_denseAt
 #print axioms Milliken.GeneralTree.heterogeneousProductDense_of_noRestrictedComplement
 #print axioms Milliken.GeneralTree.heterogeneousRestrictedReduced_one
+
+#print axioms Milliken.GeneralTree.CompressedSourceSelection.child_nonempty
+#print axioms Milliken.GeneralTree.CompressedSourceSelection.truncate_below
+#print axioms Milliken.GeneralTree.CompressedSourceSelection.truncate_eq_of_le
+#print axioms Milliken.GeneralTree.CompressedSourceSelection.exists_child_below
+#print axioms Milliken.GeneralTree.CompressedSourceSelection.root_below
+#print axioms Milliken.GeneralTree.CompressedSourceSelection.nodeAt_carrier_eq
