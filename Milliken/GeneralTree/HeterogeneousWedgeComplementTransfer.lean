@@ -49,7 +49,7 @@ theorem decodeMatrix_somewhereDense
     heterogeneousSomewhereDense_to_restricted_id
       (strong P f hd) hd N hN
   have hex (i : Fin d) :
-      ∃ z : Node (P i) f,
+      ∃ z : CompressedSourceSelection.Node (P i) f,
         z.fst = p ∧ tag P f hd i z = b.1 i := by
     have hbi : b.1 i ∈ (strong P f hd i).sourceLevel p :=
       b.2 i
@@ -65,7 +65,7 @@ theorem decodeMatrix_somewhereDense
       rw [compressedAmbient_level_eq_index] at hzlev
       exact hzlev
     exact ⟨z, hzRank, hzTag⟩
-  let beta : (i : Fin d) → Node (P i) f :=
+  let beta : (i : Fin d) → CompressedSourceSelection.Node (P i) f :=
     fun i => Classical.choose (hex i)
   have hbetaRank (i : Fin d) :
       (beta i).fst = p :=
