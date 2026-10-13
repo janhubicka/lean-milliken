@@ -228,3 +228,5 @@ import Milliken.GeneralTree.HeterogeneousStabilizationInheritance
 import Milliken.GeneralTree.HeterogeneousCumulativeStabilization
 
 import Milliken.GeneralTree.NextLevelRefinementCoverage
+
+import Milliken.GeneralTree.HeterogeneousSomewhereDensityBackward

@@ -585,3 +585,6 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.exists_heterogeneousStabilizedRefinement
 
 #print axioms Milliken.GeneralTree.StrongSubtree.exists_next_sourceLevel_descendant_of_refines
+
+#print axioms Milliken.GeneralTree.heterogeneousSomewhereDense_lift_refinement
+#print axioms Milliken.GeneralTree.heterogeneousNoSomewhereDense_refinement
