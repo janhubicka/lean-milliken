@@ -57,24 +57,27 @@ noncomputable instance predOrder : PredOrder (WedgeNode T) where
     intro z
     rcases z with _ | ⟨i, x⟩
     · exact le_rfl
+    change parent T (embed T i x) ≤ embed T i x
     by_cases hx : x = ⊥
     · subst x
       rw [parent_embed_root]
       exact bot_le
-    · simpa only [parent_embed_nonroot T i x hx,
-        embed_le_embed_iff] using (Order.pred_le x)
+    · rw [parent_embed_nonroot T i x hx]
+      exact (embed_le_embed_iff T i (Order.pred x) x).mpr
+        (Order.pred_le x)
   min_of_le_pred := by
     intro z hz
     rcases z with _ | ⟨i, x⟩
     · exact isMin_bot
+    change embed T i x ≤ parent T (embed T i x) at hz
     by_cases hx : x = ⊥
     · subst x
       rw [parent_embed_root] at hz
       exact False.elim (WithBot.not_coe_le_bot _ hz)
-    · have hxe : x ≤ Order.pred x := by
-        simpa only [parent_embed_nonroot T i x hx,
-          embed_le_embed_iff] using hz
-      have hmin : IsMin x := min_of_le_pred hxe
+    · rw [parent_embed_nonroot T i x hx] at hz
+      have hxe : x ≤ Order.pred x :=
+        (embed_le_embed_iff T i x (Order.pred x)).mp hz
+      have hmin : IsMin x := Order.min_of_le_pred hxe
       exact False.elim ((not_isMin_iff_ne_bot).mpr hx hmin)
   le_pred_of_lt := by
     intro z w hzw
@@ -82,19 +85,27 @@ noncomputable instance predOrder : PredOrder (WedgeNode T) where
     · exact bot_le
     rcases w with _ | ⟨j, y⟩
     · exact False.elim ((not_lt_of_ge bot_le) hzw)
-    have hsig :
-        (⟨i, x⟩ : Σ i : Fin d, T i) <
-          (⟨j, y⟩ : Σ i : Fin d, T i) :=
-      WithBot.coe_lt_coe.mp hzw
-    have hij : i = j := (Sigma.lt_def.mp hsig).1
+    change embed T i x < embed T j y at hzw
+    have hij : i = j :=
+      (Sigma.le_def.mp
+        (WithBot.coe_le_coe.mp hzw.le)).1
     subst j
-    have hxy : x < y := Sigma.mk_lt_mk_iff.mp hsig
+    have hxy : x < y := by
+      have hle : x ≤ y :=
+        (embed_le_embed_iff T i x y).mp hzw.le
+      have hne : x ≠ y := by
+        intro heq
+        apply hzw.ne
+        rw [heq]
+      exact lt_of_le_of_ne hle hne
     have hyne : y ≠ (⊥ : T i) := by
       intro heq
       subst y
       exact (not_lt_of_ge bot_le) hxy
-    simpa only [parent_embed_nonroot T i y hyne,
-      embed_le_embed_iff] using (Order.le_pred_of_lt hxy)
+    change embed T i x ≤ parent T (embed T i y)
+    rw [parent_embed_nonroot T i y hyne]
+    exact (embed_le_embed_iff T i x (Order.pred y)).mpr
+      (Order.le_pred_of_lt hxy)
 
 /-- Rank above the new common root; component height is shifted
 by one, ensuring all component roots have rank one. -/
@@ -119,25 +130,35 @@ theorem rank_lt_of_lt {a b : WedgeNode T}
   rcases a with _ | ⟨i, x⟩
   · rcases b with _ | ⟨j, y⟩
     · exact False.elim ((lt_irrefl _) hab)
-    · simp [rank, embed]
+    · change (0 : ℕ) < (T j).level y + 1
+      omega
   · rcases b with _ | ⟨j, y⟩
     · exact False.elim ((not_lt_of_ge bot_le) hab)
-    · have hsig :
-          (⟨i, x⟩ : Σ i : Fin d, T i) <
-            (⟨j, y⟩ : Σ i : Fin d, T i) :=
-        WithBot.coe_lt_coe.mp hab
-      have hij : i = j := (Sigma.lt_def.mp hsig).1
+    · have hs : embed T i x < embed T j y := by
+        change embed T i x < embed T j y at hab
+        exact hab
+      have hij : i = j :=
+        (Sigma.le_def.mp
+          (WithBot.coe_le_coe.mp hs.le)).1
       subst j
-      have hxy : x < y := Sigma.mk_lt_mk_iff.mp hsig
+      have hxy : x < y := by
+        have hle : x ≤ y :=
+          (embed_le_embed_iff T i x y).mp hs.le
+        have hne : x ≠ y := by
+          intro heq
+          apply hs.ne
+          rw [heq]
+        exact lt_of_le_of_ne hle hne
       have hlev : (T i).level x < (T i).level y :=
         (T i).level_lt hxy
-      exact Nat.add_lt_add_right hlev 1
+      change (T i).level x + 1 < (T i).level y + 1
+      omega
 
 /-- All strictly descending chains in a wedge are finite, since
 their natural-valued ranks decrease strictly. -/
 noncomputable instance wellFoundedLT : WellFoundedLT (WedgeNode T) :=
   Subrelation.wf
-    (fun _ _ h => rank_lt_of_lt T h)
+    (fun h => rank_lt_of_lt T h)
     (measure (rank T)).2
 
 /-- The generic well-founded predecessor theorem supplies
