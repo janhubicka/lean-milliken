@@ -68,7 +68,8 @@ for root in ["Milliken", "Milliken.Applications"]:
     redundant = sorted({x for x in direct
                         if any(x in reach(other) for other in direct if other != x)})
     print(f"{root}: {len(direct)} direct imports, {len(redundant)} transitively redundant")
-    print("  redundant: " + ", ".join(redundant))
+    if redundant:
+        raise SystemExit(f"FAIL: {root} has redundant imports: " + ", ".join(redundant))
 
 print(f"PASS: {general} uses {len(closure)} local modules but does not import "
-      "the homogeneous Milliken/Hales--Jewett proof")
+      "the homogeneous Milliken/Hales--Jewett proof; umbrellas are transitively minimal")
