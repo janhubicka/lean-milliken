@@ -95,3 +95,5 @@ import Milliken.GeneralTree.HeterogeneousWedgeCompressionTransport
 import Milliken.GeneralTree.HeterogeneousWedgeComplementTransfer
 
 import Milliken.GeneralTree.HeterogeneousUniversalMilliken
+
+import Milliken.GeneralTree.FixedStemUnconditional
