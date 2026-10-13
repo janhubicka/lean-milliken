@@ -76,3 +76,10 @@ must_exclude = {
 }
 if must_exclude & needed:
     raise SystemExit("FAIL: legacy homogeneous proof remains a general-tree dependency")
+
+# After pruning the library must contain no historical fixed-alphabet
+# proof modules. This prevents accidental reintroduction via imports.
+if legacy:
+    raise SystemExit(f"FAIL: {len(legacy)} obsolete homogeneous modules remain")
+if retain_legacy:
+    raise SystemExit("FAIL: obsolete homogeneous proof imported by GeneralTree")
