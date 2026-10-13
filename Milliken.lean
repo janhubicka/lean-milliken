@@ -85,3 +85,5 @@ import Milliken.GeneralTree.HeterogeneousWedgeOrder
 import Milliken.GeneralTree.HeterogeneousWedgePred
 
 import Milliken.GeneralTree.HeterogeneousWedgeAmbient
+
+import Milliken.GeneralTree.HeterogeneousWedgeHeights
