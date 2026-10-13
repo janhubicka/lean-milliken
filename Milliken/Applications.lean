@@ -240,3 +240,5 @@ import Milliken.GeneralTree.HeterogeneousRestrictedUnary
 import Milliken.GeneralTree.CompressedSourceFrame
 
 import Milliken.GeneralTree.CompressedSourceOrder
+
+import Milliken.GeneralTree.CompressedSourcePred
