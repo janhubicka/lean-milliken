@@ -242,3 +242,5 @@ import Milliken.GeneralTree.CompressedSourceFrame
 import Milliken.GeneralTree.CompressedSourceOrder
 
 import Milliken.GeneralTree.CompressedSourcePred
+
+import Milliken.GeneralTree.CompressedSourceMeet
