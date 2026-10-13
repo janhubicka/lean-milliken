@@ -577,3 +577,9 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.exists_heterogeneousStabilizedAt_stage
 
 #print axioms Milliken.GeneralTree.HeterogeneousStabilizedAt.refinement
+
+#print axioms Milliken.GeneralTree.exists_heterogeneousCumulativeStabilizationStep
+#print axioms Milliken.GeneralTree.heterogeneousCumulativeStabilizationState_succ_refines
+#print axioms Milliken.GeneralTree.heterogeneousCumulativeStabilizationState_succ_protects
+#print axioms Milliken.GeneralTree.heterogeneousCumulativeProtectedFusion_stabilized
+#print axioms Milliken.GeneralTree.exists_heterogeneousStabilizedRefinement
