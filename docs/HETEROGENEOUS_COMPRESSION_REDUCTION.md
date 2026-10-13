@@ -1,12 +1,41 @@
 # Final heterogeneous Milliken reduction: complete proof interface
 
-Status (13 October 2026): **Mathematical reduction identified; the last
-wedge/forest realization and global dimension induction are not yet Lean
-theorems.** This note must not be cited as a completed formalization.
+Status (13 October 2026): **All steps of the reduction are now
+Lean-checked and merged.** The universal HDHL theorem and unrestricted
+general-tree topological/1979 finite-colour Milliken endpoints are
+in `Milliken/GeneralTree/HeterogeneousUniversalMilliken.lean`.
+PRs #131–#138 build the wedge, prove transport of both density and
+complementary obstructions, and close the dimension induction.
+The final proof's `#print axioms` report is part of the 517-endpoint
+CI audit and contains only standard Lean axioms.
+
+The stronger *synchronized-vector finite-strong-subtree colouring*
+property used by certain applications remains a distinct open theorem.
+The body below records the mathematical proof plan that was formally
+realised, with references to the verified declarations.
 
 The arbitrary pruned locally finitely branching case does **not** assume
 a uniform degree bound. Different factor trees may have different
 roots, degree sequences and level maps.
+
+
+## Verified declaration map
+
+| Proof stage | Checked Lean declaration |
+| --- | --- |
+| Full compressed ambient levels | `CompressedSourceSelection.compressedAmbient_level_eq_index` |
+| Common-root heterogeneous wedge | `WedgeNode.ambientTree` |
+| Shifted wedge ambient heights | `WedgeNode.ambient_level_embed` |
+| Synchronized true strong subtrees | `WedgeNode.componentStrong`, `WedgeNode.componentStrong_levels` |
+| Positive matrix transport | `HeterogeneousCompressionWedge.decodeMatrix_original_denseAt`, `decodeMatrix_original_subset` |
+| Complementary obstruction transport | `HeterogeneousCompressionWedge.no_wedge_complement_somewhereDense` |
+| Selected-level reduced dichotomy | `heterogeneousRestrictedReduced_of_previous_universal` |
+| All-dimensional HDHL | `universalHeterogeneousHDHL` |
+| Arbitrary-tree Milliken (topological) | `generalMilliken_unconditional` |
+| Original finite-colour Milliken | `milliken1979_general_unconditional` |
+
+The universal induction is quantified over **all** ambients; otherwise
+its recursive call at the newly built wedge would be ill-typed.
 
 ## Checked dependencies
 
@@ -44,7 +73,7 @@ follow from universal HDHL by
 `generalMilliken_of_all_heterogeneousHDHL` and
 `milliken1979_of_all_heterogeneousHDHL`.
 
-## Remaining geometric realization: one ambient for the factors
+## Verified geometric realisation: one ambient for the factors
 
 Let `U : AmbientTree`, `d > 0`,
 `P : Fin d → StrongSubtree U`, and
@@ -112,15 +141,20 @@ embed_order : ∀ i (x y : Node (P i) f),
   embed i x ≤ embed i y ↔ x ≤ y
 ```
 
-The code above is **a specification**; do not import or cite its
-names as existing declarations.
+The code above is **schematic** and uses mnemonic names, not literal
+Lean exports. The actual implementation is in
+`HeterogeneousWedgeOrder`, `HeterogeneousWedgePred`,
+`HeterogeneousWedgeAmbient`, `HeterogeneousWedgeHeights`,
+`HeterogeneousWedgeComponentCones` and
+`HeterogeneousWedgeCompressionTransport`.
+Use those modules' checked declarations instead of the schematic identifiers.
 
-## Restricted reduced dichotomy by universal dimension induction
+## Verified restricted reduced dichotomy by universal dimension induction
 
 Prove, by induction on `d > 0`, the *universal* statement
 
 ```lean
--- Target; NOT currently a proved declaration.
+-- Schematic target; proved by GeneralTree.universalHeterogeneousHDHL.
 ∀ (U : AmbientTree) (P : Fin d → StrongSubtree U),
   HasHeterogeneousHDHL P
 ```
@@ -210,7 +244,8 @@ and `milliken1979_of_all_heterogeneousHDHL`.
   formulation has the necessary realizability/extension interface;
   do not conflate it with the topological approximation formulation.
 
-Once the single-ambient wedge, matrix comparison and universal
-dimension induction are Lean-checked, the logical dependencies
-already in the library discharge the general-tree Milliken endpoint
-without an additional Ramsey-theoretic principle.
+**Completed:** The single-ambient wedge, matrix comparison, negative
+obstruction transport, and universal induction have all passed Lean.
+`generalMilliken_unconditional` and
+`milliken1979_general_unconditional` are the resulting unconditional
+general-tree endpoints. No extra Ramsey principle is assumed.
