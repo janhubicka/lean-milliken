@@ -79,3 +79,5 @@ import Milliken.Applications
 import Milliken.GeneralTree.HeterogeneousIdentityBridge
 
 import Milliken.GeneralTree.HeterogeneousCompressionTransport
+
+import Milliken.GeneralTree.HeterogeneousWedgeOrder
