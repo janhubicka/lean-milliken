@@ -1,4 +1,5 @@
 import Milliken.Applications
+import Milliken.GeneralTree.UnconditionalHLAPI
 import Milliken.GeneralTree.FixedStemUnconditional
 import Milliken.GeneralTree.HeterogeneousUniversalMilliken
 
@@ -651,3 +652,8 @@ Milliken endpoints.
 
 #print axioms Milliken.GeneralTree.millikenFixedStemFiniteColouring_general
 #print axioms Milliken.GeneralTree.millikenFixedStemMonochromatic_general
+
+#print axioms Milliken.GeneralTree.generalProductHL_unconditional
+#print axioms Milliken.GeneralTree.boundaryProductHL_unconditional
+#print axioms Milliken.GeneralTree.generalPigeonhole_unconditional
+#print axioms Milliken.GeneralTree.generalAbstractRamseySpace_unconditional
