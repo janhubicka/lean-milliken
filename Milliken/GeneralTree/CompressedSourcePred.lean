@@ -119,7 +119,9 @@ noncomputable instance nodePredOrder : PredOrder (Node S f) where
     · have hbot : x = (⊥ : Node S f) := by
         have hle : (⊥ : Node S f) ≤ x := bot_le
         apply (node_eq_of_le_index_eq S f hle _).symm
-        simpa [nodeIndex_bot S f] using hzero.symm
+        change nodeIndex S f (⊥ : Node S f) = x.1
+        rw [nodeIndex_bot S f]
+        exact hzero.symm
       subst x
       exact isMin_bot
     · have hi : x.1 ≤ (nodeParent S f x).1 :=
