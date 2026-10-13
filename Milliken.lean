@@ -1,7 +1,6 @@
 import Milliken.GeneralTree.UnconditionalHLAPI
 import Milliken.GeneralTree.FixedStemUnconditional
 import Milliken.GeneralTree.Vector
-import Milliken.GeneralTree.Published
 
 /-!
 # ATR-facing general-tree Milliken library
