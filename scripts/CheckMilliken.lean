@@ -1,4 +1,5 @@
 import Milliken.Applications
+import Milliken.GeneralTree.HeterogeneousUniversalMilliken
 
 /-!
 Transitive axiom audit for the unconditional Halpern--Läuchli bridge and
@@ -636,3 +637,13 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.CompressedSourceSelection.compressedAmbient_levelSet_eq
 #print axioms Milliken.GeneralTree.CompressedSourceSelection.compressedAmbient_level_finite
 #print axioms Milliken.GeneralTree.CompressedSourceSelection.compressedAmbient_level_nonempty
+
+/-! Final arbitrary-ambient HDHL/Milliken transitive axiom audit. -/
+#print axioms Milliken.GeneralTree.HeterogeneousCompressionWedge.tag_mem_sourceLevel
+#print axioms Milliken.GeneralTree.HeterogeneousCompressionWedge.decodeMatrix_original_denseAt
+#print axioms Milliken.GeneralTree.HeterogeneousCompressionWedge.no_wedge_complement_somewhereDense
+#print axioms Milliken.GeneralTree.heterogeneousRestrictedReduced_of_previous_universal
+#print axioms Milliken.GeneralTree.universalHeterogeneousHDHL
+#print axioms Milliken.GeneralTree.heterogeneousHDHL_unconditional
+#print axioms Milliken.GeneralTree.generalMilliken_unconditional
+#print axioms Milliken.GeneralTree.milliken1979_general_unconditional
