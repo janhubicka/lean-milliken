@@ -17,6 +17,9 @@ jobs:
 
       # GitHub-hosted runners are ephemeral. Cache the pinned Lean toolchain so
       # elan does not download and unpack it on every CI run.
+      - name: Inventory removable homogeneous proof modules
+        run: python3 scripts/audit_atr_pruning.py
+
       - name: Cache Lean toolchain
         uses: actions/cache@v5
         with:
