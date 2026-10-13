@@ -238,3 +238,5 @@ import Milliken.GeneralTree.HeterogeneousRestrictedReduction
 import Milliken.GeneralTree.HeterogeneousRestrictedUnary
 
 import Milliken.GeneralTree.CompressedSourceFrame
+
+import Milliken.GeneralTree.CompressedSourceOrder
