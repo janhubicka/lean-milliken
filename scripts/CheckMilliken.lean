@@ -593,3 +593,7 @@ Milliken endpoints.
 #print axioms Milliken.GeneralTree.heterogeneousReducedHDHL_of_previous
 
 #print axioms Milliken.GeneralTree.heterogeneousHDHL_of_restrictedReduced
+
+#print axioms Milliken.GeneralTree.heterogeneousFullCarrier_denseAt
+#print axioms Milliken.GeneralTree.heterogeneousProductDense_of_noRestrictedComplement
+#print axioms Milliken.GeneralTree.heterogeneousRestrictedReduced_one
