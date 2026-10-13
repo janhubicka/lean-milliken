@@ -7,13 +7,13 @@ tree theorem is derived from the checked infinite Hales–Jewett theorem and the
 Abstract Ellentuck theorem. The library also provides finite-colouring and
 fixed-stem interfaces for applications.
 
-**Scope and verification:** The unconditional theorem is currently for a
-**homogeneous** ambient tree `List ι`, where `ι` is a finite nonempty
-alphabet. The **main branch** also includes a source-facing API for
-**arbitrary pruned, finitely branching rooted trees**. This is a checked
-collection of definitions and elementary lemmas; the unrestricted
-general-tree Ramsey theorem is **not yet proved**. Do not confuse a
-proposition stating that theorem with its proof.
+**Scope and verification (13 October 2026):** The main branch proves
+Milliken's theorem **unconditionally for every pruned, locally finitely
+branching rooted tree**, allowing node-dependent degrees unbounded over
+the tree. The earlier homogeneous `List ι` theorem remains available.
+The general result uses full selected-source-level compression, a common-root
+heterogeneous wedge, universal HDHL induction, and the checked general-tree
+A.1–A.4/Abstract Ellentuck and original finite-colour reductions.
 
 The selected-level geometry with increasing branching and the application
 API were merged in [PR #3](https://github.com/janhubicka/lean-milliken/pull/3)
@@ -28,13 +28,15 @@ compressed-product density/obstruction transport are likewise checked
 in [#128](https://github.com/janhubicka/lean-milliken/pull/128) and
 [#129](https://github.com/janhubicka/lean-milliken/pull/129).
 
-**The unconditional heterogeneous Milliken theorem is still open.**
-The remaining essential glue is to put the different full compressed
-coordinate trees inside **one common forest-with-root ambient tree**,
-construct the corresponding synchronized strong subtrees, transport
-matrices through that realization, and run the universal induction on
-dimension. See the [precise proof reduction and adversarial checklist](docs/HETEROGENEOUS_COMPRESSION_REDUCTION.md). The existing conditional
-theorem endpoints become unconditional once this induction is proved.
+**Full heterogeneous general-tree theorem now proved.** PRs #131–#138
+formalise the common-root wedge, synchronized component cones, both
+matrix transports, universal HDHL induction and unconditional Milliken.
+See the [checked proof crosswalk](docs/HETEROGENEOUS_COMPRESSION_REDUCTION.md).
+
+The stronger *synchronized-vector finite-subtree colouring property* for
+possibly different ambient trees remains separately specified in
+`GeneralTree.Vector` and is not yet proved. It should not be confused
+with the arbitrary branching supported by the proved single-ambient theorem.
 
 ## Quick start
 
@@ -53,7 +55,7 @@ import Milliken.Applications
 #check Milliken.Applications.millikenFixedStem1979_homogeneous
 ```
 
-For the definitions for a general ambient tree, use
+For the published definitions of a general ambient tree, use
 `import Milliken.GeneralTree.Published`:
 
 ```lean
@@ -71,10 +73,22 @@ import Milliken.GeneralTree.Published
 #check Milliken.GeneralTree.HasMillikenFiniteColourProperty
 ```
 
-The last declaration is a **`Prop` describing an unproved target**, not
-an axiom, typeclass instance, or theorem. The complete implementation,
-including the separate Chapter 3 reconstruction, is available with
-`import Milliken`.
+The last declaration is a **`Prop` describing the original finite-colour
+property**, now proved by `GeneralTree.milliken1979_general_unconditional`.
+Import `Milliken.GeneralTree.HeterogeneousUniversalMilliken` or
+the umbrella `Milliken` to use the completed theorem:
+
+```lean
+import Milliken.GeneralTree.HeterogeneousUniversalMilliken
+
+#check Milliken.GeneralTree.universalHeterogeneousHDHL
+#check Milliken.GeneralTree.heterogeneousHDHL_unconditional
+#check Milliken.GeneralTree.generalMilliken_unconditional
+#check Milliken.GeneralTree.milliken1979_general_unconditional
+```
+
+The earlier homogeneous API and its independent Hales–Jewett proof
+remain available.
 
 ### Conventions (important for applications)
 
@@ -119,7 +133,7 @@ Modules: [`AmbientTree.lean`](Milliken/AmbientTree.lean),
 | `GeneralTree.maxLevel a` | The set of maximal nodes of finite approximation `a` in its **induced tree order**, i.e. `a(max)`. |
 | `GeneralTree.bookLeFin a b` | Literal (6.3): both carriers empty, **or** `a.carrier ⊆ b.carrier` and `maxLevel a ⊆ maxLevel b`. |
 | `GeneralTree.BasicNeighborhood a T` | `[a,T]`: strong refinements `S ⊆ T` with `r_n(S)=a`, where `a` has height `n`. |
-| `GeneralTree.HasMillikenFiniteColourProperty U` | **Unproved target** for the original general-tree theorem: every finite colouring of height-`n` approximations has a monochromatic infinite strong subtree of `U`. |
+| `GeneralTree.HasMillikenFiniteColourProperty U` | Original general-tree finite-colour property, **proved** by `milliken1979_general_unconditional U` for every pruned locally finitely branching `U`. |
 
 The fields of `GeneralTree.StrongSubtree U` are intentionally more explicit
 than the printed (str1)–(str2). `root_mem`/`root_below` make the induced
