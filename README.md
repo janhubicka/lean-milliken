@@ -281,13 +281,12 @@ compressed tree is finite, but its degree grows with
 * `HalpernLauchli.hdhl_of_all_selected`:
   an **implication** from HDHL on **all** selected-level trees.
 
-This is valuable proof infrastructure, **not yet** an unconditional
-arbitrary-tree HL/Milliken theorem: its remaining selected-level
-induction must be completed and node-dependent finite branching
-requires an additional transport. Do not equate homogeneity of
-level-product vectors with homogeneity of **finite vector strong
-subtrees**. The latter also requires the synchronized-vector
-Milliken extension used by the three-coordinate type-tree application.
+The historical selected-level interfaces above have been extended by
+full source-level compression and the heterogeneous wedge in PRs #123–#138.
+The library now proves arbitrary-tree HL/Milliken unconditionally.
+Homogeneity of level-product node vectors should still not be confused
+with the stronger **finite vector strong-subtree** colouring theorem:
+that remains a separate application-level obligation.
 
 ## 6. Module map and proof architecture
 
@@ -430,13 +429,13 @@ conditions of the graft are separately proved and compiled, including
 the empty stem and the stem/tail cut. Ten dedicated transitive axiom
 audit endpoints cover this step.
 
-**Still open:** The arbitrary-node-degree heterogeneous product
-Halpern--Läuchli statement `HasGeneralProductHL`/
-`HasBoundaryProductHL` introduced in PR #48 is a definition of
-the desired standard HL property, not a proved theorem or an axiom.
-Its proof and the resulting general A.4/general topological Milliken
-theorem remain necessary. The unconditional proof currently covers
-homogeneous finite-alphabet trees.
+**Now discharged:** Universal heterogeneous HDHL is proved in
+`HeterogeneousUniversalMilliken.lean`. The checked
+`generalProductHL_of_all_heterogeneousHDHL` and
+`boundaryProductHL_of_all_heterogeneousHDHL` transfer it to
+general product HL, canonical A.4 and unconditional arbitrary-tree
+Milliken. The `HasGeneralProductHL` and `HasBoundaryProductHL`
+definitions remain useful modular interfaces, not open assumptions.
 
 ## Canonical A.4 as exactly heterogeneous Halpern--Läuchli (conditional)
 
@@ -459,12 +458,10 @@ of the canonical finite-approximation/HL-tuple correspondence.
 - `abstractRamseySpace_of_generalProductHL`: full abstract
   A.1--A.4 data under the **sole standard general product HL premise**.
 
-These are conditional formal implications. They do **not** declare HL
-as a new Lean axiom or prove the unrestricted `HasGeneralProductHL`
-statement. To finish Todorčević's unrestricted Theorem 6.2, that
-heterogeneous HL theorem and the appropriate general-tree closedness
-must still be proved. The library's homogeneous main theorem remains
-unconditional.
+These modular implications remain independently checked. Their
+general HL premise is now discharged by universal heterogeneous HDHL,
+and general-tree closedness was already proved. The unconditional
+Todorčević Theorem 6.2 endpoint is `generalMilliken_unconditional`.
 
 
 ## General-tree approximation-code geometry (closedness preparation)
@@ -487,28 +484,25 @@ finitely branching rooted tree. No uniform branching degree is used.
 `generalMilliken_of_generalProductHL U hHL` derives the textbook
 Abstract Ellentuck/Milliken topological Ramsey conclusion from the
 **single explicit heterogeneous product Halpern--Läuchli premise**.
-That general HL theorem remains to be proved unconditionally. The
-conditional result is not an unconditional general-tree theorem.
+The general HL premise is now proved from
+`heterogeneousHDHL_unconditional`, and the unconditional endpoint is
+`generalMilliken_unconditional`.
 
 
-## General heterogeneous Halpern–Läuchli induction (in development)
+## General heterogeneous Halpern–Läuchli induction (proved)
 
-The source-faithful Todorčević Chapter 3 induction over a homogeneous
-alphabet enumerates its finite successor list and therefore handles
-arbitrarily **large finite branching degrees across different input
-alphabets**. It does not, however, prove a single theorem for one
-ambient tree whose branching degree varies with the node and is
-unbounded across its levels: the checked `HDHL ι d` and
-`StrongSubtreeHL ι` still use the fixed `Node ι = List ι` type.
+The earlier homogeneous Chapter 3 induction enumerates a finite
+successor list over its alphabet. The completed general-tree proof
+instead uses the *actual finite set of children* of each node and
+full source-level compression, so degrees may vary from node to node
+without a global bound.
 
-`GeneralTree.HeterogeneousDensity` now starts the port of the same
-induction to the actual ambient `StrongSubtree U` coordinates.
-It verifies finite/nonempty common selected-level products, defines
-heterogeneous coordinate matrices, and checks elementary density
-calculus without a global degree bound. `HasHeterogeneousHDHL`
-remains explicitly an **unproved property**. Its multi-coordinate
-induction, subsequent strong-tree product HL, and the unconditional
-heterogeneous Milliken theorem are not yet certified.
+`GeneralTree.HeterogeneousDensity` defines finite/nonempty common
+source-level products and heterogeneous matrices.
+`HeterogeneousReducedInduction` proves the synchronized reduced
+dimension step; `HeterogeneousUniversalMilliken` completes universal
+HDHL induction over all ambient trees and discharges product HL,
+A.4 and general Milliken.
 
 
 ### Verified heterogeneous HDHL base case
@@ -518,8 +512,8 @@ one-dimensional highly-dense-set statement for a **genuine arbitrary
 locally finitely branching tree**, rather than merely for a fixed
 homogeneous `List ι` tree. It projects a highly dense unary set to a
 one-coordinate matrix, preserving both density and containment.
-The higher-dimensional heterogeneous induction and resulting
-`HasBoundaryProductHL` are still required for general Milliken.
+The higher-dimensional induction and the boundary-product HL
+conclusion are now proved; this unary lemma remains their base case.
 
 
 ### Heterogeneous cone-density calculus
@@ -541,8 +535,8 @@ proves, for locally finitely branching arbitrary coordinate trees,
 that no highly dense colour class Q has such a complement cone.
 The proof constructs a global dense matrix by completing the
 bad local cone matrix outside the base, exactly as in §3.2.
-This is a substantial preparation for the multi-coordinate HDHL
-induction, not yet the full heterogeneous product theorem.
+This is one of the now-checked ingredients of the complete
+multi-coordinate heterogeneous HDHL theorem.
 
 ### Heterogeneous asymmetric density dichotomy
 
@@ -555,8 +549,8 @@ product** to find an infinitely recurring bad tuple.
 `heterogeneousAsymmetric_of_hdhl` then turns the first branch
 into dense matrices, conditional only on the heterogeneous HDHL
 property in the current dimension. This removes fixed-alphabet
-assumptions from this density reduction, but not from the yet-open
-higher-dimensional HDHL induction.
+assumptions from this density reduction. The higher-dimensional HDHL
+induction is now proved in `HeterogeneousUniversalMilliken`.
 
 ### Actual-tree product sections for Todorčević's induction
 
@@ -577,7 +571,7 @@ and the deduction of coordinatewise level support from inclusion
 of Cartesian carriers. These lemmas port Todorčević's Lemma 3.16
 and final section-fusion prerequisites to arbitrary pruned locally
 finitely branching input factors, without a globally bounded
-branching alphabet. The higher-dimensional induction is still open.
+branching alphabet. The higher-dimensional induction is now proved.
 
 
 ### Heterogeneous matrix refinement for the HDHL induction
@@ -588,4 +582,4 @@ above some A-coordinate. The seven checked endpoints cover carrier
 inclusion, level support, predecessor decoding, global and cone
 density preservation, and the same-level full-matrix identity.
 There is no fixed alphabet or global branching bound. The
-higher-dimensional stabilization and HDHL induction remain open.
+higher-dimensional stabilization and HDHL induction are now proved.
