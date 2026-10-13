@@ -64,7 +64,8 @@ theorem compressedAmbient_levelSet_eq
     (compressedAmbientTree S f).levelSet n =
       {z : Node S f | z.1 = n} := by
   ext z
-  exact (compressedAmbient_level_eq_index S f z).symm.eq_iff
+  change ((compressedAmbientTree S f).level z = n) ↔ z.1 = n
+  rw [compressedAmbient_level_eq_index S f z]
 
 /-- Every new ambient level is finite. -/
 theorem compressedAmbient_level_finite (n : ℕ) :
