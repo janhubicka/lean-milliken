@@ -668,3 +668,5 @@ workflow checks this script against the allowed Lean kernel axioms.
 #print axioms RamseySpace.finiteApproximationColouring
 #print axioms RamseySpace.finiteBaireColouring
 #print axioms RamseySpace.ApproximationSystem.isOpen_approxColourFibre
+
+#print axioms Milliken.GeneralTree.initialPart_eq_of_larger_initialPart_eq
