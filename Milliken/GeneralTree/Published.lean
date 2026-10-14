@@ -16,9 +16,9 @@ relations from (6.1)–(6.3):
 * `bookLeFin` uses carrier inclusion and inclusion of maximal levels,
   including the convention for two empty approximations.
 
-These are definitions and elementary checked lemmas, not a proof of
-Todorčević's general Theorem 6.2. That proof is still required to
-construct the Ramsey-space instance for all `U`.
+These are the source-facing definitions; A.1--A.4 and the unrestricted
+Theorem 6.2 have since been proved in the other `GeneralTree` modules.
+The present file alone does not import or reproach the full theorem.
 -/
 
 namespace Milliken
