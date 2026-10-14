@@ -5,7 +5,7 @@
 - [Proof architecture](Proof-architecture.md)
 - [Auxiliary lemmas](Geometry-and-auxiliary-lemmas.md)
 - [Adversarial referee record](Adversarial-referee-record.md)
-- [ATR-only consumer and cleanup](ATR-consumer-and-cleanup.md)
+- [Using the library](Using-the-library.md)
 - [Intrinsic finite completion](Intrinsic-finite-completion.md)
 - [Publishing instructions](Publishing.md)
 
