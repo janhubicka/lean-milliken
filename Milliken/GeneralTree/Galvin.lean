@@ -47,8 +47,8 @@ theorem isOpen_hasFamilyInitialPart
     ⟨StrongSubtree.refines_refl T, rfl⟩, ?_⟩
   intro Y hY
   refine ⟨n, ?_⟩
-  change r n Y = r n T at hY
-  rw [hY]
+  have hprefix : r n Y = r n T := hY.2
+  rw [hprefix]
   exact hn
 
 /-- The realised-approximation form of Todorčević, Corollary 6.7.
