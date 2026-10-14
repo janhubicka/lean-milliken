@@ -11,6 +11,7 @@ This wiki documents the **verified unrestricted strong-subtree theorem** in `jan
 | **[Published statements](Published-statements.md)** | Precise correspondence to Todorčević §3 and §6.1–6.2, Milliken 1979 abstract, hypotheses, named Lean theorems, missing corollaries and mismatched finite-tree domains |
 | **[Proof architecture](Proof-architecture.md)** | Mathematical explanation of the universal heterogeneous HDHL induction, full source-level compression, common-root wedge, complementary density transport, grafting, A.1–A.4 and Abstract Ellentuck |
 | **[Geometry and auxiliary lemmas](Geometry-and-auxiliary-lemmas.md)** | Reusable nontrivial lemmas proved along the way: ranks, source fronts, finitisation, mixed protected graft, stabilization, matrices, wedge and code closedness |
+| **[Intrinsic finite completion](Intrinsic-finite-completion.md)** | Separate the actual published finite strong subtrees from realised approximations; explicit proof plan for infinite completion and 1979 corollary |
 | **[Adversarial referee record](Adversarial-referee-record.md)** | Three disjoint mathematical/kernel/maintainability challenges, verified facts, counterexample attempts and remaining proof obligations; never described as external peer-review signoff |
 | **[ATR consumer and cleanup](ATR-consumer-and-cleanup.md)** | Single supported user, trim strategy, upstream/downstream CI requirement, exact scalar-vs-vector scope |
 | **[Audit tracking](../audits/AUDIT_TRACKER_2026.md)** | P0/P1/P2 work packages, source version, acceptance tests, status and merge gates |
