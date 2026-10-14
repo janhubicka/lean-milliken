@@ -1,3 +1,4 @@
+import Milliken.GeneralTree.ProtectedRealization
 import Milliken.GeneralTree.Galvin
 import Milliken.GeneralTree.BaireColours
 import Milliken.GeneralTree.IntrinsicFinite
@@ -5,12 +6,14 @@ import Milliken.GeneralTree.UnconditionalHLAPI
 import Milliken.GeneralTree.FixedStemUnconditional
 
 /-!
-# ATR-facing general-tree Milliken library
+# Milliken: Ramsey theory of strong subtrees
 
-For the only maintained downstream client (the three-uniform ATR theorem),
-the canonical API is the unconditional heterogeneous Halpern–Läuchli /
-Milliken development over pruned, locally finite rooted trees.
+This library proves the unrestricted Milliken theorem for pruned, locally
+finitely branching rooted trees and exports the complete supporting
+Halpern–Läuchli and Ramsey-space interfaces. It also provides the
+finite-approximation, protected-stem, Galvin and Baire-colouring corollaries.
 
-The historical fixed-alphabet homogeneous implementation is deliberately
-not re-exported here. Imports are kept transitively minimal by CI.
+The umbrella import exposes the public theorems, while individual
+`Milliken.GeneralTree.*` modules allow finer-grained imports.
+Internal proof modules do not impose any application-specific assumptions.
 -/
