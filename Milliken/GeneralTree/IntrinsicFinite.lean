@@ -136,7 +136,10 @@ extension theorem. -/
 noncomputable def FiniteApprox.toIntrinsic
     {k : ℕ} (a : FiniteApprox U k) :
     IntrinsicFiniteApprox U k := by
-  obtain ⟨S, ha⟩ := a.realised
+  classical
+  let S : StrongSubtree U := Classical.choose a.realised
+  have ha : a.carrier = S.initialPart k :=
+    Classical.choose_spec a.realised
   exact ⟨a.carrier, ⟨intrinsicWitnessOfStrong S k, ha.symm⟩⟩
 
 @[simp] theorem FiniteApprox.toIntrinsic_carrier
