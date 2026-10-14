@@ -1,0 +1,35 @@
+name: Publish Milliken wiki
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'docs/wiki/**'
+      - '.github/workflows/publish-wiki.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: publish-milliken-wiki
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out documented revision
+        uses: actions/checkout@v4
+
+      # GitHub stores Wiki pages in a separate .wiki.git repository.
+      # The repository must be initialized once via Wiki > Create the first
+      # page before GitHub will expose that repository to git clone/push.
+      # See docs/wiki/Publishing.md.
+      - name: Sync source documentation to the GitHub Wiki tab
+        uses: Andrew-Chen-Wang/github-wiki-action@v5
+        with:
+          path: docs/wiki
+          preprocess: true
+          strategy: clone
+          disable-empty-commits: true
