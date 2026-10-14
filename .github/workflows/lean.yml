@@ -54,6 +54,15 @@ jobs:
       - name: Build
         run: lake build
 
+      - name: Build every local proof module, including optional library imports
+        run: |
+          mapfile -t modules < <(
+            find Milliken -type f -name '*.lean' -print |
+              sed -e 's@/@.@g' -e 's@[.]lean$@@' | sort
+          )
+          echo "Building ${#modules[@]} library modules beyond the umbrella target"
+          lake build "${modules[@]}"
+
       - name: Compile independent public API examples
         run: lake env lean scripts/CheckPublicAPI.lean
 
@@ -66,8 +75,21 @@ jobs:
       - name: Audit Milliken theorem axioms
         run: |
           mkdir -p proof-audit
-          lake env lean scripts/CheckMilliken.lean > proof-audit/milliken-axioms.log 2>&1
+          if ! lake env lean scripts/CheckMilliken.lean > proof-audit/milliken-axioms.log 2>&1; then
+            echo 'Lean axiom audit failed; diagnostic log follows:'
+            tail -n 220 proof-audit/milliken-axioms.log
+            exit 1
+          fi
           python3 scripts/check-axiom-log.py proof-audit/milliken-axioms.log 519 || {
             cat proof-audit/milliken-axioms.log
             exit 1
           }
+
+      - name: Retain theorem-axiom audit log even on failure
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: milliken-axiom-audit
+          path: proof-audit/
+          if-no-files-found: ignore
+          retention-days: 7

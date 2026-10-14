@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Audit theorem-library reachability from every supported strong-tree module.
 
-All public GeneralTree modules, ambient-tree geometry and the generic
-finite-colouring results are roots. This deliberately preserves optional
+All public GeneralTree modules and ambient-tree geometry are roots.
+Generic finite-colouring results live in the upstream RamseySpace library. This deliberately preserves optional
 mathematical interfaces even if they are not imported from Milliken.lean.
 
 Reject reintroduction of historical fixed-alphabet proof modules, detect
@@ -26,7 +26,6 @@ edges = {
 roots = {m for m in files if m.startswith("Milliken.GeneralTree.")}
 roots |= {
     "Milliken.AmbientTree", "Milliken.AmbientChild",
-    "Milliken.FiniteColourRamseySpace",
 }
 roots &= set(files)
 needed = set()
@@ -48,7 +47,7 @@ legacy |= {
     m for m in files
     if m.count(".") == 1 and
     m not in {"Milliken", "Milliken.AmbientTree",
-              "Milliken.AmbientChild", "Milliken.FiniteColourRamseySpace",
+              "Milliken.AmbientChild",
               "Milliken.GeneralTree"}
 }
 

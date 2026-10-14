@@ -91,7 +91,7 @@ is not strong enough.
 | `Milliken.GeneralTree.Galvin` | Open-family avoidance/hitting |
 | `Milliken.GeneralTree.BaireColours` | Finite Baire-fibre colouring of infinite strong trees |
 | `Milliken.GeneralTree.IntrinsicFinite` | Intrinsic finite strong-tree witnesses, their finite frontier geometry, and forward map from realised approximations |
-| `Milliken.FiniteColourRamseySpace` | Generic Baire/fixed-height finite-colouring lemmas |
+| `RamseySpace.FiniteColouring` (upstream dependency) | Generic Baire/fixed-height finite-colouring lemmas for any topological Ramsey space |
 
 The combinatorial proof itself includes a universal heterogeneous
 high-density Halpern–Läuchli induction, full selected-source-level
