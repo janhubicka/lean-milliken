@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """Audit Lean imports independently of Lake's generated build graph.
 
-The general-tree theorem must not depend on the separate homogeneous
-Hales--Jewett / Milliken proof. The homogeneous proof remains a
-compatibility API for now; a faithful theorem-level replacement requires
-a bridge between StrongEmbedding and GeneralTree.StrongSubtree.
+The unrestricted theorem must have no dependency on retired
+fixed-alphabet proof modules. The umbrella import should contain
+no transitive duplicates. Optional public geometric modules may
+be imported independently from the umbrella.
 """
 from __future__ import annotations
 
@@ -74,7 +74,6 @@ for root in ["Milliken"]:
 print(f"PASS: {general} uses {len(closure)} local modules but does not import "
       "the homogeneous Milliken/Hales--Jewett proof; umbrellas are transitively minimal")
 
-# The only supported client is the ATR general-tree development;
-# the old homogeneous umbrella API is intentionally removed.
+# The historical fixed-alphabet umbrella is intentionally removed.
 if "Milliken.Applications" in graph:
     raise SystemExit("FAIL: legacy homogeneous umbrella still exists")
