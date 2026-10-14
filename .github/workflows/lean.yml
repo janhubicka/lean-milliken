@@ -58,7 +58,7 @@ jobs:
         run: |
           mapfile -t modules < <(
             find Milliken -type f -name '*.lean' -print |
-              sed -e 's@/@.@g' -e 's@\\.lean$@@' | sort
+              sed -e 's@/@.@g' -e 's@[.]lean$@@' | sort
           )
           echo "Building ${#modules[@]} library modules beyond the umbrella target"
           lake build "${modules[@]}"
