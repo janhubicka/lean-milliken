@@ -1,6 +1,7 @@
 name: Publish Milliken wiki
 
 on:
+  gollum: # First Home-page creation or later Wiki edits trigger immediate sync.
   push:
     branches: [main]
     paths:
