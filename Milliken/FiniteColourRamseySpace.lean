@@ -132,6 +132,7 @@ theorem finiteApproximationColouring_for_Milliken
       ∀ X, X ∈ S.neighborhood a B →
         ∀ Y, Y ∈ S.neighborhood a B →
           colour (S.approx m X) = colour (S.approx m Y) := by
+  letI : TopologicalSpace S.Point := S.ellentuckTopology
   let f : S.Point → κ := fun X => colour (S.approx m X)
   have hfibres :
       ∀ c : κ, @BaireMeasurableSet S.Point S.ellentuckTopology
