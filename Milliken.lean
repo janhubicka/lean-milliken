@@ -1,3 +1,4 @@
+import Milliken.GeneralTree.FixedStemBoundaryHL
 import Milliken.GeneralTree.ProtectedRealization
 import Milliken.GeneralTree.Galvin
 import Milliken.GeneralTree.BaireColours
