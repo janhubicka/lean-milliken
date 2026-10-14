@@ -1,3 +1,4 @@
+import Milliken.GeneralTree.BaireColours
 import Milliken.GeneralTree.UnconditionalHLAPI
 import Milliken.GeneralTree.FixedStemUnconditional
 
