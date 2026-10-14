@@ -136,7 +136,8 @@ def HeterogeneousHighlyDense
 
 /-- The exact heterogeneous highly-dense Halpern--Läuchli
 statement, analogous to the checked homogeneous `HDHL`.
-This is a target definition, not an axiom or a proved theorem. -/
+This is a target *definition*, not an axiom. Its property is proved
+universally in `HeterogeneousUniversalMilliken`. -/
 def HasHeterogeneousHDHL
     (P : Fin d → StrongSubtree U) : Prop :=
   ∀ Q : Set (Fin d → U),
