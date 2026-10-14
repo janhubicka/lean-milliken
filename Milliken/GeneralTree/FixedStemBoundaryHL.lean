@@ -1,5 +1,5 @@
 import Milliken.GeneralTree.BoundaryMilliken
-import Milliken.FiniteColourRamseySpace
+import RamseySpace.FiniteColouring
 
 /-!
 # Protected-stem finite colouring from boundary Halpern–Läuchli
