@@ -6,18 +6,19 @@ import Milliken.FiniteColourRamseySpace
 /-!
 # Milliken 1979 from the general-tree topological theorem
 
-The original finite-colouring formulation quantifies over *all*
-finite height-k strong subtrees contained in an infinite strong tree.
-The abstract Ramsey-space finite-colouring theorem initially speaks
-only about finite approximations of infinite refinements. We prove
-that these are exactly the same finite objects for an arbitrary
-pruned, locally finitely branching ambient tree.
+The original 1979 finite-colouring formulation quantifies over *all*
+intrinsic finite height-k strong subtrees. The abstract Ramsey-space
+finite-colouring theorem speaks of `FiniteApprox` objects with an
+infinite realisation witness. This file proves that *realised* finite
+approximations contained in an infinite tree extend to infinite
+refinements of that tree. A separate intrinsic-to-realised extension
+lemma is still needed to identify the full published quantifier domain.
 
-The proof is unconditional geometry through the literal published
-finitization (6.3) and A.3(1). The final Ramsey conclusion is
-conditional precisely on the heterogeneous boundary-product
-Halpern--Läuchli statement; it is *not* claimed to be an
-unconditional arbitrary-tree Milliken theorem.
+The geometric extension proof is unconditional and uses the literal
+published finitisation (6.3) and A.3(1). This module's last theorem is
+a conditional reduction from boundary-product Halpern--Läuchli;
+`HeterogeneousUniversalMilliken` later discharges that hypothesis and
+exports the unconditional realised-approximation theorem.
 -/
 
 namespace Milliken
@@ -29,7 +30,7 @@ variable {U : AmbientTree}
 a strong infinite subtree B extends to a genuine infinite strong
 refinement of B realizing precisely that finite approximation.
 
-This general-tree version of the original 1979 extension lemma
+This relative extension lemma for already realised finite approximations
 uses the proved published A.2/A.3 interface, not a homogeneous
 alphabet or a new tree-grafting assumption. -/
 theorem exists_refinement_realising_general
@@ -100,9 +101,9 @@ theorem exists_refinement_realising_general
         generalAmalgamation_nonempty a B hd hself
       exact ⟨X, hXB, hXa⟩
 
-/-- The exact original 1979 finite-colouring statement follows
-from the same explicit boundary-product HL premise used for
-Todorčević's unrestricted general-tree A.4. No additional
+/-- The realised-finite-approximation version of the 1979 finite-colouring
+statement follows from the same explicit boundary-product HL premise
+used for Todorčević's unrestricted general-tree A.4. No additional
 extension or Ramsey assumption is needed. -/
 theorem milliken1979_of_boundaryProductHL
     (U : AmbientTree)
