@@ -34,12 +34,12 @@ This is a **living audit**, not a certificate that every assertion in the book o
 | P0-D | P0 | Adversarial circularity/vacuity / kernel audit | **VERIFIED-LEAN** at pinned baseline. Universal HDHL induction quantified over *all* ambients and uses freshly built heterogeneous wedge | Rerun audit on final refactor commit; inspect all theorem-type parameters and transitive imports; record nontrivial test instances |
 | P0-E | P0 | Sole client migration | **COMPLETE**: [Milliken #144](https://github.com/janhubicka/lean-milliken/pull/144) removed 81 historical homogeneous modules with successful CI; [ATR #395](https://github.com/janhubicka/lean-3-uniform-diaries/pull/395) removed corresponding wrappers and built against the reduced library | Pin updated successful upstream commit in ATR, pass both complete CIs, then merge in dependency-safe order |
 | P1-A | P1 | Todorčević Lemma 6.1 and (6.4)–(6.8) | **VERIFIED-LEAN** for boundary cones, product HL, explicit strong graft and canonical A.4 | Check exact arbitrary-colour subset `O`, at depth `n`, and `n=0` case |
-| P1-B | P1 | Corollaries 6.3–6.10 | **IN PROGRESS**: 6.4 Baire version (checked in #148, clean rebased [#149](https://github.com/janhubicka/lean-milliken/pull/149)); 6.7 realised Galvin alternative ([#147](https://github.com/janhubicka/lean-milliken/pull/147), CI remediation); 6.5 realised case proven; remaining corollaries need explicit exports | Enumerate each and implement direct natural corollaries without importing unrelated applications |
+| P1-B | P1 | Corollaries 6.3–6.10 | **PARTIAL, VERIFIED-LEAN**: 6.4 Baire version merged as [#149](https://github.com/janhubicka/lean-milliken/pull/149); 6.7 realised Galvin alternative merged as [#150](https://github.com/janhubicka/lean-milliken/pull/150); 6.5 realised finite case proven; Souslin regularity, intrinsic finite equivalence and other corollaries remain | Enumerate each and implement direct natural corollaries without importing unrelated applications |
 | P1-C | P1 | §6.2 Definitions 6.11, Lemma 6.12, Theorem 6.13, Cor. 6.14 | **EXTERNAL/OPEN** in this package: embedding-type/envelope applications are not automatically an interface consequence without definitions | Either formalise the mathematical transfer or explicitly mark this as beyond basic Milliken core |
 | P1-D | P1 | Fixed-stem finite `Str_{ell,k}` | **VERIFIED-LEAN** for realised infinite refinements; **SCOPE-GAP** relative to intrinsic finite anchored objects | Prove finite restriction extension and the anchored all-intrinsic finite version (`ell ≤ k`) |
 | P1-E | P1 | Synchronized *vector* Milliken | **EXTERNAL/OPEN**: `GeneralTree.Vector` declares target properties; level-product HL is strictly weaker than finite-vector-tree colouring | Prove vector theorem or show diary construction needs only scalar root-gluing and prove the appropriate transfer |
 | P2-A | P2 | Lean implementation cleanup | 199 redundant umbrella imports and 81 historical modules removed; current supported code has no homogeneous proof import; remaining conditional proof stages retained when dependency-reachable | Reduce only proof-unreachable files / dead APIs, eliminate stale comments; all remaining imports reachable from supported public endpoints |
-| P2-B | P2 | Researcher wiki and examples | **SOURCE DOCUMENTATION PUBLISHED** in `docs/wiki/` on main (six audit/proof chapters plus a publishing page); **actual GitHub Wiki tab not initialized**, despite sync workflow; needs one initial Home page created through UI |
+| P2-B | P2 | Researcher wiki and examples | **COMPLETE**: source documentation published under `docs/wiki/` and synchronized to the **actual** [GitHub Wiki](https://github.com/janhubicka/lean-milliken/wiki), including a sidebar; publishing [CI #38601106401](https://github.com/janhubicka/lean-milliken/actions/runs/38601106401) confirms a push to `.wiki.git` |
 | P2-C | P2 | Long-term regression suite | **PARTIAL**: current general-tree CI includes a reduced endpoint-axiom audit, source-integrity and reachability scans, a nonvacuity regression; intrinsic-extension and full downstream semantics still need tests | Tests for level indexing, zero/positive-height cases, intrinsic finite extension, published order, downstream project CIs |
 
 ## Three adversarial review streams
@@ -60,19 +60,33 @@ No separate human referees have signed any of these streams. Work results and fa
 4. Keep the `GeneralTree.Vector` target definitions as visibly unproved until a theorem inhabits them. Do not mislabel the product-level HL theorem as vector Milliken.
 5. Record any actual mathematical correction as an explicit changed proposition or equivalence lemma, not only as prose.
 
-## GitHub Wiki publication state
+## GitHub Wiki publication state — verified live
 
-The documentation is readable now at
-[`docs/wiki/README.md`](../wiki/README.md), with a full publishing
-guide in [`docs/wiki/Publishing.md`](../wiki/Publishing.md). The
-repository's [`publish-wiki.yml`](../../.github/workflows/publish-wiki.yml)
-workflow is already installed and completes successfully when it skips
-an **uninitialised** Wiki remote. The first run attempting
-`janhubicka/lean-milliken.wiki.git` returned
-`Repository not found`. GitHub's separate Wiki repository must be
-initialised **once** by creating and saving a page titled **Home**
-using the website; then run the workflow manually to sync. A green
-*skipped* workflow is **not** proof of Wiki publication.
+The documentation is published both in source-controlled
+[`docs/wiki/README.md`](../wiki/README.md) **and** in the separate
+[GitHub Wiki](https://github.com/janhubicka/lean-milliken/wiki).
+The Wiki synchronization action
+[`publish-wiki.yml`](../../.github/workflows/publish-wiki.yml)
+successfully cloned the Wiki Git remote, generated `Home.md` from
+`README.md`, and pushed the custom sidebar at Wiki commit `0771614`.
+See [successful workflow run 38601106401](https://github.com/janhubicka/lean-milliken/actions/runs/38601106401).
+
+Earlier initialization errors were resolved when the separate Wiki
+repository became available. **No manual first-page step is outstanding.**
+Future changes to source documentation trigger automatic Wiki updates.
+
+## Active theorem tasks (after Wiki publication)
+
+- [x] Intrinsic finite strong tree structure, finite frontier nonemptiness,
+  first-level uniqueness and forward realised-to-intrinsic map: merged #146.
+- [x] General-tree Baire-colouring refactor: merged #149 with green CI.
+- [x] General-family realised Galvin alternative: merged #150 with green CI.
+- [ ] Intrinsic finite-to-infinite completion: level continuation and full
+  final-frontier cone geometry checked on [PR #151](https://github.com/janhubicka/lean-milliken/pull/151);
+  genuine infinite strong-tree constructor and reverse equivalence
+  remain open.
+- [ ] Literal intrinsic 1979 finite-colour theorem and anchored finite
+  corollaries, followed by additional §6.2 embedding-type applications.
 
 ## Immediate next steps
 
