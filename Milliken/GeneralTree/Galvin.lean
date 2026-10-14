@@ -36,11 +36,8 @@ Ellentuck topology. The family may include approximations of
 arbitrarily large heights, so this is not just a fixed-k colour fibre. -/
 theorem isOpen_hasFamilyInitialPart
     (F : Set (Σ n, SFinite U n)) :
-    @IsOpen (StrongSubtree U)
-      (generalApproximationSystem U).ellentuckTopology
+    (generalApproximationSystem U).IsEllentuckOpen
       {T | HasFamilyInitialPart F T} := by
-  let S := generalApproximationSystem U
-  rw [S.isOpen_ellentuck_iff]
   intro T hT
   obtain ⟨n, hn⟩ := hT
   refine ⟨n, r n T, T,
@@ -71,11 +68,14 @@ theorem galvinAlternative_realized
   let target : Set (StrongSubtree U) :=
     {S | HasFamilyInitialPart F S}
   letI : TopologicalSpace (StrongSubtree U) := R.ellentuckTopology
-  have hopen : IsOpen target :=
-    isOpen_hasFamilyInitialPart F
-  have hBaire : BaireMeasurableSet target :=
+  have hopen : @IsOpen R.Point R.ellentuckTopology target :=
+    (R.isOpen_ellentuck_iff target).2
+      (isOpen_hasFamilyInitialPart F)
+  have hBaire :
+      @BaireMeasurableSet R.Point R.ellentuckTopology target :=
     hopen.baireMeasurableSet
-  have hRamsey : RamseySpace.IsRamseyOnBasicNeighborhoods target :=
+  have hRamsey :
+      RamseySpace.IsRamseyOnBasicNeighborhoods (S := R) target :=
     (generalMilliken_unconditional U).1 target hBaire
   let I : StrongSubtree U := identityStrongSubtree U
   have hne : (R.neighborhood (r 0 I) I).Nonempty :=
