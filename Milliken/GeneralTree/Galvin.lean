@@ -67,7 +67,7 @@ theorem galvinAlternative_realized
   let R := generalApproximationSystem U
   let target : Set (StrongSubtree U) :=
     {S | HasFamilyInitialPart F S}
-  letI : TopologicalSpace (StrongSubtree U) := R.ellentuckTopology
+  letI : TopologicalSpace R.Point := R.ellentuckTopology
   have hopen : @IsOpen R.Point R.ellentuckTopology target :=
     (R.isOpen_ellentuck_iff target).2
       (isOpen_hasFamilyInitialPart F)
