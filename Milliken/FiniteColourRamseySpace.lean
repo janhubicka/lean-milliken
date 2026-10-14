@@ -38,24 +38,27 @@ theorem isOpen_approxColourFibre_for_Milliken
 
 end ApproximationSystem
 
-/-- A finite colouring of one approximation level is homogeneous on a
-refined basic neighbourhood in every topological Ramsey space. -/
-theorem finiteApproximationColouring_for_Milliken
+/-- Every finite Baire-measurable colouring of the *points* of an
+arbitrary topological Ramsey space becomes constant on a refined
+basic neighbourhood. This is the finite-colouring conclusion underlying
+Todorčević's Corollary 6.4. No fixed approximation height is needed.
+
+The proof successively decides the finitely many Baire colour fibres.
+It remains independent of all strong-tree-specific constructions. -/
+theorem finiteBaireColouring_for_Milliken
     {S : ApproximationSystem.{u, v}}
     (hTR : IsTopologicalRamseySpaceOnBasicNeighborhoods (S := S))
     {κ : Type w} [Fintype κ]
-    {n m : Nat} (a : S.Approx n) (A : S.Point)
+    {n : Nat} (a : S.Approx n) (A : S.Point)
     (hne : (S.neighborhood a A).Nonempty)
-    (colour : S.Approx m → κ) :
+    (colour : S.Point → κ)
+    (hBaire : ∀ c : κ,
+      @BaireMeasurableSet S.Point S.ellentuckTopology
+        {X | colour X = c}) :
     ∃ B, B ∈ S.neighborhood a A ∧
-      ∀ X, X ∈ S.neighborhood a B →
-        ∀ Y, Y ∈ S.neighborhood a B →
-          colour (S.approx m X) = colour (S.approx m Y) := by
+      ∃ c : κ, ∀ X, X ∈ S.neighborhood a B → colour X = c := by
   classical
-  letI : TopologicalSpace S.Point := S.ellentuckTopology
-  let fibre : κ → Set S.Point :=
-    fun c => {X | colour (S.approx m X) = c}
-
+  let fibre : κ → Set S.Point := fun c => {X | colour X = c}
   have hdecide :
       ∀ s : Finset κ, ∀ B : S.Point,
         B ∈ S.neighborhood a A →
@@ -77,11 +80,12 @@ theorem finiteApproximationColouring_for_Milliken
             exact ⟨d, Finset.mem_insert_of_mem hd, hsub⟩)⟩
         · have hneC : (S.neighborhood a C).Nonempty :=
             ⟨C, S.le_refl C, hCB.2⟩
-          have hopen :
-              @BaireMeasurableSet S.Point S.ellentuckTopology (fibre c) :=
-            (S.isOpen_approxColourFibre_for_Milliken m colour c).baireMeasurableSet
+          have hmeas :
+              @BaireMeasurableSet S.Point S.ellentuckTopology
+                (fibre c) :=
+            hBaire c
           obtain ⟨D, hDC, hhom⟩ :=
-            hTR.1 (fibre c) hopen a C hneC
+            hTR.1 (fibre c) hmeas a C hneC
           have hDB : D ∈ S.neighborhood a B :=
             S.neighborhood_mono hCB.1 hDC
           refine ⟨D, hDB, ?_⟩
@@ -102,15 +106,42 @@ theorem finiteApproximationColouring_for_Milliken
     S.neighborhood_mono hB0A.1 hBB0
   rcases hfinal with hhit | havoid
   · rcases hhit with ⟨c, _, hsub⟩
-    refine ⟨B, hBA, ?_⟩
-    intro X hX Y hY
-    exact (hsub hX).trans (hsub hY).symm
+    refine ⟨B, hBA, c, ?_⟩
+    intro X hX
+    exact hsub hX
   · exfalso
-    let c : κ := colour (S.approx m B)
+    let c : κ := colour B
     have hdis := havoid c (Finset.mem_univ c)
     have hB : B ∈ S.neighborhood a B :=
       ⟨S.le_refl B, hBB0.2⟩
     have hBc : B ∈ fibre c := rfl
     exact Set.disjoint_left.1 hdis hB hBc
+
+/-- A finite colouring of one approximation level is homogeneous on
+a refined basic neighbourhood. This is now an immediate specialization
+of the more useful *point-colouring* Baire theorem above: every
+fixed-approximation colour fibre is Ellentuck-open. -/
+theorem finiteApproximationColouring_for_Milliken
+    {S : ApproximationSystem.{u, v}}
+    (hTR : IsTopologicalRamseySpaceOnBasicNeighborhoods (S := S))
+    {κ : Type w} [Fintype κ]
+    {n m : Nat} (a : S.Approx n) (A : S.Point)
+    (hne : (S.neighborhood a A).Nonempty)
+    (colour : S.Approx m → κ) :
+    ∃ B, B ∈ S.neighborhood a A ∧
+      ∀ X, X ∈ S.neighborhood a B →
+        ∀ Y, Y ∈ S.neighborhood a B →
+          colour (S.approx m X) = colour (S.approx m Y) := by
+  let f : S.Point → κ := fun X => colour (S.approx m X)
+  have hfibres :
+      ∀ c : κ, @BaireMeasurableSet S.Point S.ellentuckTopology
+        {X | f X = c} := by
+    intro c
+    exact (S.isOpen_approxColourFibre_for_Milliken m colour c).baireMeasurableSet
+  obtain ⟨B, hBA, c, hmono⟩ :=
+    finiteBaireColouring_for_Milliken hTR a A hne f hfibres
+  refine ⟨B, hBA, ?_⟩
+  intro X hX Y hY
+  exact (hmono X hX).trans (hmono Y hY).symm
 
 end RamseySpace
