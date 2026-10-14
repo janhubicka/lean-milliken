@@ -7,10 +7,20 @@ The GitHub Wiki tab is **a different Git repository** from the source tree,
 so merely committing files under `docs/wiki/` does not make those pages
 appear at `https://github.com/janhubicka/lean-milliken/wiki`.
 
+> **Current status (14 October 2026): Published and synchronizing.**
+> The separate Wiki Git repository has now been initialized. GitHub Actions
+> [run 38601106401](https://github.com/janhubicka/lean-milliken/actions/runs/38601106401)
+> cloned `lean-milliken.wiki.git` successfully, created the custom
+> `_Sidebar.md`, and pushed the Wiki commit `0771614` to `master`.
+> Read the live [GitHub Wiki](https://github.com/janhubicka/lean-milliken/wiki).
+> **No manual first-page action is now needed for this repository.**
+> The instructions below explain initial setup for a fresh fork or replica.
+
 ## One-time initialization (required by GitHub)
 
-GitHub doesn't create the separate `.wiki.git` repository until someone
-creates the first Wiki page through the website. Do this once:
+A *new* GitHub repository does not receive its separate `.wiki.git` storage
+until someone creates the first Wiki page through the website. **This
+has already been completed for `janhubicka/lean-milliken`.** For a new fork:
 
 1. Open **https://github.com/janhubicka/lean-milliken/wiki** and choose
    **Create the first page** (make sure you are signed into a repository
@@ -65,6 +75,7 @@ GitHub Wiki has been initialized, use the
 ## Verification record
 
 The source pages were initially merged as audit PR #145 (14 October 2026).
-The publishing workflow was committed later as a separate change. **Do not
-report the GitHub Wiki tab as published until its workflow run has succeeded
-and the Home page can actually be opened there.**
+The publishing workflow was committed later and has now **pushed the real
+Wiki repository successfully**, most recently in GitHub Actions run
+[38601106401](https://github.com/janhubicka/lean-milliken/actions/runs/38601106401).
+All future source changes to `docs/wiki/` trigger synchronization.
