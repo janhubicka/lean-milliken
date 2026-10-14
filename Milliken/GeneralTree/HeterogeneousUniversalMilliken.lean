@@ -26,8 +26,8 @@ to the newly constructed wedge rather than silently treating each
 coordinate compression as a strong subtree of its old ambient.
 
 Once universal heterogeneous HDHL is proved, the existing checked
-finite-colour product HL, boundary A.4, Abstract Ellentuck and
-original 1979 finite-tree conversions immediately give Milliken.
+finite-colour product HL, boundary A.4, Abstract Ellentuck and the
+realised-finite-approximation 1979-style reduction give Milliken.
 -/
 
 namespace Milliken
@@ -127,8 +127,10 @@ theorem generalMilliken_unconditional
   generalMilliken_of_all_heterogeneousHDHL V
     (fun d P hd => heterogeneousHDHL_unconditional d hd V P)
 
-/-- The original finite-colour Milliken 1979 theorem for every
-pruned, locally finite ambient rooted tree, now unconditional. -/
+/-- The *realised finite-approximation* version of the Milliken 1979
+finite-colouring theorem, unconditional for arbitrary pruned locally
+finite rooted ambients. Intrinsic finite-tree equivalence is a separate
+extension lemma still to be formalised. -/
 theorem milliken1979_general_unconditional
     (V : AmbientTree) :
     HasMillikenFiniteColourProperty V :=

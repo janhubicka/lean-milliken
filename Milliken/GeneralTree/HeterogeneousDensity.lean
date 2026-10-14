@@ -4,11 +4,10 @@ import Milliken.GeneralTree.LongCones
 /-!
 # Todorčević's HDHL density calculus for genuinely heterogeneous trees
 
-The existing Chapter 3 `HDHL` formalisation uses the homogeneous tree
-`List ι` in every coordinate and a fixed finite alphabet `ι`.
-Its induction processes all immediate successors of a root, but the
-exported theorem does not yet range over node-dependently branching
-ambient rooted trees.
+The original Chapter 3 `HDHL` proof uses homogeneous finite alphabets.
+Here the proof is formulated directly for node-dependently branching ambient
+rooted trees; the completed arbitrary-ambient theorem is exported in
+`HeterogeneousUniversalMilliken`.
 
 We define the corresponding finite-dimensional matrix and density
 objects for arbitrary strong subtrees `P : Fin d → StrongSubtree U`
@@ -18,8 +17,8 @@ of individual factors need not share a common root or tree shape.
 
 This module proves finiteness/nonemptiness of every finite level
 product and elementary density transport, which are used by the
-Chapter 3 induction. It defines the heterogeneous HDHL target, but
-does not assume it as an axiom or claim it proved.
+Chapter 3 induction. It defines the heterogeneous HDHL property; the proved universal theorem
+inhabiting it is exported separately in `HeterogeneousUniversalMilliken`.
 -/
 
 namespace Milliken
@@ -137,7 +136,8 @@ def HeterogeneousHighlyDense
 
 /-- The exact heterogeneous highly-dense Halpern--Läuchli
 statement, analogous to the checked homogeneous `HDHL`.
-This is a target definition, not an axiom or a proved theorem. -/
+This is a target *definition*, not an axiom. Its property is proved
+universally in `HeterogeneousUniversalMilliken`. -/
 def HasHeterogeneousHDHL
     (P : Fin d → StrongSubtree U) : Prop :=
   ∀ Q : Set (Fin d → U),
@@ -145,6 +145,32 @@ def HasHeterogeneousHDHL
     ∀ k : ℕ, 0 < k →
       ∃ M : HeterogeneousMatrix P,
         M.DenseAt k ∧ M.carrier ⊆ Q
+
+
+/-- The highly-dense-set hypothesis is non-vacuous: the empty
+colour class never satisfies it. For every k there is a nonempty
+source-level tuple, while the full-level matrix at the proposed
+test scale is itself dense. This is a useful adversarial regression
+against accidentally weakening the density predicate. -/
+theorem not_heterogeneousHighlyDense_empty
+    (P : Fin d → StrongSubtree U) :
+    ¬ HeterogeneousHighlyDense P (∅ : Set (Fin d → U)) := by
+  classical
+  intro h
+  obtain ⟨n, hn⟩ := h 0
+  have hDense :
+      (HeterogeneousMatrix.fullLevel P n).DenseAt n :=
+    HeterogeneousMatrix.fullLevel_denseAt P n
+  have hProduct :
+      HeterogeneousProductDenseAt P
+        ((∅ : Set (Fin d → U)) ∩
+          (HeterogeneousMatrix.fullLevel P n).carrier) 0 :=
+    hn (HeterogeneousMatrix.fullLevel P n) hDense
+  let x : HeterogeneousLevelTuple P 0 :=
+    Classical.choice
+      (inferInstance : Nonempty (HeterogeneousLevelTuple P 0))
+  obtain ⟨y, hy, _⟩ := hProduct x
+  simpa using hy.1
 
 end GeneralTree
 end Milliken
