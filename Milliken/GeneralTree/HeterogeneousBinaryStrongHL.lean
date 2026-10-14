@@ -1,6 +1,6 @@
 import Milliken.GeneralTree.HeterogeneousBranchFusion
 import Milliken.GeneralTree.SubsequenceStrong
-import Milliken.HalpernLauchli.LevelSelector
+import Milliken.GeneralTree.IncreasingEnumeration
 
 /-!
 # Binary strong-subtree Halpern--Läuchli from heterogeneous HDHL
@@ -21,7 +21,6 @@ these very factors; no additional HL axiom or global degree bound.
 namespace Milliken
 namespace GeneralTree
 
-open HalpernLauchli
 
 variable {U : AmbientTree} {d : ℕ}
 

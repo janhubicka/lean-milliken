@@ -63,7 +63,7 @@ for old in (
         route = path_between(general, old)
         raise SystemExit("FAIL: general theorem imports old homogeneous proof: " + " -> ".join(route or []))
 
-for root in ["Milliken", "Milliken.Applications"]:
+for root in ["Milliken"]:
     direct = graph.get(root, [])
     redundant = sorted({x for x in direct
                         if any(x in reach(other) for other in direct if other != x)})
@@ -73,3 +73,8 @@ for root in ["Milliken", "Milliken.Applications"]:
 
 print(f"PASS: {general} uses {len(closure)} local modules but does not import "
       "the homogeneous Milliken/Hales--Jewett proof; umbrellas are transitively minimal")
+
+# The only supported client is the ATR general-tree development;
+# the old homogeneous umbrella API is intentionally removed.
+if "Milliken.Applications" in graph:
+    raise SystemExit("FAIL: legacy homogeneous umbrella still exists")
