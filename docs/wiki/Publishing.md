@@ -19,10 +19,11 @@ creates the first Wiki page through the website. Do this once:
    “This page is populated automatically from docs/wiki.”
 3. Click **Save Page**. This initializes the Wiki Git repository.
 
-Afterwards, open
-**https://github.com/janhubicka/lean-milliken/actions/workflows/publish-wiki.yml**,
-choose **Run workflow**, select **main** and run it. The workflow will
-publish the complete maintained documentation from `docs/wiki/`.
+After saving the first **Home** page, GitHub's `gollum` event
+triggers the publishing workflow automatically. This should populate all
+pages from `docs/wiki/` without a second manual action. If it does not,
+open **https://github.com/janhubicka/lean-milliken/actions/workflows/publish-wiki.yml**,
+choose **Run workflow**, select **main**, and run it.
 
 The automation is already installed as
 [`.github/workflows/publish-wiki.yml`](../../.github/workflows/publish-wiki.yml).
