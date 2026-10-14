@@ -1,66 +1,83 @@
-# The Milliken tree theorem — Lean library wiki
+# Milliken's theorem — Lean research library
 
-This wiki documents the **verified unrestricted strong-subtree theorem** in `janhubicka/lean-milliken`. It is written for mathematicians and for the sole downstream client, `janhubicka/lean-3-uniform-diaries` (ATR). The library covers rooted trees with **finite nonempty immediate-successor sets**, with **no uniform bound** on their sizes. No homogeneous word alphabet is needed.
+This wiki documents a verified Lean 4 development of the strong-subtree
+Milliken theorem for arbitrary **pruned, rooted, locally finitely branching**
+trees. The branching degree can depend on each node and be unbounded
+over the full tree.
 
-**Audit reference point:** `main` commit `8bb11529b1631288954248eee6da53416d5b073e`, whose [CI run](https://github.com/janhubicka/lean-milliken/actions/runs/38460157553) completed successfully (Lean build, source integrity, graph, designated kernel-axiom reports). The proposed ATR-only cleanup removes the historical fixed-alphabet proof and preserves the unrestricted theorem at [PR #144](https://github.com/janhubicka/lean-milliken/pull/144). Read the tracker before relying on future version numbers.
+The intended readers are mathematicians using the library to formalise
+new Ramsey-theoretic statements, and researchers comparing the
+formal proof with Todorčević's *Introduction to Ramsey Spaces* and
+Milliken's original paper.
 
-## Start here
+## Read the library
 
-| Page | Contents |
+| Chapter | Content |
 | --- | --- |
-| **[Publish to GitHub Wiki](Publishing.md)** | Automatic synchronization workflow, one-time Home-page initialization, and the source-of-truth policy |
-| **[Published statements](Published-statements.md)** | Precise correspondence to Todorčević §3 and §6.1–6.2, Milliken 1979 abstract, hypotheses, named Lean theorems, missing corollaries and mismatched finite-tree domains |
-| **[Proof architecture](Proof-architecture.md)** | Mathematical explanation of the universal heterogeneous HDHL induction, full source-level compression, common-root wedge, complementary density transport, grafting, A.1–A.4 and Abstract Ellentuck |
-| **[Geometry and auxiliary lemmas](Geometry-and-auxiliary-lemmas.md)** | Reusable nontrivial lemmas proved along the way: ranks, source fronts, finitisation, mixed protected graft, stabilization, matrices, wedge and code closedness |
-| **[Intrinsic finite completion](Intrinsic-finite-completion.md)** | Separate the actual published finite strong subtrees from realised approximations; explicit proof plan for infinite completion and 1979 corollary |
-| **[Adversarial referee record](Adversarial-referee-record.md)** | Three disjoint mathematical/kernel/maintainability challenges, verified facts, counterexample attempts and remaining proof obligations; never described as external peer-review signoff |
-| **[ATR consumer and cleanup](ATR-consumer-and-cleanup.md)** | Single supported user, trim strategy, upstream/downstream CI requirement, exact scalar-vs-vector scope |
-| **[Audit tracking](../audits/AUDIT_TRACKER_2026.md)** | P0/P1/P2 work packages, source version, acceptance tests, status and merge gates |
+| **[Using the library](Using-the-library.md)** | Install with Lake, import the public theorems, examine assumptions, compose reusable lemmas and build downstream tests |
+| **[Published statements](Published-statements.md)** | Source-faithful map of theorems in Chapters 3, 5 and 6; distinction between checked results, corollaries and outstanding formal equivalents |
+| **[Proof architecture](Proof-architecture.md)** | Detailed human-readable heterogeneous HDHL induction, selected-level compression, common-root wedge, positive and negative matrix transfer, A.1–A.4 and Abstract Ellentuck |
+| **[Geometry and auxiliary lemmas](Geometry-and-auxiliary-lemmas.md)** | Strongness, ranks, protected grafting, finitisation, boundary cones, stabilization, compression, matrix transports and closedness |
+| **[Intrinsic finite completion](Intrinsic-finite-completion.md)** | Intrinsic strong finite trees versus realised approximations; constructive extension argument and current Lean proof status |
+| **[Adversarial referee audit](Adversarial-referee-record.md)** | Mathematical statement fidelity, kernel/dependency trust, and minimality audits; explicit gaps and attempted counterexamples |
+| **[Audit tracker](../audits/AUDIT_TRACKER_2026.md)** | Pinned CI results, unfinished proof obligations and regression criteria |
+| **[Wiki publishing](Publishing.md)** | How source-controlled documentation is synchronized to this GitHub Wiki |
 
-Older development notes remain in `docs/`; some were written when the unrestricted theorem was still conditional and must not override current theorem types.
+The source of truth is the version-controlled `docs/wiki/` directory.
+Changes to those files automatically publish to the [GitHub Wiki](https://github.com/janhubicka/lean-milliken/wiki).
 
-## Principal checked endpoints
+## Main theorem endpoints
 
 ```lean
-import Milliken.GeneralTree.UnconditionalHLAPI
-import Milliken.GeneralTree.FixedStemUnconditional
+import Milliken
 
-#check Milliken.GeneralTree.heterogeneousHDHL_unconditional
+#check Milliken.GeneralTree.generalMilliken_unconditional
 #check Milliken.GeneralTree.generalProductHL_unconditional
 #check Milliken.GeneralTree.boundaryProductHL_unconditional
-#check Milliken.GeneralTree.generalPigeonhole_unconditional
-#check Milliken.GeneralTree.generalMilliken_unconditional
+#check Milliken.GeneralTree.heterogeneousHDHL_unconditional
 #check Milliken.GeneralTree.milliken1979_general_unconditional
 #check Milliken.GeneralTree.millikenFixedStemFiniteColouring_general
-#check Milliken.GeneralTree.millikenFixedStemMonochromatic_general
+#check Milliken.GeneralTree.millikenFiniteBaireColouring
+#check Milliken.GeneralTree.galvinAlternative_realized
+#check Milliken.GeneralTree.exists_refinement_realising_with_stem
+
+-- Generic finite-colour lemmas for any topological Ramsey space.
+#check RamseySpace.finiteBaireColouring
+#check RamseySpace.finiteApproximationColouring
 ```
 
-The key topological endpoint is
+The central theorem concludes
+`RamseySpace.IsTopologicalRamseySpaceTextbook` for the approximation
+system `generalApproximationSystem U`. Thus it gives both the
+Ramsey property of all Baire sets and Ramsey-nullity of all meagre
+sets in genuine basic neighbourhoods; it is not a conditional
+Halpern–Läuchli implication.
 
-```text
-GeneralTree.generalMilliken_unconditional (U : AmbientTree) :
-  RamseySpace.IsTopologicalRamseySpaceTextbook
-    (S := GeneralTree.generalApproximationSystem U)
-```
+## Definitions worth checking
 
-This is the actual *Baire-property and meagre-set* conclusion using published basic neighborhoods, not merely a finite Ramsey number or a conditional implication with HL assumed.
+A strong subtree has one strictly increasing sequence of selected
+ambient levels, may start below the ambient root, and meets every
+immediate ambient child cone of a selected node in exactly one node
+at the next selected source level. The finite restriction `r n S`
+keeps precisely the first `n` source levels. Todorčević's published
+`bookLeFin` includes both carrier and maximal-level inclusion.
 
-The 1979 finite-colour endpoint is **proved for `FiniteApprox U n`**, currently defined as prefixes having an infinite witness. The theorem is unconditional within that formal domain. **The identification with all intrinsic finite strong trees is an open documentation/definition-equivalence obligation**, and is a priority in the tracker.
+The present 1979-style finite-colouring API quantifies over *realised*
+finite approximations. The exact intrinsic finite-tree equivalence
+requires the separately documented reverse extension lemma.
+Similarly, products of synchronized **level nodes** and synchronized
+**finite strong-subtree vectors** are different objects and must not
+be conflated.
 
-## Modeling conventions
+## Verification
 
-- Strong subtrees can have a root **strictly below the ambient root**.
-- Each retained source level has a chosen **ambient height**, which may have arbitrarily large gaps.
-- The next selected level meets each **ambient immediate-child cone exactly once**; weaker meet- or order-preserving subtrees are not interchangeable.
-- `predecessor_exists` forbids “ghost” later selected nodes absent from the preceding frontier.
-- `r 0 T` is empty. `r n T` keeps exactly the first `n` **source** levels.
-- The full arbitrary-tree proof constructs A.2 using Todorčević’s `bookLeFin` with **maximal-level inclusion**. The old homogeneous `leFin` shortcut belongs to a distinct historical implementation.
-- `GeneralTree.Vector` currently states synchronized finite-vector Milliken properties as **targets**, not as proved theorems. Monochromatic level products from HL are insufficient on their own to colour entire finite strong-tree vectors.
+The repository workflow builds all Lean modules, scans all
+source files for unsound admissions, checks the theorem-axiom
+reports, and audits import dependencies. These checks establish
+proof integrity for the actual elaborated statements; the
+mathematical correspondence with printed statements is reviewed
+independently in the audit chapters.
 
-## Sources and verification
-
-1. S. Todorčević, *Introduction to Ramsey Spaces* (2010), Chapter 3 (Halpern–Läuchli), Chapter 5 (Abstract Ellentuck) and Chapter 6 (strong subtree Ramsey space). [Book PDF](https://www.cs.umd.edu/~gasarch/COURSES/752/S26/BOOKS/IntroRamseySpaces.pdf).
-2. K. R. Milliken, *A Ramsey theorem for trees*, *Journal of Combinatorial Theory, Series A* **26** (1979), 215–237; [journal](https://doi.org/10.1016/0097-3165(79)90101-8). The published abstract has been checked; the full article is still required for any line-by-line audit of its detailed proof.
-3. `lean-ramsey-space-todorcevic` pinned dependency, which contains the checked abstract Ellentuck theorem and a proof that its depth form is equivalent to the literal basic-neighbourhood version.
-
-**What is proved vs not yet separately exported** is always specified on the [published-statements page](Published-statements.md). A whole-library successful `lake build` and `#print axioms` audit is excellent evidence for the stated Lean propositions, but not a substitute for checking the mathematical source-to-formal-domain correspondence.
+Sources: S. Todorčević, *Introduction to Ramsey Spaces* (2010),
+Chapters 3, 5, 6; K. R. Milliken, *A Ramsey theorem for trees*,
+*J. Combinatorial Theory A* **26** (1979), 215–237.
