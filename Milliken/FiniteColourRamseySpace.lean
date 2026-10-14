@@ -5,13 +5,11 @@ import RamseySpace.Standard
 /-!
 # Generic finite-colouring lemma for an arbitrary topological Ramsey space
 
-This statement depends only on the Abstract Ellentuck/basic-neighbourhood
-theorem. It is shared by the homogeneous and unrestricted general-tree
-Milliken corollaries; it must not import either proof of Milliken itself.
-
-The declaration names remain unchanged:
-`RamseySpace.finiteApproximationColouring_for_Milliken` and
-`RamseySpace.ApproximationSystem.isOpen_approxColourFibre_for_Milliken`.
+The results in this module concern **any** topological Ramsey space,
+not just strong trees. They provide the open colour-fibre lemma,
+finite Baire-measurable point-colouring homogeneity, and fixed-height
+finite-approximation colouring. No tree theorem is imported here.
+These declarations form the generic colouring API exported by this library.
 -/
 
 namespace RamseySpace
@@ -23,7 +21,7 @@ namespace ApproximationSystem
 variable {S : ApproximationSystem.{u, v}}
 
 /-- A colour class determined by one approximation level is Ellentuck-open. -/
-theorem isOpen_approxColourFibre_for_Milliken
+theorem isOpen_approxColourFibre
     {κ : Type w} (m : Nat) (colour : S.Approx m → κ) (c : κ) :
     @IsOpen S.Point S.ellentuckTopology
       {X | colour (S.approx m X) = c} := by
@@ -45,7 +43,7 @@ Todorčević's Corollary 6.4. No fixed approximation height is needed.
 
 The proof successively decides the finitely many Baire colour fibres.
 It remains independent of all strong-tree-specific constructions. -/
-theorem finiteBaireColouring_for_Milliken
+theorem finiteBaireColouring
     {S : ApproximationSystem.{u, v}}
     (hTR : IsTopologicalRamseySpaceOnBasicNeighborhoods (S := S))
     {κ : Type w} [Fintype κ]
@@ -121,7 +119,7 @@ theorem finiteBaireColouring_for_Milliken
 a refined basic neighbourhood. This is now an immediate specialization
 of the more useful *point-colouring* Baire theorem above: every
 fixed-approximation colour fibre is Ellentuck-open. -/
-theorem finiteApproximationColouring_for_Milliken
+theorem finiteApproximationColouring
     {S : ApproximationSystem.{u, v}}
     (hTR : IsTopologicalRamseySpaceOnBasicNeighborhoods (S := S))
     {κ : Type w} [Fintype κ]
@@ -138,9 +136,9 @@ theorem finiteApproximationColouring_for_Milliken
       ∀ c : κ, @BaireMeasurableSet S.Point S.ellentuckTopology
         {X | f X = c} := by
     intro c
-    exact (S.isOpen_approxColourFibre_for_Milliken m colour c).baireMeasurableSet
+    exact (S.isOpen_approxColourFibre m colour c).baireMeasurableSet
   obtain ⟨B, hBA, c, hmono⟩ :=
-    finiteBaireColouring_for_Milliken hTR a A hne f hfibres
+    finiteBaireColouring hTR a A hne f hfibres
   refine ⟨B, hBA, ?_⟩
   intro X hX Y hY
   exact (hmono X hX).trans (hmono Y hY).symm
