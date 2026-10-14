@@ -86,7 +86,7 @@ Every tagged coordinate `(i,t)` has depth `1+depth_{C_i}(t)`. Nodes with differe
 
 Each component yields a **genuine** `StrongSubtree V`, with one common level map `n ↦ n+1`. This is not just a propositional assertion of common levels: `HeterogeneousWedgeAmbient`, `HeterogeneousWedgePred`, `HeterogeneousWedgeHeights`, `HeterogeneousWedgeComponentCones` and the compressed-source modules construct all predecessor/order/height witnesses.
 
-Now the induction hypothesis for **every ambient** can be applied to `V), despite its having been freshly constructed.
+Now the induction hypothesis for **every ambient** can be applied to `V`, despite its having been freshly constructed.
 
 ### 4. Why both colours and *failure* of density must transport
 
