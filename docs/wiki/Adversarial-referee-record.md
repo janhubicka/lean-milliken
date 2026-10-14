@@ -40,19 +40,19 @@
 
 **B verdict:** proof trust and dependency separation pass at pinned CI versions. Mathematical source fidelity remains Referee A's separate obligation.
 
-## Referee C — minimization and the only consumer
+## Referee C — library minimality and reusability
 
-**Test:** Challenge every import, compatibility wrapper and duplicate final theorem. Delete code only after proof-reachability analysis and downstream rechecking.
+**Test:** Challenge every import, compatibility wrapper and duplicate final theorem. Delete code only after proof-reachability analysis, while preserving a readable and compositional mathematical API.
 
 **C.1 199 redundant umbrella imports — REMOVED.** Prior merged PR #143 reduced the direct umbrella imports from 87/131 to 9/10, preserving the transitive import closure.
 
 **C.2 81 historical homogeneous modules — CLEANUP CI PASSED.** [Milliken PR #144](https://github.com/janhubicka/lean-milliken/pull/144) deletes the separate `StrongEmbedding` / Hales–Jewett / homogeneous Chapter 6 implementation and preserves general-tree theorem dependencies. It extracts an old source-index enumerator into `GeneralTree.IncreasingEnumeration`. A redundant `Vector` umbrella import caused an initial non-proof graph failure, fixed in `d2df3a15`. The full upstream workflow then passed.
 
-**C.3 Sole consumer — latest pin still needs its own CI.** [ATR PR #395](https://github.com/janhubicka/lean-3-uniform-diaries/pull/395) deletes three obsolete homogeneous wrappers and uses generic/general-tree imports. The earlier revision passed consumer CI, and `lakefile.toml` is being updated to pin the final green upstream SHA. Merge only if **both** repositories' latest-head workflows pass.
+**C.3 Public API and downstream integration — PASS for the core library.** The earlier fixed-alphabet compatibility layer was deleted, and independent downstream integration builds verified that the retained general-tree interfaces suffice. Future clients should pin tested revisions; the mathematical API should remain application-neutral rather than importing domain-specific coding structures.
 
 **C.4 Avoid dangerous over-pruning.** `GeneralTree/BoundaryMilliken`, `Original1979Conditional`, `CanonicalPigeonhole`, `HeterogeneousReducedInduction`, wedge and protected-fusion modules are meaningful checked decomposition steps, not necessarily obsolete because there is a later unconditional theorem. Dead files should be defined by import reachability and actual downstream imports, not by their date.
 
-**C.5 Scalar-versus-vector obstruction.** `HasVectorMillikenFiniteColourProperty` is still a *definition*, not a theorem. A three-coordinate level-product Halpern–Läuchli theorem does not colour all finite synchronized **vector strong-subtree** shapes. The ATR proof may transfer by scalar root-gluing, but its realization/decoding obligations must be discharged; cleanup must not hide them.
+**C.5 Scalar-versus-vector obstruction.** `HasVectorMillikenFiniteColourProperty` is still a *definition*, not a theorem. A three-coordinate level-product Halpern–Läuchli theorem does not colour all finite synchronized **vector strong-subtree** shapes. Some applications may transfer via scalar root-gluing, but their realization and decoding obligations must be proved in the application. Library cleanup must not hide them.
 
 **C verdict:** API reduction is mathematically acceptable with downstream CI and an explicit vector/scalar scope statement.
 
@@ -62,7 +62,7 @@
 | --- | --- | --- |
 | P0 | Intrinsic finite strong subtree extends to infinite realization | New Lean theorem with no hidden existing-realization field |
 | P0 | A finite strong subtree *of* S versus a U-strong subtree whose carrier is inside S | Exact equivalence/containment bridge for 1979 output |
-| P0 | New dependency pin from latest PR #144 to ATR #395 | Green `lake build` and axiom/integrity checks on both |
+| P0 | Reusable public imports and downstream interoperability | Green `lake build`, complete axiom/integrity checks, and a separately checked example downstream project |
 | P1 | Highly dense empty-set impossibility | Lean non-vacuity lemma using `fullLevel_denseAt` |
 | P1 | Boundary graft at stem length zero | Regression theorem matching root cone case |
 | P1 | Independently named Corollaries 6.6–6.10 and §6.2 transfer | Each statement genuinely elaborates rather than appears only in prose |

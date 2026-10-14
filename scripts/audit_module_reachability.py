@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
-"""Audit reachability from *all* arbitrary-tree modules.
+"""Audit theorem-library reachability from every supported strong-tree module.
 
-ATR is the sole currently supported consumer; all GeneralTree modules,
-the shared ambient and finite-colouring support are kept as roots. This
-deliberately over-approximates ATR's dependency requirements.
+All public GeneralTree modules, ambient-tree geometry and the generic
+finite-colouring results are roots. This deliberately preserves optional
+mathematical interfaces even if they are not imported from Milliken.lean.
 
-A legacy module is safe to remove only when no retained GeneralTree or
-ambient module imports it, transitively. The results are used as an
-actionable list and are verified again after deletion.
+Reject reintroduction of historical fixed-alphabet proof modules, detect
+unintended dependencies, and print a reproducible inventory of the
+retained source modules.
 """
 from collections import deque
 from pathlib import Path

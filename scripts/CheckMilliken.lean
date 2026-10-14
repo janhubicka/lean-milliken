@@ -141,12 +141,12 @@ import Milliken.GeneralTree.UnconditionalHLAPI
 import Milliken.GeneralTree.Vector
 
 /-!
-# Transitive kernel-axiom audit of all ATR-facing general-tree theorems
+# Kernel-axiom audit of the strong-tree Ramsey library
 
-The historical homogeneous StrongEmbedding/Hales–Jewett development has
-been retired because the only maintained client, 3-uniform ATR, uses the
-unrestricted strongly branching general-tree theorem. Every surviving
-endpoint below must remain free of sorryAx and nonstandard axioms.
+The full set of exported combinatorial and geometric proof endpoints must
+remain free of admitted proofs and nonstandard axioms. The public API is
+independent of any particular application, and the continuous-integration
+workflow checks this script against the allowed Lean kernel axioms.
 -/
 
 #print axioms Milliken.GeneralTree.StrongSubtree.sourceLevel_nonempty
@@ -658,3 +658,17 @@ endpoint below must remain free of sorryAx and nonstandard axioms.
 
 #print axioms Milliken.GeneralTree.increasingEnumeration_mem
 #print axioms Milliken.GeneralTree.increasingEnumeration_strictMono
+
+#print axioms Milliken.GeneralTree.exists_refinement_realising_with_stem
+#print axioms Milliken.GeneralTree.millikenFiniteBaireColouring
+#print axioms Milliken.GeneralTree.galvinAlternative_realized
+#print axioms Milliken.GeneralTree.FiniteApprox.toIntrinsic
+#print axioms Milliken.GeneralTree.IntrinsicFiniteWitness.sourceLevel_nonempty
+#print axioms Milliken.GeneralTree.not_heterogeneousHighlyDense_empty
+#print axioms RamseySpace.finiteApproximationColouring
+#print axioms RamseySpace.finiteBaireColouring
+#print axioms RamseySpace.ApproximationSystem.isOpen_approxColourFibre
+
+#print axioms Milliken.GeneralTree.initialPart_eq_of_larger_initialPart_eq
+
+#print axioms Milliken.GeneralTree.millikenFixedStemFiniteColouring_of_boundaryProductHL

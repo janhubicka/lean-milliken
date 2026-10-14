@@ -17,8 +17,11 @@ jobs:
 
       # GitHub-hosted runners are ephemeral. Cache the pinned Lean toolchain so
       # elan does not download and unpack it on every CI run.
-      - name: Inventory removable homogeneous proof modules
-        run: python3 scripts/audit_atr_pruning.py
+      - name: Verify application-independent public interface
+        run: python3 scripts/audit_public_library.py
+
+      - name: Audit mathematical-module reachability
+        run: python3 scripts/audit_module_reachability.py
 
       - name: Cache Lean toolchain
         uses: actions/cache@v5
@@ -51,6 +54,9 @@ jobs:
       - name: Build
         run: lake build
 
+      - name: Compile independent public API examples
+        run: lake env lean scripts/CheckPublicAPI.lean
+
       - name: Audit general-theorem imports and redundant dependencies
         run: python3 scripts/audit_dependency_graph.py
 
@@ -61,7 +67,7 @@ jobs:
         run: |
           mkdir -p proof-audit
           lake env lean scripts/CheckMilliken.lean > proof-audit/milliken-axioms.log 2>&1
-          python3 scripts/check-axiom-log.py proof-audit/milliken-axioms.log 508 || {
+          python3 scripts/check-axiom-log.py proof-audit/milliken-axioms.log 519 || {
             cat proof-audit/milliken-axioms.log
             exit 1
           }

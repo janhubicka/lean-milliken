@@ -2,7 +2,7 @@
 
 **Source:** Stevo Todorčević, *Introduction to Ramsey Spaces* (2010), §6.1–6.2 (printed pp. 135–141); [book PDF](https://www.cs.umd.edu/~gasarch/COURSES/752/S26/BOOKS/IntroRamseySpaces.pdf). The preceding strong-tree Halpern–Läuchli machinery is in §3.1–3.2. Other source: K. R. Milliken, *A Ramsey theorem for trees*, *J. Combinatorial Theory A* **26** (1979), 215–237, [DOI](https://doi.org/10.1016/0097-3165(79)90101-8). **Source-access limitation:** only the 1979 publisher's abstract, not every page of the original proof, has been inspected.
 
-All declaration locations below refer to `janhubicka/lean-milliken` baseline commit `8bb11529b1631288954248eee6da53416d5b073e`, unless stated otherwise. Files and interfaces can change on the ATR-only cleanup branch.
+The crosswalk is maintained against the current public `Milliken.GeneralTree` interfaces. Individual audit findings retain the tested commit identifiers so they remain reproducible when modules are reorganised.
 
 ## What “formalised” means here
 
@@ -64,7 +64,7 @@ The published **Definition 6.11** defines an embedding-type relation `Em` on arb
 | Definition 6.11, (6.12)–(6.15) | Meet closure, embedding type, finite-height strong envelope | General tree has order, greatest common ancestors and finite approximations, but **this named embedding-type/envelope construction is not yet supplied as an exported standalone application** |
 | Lemma 6.12 | For `A Em B`, if their strong envelopes intersect then `A=B` | **Not exported**; vital uniqueness for colour transfer |
 | Theorem 6.13 | For arbitrary `A⊆U`, finite Souslin-measurable colouring of `[A]_Em` becomes monochromatic after a strong refinement | **Not exported**; requires the envelope uniqueness and a colouring measurable-transfer theorem |
-| Corollary 6.14 | Finite-`A` embedding-type colouring, no Souslin assumption needed | **Not exported**; a particularly useful candidate for the diary/ATR construction |
+| Corollary 6.14 | Finite-`A` embedding-type colouring, no Souslin assumption needed | **Not exported**; an important reusable embedding-type corollary requiring an additional finite-envelope interpretation |
 | Further §6.2 statements | Relaxed embedding types, degree-preserving trees, Devlin-type applications | **Out of current Milliken-core scope**. These must not be claimed automatically validated |
 
 The phrase *all related statements* is therefore interpreted as **full coverage in this crosswalk**, with explicit non-formalised labels, not a fictitious claim that every later consequence in Chapter 6 has been Lean-checked.
@@ -102,11 +102,11 @@ Publisher's abstract: for a rooted infinite-height tree, with a **nonempty finit
 - The library also permits `n=0`, where its approximation is the empty set. This is a harmless extension, but not part of the published positive-`n` statement.
 - Because the publisher's full 1979 paper has not been compared page by page, do not claim identity of every auxiliary lemma or proof-ordering from the original article.
 
-## Fixed stems and the sole downstream consumer
+## Fixed stems and synchronized-vector generalizations
 
 `GeneralTree.millikenFixedStemFiniteColouring_general` and `millikenFixedStemMonochromatic_general` give verified **infinite-refinement** statements preserving the first `ell` source levels. No `ell ≤ k` premise is needed to state these infinite-approximation colourings. The intrinsic **finite-tree anchored** `Str_{ell,k}` formulation *does* need `ell ≤ k` and an exact finite-to-infinite restriction lemma.
 
-`GeneralTree.HasVectorMillikenFiniteColourProperty` and `HasVectorFixedStemColourProperty` are declarations of *desired propositions*, **not proofs**. A synchronization of **levels** in heterogeneous product HL is not sufficient to identify separately chosen coordinatewise finite strong-subtree **shapes**. The ATR consumer can instead aim for a checked *scalar root-gluing correspondence*, but its encoding/realization theorem must actually be proved and its hypotheses discharged.
+`GeneralTree.HasVectorMillikenFiniteColourProperty` and `HasVectorFixedStemColourProperty` are declarations of *desired propositions*, **not proofs**. A synchronization of **levels** in heterogeneous product HL is not sufficient to identify separately chosen coordinatewise finite strong-subtree **shapes**. In particular applications, a *scalar root-gluing correspondence* may reduce a vector colouring to an ambient scalar-tree colouring, but the encoding and finite realisation equivalence must be established independently. Such application data are not assumptions of the Milliken library.
 
 ## Quick validation recipe
 

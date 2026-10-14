@@ -18,7 +18,8 @@ The base `Milliken.AmbientTree` is a Mathlib rooted tree with `finite_children` 
 | `GeneralTree/Ancestry.lean`, `SourceLevels.lean`, `BoundaryAncestor.lean` | Descendants and unique selected ancestors exist at prescribed earlier source levels | No-ghost condition, refinement, source-level selection |
 | `GeneralTree/FiniteLevels.lean`, `MaxLevel.lean` | Every fixed level and finite stem really is finite; its maximal nodes are its last selected source level | A.2(1), boundary-index finiteness, approximation enumerations |
 
-The data `StrongSubtree.predecessor_exists` is not redundant with its forward ambient-successor uniqueness clause. The binary-tree ghost example is recorded in `docs/REFEREE_AUDITS.md`. A safe refactor may **reformulate** this condition, but should not drop its mathematical content without proving a replacement.
+The data `StrongSubtree.predecessor_exists` is not redundant with its forward ambient-successor uniqueness clause. The binary-tree ghost example is explained in the [adversarial
+referee audit](Adversarial-referee-record.md). A safe refactor may **reformulate** this condition, but should not drop its mathematical content without proving a replacement.
 
 ## 2. What the book calls finitisation and amalgamation
 
@@ -117,4 +118,4 @@ The last two results are not optional boilerplate. They are the logical justific
 
 ## 8. Audit and maintenance principles
 
-Keep the main proof path minimal and let CI guard its kernel arguments. Any module slated for deletion must be unreachable from all preserved endpoints and from the sole downstream ATR imports. Before modifying `StrongSubtree` or `FiniteApprox`, add statement-level regression tests in Lean. For further historical background, compare the explicit [proof architecture](Proof-architecture.md) with [published statements](Published-statements.md).
+Keep the main proof path minimal and let CI guard its kernel arguments. Any module slated for deletion must be unreachable from all supported public theorem endpoints and genuinely optional mathematical interfaces. Downstream application libraries should pin and independently compile their declared dependencies. Before modifying `StrongSubtree` or `FiniteApprox`, add statement-level regression tests in Lean. For further historical background, compare the explicit [proof architecture](Proof-architecture.md) with [published statements](Published-statements.md).

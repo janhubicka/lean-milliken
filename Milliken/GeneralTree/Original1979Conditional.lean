@@ -120,7 +120,7 @@ theorem milliken1979_of_boundaryProductHL
         (S := S) :=
     generalMilliken_of_boundaryProductHL U hHL
   obtain ⟨B, _hBA, hhom⟩ :=
-    RamseySpace.finiteApproximationColouring_for_Milliken
+    RamseySpace.finiteApproximationColouring
       hTR (r 0 A) A hne colour
   refine ⟨B, colour (r k B), ?_⟩
   intro a ha

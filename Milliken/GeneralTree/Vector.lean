@@ -3,8 +3,9 @@ import Milliken.GeneralTree.Coherence
 /-!
 # Synchronized vector strong subtrees of arbitrary finitely branching trees
 
-This is the published product/vector-tree interface used in applications to
-big Ramsey degrees of hypergraphs (Balko–Chodounský–Hubička–Konečný–Vena).
+This is an abstract synchronized-vector interface for finite families of
+strong trees. It can be used in applications to structural and big Ramsey
+theory whenever a separate vector-tree colouring theorem is available.
 
 Each coordinate tree is independently strong in its own rooted pruned
 locally finite ambient tree. All coordinate trees share exactly ONE
@@ -182,8 +183,8 @@ theorem self_mem_vectorBasicNeighborhood {d : ℕ}
 
 /-- The synchronized vector finite-colour conclusion.
 This is currently an *unproved property* for arbitrary ambients, not an
-axiom or a theorem. It is the finite-vector-tree version of Milliken needed
-for the three-uniform diary construction. -/
+axiom or a theorem. The finite-vector-tree theorem is stronger than
+monochromatic level products supplied by Halpern–Läuchli. -/
 def HasVectorMillikenFiniteColourProperty {d : ℕ}
     (U : Fin d → AmbientTree) : Prop :=
   ∀ (n colors : ℕ) [NeZero colors]
