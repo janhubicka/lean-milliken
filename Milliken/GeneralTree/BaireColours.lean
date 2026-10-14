@@ -1,5 +1,5 @@
 import Milliken.GeneralTree.HeterogeneousUniversalMilliken
-import Milliken.FiniteColourRamseySpace
+import RamseySpace.FiniteColouring
 
 /-!
 # Finite Baire-measurable colourings of infinite strong subtrees

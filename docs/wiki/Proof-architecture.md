@@ -124,7 +124,7 @@ The implementation separates this into `BoundaryTupleHL`, `BoundaryGraftStrong`,
 
 Together with metrically/Tychonoff closedness (`GeneralClosed`), the separately formalised **Abstract Ellentuck theorem** from `lean-ramsey-space-todorcevic` gives `IsTopologicalRamseySpaceTextbook`. That target quantifies over *all* sets with the Baire property and *all* meagre sets, not only clopen colour classes. This is `generalMilliken_unconditional`.
 
-Finite colour classes on the approximation space are Ellentuck open. The generic theorem in `Milliken/FiniteColourRamseySpace.lean` converts this to a colouring of all realised finite approximations. The theorem `exists_refinement_realising_general` shows that a realised finite prefix contained in `B` can be made the prefix of an infinite refinement of `B`. This gives `milliken1979_general_unconditional` and its protected-stem variants.
+Finite colour classes on the approximation space are Ellentuck open. The generic theorem in the reusable `RamseySpace.FiniteColouring` module converts this to a colouring of all realised finite approximations. The theorem `exists_refinement_realising_general` shows that a realised finite prefix contained in `B` can be made the prefix of an infinite refinement of `B`. This gives `milliken1979_general_unconditional` and its protected-stem variants.
 
 **Important remaining identification:** a finite tree not *given* with an infinite realiser has not yet been directly represented by `FiniteApprox`. For the literal 1979 assertion and Corollary 6.5 an **intrinsic finite strong tree extends to an infinite one** lemma and corresponding bijective interface should be proved.
 

@@ -28,7 +28,7 @@
 
 **B.1 Proof integrity — PASS at pinned commits.** Main CI built the library and checked 523 designated endpoint axiom reports. `scripts/audit_source_integrity.py` scans all library Lean sources for local `axiom`, `constant`, `sorry`, `admit`. `check-axiom-log.py` rejects `sorryAx`, errors and unexpected axioms; its whitelist is only `propext`, `Classical.choice`, `Quot.sound`. The trimmed-code commit's CI also passed its adjusted full audits.
 
-**B.2 No back door through old homogeneous theorem — PASS.** `scripts/audit_dependency_graph.py` rejects general theorem imports reaching historical `MillikenTheorem`, `Chapter6`, homogeneous `HalesJewettBridge` and `Applications.FiniteColour`. The general theorem uses a generic `FiniteColourRamseySpace` bridge instead.
+**B.2 No back door through old homogeneous theorem — PASS.** `scripts/audit_dependency_graph.py` rejects general theorem imports reaching historical `MillikenTheorem`, `Chapter6`, homogeneous `HalesJewettBridge` and `Applications.FiniteColour`. The generic Baire-colouring bridge has been moved to the upstream `RamseySpace.FiniteColouring` library; the general theorem remains independent of historical fixed-alphabet proofs.
 
 **B.3 Legitimate induction over a changed ambient — PASS.** `universalHeterogeneousHDHL` quantifies over every ambient tree, and explicitly specializes its previous-dimensional hypothesis to the newly built wedge. An induction fixed to the input tree `U` would not suffice.
 

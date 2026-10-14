@@ -71,6 +71,14 @@ The arbitrary-tree Ramsey-space proof uses Todorčević's literal
 maximal-level finitisation `bookLeFin` (6.3), not a carrier-only
 approximation order.
 
+## Reusing general Ramsey-space colouring lemmas
+
+The application-independent finite-colouring theorems now belong to
+`RamseySpace.FiniteColouring` in the separately maintained Todorcevic
+Ramsey-space library. Milliken supplies only its geometric strong-subtree
+specializations. Import the abstract module directly to use these generic
+results without importing tree theorems.
+
 ## Precise theorem scope
 
 The unconditional finite-colouring theorem

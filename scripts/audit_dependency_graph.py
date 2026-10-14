@@ -51,8 +51,12 @@ def path_between(start: str, goal: str) -> list[str] | None:
 general = "Milliken.GeneralTree.HeterogeneousUniversalMilliken"
 assert general in graph, f"Missing theorem module {general}"
 closure = reach(general)
-shared = "Milliken.FiniteColourRamseySpace"
-assert shared in closure, "General-tree theorem is not using the generic finite-colour module"
+# Generic finite-colour consequences are no longer defined in Milliken.
+assert "Milliken.FiniteColourRamseySpace" not in graph, ("Application-independent colour "
+    "lemmas belong in RamseySpace.FiniteColouring")
+assert "import RamseySpace.FiniteColouring" in (
+    ROOT / "Milliken/GeneralTree/BaireColours.lean").read_text(), (
+    "Tree-specific Baire corollary must use the shared RamseySpace module")
 for old in (
     "Milliken.MillikenTheorem",
     "Milliken.Chapter6",
