@@ -44,7 +44,7 @@ theorem millikenFixedStemFiniteColouring_general
     refine ⟨A, ?_⟩
     exact ⟨StrongSubtree.refines_refl A, rfl⟩
   obtain ⟨B, hBA, hhom⟩ :=
-    RamseySpace.finiteApproximationColouring_for_Milliken
+    RamseySpace.finiteApproximationColouring
       (generalMilliken_unconditional U)
       (r ell A) A hne colour
   refine ⟨B, hBA.1, hBA.2, ?_⟩
