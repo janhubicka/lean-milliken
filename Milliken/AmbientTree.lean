@@ -9,9 +9,8 @@ order-theoretic rooted-tree structure; this wrapper adds exactly the two
 hypotheses used in the Milliken space: finite branching and absence of
 terminal nodes.
 
-The homogeneous tree `List ι` used by the Halpern--Läuchli development is
-kept as the computational core for now.  This file is the target-neutral
-interface used by the final Chapter 6 Ramsey-space construction.
+This is the ambient-independent interface used by the unrestricted
+Halpern--Läuchli and Chapter 6 Ramsey-space constructions.
 -/
 
 namespace Milliken
