@@ -9,10 +9,9 @@ The branching degree may depend on both the node and its level and
 may be unbounded across the whole ambient tree. Only the *individual*
 successor sets of the ambient tree are required to be finite.
 
-The existing Chapter 6 proof is still compiled for a fixed finite
-alphabet `ι`. The general-tree combinatorial induction and the
-new abstract ambient interface have not yet been connected; no
-unconditional arbitrary-ambient Milliken theorem is asserted here.
+The unconditional arbitrary-ambient Milliken theorem is proved in
+`GeneralTree.HeterogeneousUniversalMilliken`. This file isolates the
+basic geometry; it does not itself import the combinatorial proof.
 
 Source: Todorčević (2010), Chapter 6, (str1)–(str2), (6.1)–(6.2),
 Theorem 6.2; and Milliken (1979).
@@ -122,10 +121,11 @@ def approx {U : AmbientTree} (n : ℕ) (S : StrongSubtree U) :
 branching ambient trees. It is a definition of the desired property,
 NOT an axiom or a proved theorem.
 
-For positive `n` this matches the finite-colouring conclusion of
-Milliken (1979); allowing `n=0` gives the trivial empty case.
-The checked theorem for the homogeneous case is exported separately
-as `Applications.milliken1979_homogeneous`. -/
+For positive `n` this is the finite-colouring conclusion for *realised*
+finite approximations; equivalence with all intrinsic finite strong
+subtrees in Milliken (1979) is a separate extension obligation.
+Allowing `n=0` adds the trivial empty case. The property is proved in
+`HeterogeneousUniversalMilliken`. -/
 def HasMillikenFiniteColourProperty (U : AmbientTree) : Prop :=
   ∀ (n colors : ℕ) [NeZero colors]
       (colour : FiniteApprox U n → Fin colors),
