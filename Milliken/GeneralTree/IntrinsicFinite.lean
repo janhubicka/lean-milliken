@@ -67,6 +67,85 @@ structure IntrinsicFiniteApprox (U : AmbientTree) (k : ℕ) where
   carrier : Set U
   intrinsic : ∃ W : IntrinsicFiniteWitness U k, W.carrier = carrier
 
+
+namespace IntrinsicFiniteWitness
+
+variable {U : AmbientTree} {k : ℕ}
+
+/-- The selected nodes at one of the finitely many intrinsic source levels. -/
+def sourceLevel (W : IntrinsicFiniteWitness U k)
+    (j : Fin k) : Set U :=
+  {x | x ∈ W.carrier ∧ U.level x = W.levels j}
+
+/-- Even without an infinite realiser, every intrinsic source level
+is nonempty. This follows from the finite unique-child-cone law and
+the prunedness of the ambient tree. -/
+theorem sourceLevel_nonempty
+    (W : IntrinsicFiniteWitness U (n + 1))
+    (j : Fin (n + 1)) :
+    (W.sourceLevel j).Nonempty := by
+  have h : ∀ (i : ℕ) (hi : i < n + 1),
+      (W.sourceLevel ⟨i, hi⟩).Nonempty := by
+    intro i
+    induction i with
+    | zero =>
+        intro hi
+        exact ⟨W.root, W.root_mem hi, W.root_level hi⟩
+    | succ i ih =>
+        intro hi
+        have hi' : i < n + 1 := by omega
+        obtain ⟨x, hx, hxl⟩ := ih hi'
+        obtain ⟨y, hxy⟩ := U.has_child x
+        obtain ⟨z, hz, _⟩ :=
+          W.successor_unique i hi x hx hxl y hxy
+        exact ⟨z, hz.1, hz.2.1⟩
+  exact h j.1 j.2
+
+/-- An intrinsic finite strong subtree of positive height has
+exactly one node on its first selected level: its selected root. -/
+theorem sourceLevel_zero_eq_singleton
+    (W : IntrinsicFiniteWitness U (n + 1)) :
+    W.sourceLevel ⟨0, Nat.zero_lt_succ n⟩ = {W.root} := by
+  ext x
+  constructor
+  · rintro ⟨hx, hlev⟩
+    have hroot : U.level W.root = U.level x :=
+      (W.root_level (Nat.zero_lt_succ n)).trans hlev.symm
+    have hEq : W.root = x :=
+      U.eq_of_le_of_level_eq (W.root_below x hx) hroot
+    exact hEq.symm
+  · intro hx
+    have hEq : x = W.root := hx
+    subst x
+    exact ⟨W.root_mem (Nat.zero_lt_succ n),
+      W.root_level (Nat.zero_lt_succ n)⟩
+
+/-- All nodes of a positive-height intrinsic strong tree occur no
+later than its last selected ambient level. -/
+theorem level_le_last
+    (W : IntrinsicFiniteWitness U (n + 1))
+    {x : U} (hx : x ∈ W.carrier) :
+    U.level x ≤ W.levels ⟨n, Nat.lt_succ_self n⟩ := by
+  obtain ⟨j, hj⟩ := W.carrier_levels x hx
+  have hjle : j ≤ (⟨n, Nat.lt_succ_self n⟩ : Fin (n + 1)) :=
+    Nat.le_of_lt_succ j.isLt
+  calc
+    U.level x = W.levels j := hj
+    _ ≤ W.levels ⟨n, Nat.lt_succ_self n⟩ :=
+      W.levels_strictMono.monotone hjle
+
+/-- Last intrinsic frontier; the starting points for full ambient
+cones used when completing the finite strong tree to an infinite one. -/
+def lastFrontier (W : IntrinsicFiniteWitness U (n + 1)) : Set U :=
+  W.sourceLevel ⟨n, Nat.lt_succ_self n⟩
+
+theorem lastFrontier_nonempty
+    (W : IntrinsicFiniteWitness U (n + 1)) :
+    (W.lastFrontier).Nonempty :=
+  W.sourceLevel_nonempty ⟨n, Nat.lt_succ_self n⟩
+
+end IntrinsicFiniteWitness
+
 namespace IntrinsicFiniteApprox
 
 @[ext] theorem ext_carrier
