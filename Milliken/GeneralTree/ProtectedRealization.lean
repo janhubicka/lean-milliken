@@ -23,6 +23,19 @@ namespace GeneralTree
 
 variable {U : AmbientTree}
 
+/-- Equality of two strong-tree carriers through the first `k`
+source levels implies equality through any earlier source height
+`n ≤ k`. This is the carrier formulation of A.1 coherence,
+including skipped ambient levels. -/
+theorem initialPart_eq_of_larger_initialPart_eq
+    (X T : StrongSubtree U)
+    (n k : ℕ) (hnk : n ≤ k)
+    (h : X.initialPart k = T.initialPart k) :
+    X.initialPart n = T.initialPart n := by
+  have hk : r k X = r k T := FiniteApprox.ext_carrier h
+  exact congrArg FiniteApprox.carrier
+    (r_coherent_le X T k hk n hnk)
+
 /-- Relative finite-approximation realisation with a protected prefix.
 
 Suppose `a` is the height-`k` restriction of some strong tree `T`,
