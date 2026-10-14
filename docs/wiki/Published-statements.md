@@ -45,10 +45,10 @@ The **old** homogeneous `StrongTreeSpace.leFin` was a different order (height an
 | Item | Published conclusion | Lean status / next bridge |
 | --- | --- | --- |
 | Corollary 6.3 (Ellentuck) | The usual infinite-subset space on `ω` is Ramsey | The abstract Ellentuck dependency has its own example; **not a separate specialization from general-tree theorem exported here** |
-| Corollary 6.4 | Any finite *Souslin-measurable* colouring of `S∞(U)` is homogeneous on `S∞(T)` for a strong `T` | Main theorem gives the Baire/topological framework; **Souslin-to-Baire transfer and this exact named colouring corollary not yet exported in lean-milliken** |
+| Corollary 6.4 | Any finite *Souslin-measurable* colouring of `S∞(U)` is homogeneous on `S∞(T)` for a strong `T` | **PR #148 underway:** finite *Baire-measurable* colouring consequence; Souslin-to-Baire regularity bridge still outstanding |
 | Corollary 6.5 | Colour all **intrinsic** finite strong trees of height `k>0`; get monochromatic `S_k(T)` | `milliken1979_general_unconditional` proves the realised approximation version; **intrinsic finite-extension equivalence is outstanding** |
 | Corollary 6.6 | For `k,l,n>0`, a finite height bound `m` works for `l`-colourings of `S_k(U\restriction m)` | **Not exported**; requires finite-tree formulation and the book's compactness/diagonal argument (equations (6.9)–(6.11)) |
-| Corollary 6.7 | For each family of finite strong trees, obtain an infinite `T` that avoids the family or meets it along every further infinite branch | **Not exported**; open-set/Borel-colouring consequence requiring explicit family-of-approximations interface |
+| Corollary 6.7 | For each family of finite strong trees, obtain an infinite `T` that avoids the family or meets it along every further infinite branch | **PR #147 underway:** `galvinAlternative_realized` for arbitrary families of realised finite approximations; subject to CI and the intrinsic-completion bridge |
 | Corollary 6.8 | Colour a family of finite strong trees without strict initial-part comparisons; obtain monochromatic intersection after refinement | **Not exported**; iterate Corollary 6.7 |
 | Corollary 6.9 (Galvin) | For a family of finite subsets of `ℕ`, find infinite `B` which avoids the family or meets it on every infinite subset by an initial segment | **Not exported in the Milliken library**; `U=(ω,<)` specialization |
 | Corollary 6.10 (Nash–Williams) | Initial-segment-antichain family of nonempty finite subsets becomes monochromatic on an infinite subset | **Not exported in the Milliken library**; `U=(ω,<)` specialization |
@@ -68,6 +68,29 @@ The published **Definition 6.11** defines an embedding-type relation `Em` on arb
 | Further §6.2 statements | Relaxed embedding types, degree-preserving trees, Devlin-type applications | **Out of current Milliken-core scope**. These must not be claimed automatically validated |
 
 The phrase *all related statements* is therefore interpreted as **full coverage in this crosswalk**, with explicit non-formalised labels, not a fictitious claim that every later consequence in Chapter 6 has been Lean-checked.
+
+### The rest of §6.2: Theorem 6.15 and Corollaries 6.16–6.18
+
+The source's §6.2 continues beyond Corollary 6.14. These four
+statements have been checked against the *printed* book, pp. 141–143:
+
+| Printed item | Exact mathematical character | Status in lean-milliken |
+| --- | --- | --- |
+| **Theorem 6.15** | Finite **Souslin-measurable** colouring of the relaxed embedding class `[A]_{Eb}`, under a degree-dominance condition on `U`; obtain a **degree-preserving** subtree with a monochromatic class | **Not formalised.** The published argument uses Theorem 6.13 followed by a carefully chosen degree-preserving thinning. |
+| **Corollary 6.16** | Finite Souslin-measurable colouring of *all infinite chains* of a pruned finitely branching `U`; obtain a degree-preserving subtree whose chains are monochromatic | **Not exported.** |
+| **Corollary 6.17 (Stern)** | Finite Souslin-measurable colouring of infinite chains of the binary tree; obtain a **perfect** subtree whose chains are monochromatic | **Not exported.** |
+| **Corollary 6.18 (Silver)** | Finite Souslin-measurable colouring of infinite subsets of `ℕ`; obtain an infinite homogeneous subset | **Not exported here** (this is a classical application, not an additional axiom needed for Milliken). |
+
+In particular, a **degree-preserving** subtree in Theorem 6.15 is
+not automatically the same as a **strong** subtree; the source uses
+the weaker target on purpose. These are applications requiring further
+embedding-type formalisation, not prerequisites of the already proved
+Theorem 6.2.
+
+**Source-location verification:** [Todorčević's book, Chapter 6, printed
+pp. 135–143](https://www.cs.umd.edu/~gasarch/COURSES/752/S26/BOOKS/IntroRamseySpaces.pdf);
+the statements of 6.7–6.10 occur on printed p. 138, those of 6.11–6.14
+on pp. 139–141, and 6.15–6.18 on pp. 142–143.
 
 ## Original 1979 theorem
 
