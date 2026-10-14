@@ -117,4 +117,4 @@ The last two results are not optional boilerplate. They are the logical justific
 
 ## 8. Audit and maintenance principles
 
-Keep the main proof path minimal and let CI guard its kernel arguments. Any module slated for deletion must be unreachable from all preserved endpoints and from the sole downstream ATR imports. Before modifying `StrongSubtree` or `FiniteApprox`, add statement-level regression tests in Lean. For further historical background, compare the explicit [proof architecture](Proof-architecture.md) with [published statements](Published-statements.md).
+Keep the main proof path minimal and let CI guard its kernel arguments. Any module slated for deletion must be unreachable from all supported public theorem endpoints and genuinely optional mathematical interfaces. Downstream application libraries should pin and independently compile their declared dependencies. Before modifying `StrongSubtree` or `FiniteApprox`, add statement-level regression tests in Lean. For further historical background, compare the explicit [proof architecture](Proof-architecture.md) with [published statements](Published-statements.md).
