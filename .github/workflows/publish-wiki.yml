@@ -26,7 +26,22 @@ jobs:
       # The repository must be initialized once via Wiki > Create the first
       # page before GitHub will expose that repository to git clone/push.
       # See docs/wiki/Publishing.md.
+      - name: Check whether the Wiki Git repository exists
+        id: wiki
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh auth setup-git
+          if git ls-remote "https://github.com/${GITHUB_REPOSITORY}.wiki.git" HEAD >/dev/null 2>&1; then
+            echo "initialized=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "initialized=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::GitHub Wiki is not initialized. Create the first Home page at https://github.com/${GITHUB_REPOSITORY}/wiki and rerun this workflow."
+          fi
+
       - name: Sync source documentation to the GitHub Wiki tab
+        if: steps.wiki.outputs.initialized == 'true'
         uses: Andrew-Chen-Wang/github-wiki-action@v5
         with:
           path: docs/wiki
