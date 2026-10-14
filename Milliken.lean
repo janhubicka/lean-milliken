@@ -1,4 +1,4 @@
-import Milliken.GeneralTree.IntrinsicFinite
+import Milliken.GeneralTree.IntrinsicFiniteCompletion
 import Milliken.GeneralTree.UnconditionalHLAPI
 import Milliken.GeneralTree.FixedStemUnconditional
 
