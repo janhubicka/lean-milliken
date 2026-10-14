@@ -8,6 +8,7 @@ This wiki documents the **verified unrestricted strong-subtree theorem** in `jan
 
 | Page | Contents |
 | --- | --- |
+| **[Publish to GitHub Wiki](Publishing.md)** | Automatic synchronization workflow, one-time Home-page initialization, and the source-of-truth policy |
 | **[Published statements](Published-statements.md)** | Precise correspondence to Todorčević §3 and §6.1–6.2, Milliken 1979 abstract, hypotheses, named Lean theorems, missing corollaries and mismatched finite-tree domains |
 | **[Proof architecture](Proof-architecture.md)** | Mathematical explanation of the universal heterogeneous HDHL induction, full source-level compression, common-root wedge, complementary density transport, grafting, A.1–A.4 and Abstract Ellentuck |
 | **[Geometry and auxiliary lemmas](Geometry-and-auxiliary-lemmas.md)** | Reusable nontrivial lemmas proved along the way: ranks, source fronts, finitisation, mixed protected graft, stabilization, matrices, wedge and code closedness |
