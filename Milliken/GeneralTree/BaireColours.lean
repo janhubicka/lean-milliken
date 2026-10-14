@@ -40,7 +40,7 @@ theorem millikenFiniteBaireColouring
   have hne : (R.neighborhood (r 0 I) I).Nonempty :=
     ⟨I, StrongSubtree.refines_refl I, rfl⟩
   obtain ⟨T, hTI, c, hmono⟩ :=
-    RamseySpace.finiteBaireColouring_for_Milliken
+    RamseySpace.finiteBaireColouring
       (generalMilliken_unconditional U) (r 0 I) I hne
       colour hBaire
   refine ⟨T, c, ?_⟩
