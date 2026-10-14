@@ -10,7 +10,8 @@ obtaining a coordinatewise dense matrix contained in the original set.
 
 No word alphabet, homogeneous tree shape or uniform branching-degree
 bound occurs in the proof. This is the genuine heterogeneous base
-case for the pending induction on the number of coordinate factors.
+case of the now-completed induction over the number of coordinate
+factors in `HeterogeneousUniversalMilliken`.
 -/
 
 namespace Milliken
